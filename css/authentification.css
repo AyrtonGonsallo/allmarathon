@@ -1,0 +1,666 @@
+/*
+    Created on : 21-Dec-2015, 12:16:35
+    Author     : Luis Ouriach @disco_lu
+*/
+
+  @font-face { 
+    font-family: 'FrancoisOne';  
+    src: url('./fonts/FiraSansExtraCondensed-Regular.ttf') format('truetype');
+	font-display:swap;
+}
+body {
+
+    background-color:transparent;
+
+}
+#SigninModal{
+    font-family: 'FrancoisOne', sans-serif;
+}
+#password_auth,#name_user{
+    border: 1px solid #e5e5e5 !important;
+}
+input.form-control.search_header:active, input.form-control.search_header:focus {
+    border: transparent;
+}
+input.form-control.search_header {
+    color: rgb(51 51 51 / 55%) !important;border: 0;
+}
+
+.overlay {
+
+    height: 100%;
+    left: 0;
+    opacity: .9;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 9999;
+
+}
+
+.overlay__black {
+
+    background-color: #000;
+
+}
+
+.auth--signin, .paywall, .registration {
+
+    font-family: 'FrancoisOne', sans-serif;
+    font-weight: 700;
+
+}
+
+.auth {
+
+    color: #0e0e0e;
+    left: 2.5%;
+    position: absolute;
+    top: 10px;
+    width: 95%;
+    z-index: 9999;
+
+}
+
+.auth--header {
+
+    background-color: #fcb614;
+    color: #fff;
+    padding: .7em 0;
+    text-align: center;
+    text-transform: uppercase;
+
+}
+a.link:hover {
+    color: #fcb614;
+}
+.auth--header img {
+
+    height: 20px;
+    width: auto;
+
+}
+
+.auth--warning {
+
+    background-color: #fee616;
+    padding: .5em;
+    text-align: center;
+
+}
+
+.auth--body {
+
+    background-color: #fff;
+    float: left;
+    padding: 2em 0;
+    width: 100%;
+
+}
+
+.auth--title {
+
+    font-weight: 700;
+    margin-bottom: .5em;
+    text-align: center;
+
+}
+
+.close-windows {
+    background:url(//g.ibtimes.co.uk/www/img/home/icon-full-screen-close.png) no-repeat left top;
+    width: 31px;
+    height: 31px;
+    position:absolute;
+    right: 16px;
+    text-indent: -9999px;
+    top: 10px;
+    z-index:9999999;
+}
+
+.register--divider {
+
+    background-color: #ccc;
+    float: left;
+    height: 1px;
+    margin: 2.5em 0 1.5em;
+    width: 100%;
+
+}
+
+.register--divider--text {
+
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 44px;
+    color: #aaa;
+    font: 700 1em/2.5em 'Source Sans Pro', lucida sans, arial, sans-serif;
+    height: 44px;
+    left: 50%;
+    margin-left: -110px;
+    position: absolute;
+    text-align: center;
+    text-transform: uppercase;
+    top: -22px;
+    width: 220px;
+
+}
+
+.auth--social--link {
+
+    background-color: #fff;
+    border-radius: 3px 0 0 3px;
+    color: #0e0e0e;
+    display: block;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 15px 0 35px;
+    position: relative;
+
+}
+
+.auth--social--link:hover {
+
+    background-color: #e5e5e5;
+    color: #666;
+    text-decoration: none;
+
+}
+
+.auth--icon {
+
+    background: url('https://g.europe.newsweek.com/www/img/redesign/sprite.png') 0 0 no-repeat #fff;
+    border-radius: 3px 0 0 3px;
+    display: inline-block;
+    height: 30px;
+    left: 0;
+    position: absolute;
+    text-indent: -9999px;
+    top: 0;
+    width: 30px;
+
+}
+
+.auth--icon--facebook {
+
+    background-color: #3765a3;
+    background-position: -1px -223px;
+
+}
+
+.auth--icon--googleplus {
+
+    background-color: #f05032;
+    background-position: -108px -223px;
+
+}
+
+.auth--social--sup-text {
+
+    display: none;
+
+}
+
+.auth--signin {
+
+    color: #fff;
+    text-align: right;
+    margin: .5em 0;
+
+}
+
+.auth--signin a:hover {
+
+    color: #fff;
+
+}
+
+#message-box {
+
+  background-color: #f0f0f0;
+  padding: 0;
+
+}
+
+#error {
+
+    color: #fcb614;
+    font-weight: 700;
+    margin-bottom: .5em;
+
+}
+
+.form-wrap {
+
+    margin-bottom: .5em;
+
+}
+
+.form-terms {
+
+    font-weight: 400;
+
+}
+
+.security-code {
+
+    border: 1px solid #ccc;
+    height: 35px;
+    margin-right: 10px;
+    width: 100%;
+
+}
+
+.auth--terms {
+
+    color: #666;
+    font-weight: 700;
+
+}
+
+.signup-or {
+
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 100%;
+    color: #aaa;
+    font: 700 1em/2.5em 'Source Sans Pro', lucida sans, arial, sans-serif;
+    height: 44px;
+    text-transform: uppercase;
+    width: 44px;
+
+}
+
+/* Sign in */
+.auth--social {
+
+    float: left;
+    text-align: center;
+    width: 100%;
+
+}
+
+.auth--social li {
+
+    margin: 0 .5em;
+    vertical-align: top;
+
+}
+
+.auth .forgot {
+    width:226px;
+    text-align:right;
+}
+
+.signup p span {
+    float:right
+}
+
+#agreement {
+    display:none;
+    color:#c00
+}
+
+input.red {
+    border:1px solid #fcb614
+}
+.modal-last-link{
+    color: #000;
+    text-decoration: underline;
+}
+.auth--footer {
+
+    background-color: #f0f0f0;
+    float: left;
+    padding: 30px 0;
+    text-align: center;
+    width: 100%;
+
+}
+
+.auth--footer1 {
+
+    background-color: #fcb614;
+    color: white;
+    float: left;
+    font-size: 1em;
+    text-transform: uppercase;
+    padding: 10px 0;
+    text-align: center;
+    width: 100%;
+
+}
+.fail {
+
+    color: #fe0000;
+    min-height: 44px;
+    padding: 10px;
+    margin-bottom: 15px;
+
+}
+.separateur{
+    margin-top: 17px;
+    margin-bottom: 10px;
+}
+.fail a { color:#fff; }
+.fail img {
+    display: block;
+    float: left;
+    margin-right: 10px;
+    width: 25px;
+}
+
+.signup--forgot {
+
+    font: 700 1em/2em 'Source Sans Pro', lucida sans, arial, sans-serif;
+
+}
+
+.forget-box { position:absolute;top:61px;left:19px;font-size:12px; }
+.forget-box a { color:#fcb614; }
+.relative { position:relative; }
+
+.paywall {
+
+    padding: 0;
+
+}
+
+.paywall--body {
+
+    background-color: #f0f0f0;
+
+}
+
+.paywall--card {
+
+    padding: 1em;
+    position: relative;
+
+}
+
+.paywall--card__white {
+
+    background-color: #fff;
+
+}
+
+.paywall--divider {
+
+    background-color: #e5e5e5;
+    height: 3px;
+
+}
+
+.paywall--hr {
+
+    margin: 10px auto;
+
+}
+
+.paywall--package-title, .paywall--price {
+
+    font-size: 1.5em;
+    line-height: 1em;
+
+}
+
+.paywall--duration {
+
+    color: #00B7FF;
+    text-transform: uppercase;
+
+}
+
+.paywall--button {
+
+    width: 100%;
+
+}
+
+.paywall--view-all, .paywall--slider-action {
+
+    padding: .5em;
+
+}
+
+.paywall--view-all {
+
+    background-color: #fff;
+
+}
+
+.paywall--view-all a, .paywall--slider-action {
+
+    color: #0e0e0e;
+    font-size: .8em;
+
+}
+.button__red{
+    background-color: #fcb614;
+    display: inline-block;
+    text-transform: uppercase;
+    font-size: 12px;
+    padding: 3px 5px;
+    color: #FFFFFF;
+   
+}
+.link{
+        color: #fcb614;
+}
+.input_auth{
+    background: #fff;
+    color: #666;
+    height: 3em;
+    line-height: 3em;
+    padding: .5em 1em;
+    width: 100%;
+}
+.t-align--right {
+    text-align: right;
+}
+.btn_auth{
+     border: none;
+     margin-top: 20px;
+    color: #fff;
+    display: inline-block;
+    font: 700 1em/2em 'Source Sans Pro', lucida sans, arial, sans-serif;
+    padding: 0px 12px;
+    text-align: center;
+    width: auto;
+}
+.button__red:hover {
+    text-decoration: none;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+@media all and (max-width: 700px) {
+    .auth--footer1 {
+        
+        font-size: 0.5em;
+       
+    }
+    input[type=text], input[type=email], input[type=password], .button {
+
+        height: 2.5em;
+        line-height: 2.5em;
+        margin-bottom: .3em;
+        padding: 0 1em;
+
+    }
+
+    .auth--warning {
+
+        font-size: .9em;
+
+    }
+
+    .paywall--slider-container, .paywall--hidden-sm {
+
+        display: none;
+
+    }
+    .btn_auth {
+    font: 500 1em/2em MuseoSans-500;
+    padding: 0 1em;
+    }
+    .auth--header{
+        padding: 1em 0;
+    }
+
+}
+.link.forgot{
+font-size: 14px;
+}
+@media all and (min-width: 701px) {
+
+    .auth--header {
+
+        font-size: 1.5em;
+    padding: 0.6em 0;
+    font-weight: bolder;
+
+    }
+
+    .auth--header img {
+
+        height: 26px;
+
+    }
+
+    .auth {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 50%;
+       transform: translateY(-50%);
+        max-width: 500px;
+        margin: auto;
+     
+
+    }
+
+
+
+    .auth--warning {
+
+        padding: 1em;
+
+    }
+
+    .auth form {
+
+        padding-top: .5em;
+        padding-left: 20px;
+        padding-right: 20px;
+
+    }
+
+    .form-wrap-50 {
+
+        float: left;
+        width: 50%;
+
+    }
+
+    .paywall {
+
+        margin: -265px 0 0 -350px;
+        width: 700px;
+
+    }
+
+    .paywall--body {
+
+        float: left;
+        width: 100%;
+
+    }
+
+    .paywall--card {
+
+        min-height: 129px;
+        padding: 1.5em;
+
+    }
+
+    .paywall--packages, .paywall--email-signup {
+
+        float: left;
+
+    }
+
+    .paywall--packages {
+
+        width: 55%;
+
+    }
+
+    .paywall--packages--button {
+
+        position: absolute;
+        right: 2em;
+        top: 4.7em;
+
+    }
+
+    .paywall--slider-action, .paywall--benefits {
+
+        display: none;
+
+    }
+
+    .paywall--email-signup {
+
+        border-left: 3px solid #e5e5e5;
+        width: 45%;
+
+    }
+
+    .paywall--email-signup--intro {
+
+        margin-bottom: 10px;
+
+    }
+
+    .registration {
+
+        /* margin-left: -260px; */
+        max-width: 570px;
+
+    }
+
+    .register--divider {
+
+        margin: 3em 0 1.5em;
+
+    }
+
+    .auth--social--link {
+
+        height: 44px;
+        line-height: 44px;
+        padding-left: 55px;
+
+    }
+
+    .paywall-wrapper .auth--social--link {
+
+        background-color: transparent;
+        padding: 0;
+
+    }
+
+    .auth--icon {
+
+        height: 44px;
+        width: 44px;
+
+    }
+
+    .auth--social--sup-text {
+
+        display: inline-block;
+
+    }
+
+}

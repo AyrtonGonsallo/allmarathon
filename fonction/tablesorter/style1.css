@@ -1,0 +1,80 @@
+/* tables */
+table.tablesorter {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size: 0.9em;
+	width: 100%;
+	text-align: left;
+	margin-top: 1px;
+	margin-right: 0pt;
+	margin-bottom: 1px;
+	margin-left: 0pt;
+	background-color: #EEEEEE;
+}
+table.tablesorter thead tr th, table.tablesorter tfoot tr th {
+	font-size: 0.9em;
+	padding-right:5px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	padding-left: 4px;
+}
+table.tablesorter thead tr .header {
+	background-image: url(bg.gif);
+	background-repeat: no-repeat;
+	background-position: right center;
+	cursor: pointer;
+}
+table.tablesorter tbody td {
+	color: #000033;
+	background-color: #FFFFFF;
+	vertical-align: middle;
+	padding-top: 4px;
+	padding-right: 2px;
+	padding-bottom: 4px;
+	padding-left: 0px;
+}
+table.tablesorter tbody tr.odd td {
+	background-color:#FFFFFF;
+}
+
+table.tablesorter thead tr .headerSortUp {
+	background-image: url(asc.gif);
+}
+table.tablesorter thead tr .headerSortDown {
+	background-image: url(desc.gif);
+}
+table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp {
+	background-color: #F5F5F5;
+}
+#medailleTous {
+	margin-top: 0px;
+	margin-right: 10px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	width: 50px;
+	padding-top: 0px;
+	padding-right: 0px;
+	padding-bottom: 0px;
+	padding-left: 0px;
+}
+#medailleHomme {
+	margin-top: 0px;
+	margin-right: 10px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	width: 70px;
+	padding-top: 0px;
+	padding-right: 0px;
+	padding-bottom: 0px;
+	padding-left: 0px;
+}
+#medailleFemme {
+	margin-top: 0px;
+	margin-right: 10px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	width: 70px;
+	padding-top: 0px;
+	padding-right: 0px;
+	padding-bottom: 0px;
+	padding-left: 0px;
+}

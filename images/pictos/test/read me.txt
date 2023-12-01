@@ -1,0 +1,7 @@
+phpNet style folder images from Ground Designs
+(c) 2004 by Dude
+http://www.phpground.net/
+If you redistribute these folder images please leave this read me file in the zip
+thanks
+
+Note: you will have to edit your subSliver.cfg file

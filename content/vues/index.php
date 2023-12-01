@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+if(!empty($_SESSION['auth_error'])) {
+   $erreur_auth=$_SESSION['auth_error'];
+   unset($_SESSION['auth_error']);
+}else $erreur_auth='';
+
+(!empty($_SESSION['user_id'])) ? $user_id=$_SESSION['user_id'] : $user_id='';
+
+if(!empty($_SESSION['user'])) {
+
+$user_session=$_SESSION['user'];
+
+$erreur_auth='';
+
+}  else $user_session='';
+
+require("../classes/news.php");
+include("../classes/marathon.php");
+include("../classes/resultat.php");
+include("../classes/video.php");
+include("../classes/evenement.php");
+include("../classes/newscategorie.php");
+include("../classes/evCategorieAge.php");
+
+include("../classes/pub.php");
+include("../classes/commentaire.php");
+
+$commentaire=new commentaire();
+
+$news=new news();
+
+$last_news=$news->getLastNews();
+
+$bref_news=$news->getBrefNews();
+
+$last_articles_part1=$news->news_home(0);
+
+$last_articles_part2=$news->news_home(1);
+
+$both_news=$news->getBootNews();
+
+$resultat=new resultat();
+
+$last_results=$resultat->getLastResults();
+
+$vd=new video();
+
+$last_videos=$vd->getLastVideos();
+
+$ev_cat_age=new evCategorieAge();
+
+$ev_cat_event=new evCategorieEvenement();
+
+$event=new evenement();
+
+$home_events=getHomeEvents();
+
+
+$nc=new newscategorie();
+setlocale(LC_TIME, "fr_FR","French");
+
+
+function switch_cat($cat)
+
+{
+
+    switch ($cat) {
+
+        case "Breve":
+
+            return "En bref";
+
+            break;
+
+        case "Videos":
+
+            return "Vidéos";
+
+            break;
+
+        case "Equipe de France":
+
+            return "Équipe de France";
+
+            break;
+
+        default:
+
+            return $cat;
+
+                                }
+
+}
+
+?>
+
+<html class="no-js" lang="fr">
+<head>
+    
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"><meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Suivez l’actualité du marathon : calendrier, résultats, vidéos | allmarathon.fr</title>
+    <meta name="description" content="allmarathon, toutes les informations concernant les marathons en France et dans le monde. News, calendrier, résultats, vidéos. Pour les passionnés des 42 kms.">
+    <meta name=" robots " content="index, follow" />
+    <link rel="canonical" href="https://allmarathon.fr" />
+    <meta property="og:title" content=" Suivez l’actualité du marathon : calendrier, résultats, vidéos | allmarathon.fr " />
+    <meta property="og:description" content="Tous les jours des infos concernant les marathons en France et dans le monde" />
+    <meta property="og:image" content="https://allmarathon.fr/image-allmarathon.jpg " />
+    <meta property="og:locale" content="fr_FR" />
+    <link rel="apple-touch-icon" href="apple-favicon.png">
+    <link rel="icon" type="image/x-icon" href="../../images/favicon.ico" />
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/fonts.css">
+    <link rel="stylesheet" href="../../css/main.css?ver=<?php echo rand(111,999)?>">
+    <link rel="stylesheet" href="../../css/responsive.css">
+    <?php require_once("../scripts/header_script.php") ?>
+    <style>
+    #liste {
+        min-height: 100vh
+    }
+    #liste .text-gray {
+        color: #aaa
+    }
+    #liste img {
+        height: 170px;
+        width: 140px
+    }
+    </style>
+</head>
+<body>
+    <?php include_once('nv_header-integrer.php'); ?>
+    <div class="container page-content homepage">
+        <div class="row banniere1">
+        </div>
+        <div class="row">
+
+            <div class="col-sm-8 left-side">
+            <h1>Allmarathon, portail d'information consacré au marathon</h1>
+            <br>
+            <br>
+                <section class="articles_alune">
+
+                    <?php
+
+                            foreach($last_news['donnees'] as $article)
+
+                                {
+                                $subheader="auteur : ".$article->getAuteur()." / ".utf8_encode(strftime("%A %d %B %Y",strtotime($article->getDate())))." / source : ".$article->getSource();
+                                  $tab = explode('-',$article->getDate());
+
+                                    $yearNews  = $tab[0];
+
+                                    $lien_1="";$lien_2="";$lien_3="";
+
+                                    if($article->getLien1()!=""){
+
+                                        $lien_1="<br><a href='".$article->getLien1()."' style='color: #fee616;font-size:13px;font-weight:normal;display: block;padding-top: 9px;'> > ".$article->getTextlien1()."</a>";
+
+                                    }
+
+                                    if($article->getLien2()!=""){
+
+                                         $lien_2="<a href='".$article->getLien2()."' style='color: #fee616;font-size:13px;font-weight:normal;'> > ".$article->getTextlien2()."</a>";
+
+                                    }
+
+                                    if($article->getLien3()!=""){
+
+                                        $lien_3="<br><a href='".$article->getLien3()."' style='color: #fee616;font-size:13px;font-weight:normal;'> > ".$article->getTextlien3()."</a>";
+
+                                    }
+
+                                    ?>
+
+                    <div class="news_alune">
+                    <?php //echo $subheader; ?>
+                        <div class="image_news">
+
+                            <?php $alt = ($article->getLegende())?'alt="'.$article->getLegende().'"':'alt="allmarathon news image"';
+
+                            echo '<a
+
+                                                    href="/actualite-marathon-'.$article->getId().'-'.slugify($article->getTitre()).'.html"><img
+
+                                                        class="img-responsive"'.$alt.'
+
+                                                        src="../../images/news/'.$yearNews.'/'.$article->getPhoto().'" /></a>' ?>
+
+                        </div>            
+
+                        <div class="title_news">
+
+                            <?php echo '<a href="/actualite-marathon-'.$article->getId().'-'.slugify($article->getTitre()).'.html">'.$article->getTitre().'</a><br>'; 
+
+                echo '<p class="style-p">'.$article->getChapo().'</p>
+
+               '
+
+                ;
+
+                            ?>
+
+                        </div>
+
+                    </div>
+
+                    <?php   } ?>
+
+                </section>
+
+                <section class="last_articles_part1 to_hide_mobile ">
+
+                    <?php
+
+                            foreach ($last_articles_part1['donnees'] as $article_home) {
+
+                                $cat='';
+
+                                if($cat!="Videos" && $cat!="Photos" ) {$img_src="";}
+
+                                if($cat=="Photos") $img_src="../../images/pictos/photo-icon.png";
+
+                                if($cat=="Videos") $img_src="../../images/pictos/video-icon.png";
+
+                                $tab = explode('-',$article_home->getDate());
+
+                                $yearNews  = $tab[0];
+
+                                $lien_1="";$lien_2="";$lien_3="";
+
+                            if($article_home->getLien1()!=""){
+
+                                $lien_1="<a href='".$article_home->getLien1()."' class='home-link'> > ".$article_home->getTextlien1()."</a><br>";
+
+                            }
+
+                            if($article_home->getLien2()!=""){
+
+                                $lien_2="<a href='".$article_home->getLien2()."' class='home-link'> > ".$article_home->getTextlien2()."</a><br>";
+
+                            }
+
+                            if($article_home->getLien3()!=""){
+
+                                $lien_3="<a href='".$article_home->getLien3()."' class='home-link'> > ".$article_home->getTextlien3()."</a>";
+
+                            }
+
+                            $nb=sizeof($commentaire->getCommentaires($article_home->getId(),0,0)['donnees']);
+
+                            $nb=($nb!=0)? $nb: '';
+                            $alt = ($article_home->getLegende())?'alt="'.$article_home->getLegende().'"':'alt="allmarathon news image"';
+
+                            $coms=' <a href="/actualite-marathon-'.$article_home->getId().'-'.slugify($article_home->getTitre()).'.html#commentaires" title="Ajouter un commentaire" class="com_news"><i class="fa fa-comment-o com_news" aria-hidden="true"></i> '.$nb.'</a>';
+
+                            echo '<article class="row" >
+
+                                <div class="article-img"><a href="/actualite-marathon-'.$article_home->getId().'-'.slugify($article_home->getTitre()).'.html">
+
+                                <img src="../../images/news/'.$yearNews.'/thumb_'.strtolower($article_home->getPhoto()).'"  '.$alt.' class="img-responsive">
+
+                                </a></div>
+
+                            <div class=" desc-img">
+
+                                <h2> <a href="/actualite-marathon-'.$article_home->getId().'-'.slugify($article_home->getTitre()).'.html" style="color: #222;">'.$article_home->getTitre().'</a> </h2>
+
+                                <p>'.$article_home->getChapo().$coms.'</p>
+
+                                '.$lien_1.$lien_2.$lien_3.'
+
+                            </div>
+
+                        </article>';
+
+                    }?>
+
+                </section>
+
+                <section class="last_articles_part1 to_show_mobile ">
+
+                <?php
+
+                    foreach ($last_articles_part1['donnees'] as $article_home) {
+
+                        $cat='';
+
+                        if($cat!="Videos" && $cat!="Photos" ) {$img_src="";}
+
+                        if($cat=="Photos") $img_src="../../images/pictos/photo-icon.png";
+
+                        if($cat=="Videos") $img_src="../../images/pictos/video-icon.png";
+
+                        $tab = explode('-',$article_home->getDate());
+
+                        $yearNews  = $tab[0];
+
+                        $lien_1="";$lien_2="";$lien_3="";
+
+                    if($article_home->getLien1()!=""){
+
+                        $lien_1="<a href='".$article_home->getLien1()."' class='home-link'> > ".$article_home->getTextlien1()."</a><br>";
+
+                    }
+
+                    if($article_home->getLien2()!=""){
+
+                        $lien_2="<a href='".$article_home->getLien2()."' class='home-link'> > ".$article_home->getTextlien2()."</a><br>";
+
+                    }
+
+                    if($article_home->getLien3()!=""){
+
+                        $lien_3="<a href='".$article_home->getLien3()."' class='home-link'> > ".$article_home->getTextlien3()."</a>";
+
+                    }
+
+                    $nb=sizeof($commentaire->getCommentaires($article_home->getId(),0,0)['donnees']);
+                    $alt = ($article_home->getLegende())?'alt="'.$article_home->getLegende().'"':'alt="allmarathon news image"';
+
+                    $nb=($nb!=0)? $nb: '';
+
+                    $coms=' <a href="/actualite-marathon-'.$article_home->getId().'-'.slugify($article_home->getTitre()).'.html#commentaires" title="Ajouter un commentaire" class="com_news"><i class="fa fa-comment-o com_news" aria-hidden="true"></i> '.$nb.'</a>';
+
+                    echo '<article class="row" >
+
+                        <div class="article-img"><a href="/actualite-marathon-'.$article_home->getId().'-'.slugify($article_home->getTitre()).'.html">
+
+                        <img src="../../images/news/'.$yearNews.'/thumb_'.strtolower($article_home->getPhoto()).'"  '.$alt.' class="img-responsive">
+
+                        </a></div>
+
+                    <div class=" desc-img">
+
+                        <h2> <a href="/actualite-marathon-'.$article_home->getId().'-'.slugify($article_home->getTitre()).'.html" style="color: #222;">'.$article_home->getTitre().'</a> </h2>
+
+                        <p>'.$article_home->getChapo().$coms.'</p>
+
+                        '.$lien_1.$lien_2.$lien_3.'
+
+                    </div>
+
+                    </article>';
+
+                    }?>
+
+                </section>
+                <section class="dernieres-video">
+                    <?php include 'dernieres-video.php';?>
+                </section>
+                <section class="last_articles_part2  ">
+
+                    <?php
+
+                        foreach($last_articles_part2['donnees'] as $article){
+
+                                $cat='';
+
+                                if($cat!="Videos" && $cat!="Photos" ) {$img_src="";}
+
+                                if($cat=="Photos") $img_src="../../images/pictos/photo-icon.png";
+
+                                if($cat=="Videos") $img_src="../../images/pictos/video-icon.png";
+
+                                $tab = explode('-',$article->getDate());
+
+                                $yearNews  = $tab[0];
+
+                                $lien_1="";$lien_2="";$lien_3="";
+
+                                if($article->getLien1()!=""){
+
+                                    $lien_1="<a href='".$article->getLien1()."' class='home-link'> > ".$article->getTextlien1()."</a><br>";
+
+                                }
+
+                                if($article->getLien2()!=""){
+
+                                    $lien_2="<a href='".$article->getLien2()."' class='home-link'> > ".$article->getTextlien2()."</a><br>";
+
+                                }
+
+                                if($article->getLien3()!=""){
+
+                                    $lien_3="<a href='".$article->getLien3()."' class='home-link'> > ".$article->getTextlien3()."</a>";
+
+                                }
+
+                                $nb=sizeof($commentaire->getCommentaires($article->getId(),0,0)['donnees']);
+                                $alt = ($article->getLegende())?'alt="'.$article->getLegende().'"':'alt="allmarathon news image"';
+
+                                $nb=($nb!=0)? $nb: '';
+
+                                $coms=' <a href="/actualite-marathon-'.$article->getId().'-'.slugify($article->getTitre()).'.html#commentaires" title="Ajouter un commentaire" class="com_news"><i class="fa fa-comment-o com_news" aria-hidden="true"></i> '.$nb.'</a>';
+
+                                echo '<article class="row">
+
+                                    <div class="article-img" >
+
+                                    <a href="/actualite-marathon-'.$article->getId().'-'.slugify($article->getTitre()).'.html">
+
+                                    <img src="../../images/news/'.$yearNews.'/thumb_'.strtolower($article->getPhoto()).'" '.$alt.' class="img-responsive" >
+
+                                    </a></div>
+
+                                <div class=" desc-img">
+
+                                    <h2><a href="/actualite-marathon-'.$article->getId().'-'.slugify($article->getTitre()).'.html" style="color: #222;">'.$article->getTitre().'</a></h2>
+
+                                    <p>'.$article->getChapo().$coms.'</p>
+
+                                    '.$lien_1.$lien_2.$lien_3.'
+
+                                </div>
+
+                            </article>';
+
+                }
+
+                ?>
+
+                </section>
+
+            </div> 
+
+            <aside class="col-sm-4">
+
+
+                <dt class="bref to_hide_mobile"><h2 class="h2-aside">EN BREF</h2></dt>
+
+                <dd class="bref to_hide_mobile marg_bot">
+
+                    <ul class="clearfix">
+
+                        <?php
+
+                    foreach ($bref_news['donnees'] as $article_bref) {
+
+                    echo '<li><a href="/actualite-marathon-'.$article_bref->getId().'-'.slugify($article_bref->getTitre()).'.html"><span>'.date("d-m", strtotime($article_bref->getDate())).'</span>&nbsp;
+
+'.$article_bref->getTitre().'</a></li>';
+
+                    }
+
+                    ?>
+
+                        <li class="last"><a href="/actualites-marathon-11--.html">[+] de brèves</a></li>
+
+                    </ul>
+
+                </dd>
+
+                <dt class="calendar to_hide_mobile marg_top"><h2 class="h2-aside">CALENDRIER</h2></dt>
+
+                <dd class="calendar to_hide_mobile marg_bot">
+
+                    <ul class="clearfix marathons-home">
+
+                        
+
+                        <?php
+
+                
+
+                    echo $home_events;
+
+                    
+
+                    ?>
+
+                        
+
+                        <li class="last"><a href="/calendrier-agenda-marathons.html">[+] de dates</a></li>
+
+                    </ul>
+
+                </dd>
+
+                <dt class="result to_hide_mobile marg_top"><h2 class="h2-aside">Les derniers résultats</h2></dt>
+
+                <dd class="result to_hide_mobile marg_bot">
+
+                    <ul class="clearfix">
+
+                        <?php
+
+                    foreach ($last_results['donnees'] as $result) {   
+
+                     $ev_cat_age_intitule=$ev_cat_age->getEventCatAgeByID($result->getCategorieAgeID())['donnees']->getIntitule();
+
+                     $nom_res=$result->getCategorie().' '.$ev_cat_age_intitule.' ('.$result->getSexe().') - '.$result->getNom().' - '.substr($result->getDateDebut(),0,4);
+                     $nom_res_lien_archive=$result->getCategorie().' - '.$result->getNom().' - '.strftime("%A %d %B %Y",strtotime($result->getDateDebut()));
+
+                     echo '<li><a href="/resultats-marathon-'.$result->getID().'-'.slugify($nom_res_lien_archive).'.html"> <strong>'.$result->getCategorie().' - '.$result->getNom().' <small>'.$ev_cat_age_intitule.' - le '.date("d/m/Y",strtotime($result->getDateDebut())).'</small></strong><img class="flag_side" src="../../images/flags/'.$result->getPaysID().'.jpg" alt=""></a></li>';
+
+                    }
+
+                    ?>
+
+                        <li class="last"><a href="/resultats-marathon.html">[+] de résultats</a></li>
+
+                    </ul>
+
+                </dd>
+
+                
+
+            </aside>
+
+        </div>
+
+    </div> 
+    </div>
+
+    <?php include_once('footer.inc.php'); ?>
+
+    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script>
+    window.jQuery || document.write('<script src="../../js/vendor/jquery-1.12.0.min.js"><\/script>')
+    </script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/plugins.js"></script>
+    <script src="../../js/jquery.jcarousel.min.js"></script>
+    <script src="../../js/jquery.sliderPro.min.js"></script>
+    <script src="../../js/easing.js"></script>
+    <script src="../../js/jquery.ui.totop.min.js"></script>
+</body>
+
+</html>

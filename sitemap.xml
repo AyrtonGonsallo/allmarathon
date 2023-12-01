@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+<sitemap>
+<loc>https://www.allmarathon.fr/sitemaps/sitemap-coureurs.xml</loc>
+</sitemap>
+<sitemap>
+<loc>https://www.allmarathon.fr/sitemaps/sitemap-evenements.xml</loc>
+</sitemap>
+<sitemap>
+<loc>https://www.allmarathon.fr/sitemaps/sitemap-news.xml</loc>
+</sitemap>
+<sitemap>
+<loc>https://www.allmarathon.fr/sitemaps/sitemap-videos.xml</loc>
+</sitemap>
+
+</sitemapindex>

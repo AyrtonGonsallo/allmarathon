@@ -1,0 +1,127 @@
+RewriteEngine on
+RewriteCond %{SERVER_PORT} 80
+RewriteRule ^(.*)$ https://allmarathon.fr/$1 [R,L]
+
+RedirectPermanent /resultats-marathon-399-new-york.html /resultats-marathon-17-world-marathon-majors-new-york-dimanche-05-novembre-2023.html
+RewriteCond %{QUERY_STRING} ^evenementID=399$ [NC]
+RewriteRule ^resultats-marathon-17-world-marathon-majors-new-york-dimanche-05-novembre-2023.html?$ %{REQUEST_URI}? [NC,L,R=302]
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+	RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+	RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
+</IfModule>
+
+RewriteRule ^$ content/vues/index.php [L]
+RewriteRule ^index\.html$ content/vues/index.php [L]
+RewriteRule ^evenement-detail-admin-([0-9]+)\.html$ content/vues/evenement-detail-admin.php?evenementID=$1 [L]
+
+RewriteRule ^champion-detail-admin-([0-9]+)\.html$ content/vues/champion-detail-admin.php?championID=$1 [L]
+RewriteRule ^membres-allmarathon\.html$ /membre-liste.php [L]
+RewriteRule ^resultats-recherche\.html$ content/vues/resultats-recherche.php [L]
+RewriteRule ^statistiques\.php$ content/vues/statistiques.php [L]
+RewriteRule ^newsletter-allmarathon\.html$ content/vues/newsletter-allmarathon.php [L]
+RewriteRule ^unsubscribe-(.*)$ content/vues/unsubscribe.php?email=$1 [L]
+RewriteRule ^membre-profil\.php$ content/vues/membre-profil.php [L]
+
+RewriteRule ^formulaire-administration-club-([0-9]+)\.html$ /content/vues/formulaire-administration-club.php?clubID=$1 [L]
+RewriteRule ^formulaire-google\.html$ content/vues/formulaire-google.php [L]
+RewriteRule ^formulaire-inscription\.php$ content/vues/formulaire-inscription.php [L]
+RewriteRule ^formulaire-contact\.html$ content/vues/formulaire-contact.php [L]
+RewriteRule ^contact\.html$ content/vues/contact.php [L]
+RewriteRule ^forgot\.php$ content/vues/forgot.php [L]
+RewriteRule ^formulaire-administration-athlète\.html$ content/vues/formulaire-administration-athlète.php [L]
+RewriteRule ^partenaires\.php$ content/vues/partenaires.php [L]
+RewriteRule ^affiche-news\.html$ content/vues/affiche-news.php [L]
+
+#RewriteRule ^PDF_frame-(.*)$ /content/vues/PDF_frame.php?pdf=$1 [L]
+RewriteRule ^PDF_frame-(.*)$ /uploadDocument/$1 [L]
+RewriteRule ^dossier_presentation-(.*)$ /content/modules/compteurfile.php?id_doc=$1 [L]
+
+RewriteRule ^membres-allmarathon-([A-Z]+)\.html$ /membre-liste.php?pays=$1 [L]
+RewriteRule ^membre-allmarathon-([0-9]+)\.html$ /membre-detail-profil.php?membreID=$1 [L]
+RewriteRule ^membre-allmarathon-pronostic-([0-9]+)-([0-9]+)\.html$ /membre-detail-pari.php?membreID=$1&pariID=$2 [L]
+RewriteRule ^membre-allmarathon-pronostic-([0-9]+)\.html$ /membre-detail-pari.php?membreID=$1 [L]
+
+RewriteRule ^calendrier-marathon\.html$ /content/vues/calendrier.php [L]
+RewriteRule ^calendrier-stages-competitions-tournois-de-marathon\.html$ /calendrier.php [L]
+#RewriteRule ^calendrier-marathon-([0-9]+)\.html$ /calendrier.php?trim=$1 [L]
+RewriteRule ^calendrier-marathon-([0-9]*)-([0-9]*)\.html$ /content/vues/calendrier.php?type=$1&age=$2 [L]
+
+RewriteRule ^athlète-([0-9]+)-(.*)\.html$ /content/vues/champion-detail.php?championID=$1 [L]
+RewriteRule ^athlète-([0-9]+)\.html$ /content/vues/champion-detail.php?championID=$1 [L]
+RewriteRule ^cv-champions-de-marathon-([^-]*)\.html$ /content/vues/champions-liste.php?order=$1 [L]
+#RewriteRule ^cv-champions-de-marathon-(.*)\.html$ /content/vues/champions-liste.php?order=$1 [L]
+#RewriteRule ^cv-champions-de-marathon-([0-9]*)-([a-z]*)\.html$ /content/vues/champions-liste.php?page=$1&order=$2&search=3$ [L]
+RewriteRule ^cv-champions-de-marathon-([0-9]*)-(.*)\.html$ /content/vues/champions-liste.php?page=$1&order=$2 [L]
+RewriteRule ^cv-champions-de-marathon\.html$ /content/vues/champions-liste.php [L]
+
+RewriteRule ^galerie-photos-de-marathon-([0-9]+)\.html$ /galerie-detail.php?galerieID=$1 [L]
+RewriteRule ^photos-de-marathon\.html$ /galerie-liste.php [L]
+RewriteRule ^photos-de-marathon-([0-9]*)\.html$ /galerie-liste.php?sort=$1 [L]
+RewriteRule ^newsletter-allmarathon\.html$ /newsletter.php [L]
+
+RewriteRule ^actualites-marathon-([0-9]*)-([0-9]*)-(.*)\.html$ /content/vues/news-liste.php?sort=$1&page=$2&search=$3 [L]
+#RewriteRule ^actualites-marathon-(.*)\.html$ /news-liste.php?sort=$1 [L]
+RewriteRule ^actualites-marathon\.html$ /content/vues/news-liste.php [L]
+RewriteRule ^toutes-les-actualites\.html$ /content/vues/news-liste-rss.php [L]
+RewriteRule ^actualite-marathon-([0-9]+)-(.*)\.html$ /content/vues/news-detail.php?newsID=$1 [L]
+RewriteRule ^actualite-marathon-([0-9]+)\.html$ /content/vues/news-detail.php?newsID=$1 [L]
+
+RewriteRule ^resultats-marathon-([0-9]+)-([0-9]+)\.html$ /evenement-detail.php?evenementID=$1&ong=$2 [L]
+RewriteRule ^resultats-marathon-([0-9]+)-([a-z]+)\.html$ /content/vues/evenement-detail.php?evenementID=$1&type=$2 [L]
+RewriteRule ^resultats-marathon-([0-9]+)-(.*)\.html$ /content/vues/evenement-detail.php?evenementID=$1 [L]
+RewriteRule ^resultats-fils-marathon-([0-9]+)-(.*)\.html$ /content/vues/sous-evenement-detail.php?evenementID=$1 [L]
+RewriteRule ^resultats-marathon-([0-9]+)\.html$ /content/vues/evenement-detail.php?evenementID=$1 [L]
+RewriteRule ^resultats-marathon_([0-9]*)_([0-9]*)_([0-9]*)_([0-9]*)\.html$ /content/vues/resultats-liste.php?page=$1&annee=$2&age=$3&type=$4 [L]
+RewriteRule ^resultats-marathon_([0-9]*)_(.*)\.html$ /content/vues/resultats-liste.php?page=$1&search=$2 [L]
+RewriteRule ^resultats-marathon\.html$ /content/vues/resultats-liste.php [L]
+
+RewriteRule ^marathons-([0-9]+)-([0-9]+)\.html$ /marathon-detail.php?marathonID=$1&ong=$2 [L]
+RewriteRule ^marathons-([0-9]+)-([a-z]+)\.html$ /content/vues/marathon-detail.php?marathonID=$1&type=$2 [L]
+RewriteRule ^marathons-([0-9]+)-(.*)\.html$ /content/vues/marathon-detail.php?marathonID=$1 [L]
+RewriteRule ^marathons-([0-9]+)\.html$ /content/vues/marathon-detail.php?marathonID=$1 [L]
+RewriteRule ^marathons_([0-9]*)\.html$ /content/vues/marathons-liste.php?page=$1&annee=$2&age=$3&type=$4 [L]
+RewriteRule ^marathons_([0-9]*)_(.*)\.html$ /content/vues/marathons-liste.php?page=$1&search=$2 [L]
+RewriteRule ^calendrier-agenda-marathons\.html$ /content/vues/marathons-liste.php [L]
+RewriteRule ^agenda-marathons-par-pays\.html$ /content/vues/marathons-liste-par-pays.php [L]
+RewriteRule ^agenda-marathons-par-mois\.html$ /content/vues/marathons-liste-par-mois.php [L]
+RewriteRule ^calendrier-marathons-([a-zA-ZéïÎîëàèÉ\-]*)-([0-9]+)\.html$ /content/vues/marathons-liste-evenements-par-pays.php?paysID=$2[L]
+RewriteRule ^calendrier-marathons-([a-zA-ZûéïÎî]*)-([0-9]+)-([0-9]+)\.html$ /content/vues/marathons-liste-evenements-par-mois.php?mois=$2&annee=$3 [L]
+RewriteRule ^records-marathon-masculins\.html$ /content/vues/records.php [L]
+RewriteRule ^records-marathon-féminins\.html$ /content/vues/records-féminins.php [L]
+RewriteRule ^video-de-marathon-([0-9]+)\.html$ /content/vues/video-detail.php?videoID=$1 [L]
+RewriteRule ^videos-de-marathon\.html$ /content/vues/video-liste.php [L]
+RewriteRule ^10-meilleures-performances-mondiales-marathon\.html$ /content/vues/records-top-10-monde.php [L]
+RewriteRule ^10-meilleures-performances-françaises-marathon\.html$ /content/vues/records-top-10-france.php [L]
+RewriteRule ^10-meilleures-performances-jeux-olympiques-marathon\.html$ /content/vues/records-top-10-jo.php [L]
+RewriteRule ^10-meilleures-performances-championnats-du-monde-marathon\.html$ /content/vues/records-top-10-cm.php [L]
+RewriteRule ^10-meilleures-performances-championnats-europe-marathon\.html$ /content/vues/records-top-10-ce.php [L]
+
+RewriteRule ^videos-de-marathon-([a-zA-Z]*)-([^-]*)-([0-9]*)\.html$ /content/vues/video-liste.php?sort=$1&search=$2&page=$3 [L]
+RewriteRule ^videos-de-marathon-([a-zA-Z]*)\.html$ /video-liste.php?sort=$1 [L]
+RewriteRule ^videos-de-marathon-([a-zA-Z]*)-([a-zA-Z]*)\.html$ /video-liste.php?sort=$1&search=$2 [L]
+
+RewriteRule ^communaute-allmarathon-([0-9]+)\.html$ /champion-admin-journal.php?page=$1 [L]
+RewriteRule ^communaute-allmarathon\.html$ /champion-admin-journal.php [L]
+
+RewriteRule ^presentation\.html$ /presentation.php [L]
+
+RewriteRule ^plan\.html$ /sitemap.xml [L]
+
+RewriteRule ^mentions\.html$ /content/vues/mentions.php [L]
+RewriteRule ^politique-de-confidentialite\.html$ content/vues/policy.php [L]
+RewriteRule ^sitemap.xml/?$ sitemaps/sitemap.xml
+RewriteRule ^sitemaps/sitemap-videos.xml/?$ sitemaps/sitemap-videos.php
+RewriteRule ^sitemaps/sitemap-coureurs.xml/?$ sitemaps/sitemap-coureurs.php
+RewriteRule ^sitemaps/sitemap-news.xml/?$ sitemaps/sitemap-news.php
+RewriteRule ^sitemaps/sitemap-evenements.xml/?$ sitemaps/sitemap-evenements.php
+RewriteRule ^sitemaps/sitemap-marathons.xml/?$ sitemaps/sitemap-marathons.php
+
+RewriteRule ^flux-rss.xml/?$ rss/flux-rss-allmarathon.php
+
+RewriteRule ^resultats-marathon_-1_.html$ https://www.allmarathon.fr/resultats-marathon.html [R=301,L]
+RewriteRule ^marathons.html$ https://www.allmarathon.fr/calendrier-agenda-marathons.html [R=301,L]
+RewriteRule ^marathons--.html$ https://www.allmarathon.fr/calendrier-agenda-marathons.html [R=301,L]
+RewriteRule ^videos-de-marathon----1.html$ https://www.allmarathon.fr/videos-de-marathon.html [R=301,L]
+
+ErrorDocument 404 /content/vues/404.php

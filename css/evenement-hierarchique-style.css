@@ -1,0 +1,28 @@
+
+
+multi-input {
+  display: inline-block;
+  margin: 0 20px 20px 0;
+}
+
+.boutton {
+  cursor: pointer;
+  background-color: #fcb614;
+  border: none;
+  color: white;
+  padding: 15px 80px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  text-transform: uppercase;
+  font-size: 13px;
+  -webkit-box-shadow: 0 10px 30px 0 rgb(95 186 233 / 40%);
+  box-shadow: 0 10px 30px 0 rgb(95 186 233 / 40%);
+  border-radius: 5px 5px 5px 5px;
+  margin: 5px 20px 40px 20px;
+  
+}
+.boutton:hover{
+  background-color: rgb(118, 118, 118);
+  transition: all 1.3s ease-in-out;
+}

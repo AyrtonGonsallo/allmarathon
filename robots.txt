@@ -1,0 +1,13 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /database/
+Disallow: /facebook/
+Disallow: /fonction/
+Disallow: /fonts/
+Disallow: /images/CSS/
+Disallow: /javascript/
+Disallow: /js/
+Disallow: /Scripts/
+Disallow: /styles/
+Disallow: /pas-toucher.html/
+Sitemap: http://www.allmarathon.fr/sitemap.xml

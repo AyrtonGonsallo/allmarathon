@@ -1,0 +1,1265 @@
+/* 
+
+    Document   : admin2009
+
+    Created on : 7 juil. 2009, 17:03:11
+
+    Author     : manu
+
+    Description:
+
+        Purpose of the stylesheet follows.
+
+*/
+
+
+
+
+
+/* BASIC */
+
+
+
+
+
+
+
+body {
+
+  font-family: "Poppins", sans-serif;
+
+  height: 100vh;
+
+  overflow-x: hidden;
+
+}
+
+.ui-tabs .ui-tabs-active {
+
+  background-color:#fcb614 !important;
+
+}
+
+.nav-item .active{
+
+ 
+
+  background-color:#fcb614 !important;
+
+}
+
+a {
+
+  color: #92badd;
+
+  display: inline-block;
+
+  text-decoration: none;
+
+  font-weight: 400;
+
+}
+
+
+
+h2 {
+
+  text-align: center;
+
+  font-size: 16px;
+
+  font-weight: 600;
+
+  text-transform: uppercase;
+
+  display: inline-block;
+
+  margin: 40px 8px 10px 8px;
+
+  color: #cccccc;
+
+}
+
+
+
+
+
+
+
+/* STRUCTURE */
+
+
+
+.wrapper {
+
+  display: flex;
+
+  align-items: center;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  width: 100%;
+
+  height: 100%;
+
+  padding: 20px;
+
+}
+
+
+
+#formContent {
+
+  -webkit-border-radius: 10px 10px 10px 10px;
+
+  border-radius: 10px 10px 10px 10px;
+
+  background: #fff;
+
+  padding: 30px;
+
+  width: 90%;
+
+  max-width: 450px;
+
+  position: relative;
+
+  padding: 0px;
+
+  -webkit-box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
+
+  box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
+
+  text-align: center;
+
+}
+
+
+
+#formFooter {
+
+  background-color: #f6f6f6;
+
+  border-top: 1px solid #dce8f1;
+
+  padding: 25px;
+
+  text-align: center;
+
+  -webkit-border-radius: 0 0 10px 10px;
+
+  border-radius: 0 0 10px 10px;
+
+}
+
+
+
+
+
+
+
+/* TABS */
+
+
+
+h2.inactive {
+
+  color: #cccccc;
+
+}
+
+
+
+h2.active {
+
+  color: #0d0d0d;
+
+  border-bottom: 2px solid #5fbae9;
+
+}
+
+
+
+
+
+
+
+/* FORM TYPOGRAPHY*/
+
+
+
+input[type=button],
+
+input[type=submit],
+
+input[type=reset] {
+
+  cursor: pointer;
+
+  background-color: #fcb614;
+
+  border: none;
+
+  color: white;
+
+  padding: 15px 80px;
+
+  text-align: center;
+
+  text-decoration: none;
+
+  display: inline-block;
+
+  text-transform: uppercase;
+
+  font-size: 13px;
+
+  -webkit-box-shadow: 0 10px 30px 0 rgba(95, 186, 233, 0.4);
+
+  box-shadow: 0 10px 30px 0 rgba(95, 186, 233, 0.4);
+
+  -webkit-border-radius: 5px 5px 5px 5px;
+
+  border-radius: 5px 5px 5px 5px;
+
+  margin: 5px 20px 40px 20px;
+
+  -webkit-transition: all 0.3s ease-in-out;
+
+  -moz-transition: all 0.3s ease-in-out;
+
+  -ms-transition: all 0.3s ease-in-out;
+
+  -o-transition: all 0.3s ease-in-out;
+
+  transition: all 0.3s ease-in-out;
+
+}
+
+
+
+input[type=button]:hover,
+
+input[type=submit]:hover,
+
+input[type=reset]:hover {
+
+  background-color: #333;
+
+}
+
+
+
+input[type=button]:active,
+
+input[type=submit]:active,
+
+input[type=reset]:active {
+
+  -moz-transform: scale(0.95);
+
+  -webkit-transform: scale(0.95);
+
+  -o-transform: scale(0.95);
+
+  -ms-transform: scale(0.95);
+
+  transform: scale(0.95);
+
+}
+
+
+
+input[type=text]:not(.youtube){
+
+  background-color: #f6f6f6;
+
+  border: none;
+
+  color: #0d0d0d;
+
+  padding: 15px 32px;
+
+  text-align: center;
+
+  text-decoration: none;
+
+  display: inline-block;
+
+  font-size: 16px;
+
+  margin: 5px;
+
+  width: 70%;
+
+  border: 2px solid #f6f6f6;
+
+  -webkit-transition: all 0.5s ease-in-out;
+
+  -moz-transition: all 0.5s ease-in-out;
+
+  -ms-transition: all 0.5s ease-in-out;
+
+  -o-transition: all 0.5s ease-in-out;
+
+  transition: all 0.5s ease-in-out;
+
+  -webkit-border-radius: 5px 5px 5px 5px;
+
+  border-radius: 5px 5px 5px 5px;
+
+}
+
+
+
+input[type=text]:not(.youtube):focus {
+
+  background-color: #fff;
+
+  border-bottom: 2px solid #5fbae9;
+
+}
+
+
+
+input[type=text]:not(.youtube):placeholder {
+
+  color: #cccccc;
+
+}
+
+
+
+
+
+
+
+/* ANIMATIONS */
+
+
+
+/* Simple CSS3 Fade-in-down Animation */
+
+.fadeInDown {
+
+  -webkit-animation-name: fadeInDown;
+
+  animation-name: fadeInDown;
+
+  -webkit-animation-duration: 1s;
+
+  animation-duration: 1s;
+
+  -webkit-animation-fill-mode: both;
+
+  animation-fill-mode: both;
+
+}
+
+
+
+@-webkit-keyframes fadeInDown {
+
+  0% {
+
+    opacity: 0;
+
+    -webkit-transform: translate3d(0, -100%, 0);
+
+    transform: translate3d(0, -100%, 0);
+
+  }
+
+
+
+  100% {
+
+    opacity: 1;
+
+    -webkit-transform: none;
+
+    transform: none;
+
+  }
+
+}
+
+
+
+@keyframes fadeInDown {
+
+  0% {
+
+    opacity: 0;
+
+    -webkit-transform: translate3d(0, -100%, 0);
+
+    transform: translate3d(0, -100%, 0);
+
+  }
+
+
+
+  100% {
+
+    opacity: 1;
+
+    -webkit-transform: none;
+
+    transform: none;
+
+  }
+
+}
+
+
+
+/* Simple CSS3 Fade-in Animation */
+
+@-webkit-keyframes fadeIn {
+
+  from {
+
+    opacity: 0;
+
+  }
+
+
+
+  to {
+
+    opacity: 1;
+
+  }
+
+}
+
+
+
+@-moz-keyframes fadeIn {
+
+  from {
+
+    opacity: 0;
+
+  }
+
+
+
+  to {
+
+    opacity: 1;
+
+  }
+
+}
+
+
+
+@keyframes fadeIn {
+
+  from {
+
+    opacity: 0;
+
+  }
+
+
+
+  to {
+
+    opacity: 1;
+
+  }
+
+}
+
+
+
+.fadeIn {
+
+  opacity: 0;
+
+  -webkit-animation: fadeIn ease-in 1;
+
+  -moz-animation: fadeIn ease-in 1;
+
+  animation: fadeIn ease-in 1;
+
+
+
+  -webkit-animation-fill-mode: forwards;
+
+  -moz-animation-fill-mode: forwards;
+
+  animation-fill-mode: forwards;
+
+
+
+  -webkit-animation-duration: 1s;
+
+  -moz-animation-duration: 1s;
+
+  animation-duration: 1s;
+
+}
+
+
+
+.fadeIn.first {
+
+  -webkit-animation-delay: 0.4s;
+
+  -moz-animation-delay: 0.4s;
+
+  animation-delay: 0.4s;
+
+}
+
+
+
+.fadeIn.second {
+
+  -webkit-animation-delay: 0.6s;
+
+  -moz-animation-delay: 0.6s;
+
+  animation-delay: 0.6s;
+
+}
+
+
+
+.fadeIn.third {
+
+  -webkit-animation-delay: 0.8s;
+
+  -moz-animation-delay: 0.8s;
+
+  animation-delay: 0.8s;
+
+}
+
+
+
+.fadeIn.fourth {
+
+  -webkit-animation-delay: 1s;
+
+  -moz-animation-delay: 1s;
+
+  animation-delay: 1s;
+
+}
+
+
+
+/* Simple CSS3 Fade-in Animation */
+
+.underlineHover:after {
+
+  display: block;
+
+  left: 0;
+
+  bottom: -10px;
+
+  width: 0;
+
+  height: 2px;
+
+  background-color: #fcb614;
+
+  content: "";
+
+  transition: width 0.2s;
+
+}
+
+
+
+.underlineHover:hover {
+
+  color: #0d0d0d;
+
+}
+
+
+
+.underlineHover:hover:after {
+
+  width: 100%;
+
+}
+
+
+
+
+
+
+
+/* OTHERS */
+
+
+
+*:focus {
+
+  outline: none;
+
+}
+
+
+
+#icon {
+
+  margin: 20px;
+
+  width: 40%;
+
+}
+
+
+
+
+
+body {
+
+  font-size: 12px;
+
+  font-family: verdana, sans-serif;
+
+}
+
+
+
+legend {
+
+  font-size: 12px;
+
+  font-weight: bold;
+
+}
+
+
+
+.comp {
+
+  border: solid 1px gray;
+
+}
+
+
+
+.comp a {
+
+  display: block;
+
+  cursor: pointer;
+
+
+
+}
+
+
+
+.comp a:hover {
+
+  background-color: gray;
+
+  color: white;
+
+}
+
+
+
+table.tab1 {
+
+  font-family: arial;
+
+  background-color: #CDCDCD;
+
+  margin: 10px 0pt 15px;
+
+  font-size: 8pt;
+
+  width: 100%;
+
+  text-align: left;
+
+}
+
+
+
+table.tab1 thead tr th,
+
+table.tablesorter tfoot tr th {
+
+  background-color: #e6EEEE;
+
+  border: 1px solid #FFF;
+
+  font-size: 8pt;
+
+  padding: 4px;
+
+  padding-right: 15px;
+
+}
+
+
+
+table.tab1 thead tr .header {
+
+  background-image: url(../images/bg.gif);
+
+  background-repeat: no-repeat;
+
+  background-position: center right;
+
+  cursor: pointer;
+
+}
+
+
+
+table.tab1 tbody td {
+
+  color: #3D3D3D;
+
+  padding: 4px;
+
+  background-color: #FFF;
+
+  vertical-align: top;
+
+}
+
+
+
+#pErreur {
+
+  color: orange;
+
+}
+
+
+
+.image_galerie {
+
+  margin: 5px;
+
+  height: 110px;
+
+  width: 400px;
+
+}
+
+
+
+.image_galerie img {
+
+  float: left;
+
+}
+
+
+
+.autocomp {
+
+  position: absolute;
+
+  width: 142px;
+
+  background-color: white;
+
+  border: solid 1px black;
+
+  padding: 2px;
+
+  text-align: center;
+
+  z-index: 100;
+
+}
+
+
+
+.autocomp a {
+
+  color: blue;
+
+  display: block;
+
+  cursor: pointer;
+
+}
+
+
+
+.autocomp a:hover {
+
+  color: white;
+
+  background-color: #6666AA;
+
+}
+
+
+
+.autocomp a:focus {
+
+  color: white;
+
+  background-color: #6666AA;
+
+}
+
+
+
+
+
+
+
+
+
+.menuItem a {
+
+  color: white;
+
+  float: left;
+
+  display: block;
+
+  padding: 5px;
+
+  border-right: solid 2px white;
+
+  text-decoration: none;
+
+  background-color: #444444;
+
+}
+
+
+
+.menuItem a:hover {
+
+  background-color: silver;
+
+  color: black;
+
+}
+
+
+
+.image_galerie {
+
+  height: auto;
+
+  border-bottom-width: 1px;
+
+  border-bottom-style: none;
+
+  border-bottom-color: #CCCCCC;
+
+}
+
+
+
+#menu {
+
+  margin: 5px;
+
+  width: 100%;
+
+  height: 20px;
+
+}
+
+
+
+#logout {
+
+  float: left;
+
+  padding: 5px;
+
+}
+
+
+
+#menu li {
+
+  display: inline-block;
+
+  position: relative;
+
+}
+
+
+
+#menu ul.sub-menu {
+
+  display: none;
+
+  position: absolute;
+
+  top: 28px;
+
+  right: 0px;
+
+}
+
+
+
+#menu ul.sub-menu li {
+
+  background-color: #C0C0C0;
+
+  border-width: 0 1px 1px 1px;
+
+  border-style: solid;
+
+  border-color: #666666;
+
+  height: 52px;
+
+  display: block;
+
+}
+
+
+
+
+
+.form-wrap {
+
+  max-width: 500px;
+
+  padding: 30px;
+
+  background: #f1f1f1;
+
+  margin: 20px auto;
+
+  border-radius: 4px;
+
+  text-align: center;
+
+}
+
+
+
+.form-wrap form {
+
+  border-bottom: 1px dotted #ddd;
+
+  padding: 10px;
+
+}
+
+
+
+.form-wrap #output {
+
+  margin: 10px 0;
+
+}
+
+
+
+.form-wrap .error {
+
+  color: #d60000;
+
+}
+
+
+
+.form-wrap .images {
+
+  width: 100%;
+
+  display: block;
+
+  border: 1px solid #e8e8e8;
+
+  padding: 5px;
+
+  margin: 5px 0;
+
+}
+
+
+
+.form-wrap .thumbnails {
+
+  width: 32%;
+
+  display: inline-block;
+
+  margin: 3px;
+
+}
+
+
+
+/* progress bar */
+
+#progress-wrp {
+
+  border: 1px solid #0099CC;
+
+  padding: 1px;
+
+  position: relative;
+
+  border-radius: 3px;
+
+  margin: 10px;
+
+  text-align: left;
+
+  background: #fff;
+
+  box-shadow: inset 1px 3px 6px rgba(0, 0, 0, 0.12);
+
+}
+
+
+
+#progress-wrp .progress-bar {
+
+  height: 20px;
+
+  border-radius: 3px;
+
+  background-color: #f39ac7;
+
+  width: 0;
+
+  box-shadow: inset 1px 1px 10px rgba(0, 0, 0, 0.11);
+
+}
+
+
+
+#progress-wrp .status {
+
+  top: 3px;
+
+  left: 50%;
+
+  position: absolute;
+
+  display: inline-block;
+
+  color: #000000;
+
+}
+
+
+
+
+
+
+
+.uploaded_images {
+
+  width: 100%;
+
+}
+
+
+
+.wrapper_images_uploaded {
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  padding: 20px;
+
+}
+
+
+
+.wrapper_images_uploaded a {
+
+  width: 100%;
+
+}
+
+
+
+
+
+
+
+.wrapper_images_uploaded .image_galerie {
+
+  flex: 1;
+
+  border: 1px solid #fcb614;
+
+  padding: 20px;
+
+  border-radius: 10px;
+
+  width: calc(100%/3);
+
+  max-width: 567px;
+
+}
+
+
+
+fieldset.upload_form {
+
+  height: auto;
+
+}
+
+.upload__box {
+
+  padding: 40px;
+
+}
+
+.upload__inputfile {
+
+  width: 0.1px;
+
+  height: 0.1px;
+
+  opacity: 0;
+
+  overflow: hidden;
+
+  position: absolute;
+
+  z-index: -1;
+
+}
+
+.upload__btn {
+
+  display: inline-block;
+
+  font-weight: 600;
+
+  color: #fff;
+
+  text-align: center;
+
+  min-width: 116px;
+
+  padding: 5px;
+
+  transition: all 0.3s ease;
+
+  cursor: pointer;
+
+  border: 2px solid;
+
+  background-color: #fcb614;
+
+  border-color: #fcb614;
+
+  border-radius: 10px;
+
+  line-height: 26px;
+
+  font-size: 14px;
+
+}
+
+.upload__btn:hover {
+
+  background-color: unset;
+
+  color: #4045ba;
+
+  transition: all 0.3s ease;
+
+}
+
+.upload__btn-box {
+
+  margin-bottom: 10px;
+
+}
+
+.upload__img-wrap {
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  margin: 0 -10px;
+
+}
+
+.upload__img-box {
+
+  width: 200px;
+
+  padding: 0 10px;
+
+  margin-bottom: 12px;
+
+}
+
+.upload__img-close {
+
+  width: 24px;
+
+  height: 24px;
+
+  border-radius: 50%;
+
+  background-color: rgba(0, 0, 0, 0.5);
+
+  position: absolute;
+
+  top: 10px;
+
+  right: 10px;
+
+  text-align: center;
+
+  line-height: 24px;
+
+  z-index: 1;
+
+  cursor: pointer;
+
+}
+
+.upload__img-close:after {
+
+  content: "✖";
+
+  font-size: 14px;
+
+  color: white;
+
+}
+
+
+
+.img-bg {
+
+  background-repeat: no-repeat;
+
+  background-position: center;
+
+  background-size: cover;
+
+  position: relative;
+
+  padding-bottom: 100%;
+
+}

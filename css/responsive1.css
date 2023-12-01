@@ -1,0 +1,250 @@
+@media (max-width: 761px) {
+
+
+    body {width: 100%}
+
+    img{max-width:100%; }
+    .container { width:100%; padding: 0; } 
+    .container { max-width:100%;} 
+    .row { margin-right:0px !important; margin-left:0px !important; }
+
+    header{width: 100%!important;max-width: 100%!important;}
+    header .header--nav {width: 100%!important;max-width: 100%!important;}
+    header .header--nav ul {}
+    header .header--nav ul>li{}
+    header .header--nav ul>li.header--pull.pull-right {float: none !important;margin: 0;position: absolute;top: 3px;right: 17%;width: 45%;}
+    header .header--nav ul>li.header--pull.pull-right ul>li:first-child {display: none;}
+    header .header--nav ul>li.header--pull.pull-right .signin .fa-user {margin-top: -1px;}
+    header .header--nav ul>li.menu-item-categories {float: none !important;margin: 0;position: absolute;top: 17px;right: 3%;}
+    header .header--nav ul>li.menu-item-search {margin-left: 3%; width: auto!important;}
+
+    li.menu-item-categories .nav-category {padding: 0 30px;right: -9.5px;}
+    li.menu-item-categories .nav-category li {display: block;border-bottom: 1px solid #fff;}
+    li.menu-item-categories .nav-category li a{line-height: 40px;}
+    #header-search {border: 1px solid rgba(0,0,0,.25); box-shadow: none; font-size: 18px;}
+
+    /*********************Home page*******************/
+    .page-content .banniere1 {width: 100%!important;max-width: 100%!important;}
+    .page-content .banniere1 .col-sm-12 {width: 100%!important;}
+    .page-content .banniere1  div{width: 100%!important;}
+    .page-content .banniere1  ins {width: 100%!important;}
+    .page-content .banniere1  iframe {width: 100%!important;}
+    
+
+    /*.page-content {display: none;}*/
+    .page-content .banniere1{display: none;}
+    
+
+    /*********************Home page*******************/
+    .page-content .col-sm-8, .page-content .col-sm-4 {width: 100%;padding-left: 5px; padding-right: 5px;}
+    .page-content .col-sm-12 {width: 100%;padding-left: 0px; padding-right: 0px;}
+    .sp-thumbnail-container {width: 120px!important;}
+    .sp-slides-container .sp-mask.sp-grab {height: 340px !important;}
+    .sp-slide {height: 340px !important;}
+    .left-side article .col-sm-5 {width: 100%;padding-left: 0px; padding-right: 0px;margin-top: -20px;}
+    .left-side article .col-sm-7 {width: 100%;padding-left: 0px; padding-right: 0px;}
+    .left-side article .desc-img h2 {font-size: 20px;margin-top: 10px;}
+    .left-side article .article-img {margin-bottom: 0!important;}
+    .left-side dt.actu-video {font-size: 19px;margin-top: -10px;}
+    .slider-pro h1.sp-layer a {font-size: 16px;}
+    /**************Jcarousel***************************************/
+    .left-side dd.actu-video {padding: 24px 40px;width: 100%!important;}
+    .jcarousel{width: 100%!important;margin-left: 0;}
+    .jcarousel ul li {width:134px ;margin-right: 1px; } 
+    .left-side dd.actu-video ul li a strong {min-height: 84px; width: 100%;}
+    .left-side dd.actu-video a.navig.next {right: 5px;}
+    .left-side dd.actu-video a.navig.prev {left: 5px;}
+    .left-side dd.actu-video ul li a .img-responsive {width: 100%!important;max-width: 100%!important;}
+    .left-side dd.actu-video ul li a {width: 100%!important;}
+    .left-side p {font-size: 13px;}
+
+    /*************Aside right**************************/
+    .page-content aside dt {max-width: 100%;}
+    .page-content aside dd {max-width: 100%;}
+
+    .page-content aside dd.facebook {text-align: center;}
+
+
+    /*********************News page*******************/
+    .news .form-inline{width: 100%!important;}
+    .news .form-inline .form-group{margin: 0!important;width: 100%!important;}
+    .news #search_val{width: 100%!important; margin-top: 5px;}
+    .news .left-side .btn.btn-primary {width: 100%;margin-bottom: 20px!important;}
+    .news .left-side h2 {font-size: 17px; margin-top: -15px;}
+    .news .left-side .detail-actus {margin-top: 5px;}
+    .news .left-side article:first-child {margin-top: -10px!important;}
+    .news .left-side article .desc-img h2 {font-size: 16px;}
+    .news .left-side article .link-all ~ br {display: none;}
+    .news .left-side article .link-all {display: block;}
+    .left-side article .article-img a strong {font-size: 15px;}
+    
+    /*********************Resultats page*******************/
+    .left-side h1 {font-size: 13px;}
+    .athlètes .form-inline{width: 100%!important;}
+    .athlètes .form-inline .form-group{margin: 0!important;width: 100%!important;}
+    .athlètes #search_val_res{width: 100%!important;}
+    .athlètes .left-side .btn.btn-primary {width: 100%;margin-top: 5px;}
+    .athlètes .form-inline .form-group select{margin-top: 5px;width: 100%!important;}
+    .athlètes .resultats li>a{font-size: 12px;}
+    .athlètes .resultats li>.list-inline{}
+    .athlète-detail .nav-tabs>li {width: 50%;}
+    .athlète-detail .nav-tabs>li>a {font-size: 12px;padding-left: 0px;padding-right: 0px;}
+    .athlète-detail .tab-content .col-sm-6 {padding-left: 0px;padding-right: 0px;}
+    .athlète-detail .tab-content .col-sm-6 .btn {width: 100%;}
+    .athlète-detail .tab-content dt {font-size: 15px;}
+    .athlète-detail .tab-content dd {font-size: 13px;}
+    .athlète-detail .tab-content .list-inline>li {display: block;padding-left: 0px;padding-right: 0px;}
+    .athlète-detail .tab-content .list-inline>li>a {width: 100%;margin-bottom: 5px;}
+    /*.resultat-detail #classement_table {width: 70%!important;}*/
+    .athlète-detail table.classement tr > td {padding: 5px 1px;font-size: 11px;}
+    table.dataTable thead th {padding: 5px !important;}
+    .athlète-detail .videos-tab .col-sm-6{width: 49%; display: inline-block;}
+    .athlète-detail .videos-tab .col-sm-6 ul{top: 0px;position: relative; margin-left: 0!important;}
+    .athlète-detail .videos-tab .col-sm-6 ul>li>a{font-size: 13px!important;}
+    .athlète-detail .nav-tabs {border-bottom: 0;}
+    .athlète-detail .tab-pane ul.photos-tab {width: 100%;}
+    .athlète-detail .tab-pane ul.photos-tab>li {margin-right:1px;width: 49.5%;}
+    .athlète-detail .tab-pane ul.photos-tab>li>a>img {width: 100%!important;}
+    
+    /*************Calendrier page************************/
+    .calendrier-marathon .form-inline{width: 100%!important; margin-top: -20px;}
+    .calendrier-marathon .form-inline .form-group{margin: 0!important;width: 100%!important;}
+    .calendrier-marathon .left-side .btn.btn-primary {width: 100%;margin-top: 5px;}
+    .calendrier-marathon .form-inline .form-group select{margin-top: 5px;width: 100%!important;}
+    .calendrier-marathon .left-side .nav-tabs{margin-top: -20px;}
+    .calendrier-marathon .left-side .nav-tabs>li {width: 50%;}
+    .calendrier-marathon .left-side .nav-tabs>li>a {font-size: 15px; padding:10px 0;}
+    .calendrier-marathon .left-side .nav-tabs>li>a>br {display: none;}
+    .calendrier-marathon .left-side .tab-content dt h2 {font-size: 15px;}
+    .calendrier-marathon .left-side .tab-content .event-infos>li>ul>li {font-size: 13px;}
+    .calendrier-marathon .left-side .tab-content ul.event-infos {padding-bottom: 20px; min-height: 130px;}
+    .calendrier-marathon .left-side .tab-content ul.event-infos li.event-date-mail {margin-bottom: 20px;}
+    .calendrier-marathon .dd_calendrier .col-sm-11{padding-left: 0px;padding-right: 0px; text-align: justify;font-size: 13px;}
+    .calendrier-marathon .left-side .tab-content dd a.btn-black, .calendrier-marathon .left-side .tab-content dd a.btn-red {width: 100%;}
+    .calendrier-marathon aside dt {font-size: 14px;}
+    .calendrier-marathon .ref-event p{font-size: 13px;}
+
+    /*************athlètes page************************/
+    .athlètes #search_athlètes{width: 100%!important;}
+    .athlètes .well {margin-top: 5px; padding: 10px;}  
+    .athlètes ul.col-sm-6.list {padding-left: 0px;padding-right: 0px;}
+    .athlètes ul.col-sm-6.list>li>a {font-size: 13px;}
+    
+    .champion-detail .tab-content li{font-size: 13px;}
+    .champion-detail .tab-content .table-responsive{font-size: 13px;}
+    .champion-detail h2.bordered {margin-top: 10px!important; font-size: 15px; clear: both;}
+    #com_but {margin-right: 0px;width: 100%;}
+    .champion-detail #classement_resultats{border: 0; margin-top: 10px;}
+    .champion-detail .tab-pane ul.photos-tab > li {margin-top: 5px;margin-bottom: 5px;}
+    
+    /*************Video page************************/
+    .athlètes #search_val{width: 100%!important;margin-bottom: 0px!important;margin-top: 5px;}
+    .athlètes .videos-marathon .col-sm-8, .athlètes .videos-marathon .col-sm-4{width: 49%; display: inline-block;}
+    .athlètes .videos-marathon .col-sm-8 ul{top: 0px;position: relative; margin-left: 0!important;}
+    .athlètes .videos-marathon .col-sm-8 ul>li>a{font-size: 13px!important; }
+
+    .video-details .left-side iframe{width: 100%!important;}
+    .video-details .left-side h2 {font-size: 20px;}
+    .video-details .left-side .video_title {width: 100%;font-size: 15px;}
+
+    
+
+    /*************Actualite-marathon page************************/
+    h2.news-detail {font-size: 17px;}
+    h2#commentaires {font-size: 20px;margin-top: -150px;}
+    p.title-act-marathon{font-size: 14px!important;}
+
+   
+    /*************Modal connexion************************/
+    .auth {left: 0!important;top: 0px!important;width: 100%!important;}
+    .auth label {font-size: 13px!important;}
+    .auth input {height: 2em!important;font-size: 14px!important;}
+    .auth .link {font-size: 13px!important;}
+    .auth .btn_auth{width: 100%!important;margin-top: 10px;}
+    
+
+
+
+
+
+
+
+
+
+    /****************Footer***********************/
+    footer .main .col-sm-2  {padding-left: 0; padding-right: 0;}
+    footer .main .col-sm-4  {padding-left: 0; padding-right: 0;}
+    footer .main .col-sm-6  {padding-left: 0; padding-right: 0; width: 49%!important;display: inline-block; margin-top: -20px;}
+    footer .main .col-sm-6 a  {width: 100%;}
+    footer .main .col-sm-6 a>img  {width: 100%;}
+    
+    footer .dropdown .btn{width: 100%;background: #fcb614;color: #fff;border-color: #fff;margin-bottom: 20px;}
+    footer .btn .caret {color: #fff;}
+
+
+    footer .open>.dropdown-toggle.btn-default.focus, .open>.dropdown-toggle.btn-default:focus, .open>.dropdown-toggle.btn-default:hover{background: #fcb614;color: #fff;border-color: #fff;}
+    footer .dropdown-menu{width: 100%;background-color: #171b22;position: relative;}
+    footer .dropdown-menu .dropdown-header {font-size: 15px;color: #434a5a;font-weight: bold;}
+    footer .copyright {text-align: center;}
+ 
+    
+
+
+
+
+} 
+
+
+/****************Tablets******************************************/
+@media all and (min-width: 768px) and (max-width: 1025px) {
+
+
+    .container { width:100% !important; padding: 0;} 
+    .container { max-width:100% !important} 
+    .row { margin-right:0px !important; margin-left:0px !important; padding: 0 !important;} 
+    
+    
+    
+    
+
+
+}
+
+
+@media all and (min-width: 768px) and (max-width: 801px) {
+   
+   
+
+
+}
+
+/****************Autres Mobiles******************************************/
+@media (max-width: 320px) {
+
+   header .header--nav ul>li.header--pull.pull-right {right: 13%;width: 50%;}
+   .jcarousel ul li {width: 229px;}
+   dd.facebook, dt.facebook{display: none;}
+   table.dataTable thead th {padding: 2px !important;}
+
+
+
+}
+
+@media all and (min-width: 375px) and (max-width: 400px) {
+  
+  .jcarousel ul li {width: 142px;}
+
+}
+
+@media all and (min-width: 401px) and (max-width: 412px) {
+  
+  .jcarousel ul li {width: 160px;}
+
+}
+
+@media all and (min-width: 413px) and (max-width: 440px) {
+  
+  .jcarousel ul li {width: 161.5px;}
+
+}
+
