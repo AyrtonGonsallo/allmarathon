@@ -124,7 +124,7 @@ catch(Exception $e)
                 <?php //while($result = mysql_fetch_array($resultResult)){ 
                     foreach ($resultResult as $result) {?>
                     <tr>
-                        <td><a href="../athlète-<?php echo $result['ChampionID'] ?>.html"><?php echo $result['Nom'] ?></a></td>
+                        <td><a href="../athlete-<?php echo $result['ChampionID'] ?>.html"><?php echo $result['Nom'] ?></a></td>
                         <td><?php echo $result['Rang'] ?></td>
                         <td><?php echo $result['CompetitionFr'] ?></td>
                         <td><?php echo $result['Temps'] ?></td>

@@ -24,7 +24,7 @@ if(!empty($_SESSION['user'])) {
 $id=$_GET['championID'];
 
 if (!isset($_SESSION['user_id'])) {
-    header('Location: /athlète-'.$id.'.html');
+    header('Location: /athlete-'.$id.'.html');
 }
 
 include("../classes/pub.php");
@@ -93,7 +93,7 @@ $resultats_champ=$champion->getChampionResults($id)['donnees'];
 $champion_name=slugify($champ->getNom());
 
 if(!$isAdmin){
-    header('Location: /athlète-'.$id.'-'.$champion_name.'.html');
+    header('Location: /athlete-'.$id.'-'.$champion_name.'.html');
 }
 
 $page=0;
@@ -257,7 +257,7 @@ function autoComp(index){
     </style>
     <?php include_once('nv_header-integrer.php'); ?>
 
-    <div class="container page-content athlète-detail champion-admin">
+    <div class="container page-content athlete-detail champion-admin">
         <div class="row banniere1">
             <a href="" class="col-sm-12"><?php
 if($pub728x90 !="") {
@@ -273,7 +273,7 @@ echo $pub728x90["code"] ? $pub728x90["code"] :  "<img src=".'../images/pubs/'.$p
                     <div class="col-sm-12">
                         <h1 style="border-bottom: 2px solid #cccccc;padding-bottom: 10px;">
                             <?php echo $champ->getNom()." ".$erreur ?> <span style="float: right;margin-top: -12px;">
-                                <?php echo (!$isAdmin) ? '<a class="btn info-bulle" href="/formulaire-administration-athlète.php?championID='.$id.'"><img src="/images/pictos/admin.png" title="Devenir administrateur"  /></a>': '<a href="/athlète-'.$id.'-'.$champion_name.'.html" id="fiche_admin" type="button"><i class="fa fa-eye"></i><span>Voir la fiche</span></a> <a class="btn info-bulle" href="mailto:lmathieu@alljudo.net?subject='.$user_auth->getUsername().' ne souhaite plus administrer la fiche de '.$champ->getNom().'"><img src="/images/pictos/admin_1.png" title="Ne plus administrer cette fiche."  /></a>'; ?>
+                                <?php echo (!$isAdmin) ? '<a class="btn info-bulle" href="/formulaire-administration-athlète.php?championID='.$id.'"><img src="/images/pictos/admin.png" title="Devenir administrateur"  /></a>': '<a href="/athlete-'.$id.'-'.$champion_name.'.html" id="fiche_admin" type="button"><i class="fa fa-eye"></i><span>Voir la fiche</span></a> <a class="btn info-bulle" href="mailto:lmathieu@alljudo.net?subject='.$user_auth->getUsername().' ne souhaite plus administrer la fiche de '.$champ->getNom().'"><img src="/images/pictos/admin_1.png" title="Ne plus administrer cette fiche."  /></a>'; ?>
                                 <?php echo '<a class="btn info-bulle" href="#"><img src="'.$img_abonnement_src.'" id="abonnement_id"title="'.$img_abonnement_alt.'"   /></a>'; ?>
                                 <?php echo '<a class="btn info-bulle" href="#"><img src="'.$img_fan_src.'" id="fan_id" title="'.$img_fan_alt.'"  /></a>'; ?>
                         </h1>

@@ -34,7 +34,7 @@ function display_sitemap_coureur($result1){
     // Boucle qui liste les URL
     foreach ($result1 as $res) {
         try{
-            $loc        = 'https://www.allmarathon.fr/athlète-'.$res['ID'].'-'.slugify($res['Nom']).'.html';
+            $loc        = 'https://www.allmarathon.fr/athlete-'.$res['ID'].'-'.slugify($res['Nom']).'.html';
         echo '
         <url>
             <loc>'.$loc.'</loc>

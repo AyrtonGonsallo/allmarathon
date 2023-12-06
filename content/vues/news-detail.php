@@ -157,7 +157,7 @@ $tab = explode('-',$news_details->getDate());
     <?php include_once('nv_header-integrer.php'); ?>
 
 
-    <div class="container page-content athlète-detail">
+    <div class="container page-content athlete-detail">
         <div class="row banniere1">
             <div  class="col-sm-12"><?php
                 if($pub728x90 !="") {
@@ -230,7 +230,25 @@ $tab = explode('-',$news_details->getDate());
                         echo $lien_1.$lien_2.$lien_3; ?>
                         <br />
 
-                        
+                        <div id="disqus_thread"></div>
+                        <script>
+                            /**
+                            *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+                            *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+                            /*
+                            var disqus_config = function () {
+                            this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+                            this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                            };
+                            */
+                            (function() { // DON'T EDIT BELOW THIS LINE
+                            var d = document, s = d.createElement('script');
+                            s.src = 'https://allmarathon.disqus.com/embed.js';
+                            s.setAttribute('data-timestamp', +new Date());
+                            (d.head || d.body).appendChild(s);
+                            })();
+                        </script>
+                        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 
 
                     </div>
@@ -395,6 +413,14 @@ if($pub160x600 !="") {
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
     </script>
+   
+       <script type="text/javascript">
+         $(document).ready(function() {
+            $("#reactions__container").hide()
+            $("#reactions__container").css('opacity', '0.2');
+            console.log("hidden",$("#reactions__container"))
+         })
+        </script>
 
 </body>
 

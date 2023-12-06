@@ -136,7 +136,7 @@ return $text;
 
     <?php include_once('nv_header-integrer.php'); ?>
 
-    <div class="container page-content athlète-detail">
+    <div class="container page-content athlete-detail">
         <div class="row banniere1">
             <div  class="col-sm-12"><?php
                 if($pub728x90 !="") {
@@ -210,7 +210,7 @@ return $text;
                                                 // $clubs_champ=$ch->getChampionById($res['ChampionID'])['donnees']->getClubs();
                                                 $c_name=slugify($champion_name);
                                                 $club_pays= ($res['Club']!="") ? $res['Club'] : $champion_pays;
-                                                echo '<li>'.$rang.'. <a href="athlète-'.$res['ChampionID'].'-'.$c_name.'.html">'.$champion_name.' ('.$club_pays.')</a></li>';
+                                                echo '<li>'.$rang.'. <a href="athlete-'.$res['ChampionID'].'-'.$c_name.'.html">'.$champion_name.' ('.$club_pays.')</a></li>';
                                             }
                                             echo '</ul> </dd>';
                                         }
@@ -223,7 +223,7 @@ return $text;
                                                 // $clubs_champ=$ch->getChampionById($res['ChampionID'])['donnees']->getClubs();
                                                 $c_name=slugify($champion_name);
                                                 $club_pays= ($res['Club']!="") ? $res['Club'] : $champion_pays;
-                                                $strOF.= '<li>'.$rang.'. <a href="athlète-'.$res['ChampionID'].'-'.$c_name.'.html">'.$champion_name.' ('.$club_pays.')</a></li>';
+                                                $strOF.= '<li>'.$rang.'. <a href="athlete-'.$res['ChampionID'].'-'.$c_name.'.html">'.$champion_name.' ('.$club_pays.')</a></li>';
                                             }
                                             $strOF.='</ul> </dd>';
                                         }
@@ -236,7 +236,7 @@ return $text;
                                                 // $clubs_champ=$ch->getChampionById($res['ChampionID'])['donnees']->getClubs();
                                                 $c_name=slugify($champion_name);
                                                 $club_pays= ($res['Club']!="") ? $res['Club'] : $champion_pays;
-                                                $strF100.= '<li>'.$rang.'. <a href="athlète-'.$res['ChampionID'].'-'.$c_name.'.html">'.$champion_name.' ('.$club_pays.')</a></li>';
+                                                $strF100.= '<li>'.$rang.'. <a href="athlete-'.$res['ChampionID'].'-'.$c_name.'.html">'.$champion_name.' ('.$club_pays.')</a></li>';
                                             }
                                             $strF100.='</ul> </dd>';
                                         }
@@ -249,7 +249,7 @@ return $text;
                                                 // $clubs_champ=$ch->getChampionById($res['ChampionID'])['donnees']->getClubs();
                                                 $c_name=slugify($champion_name);
                                                 $club_pays= ($res['Club']!="") ? $res['Club'] : $champion_pays;
-                                                $strOpenF.= '<li>'.$rang.'. <a href="athlète-'.$res['ChampionID'].'-'.$c_name.'.html">'.$champion_name.' ('.$club_pays.')</a></li>';
+                                                $strOpenF.= '<li>'.$rang.'. <a href="athlete-'.$res['ChampionID'].'-'.$c_name.'.html">'.$champion_name.' ('.$club_pays.')</a></li>';
                                             }
                                             $strOpenF.='</ul> </dd>';
                                         }
@@ -284,7 +284,7 @@ return $text;
                                                 // $clubs_champ=$ch->getChampionById($res['ChampionID'])['donnees']->getClubs();
                                                 $c_name=slugify($champion_name);
                                                 $club_pays= ($res['Club']!="") ? $res['Club'] : $champion_pays;
-                                                echo '<li>'.$rang.'. <a href="athlète-'.$res['ChampionID'].'-'.$c_name.'.html">'.$champion_name.' ('.$club_pays.')</a></li>';
+                                                echo '<li>'.$rang.'. <a href="athlete-'.$res['ChampionID'].'-'.$c_name.'.html">'.$champion_name.' ('.$club_pays.')</a></li>';
                                             }
                                             echo '</ul> </dd>';
                                         }
@@ -297,7 +297,7 @@ return $text;
                                                 // $clubs_champ=$ch->getChampionById($res['ChampionID'])['donnees']->getClubs();
                                                 $c_name=slugify($champion_name);
                                                 $club_pays= ($res['Club']!="") ? $res['Club'] : $champion_pays;
-                                                $strOM.= '<li>'.$rang.'. <a href="athlète-'.$res['ChampionID'].'-'.$c_name.'.html">'.$champion_name.' ('.$club_pays.')</a></li>';
+                                                $strOM.= '<li>'.$rang.'. <a href="athlete-'.$res['ChampionID'].'-'.$c_name.'.html">'.$champion_name.' ('.$club_pays.')</a></li>';
                                             }
                                             $strOM.='</ul> </dd>';
                                         }
@@ -310,7 +310,7 @@ return $text;
                                                 // $clubs_champ=$ch->getChampionById($res['ChampionID'])['donnees']->getClubs();
                                                 $c_name=slugify($champion_name);
                                                 $club_pays= ($res['Club']!="") ? $res['Club'] : $champion_pays;
-                                                $str100.= '<li>'.$rang.'. <a href="athlète-'.$res['ChampionID'].'-'.$c_name.'.html">'.$champion_name.' ('.$club_pays.')</a></li>';
+                                                $str100.= '<li>'.$rang.'. <a href="athlete-'.$res['ChampionID'].'-'.$c_name.'.html">'.$champion_name.' ('.$club_pays.')</a></li>';
                                             }
                                             $str100.='</ul> </dd>';
                                         }
@@ -323,7 +323,7 @@ return $text;
                                                 // $clubs_champ=$ch->getChampionById($res['ChampionID'])['donnees']->getClubs();
                                                 $c_name=slugify($champion_name);
                                                 $club_pays= ($res['Club']!="") ? $res['Club'] : $champion_pays;
-                                                $strOpenM.= '<li>'.$rang.'. <a href="athlète-'.$res['ChampionID'].'-'.$c_name.'.html">'.$champion_name.' ('.$club_pays.')</a></li>';
+                                                $strOpenM.= '<li>'.$rang.'. <a href="athlete-'.$res['ChampionID'].'-'.$c_name.'.html">'.$champion_name.' ('.$club_pays.')</a></li>';
                                             }
                                             $strOpenM.='</ul> </dd>';
                                         }
@@ -350,7 +350,7 @@ return $text;
                                  if(sizeof($value->getEquipe())!=0){
                                     foreach ($ch->getChampionParEquipe($value->getId())['donnees'] as $key_equipeF => $chmp_equipe) {
                                         $ch_name=slugify($chmp_equipe['Nom']);
-                                        $a_afficherF='<a href="athlète-'.$chmp_equipe['ID'].'-'.$ch_name.'.html" style="color: #333;">'.$chmp_equipe['Nom'].'</a>';
+                                        $a_afficherF='<a href="athlete-'.$chmp_equipe['ID'].'-'.$ch_name.'.html" style="color: #333;">'.$chmp_equipe['Nom'].'</a>';
                                         echo (sizeof($ch->getChampionParEquipe($value->getId())['donnees'])!=($key_equipeF+1))? $a_afficherF.' - ' : $a_afficherF ;
                                     }
                                     
@@ -367,7 +367,7 @@ return $text;
                                  if(sizeof($value->getEquipe())!=0){
                                     foreach ($ch->getChampionParEquipe($value->getId())['donnees'] as $key_equipe => $chmp_equipe) {
                                         $ch_name=slugify($chmp_equipe['Nom']);
-                                        $a_afficher='<a href="athlète-'.$chmp_equipe['ID'].'-'.$ch_name.'.html" style="color: #333;">'.$chmp_equipe['Nom'].'</a>';
+                                        $a_afficher='<a href="athlete-'.$chmp_equipe['ID'].'-'.$ch_name.'.html" style="color: #333;">'.$chmp_equipe['Nom'].'</a>';
                                         echo (sizeof($ch->getChampionParEquipe($value->getId())['donnees'])!=($key_equipe+1))? $a_afficher.' - ' : $a_afficher ;
                                         
                                     }

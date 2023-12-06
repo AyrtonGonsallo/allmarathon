@@ -28,12 +28,12 @@ $champ_abonnement=new abonnement();
     if($test){
         
        $_SESSION['abonnement_error']  = "Vous êtes déjà abonné ! ";
-       header("Location: /athlète-".$champ_id.".html");
+       header("Location: /athlete-".$champ_id.".html");
 
     }else{
 
         $champ_abonnement->abonnement_champ($user_id,$champ_id);
         $_SESSION['abonnement_success']=1;
-        header("Location: /athlète-".$champ_id.".html");
+        header("Location: /athlete-".$champ_id.".html");
            }   
 ?>

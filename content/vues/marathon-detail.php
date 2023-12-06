@@ -138,10 +138,12 @@ $best_res_womens_byyear = $evresultat->getBestMarathonResultsByYear($id,'F',18)[
 $next_event = $event->getNextMarathonEvents($id)['donnees'];
 function slugify($text)
 {
-$text = preg_replace('/[^\pL\d]+/u', '-', $text); 
-$text = trim($text, '-');
-$text = strtolower($text);
-return $text;
+    $text = str_replace('é', 'e', $text); 
+    $text = str_replace('û', 'u', $text); 
+    $text = preg_replace('/[^\pL\d]+/u', '-', $text); 
+    $text = trim($text, '-');
+    $text = strtolower($text);
+    return $text;
 }
 
 
@@ -179,182 +181,7 @@ if($pays_datas){
     <link rel="stylesheet" href="../../css/jquery.fancybox-thumbs.css?v=1.0.7" type="text/css" media="screen" />
     <link rel="stylesheet" href="../../css/responsive.css">
     <?php if($best_res_mens_byyear || $best_res_womens_byyear){ ?>
-    <script>
-window.onload = function() {
-    console.log("chargement graphiques hommes")
-            $.ajax({
-               type: "POST",
-               url: "content/classes/marathon.php",
-               dataType:"JSON",
-               data: {
-                   function: "getTopChronosbyYears",
-                   sexe:'M',
-                   marathon_id:<?php echo $id;?>,
-                   limit:18,
-               },
-               success: function(html) {
-                   
-                   //console.log("success",html)
-                   var données=html;
-                   var dataPoints = [];
-    
-                    var chart = new CanvasJS.Chart("chartContainer-m", {
-                        animationEnabled: true,
-                        theme: "light2",
-                        zoomEnabled: true,
-                        title: {
-                            text: "Évolution meilleur chrono Hommes"
-                        },
-                        axisY: {
-                            title: "temps",
-                            titleFontSize: 24,
-                            labelFormatter: function (e) {
-                                return CanvasJS.formatDate( e.value, "HH:mm:ss");
-                            },
-                        },
-                        toolTip: {
-                            fontStyle: "oblique",
-                            contentFormatter: function ( e ) {
-                                var timeStamp= e.entries[0].dataPoint.y;
-                                var dateFormat= new Date(timeStamp);
-                                var ft=dateFormat.getHours()+":"+dateFormat.getMinutes()+":"+dateFormat.getSeconds();
-                                return "Année: " +  e.entries[0].dataPoint.x.getFullYear()+" - Temps: " +ft ;  
-                            }  
-                        },
-                        data: [{
-                            type: "line",
-                            
-                           // yValueFormatString: "HH:mm:ss",
-                            dataPoints: dataPoints,
-                            //yValueType: "dateTime",
-                        }]
-                    });
-                
 
-                    for (var i = 0; i < données.length; i++) {
-                        temps=données[i]["Temps"];
-                        h= Number(temps.substr(0, 2))
-                        m= Number(temps.substr(3, 2))
-                        s= Number(temps.substr(6, 2))
-                        sec=(3600*h)+(60*m)+s;
-                        //console.log(h,m,s,sec)
-                        dataPoints.push({
-                            x: new Date(données[i]["annee"]),
-                            y: new Date(2016, 1, 15,h,m,s).getTime()
-                        });
-                    }
-                    chart.render();
-
-               },
-               error: function (jqXHR, exception) {
-                    var msg = '';
-                    if (jqXHR.status === 0) {
-                        msg = 'Not connect.\n Verify Network.';
-                    } else if (jqXHR.status == 404) {
-                        msg = 'Requested page not found. [404]';
-                    } else if (jqXHR.status == 500) {
-                        msg = 'Internal Server Error [500].';
-                    } else if (exception === 'parsererror') {
-                        msg = 'Requested JSON parse failed.';
-                    } else if (exception === 'timeout') {
-                        msg = 'Time out error.';
-                    } else if (exception === 'abort') {
-                        msg = 'Ajax request aborted.';
-                    } else {
-                        msg = 'Uncaught Error.\n' + jqXHR.responseText;
-                    }
-                    console.log("error",msg)
-                },
-           }); 
-
-           //---------
-
-
-           console.log("chargement graphiques femmes")
-            $.ajax({
-               type: "POST",
-               url: "content/classes/marathon.php",
-               dataType:"JSON",
-               data: {
-                   function: "getTopChronosbyYears",
-                   sexe:'F',
-                   marathon_id:<?php echo $id;?>,
-                   limit:18,
-               },
-               success: function(html) {
-                   
-                   console.log("success",html)
-                   var données=html;
-                   var dataPoints = [];
-    
-                    var chart = new CanvasJS.Chart("chartContainer-f", {
-                        animationEnabled: true,
-                        theme: "light2",
-                        zoomEnabled: true,
-                        title: {
-                            text: "Évolution meilleur chrono Femmes"
-                        },
-                        axisY: {
-                            title: "temps",
-                            titleFontSize: 24,
-                            labelFormatter: function (e) {
-                                return CanvasJS.formatDate( e.value, "HH:mm:ss");
-                            },
-                        },
-                        toolTip: {
-                            fontStyle: "oblique",
-                            contentFormatter: function ( e ) {
-                                var timeStamp= e.entries[0].dataPoint.y;
-                                var dateFormat= new Date(timeStamp);
-                                var ft=dateFormat.getHours()+":"+dateFormat.getMinutes()+":"+dateFormat.getSeconds();
-                                return "Année: " +  e.entries[0].dataPoint.x.getFullYear()+" - Temps: " +ft ;  
-                            }  
-                        },
-                        data: [{
-                            type: "line",
-                            yValueFormatString: "0.00",
-                            dataPoints: dataPoints
-                        }]
-                    });
-                
-
-                    for (var i = 0; i < données.length; i++) {
-                        temps=données[i]["Temps"];
-                        h= Number(temps.substr(0, 2))
-                        m= Number(temps.substr(3, 2))
-                        s= Number(temps.substr(6, 2))
-                        sec=(3600*h)+(60*m)+s;
-                        //console.log(h,m,s,sec)
-                        dataPoints.push({
-                            x: new Date(données[i]["annee"]),
-                            y: new Date(2016, 1, 15,h,m,s).getTime()
-                        });
-                    }
-                    chart.render();
-
-               },
-               error: function (jqXHR, exception) {
-                    var msg = '';
-                    if (jqXHR.status === 0) {
-                        msg = 'Not connect.\n Verify Network.';
-                    } else if (jqXHR.status == 404) {
-                        msg = 'Requested page not found. [404]';
-                    } else if (jqXHR.status == 500) {
-                        msg = 'Internal Server Error [500].';
-                    } else if (exception === 'parsererror') {
-                        msg = 'Requested JSON parse failed.';
-                    } else if (exception === 'timeout') {
-                        msg = 'Time out error.';
-                    } else if (exception === 'abort') {
-                        msg = 'Ajax request aborted.';
-                    } else {
-                        msg = 'Uncaught Error.\n' + jqXHR.responseText;
-                    }
-                    console.log("error",msg)
-                },
-           }); 
-}
-</script>
 <?php } ?>
 </head>
 
@@ -364,7 +191,7 @@ window.onload = function() {
 
     <?php include_once('nv_header-integrer.php'); ?>
 
-    <div class="container page-content athlète-detail marathon-detail">
+    <div class="container page-content athlete-detail marathon-detail">
         <div class="row banniere1">
             <div  class="col-sm-12">
                 <?php
@@ -452,7 +279,7 @@ window.onload = function() {
                                                 ($event_video)? $video_src='<li><img src="../../images/pictos/tv.png" alt=""/></li>':$video_src="";
                                                 $pays_flag=$pays->getFlagByAbreviation($resultat->getPaysId())['donnees']['Flag'];
                                                 $cat_age=$ev_cat_age->getEventCatAgeByID($resultat->getCategorieageID())['donnees']->getIntitule();
-                                                $nom_res=$cat_event.' '.$cat_age.' ('.$resultat->getSexe().') - '.$resultat->getNom().' - '.substr($resultat->getDateDebut(),0,4);
+                                                $nom_res=$cat_event.' - '.$resultat->getNom().' - '.utf8_encode(strftime("%A %d %B %Y",strtotime($resultat->getDateDebut())));
                                                 echo '<div class="col-sm-1 marathon-detail-res-link"><a href="/resultats-marathon-'.$resultat->getID().'-'.slugify($nom_res).'.html">'.substr($resultat->getDateDebut(),0,4).'</a></div>';
                                             }
                                         ?>
@@ -483,7 +310,7 @@ window.onload = function() {
                                                     $pays_name=$value['PaysID'];
                                                     $comp_pays_flag=$pays->getFlagByAbreviation($value['PaysID'])['donnees']['Flag'];
                                                     //$comp_pays_flag=$pays->getFlagByAbreviation($value['payscomp'])['donnees']['Flag'];
-                                                    echo '<li> <span class="me-20">'.substr($value['DateDebut'], 0, 4).'</span><span><a  href="athlète-'.$value['ChampionID'].'-'.slugify($value['Nom']).'.html">'.$value['Nom'].' ('.$pays_name.')</a> <br/>'.$value['Temps'].'</span><span class="bold-link classement-date"><img class="marathon-title-flag" style="float:right" src="../../images/flags/'.$comp_pays_flag.'" alt=""/></span></li>';
+                                                    echo '<li> <span class="me-20">'.substr($value['DateDebut'], 0, 4).'</span><span><a  href="athlete-'.$value['ChampionID'].'-'.slugify($value['Nom']).'.html">'.$value['Nom'].' ('.$pays_name.')</a> <br/>'.$value['Temps'].'</span><span class="bold-link classement-date"><img class="marathon-title-flag" style="float:right" src="../../images/flags/'.$comp_pays_flag.'" alt=""/></span></li>';
                                                     $i++;
                                                 }
                                                 ?>
@@ -498,7 +325,7 @@ window.onload = function() {
                                                     $pays_name=$value['PaysID'];
                                                     $comp_pays_flag=$pays->getFlagByAbreviation($value['PaysID'])['donnees']['Flag'];
                                                     //$comp_pays_flag=$pays->getFlagByAbreviation($value['payscomp'])['donnees']['Flag'];
-                                                    echo '<li> <span class="me-20">'.substr($value['DateDebut'], 0, 4).'</span><span><a  href="athlète-'.$value['ChampionID'].'-'.slugify($value['Nom']).'.html">'.$value['Nom'].' ('.$pays_name.')</a> <br/>'.$value['Temps'].'</span><span class="bold-link classement-date"><img class="marathon-title-flag" style="float:right" src="../../images/flags/'.$comp_pays_flag.'" alt=""/></span></li>';
+                                                    echo '<li> <span class="me-20">'.substr($value['DateDebut'], 0, 4).'</span><span><a  href="athlete-'.$value['ChampionID'].'-'.slugify($value['Nom']).'.html">'.$value['Nom'].' ('.$pays_name.')</a> <br/>'.$value['Temps'].'</span><span class="bold-link classement-date"><img class="marathon-title-flag" style="float:right" src="../../images/flags/'.$comp_pays_flag.'" alt=""/></span></li>';
                                                     $i++;
                                                 }
                                                 ?>
@@ -531,7 +358,7 @@ window.onload = function() {
                                                     $pays_name=$value['PaysID'];
                                                     $comp_pays_flag=$pays->getFlagByAbreviation($value['PaysID'])['donnees']['Flag'];
                                                     //$comp_pays_flag=$pays->getFlagByAbreviation($value['payscomp'])['donnees']['Flag'];
-                                                    echo '<li> <span class="me-20">'.substr($value['DateDebut'], 0, 4).'</span><span><a  href="athlète-'.$value['ChampionID'].'-'.slugify($value['Nom']).'.html">'.$value['Nom'].' ('.$pays_name.')</a> <br/>'.$value['Temps'].'</span><span class="bold-link classement-date"><img class="marathon-title-flag" style="float:right" src="../../images/flags/'.$comp_pays_flag.'" alt=""/></span></li>';
+                                                    echo '<li> <span class="me-20">'.substr($value['DateDebut'], 0, 4).'</span><span><a  href="athlete-'.$value['ChampionID'].'-'.slugify($value['Nom']).'.html">'.$value['Nom'].' ('.$pays_name.')</a> <br/>'.$value['Temps'].'</span><span class="bold-link classement-date"><img class="marathon-title-flag" style="float:right" src="../../images/flags/'.$comp_pays_flag.'" alt=""/></span></li>';
                                                 $i++;
                                                 }
                                                 ?>
@@ -546,7 +373,7 @@ window.onload = function() {
                                                     $pays_name=$value['PaysID'];
                                                     $comp_pays_flag=$pays->getFlagByAbreviation($value['PaysID'])['donnees']['Flag'];
                                                     //$comp_pays_flag=$pays->getFlagByAbreviation($value['payscomp'])['donnees']['Flag'];
-                                                    echo '<li> <span class="me-20">'.substr($value['DateDebut'], 0, 4).'</span><span><a  href="athlète-'.$value['ChampionID'].'-'.slugify($value['Nom']).'.html">'.$value['Nom'].' ('.$pays_name.')</a> <br/>'.$value['Temps'].'</span><span class="bold-link classement-date"><img class="marathon-title-flag" style="float:right" src="../../images/flags/'.$comp_pays_flag.'" alt=""/></span></li>';                                                $i++;
+                                                    echo '<li> <span class="me-20">'.substr($value['DateDebut'], 0, 4).'</span><span><a  href="athlete-'.$value['ChampionID'].'-'.slugify($value['Nom']).'.html">'.$value['Nom'].' ('.$pays_name.')</a> <br/>'.$value['Temps'].'</span><span class="bold-link classement-date"><img class="marathon-title-flag" style="float:right" src="../../images/flags/'.$comp_pays_flag.'" alt=""/></span></li>';                                                $i++;
                                                 }
                                                 ?>
                                             </ul>
@@ -559,19 +386,204 @@ window.onload = function() {
                             <div class="mb-40"></div>
                             <div>
                                 <ul class="col-sm-12 resultats top-chronos-ul palmares-marathon">
-                                        <div class="col-sm-12 top-chronos top-chronos-left-div">
+                                    <div class="col-sm-12 top-chronos top-chronos-left-div">
+                                            <script src="https://code.highcharts.com/highcharts.js"></script>
+                                            <div id="container-hommes"></div>
+                                            <script>
+                                                var dataPoints = [];
+                                                $.ajax({
+                                                    type: "POST",
+                                                    url: "content/classes/marathon.php",
+                                                    dataType:"JSON",
+                                                    data: {
+                                                        function: "getTopChronosbyYears",
+                                                        sexe:'M',
+                                                        marathon_id:<?php echo $id;?>,
+                                                        limit:18,
+                                                    },
+                                                    success: function(html) {
+                                                        
+                                                        console.log("success",html)
+                                                        var données=html;
+                                                        
                                             
-                                            
-                                            <div id="chartContainer-m" style="height: 440px; width: 100%;"></div>
-                                            <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
-                                            <script src="https://cdn.canvasjs.com/jquery.canvasjs.min.js"></script>
+                                                            for (var i = 0; i < données.length; i++) {
+                                                                temps=données[i]["Temps"];
+                                                                h= Number(temps.substr(0, 2))
+                                                                m= Number(temps.substr(3, 2))
+                                                                s= Number(temps.substr(6, 2))
+                                                                sec=(3600*h)+(60*m)+s;
+                                                                //console.log(h,m,s,sec)
+                                                                res=[Number(données[i]["annee"]), Date.UTC(2011, 10, 1,h,m,s)]
+                                                                dataPoints.push(res);
+                                                            }
+                                                            console.log(  dataPoints )
+                                                
+                                                            Highcharts.chart('container-hommes', {
+                                                                    title: {
+                                                                    text: 'Évolution du meilleur chrono',
+                                                                    align: 'left'
+                                                                },
+
+                                                                subtitle: {
+                                                                    text: 'Hommes',
+                                                                    align: 'left'
+                                                                },
+                                                                xAxis: {
+                                                                    gridLineWidth: 1,
+                                                                    
+                                                                },
+
+                                                                yAxis: {
+                                                                    title: {
+                                                                        text: null
+                                                                    },
+                                                                    type: 'datetime', //y-axis will be in milliseconds
+                                                                                dateTimeLabelFormats: { //force all formats to be hour:minute:second
+                                                                                    second: '%H:%M:%S',
+                                                                                    minute: '%H:%M:%S',
+                                                                                    hour: '%H:%M:%S',
+                                                                                    day: '%H:%M:%S',
+                                                                                    week: '%H:%M:%S',
+                                                                                    month: '%H:%M:%S',
+                                                                                    year: '%H:%M:%S'
+                                                                                },
+                                                                },
+                                                                tooltip: {
+                                                                    shared: true,
+                                                                    crosshairs: true,
+                                                                    formatter() {
+                                                                        return 'Année: '+this.key + '- Temps: <b>' + Highcharts.dateFormat('%H:%M:%S',new Date(this.y)) + '</b>'
+                                                                    }
+                                                                },
+                                                                series: [{
+                                                                name: 'Évolution du record des hommes',
+                                                                    data: dataPoints
+                                                                }]
+
+                                                            });
+
+                                                    },
+                                                    error: function (jqXHR, exception) {
+                                                            var msg = '';
+                                                            if (jqXHR.status === 0) {
+                                                                msg = 'Not connect.\n Verify Network.';
+                                                            } else if (jqXHR.status == 404) {
+                                                                msg = 'Requested page not found. [404]';
+                                                            } else if (jqXHR.status == 500) {
+                                                                msg = 'Internal Server Error [500].';
+                                                            } else if (exception === 'parsererror') {
+                                                                msg = 'Requested JSON parse failed.';
+                                                            } else if (exception === 'timeout') {
+                                                                msg = 'Time out error.';
+                                                            } else if (exception === 'abort') {
+                                                                msg = 'Ajax request aborted.';
+                                                            } else {
+                                                                msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                                                            }
+                                                            console.log("error",msg)
+                                                        },
+                                                }); 
+                                            </script>
                                         </div>
                                         <div class="col-sm-12 top-chronos">
-                                        
+                                            <div id="container-femmes"></div>
+                                            <script>
+                                                var dataPoints2 = [];
+                                                $.ajax({
+                                                    type: "POST",
+                                                    url: "content/classes/marathon.php",
+                                                    dataType:"JSON",
+                                                    data: {
+                                                        function: "getTopChronosbyYears",
+                                                        sexe:'F',
+                                                        marathon_id:<?php echo $id;?>,
+                                                        limit:18,
+                                                    },
+                                                    success: function(html) {
+                                                        
+                                                        console.log("success",html)
+                                                        var données=html;
+                                                        
                                             
-                                            <div id="chartContainer-f" style="height: 440px; width: 100%;"></div>
-                                            <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
-                                            <script src="https://cdn.canvasjs.com/jquery.canvasjs.min.js"></script>
+                                                            for (var i = 0; i < données.length; i++) {
+                                                                temps=données[i]["Temps"];
+                                                                h= Number(temps.substr(0, 2))
+                                                                m= Number(temps.substr(3, 2))
+                                                                s= Number(temps.substr(6, 2))
+                                                                sec=(3600*h)+(60*m)+s;
+                                                                //console.log(h,m,s,sec)
+                                                                res=[Number(données[i]["annee"]), Date.UTC(2011, 10, 1,h,m,s)]
+                                                                dataPoints2.push(res);
+                                                            }
+                                                            console.log(  dataPoints2 )
+                                                
+                                                            Highcharts.chart('container-femmes', {
+                                                                    title: {
+                                                                    text: 'Évolution du meilleur chrono',
+                                                                    align: 'left'
+                                                                },
+
+                                                                subtitle: {
+                                                                    text: 'Femmes',
+                                                                    align: 'left'
+                                                                },
+                                                                xAxis: {
+                                                                    gridLineWidth: 1,
+                                                                    
+                                                                },
+
+                                                                yAxis: {
+                                                                    title: {
+                                                                        text: null
+                                                                    },
+                                                                    type: 'datetime', //y-axis will be in milliseconds
+                                                                                dateTimeLabelFormats: { //force all formats to be hour:minute:second
+                                                                                    second: '%H:%M:%S',
+                                                                                    minute: '%H:%M:%S',
+                                                                                    hour: '%H:%M:%S',
+                                                                                    day: '%H:%M:%S',
+                                                                                    week: '%H:%M:%S',
+                                                                                    month: '%H:%M:%S',
+                                                                                    year: '%H:%M:%S'
+                                                                                },
+                                                                },
+                                                                tooltip: {
+                                                                    shared: true,
+                                                                    crosshairs: true,
+                                                                    formatter() {
+                                                                        return 'Année: '+this.key + '- Temps: <b>' + Highcharts.dateFormat('%H:%M:%S',new Date(this.y)) + '</b>'
+                                                                    }
+                                                                },
+                                                                series: [{
+                                                                name: 'Évolution du record des femmes',
+                                                                    data: dataPoints2
+                                                                }]
+
+                                                            });
+
+                                                    },
+                                                    error: function (jqXHR, exception) {
+                                                            var msg = '';
+                                                            if (jqXHR.status === 0) {
+                                                                msg = 'Not connect.\n Verify Network.';
+                                                            } else if (jqXHR.status == 404) {
+                                                                msg = 'Requested page not found. [404]';
+                                                            } else if (jqXHR.status == 500) {
+                                                                msg = 'Internal Server Error [500].';
+                                                            } else if (exception === 'parsererror') {
+                                                                msg = 'Requested JSON parse failed.';
+                                                            } else if (exception === 'timeout') {
+                                                                msg = 'Time out error.';
+                                                            } else if (exception === 'abort') {
+                                                                msg = 'Ajax request aborted.';
+                                                            } else {
+                                                                msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                                                            }
+                                                            console.log("error",msg)
+                                                        },
+                                                }); 
+                                            </script>
                                         </div>
                                         
                                 </ul>
@@ -579,6 +591,7 @@ window.onload = function() {
                         <?php } ?>
                         
                         <div class="mb-40"></div>
+                        
                     </div>
                 </div> <!-- End container page-content -->
             </div>

@@ -201,7 +201,7 @@ catch(Exception $e)
                         <?php 
                             foreach ($result1 as $l) {?>
                             <tr>
-                                <td><a href="../athlète-<?php echo $l['champion_id'] ?>.html"><?php echo $l['Nom'] ?></a></td>
+                                <td><a href="../athlete-<?php echo $l['champion_id'] ?>.html"><?php echo $l['Nom'] ?></a></td>
                                 <td><a href=""><?php echo $l['username'] ?></a></td>
                                 <td><?php echo $l['nom'] ?></td>
                                 <td><?php echo $l['prenom'] ?></td>
@@ -254,7 +254,7 @@ catch(Exception $e)
                     <?php
                         foreach ($result2 as $l) {?>
                         <tr>
-                            <td><a href="../athlète-<?php echo $l['champion_id'] ?>.html"><?php echo $l['Nom'] ?></a></td>
+                            <td><a href="../athlete-<?php echo $l['champion_id'] ?>.html"><?php echo $l['Nom'] ?></a></td>
                             <td><a href=""><?php echo $l['username'] ?></a></td>
                             <td><?php echo $l['date_mod'] ?></td>
                             <td><a href="mailto:<?php echo $l['email'] ?>"><?php echo $l['email'] ?></a></td>
@@ -309,7 +309,7 @@ catch(Exception $e)
                     <?php 
                     foreach ($result3 as $image) {?>
                     <tr>
-                        <td><a href="../athlète-<?php echo $image['Champion_id'] ?>.html" ><?php echo $image['nom_athlète'] ?></a></td>
+                        <td><a href="../athlete-<?php echo $image['Champion_id'] ?>.html" ><?php echo $image['nom_athlète'] ?></a></td>
                         <td><img src="../images/galeries/24/<?php echo $image['Nom'] ?>" alt="<?php echo $image['nom_athlète'] ?>" width="80px" /></td>
                     </tr>
                     <?php }?>

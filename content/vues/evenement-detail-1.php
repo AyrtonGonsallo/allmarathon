@@ -142,7 +142,7 @@ return $text;
 
     <?php include_once('nv_header-integrer.php'); ?>
 
-    <div class="container page-content athlète-detail">
+    <div class="container page-content athlete-detail">
         <div class="row banniere1">
             <div  class="col-sm-12"><?php
                 if($pub728x90 !="") {
@@ -210,7 +210,7 @@ return $text;
                                             echo '<dt>Masculin</dt>';
                                             echo '<dd> <ul>';
                                             foreach ($ev_res_sexe as $key => $value) {
-                                                echo '<li>'.$value['Rang'].'. <a href="athlète-'.$value['ChampionID'].'-'.slugify($value['Nom']).'.html">'.$value['Nom'].' ('.$value['PaysID'].') en '.$value['Temps'].'</a></li>';
+                                                echo '<li>'.$value['Rang'].'. <a href="athlete-'.$value['ChampionID'].'-'.slugify($value['Nom']).'.html">'.$value['Nom'].' ('.$value['PaysID'].') en '.$value['Temps'].'</a></li>';
                                                  }
                                             echo '</ul> </dd>';
                                         
@@ -238,7 +238,7 @@ return $text;
                                             echo '<dt>Feminin</dt>';
                                             echo '<dd> <ul>';
                                             foreach ($ev_res_sexe as $key => $value) {
-                                                echo '<li>'.$value['Rang'].'. <a href="athlète-'.$value['ChampionID'].'-'.slugify($value['Nom']).'.html">'.$value['Nom'].' ('.$value['PaysID'].') en '.$value['Temps'].'</a></li>';
+                                                echo '<li>'.$value['Rang'].'. <a href="athlete-'.$value['ChampionID'].'-'.slugify($value['Nom']).'.html">'.$value['Nom'].' ('.$value['PaysID'].') en '.$value['Temps'].'</a></li>';
                                                  }
                                             echo '</ul> </dd>';
                                         

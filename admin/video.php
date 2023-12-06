@@ -35,13 +35,13 @@ if (session_status() == PHP_SESSION_NONE) {
 			// if(isset($_POST['top_ippon'])){
 			// $top_ippon2=1;
             try {
-                             $req4 = $bdd->prepare("INSERT INTO videos (Titre ,Date ,Duree ,Objet,description ,Categorie ,Vignette ,A_la_une, Champion_id ,Technique_id ,Technique2_id ,Evenement_id, PoidID, Sexe, top_ippon ) VALUES (:Titre,:Date,:Duree,:Objet,:description,:Categorie,:Vignette,:A_la_une,:Champion_id,:Technique_id,:Technique2_id,:Evenement_id,:PoidID,:Sexe,:top_ippon)");
+                             $req4 = $bdd->prepare("INSERT INTO videos (Titre ,Date ,Duree ,Objet,description ,Categorie ,Vignette ,A_la_une, Champion_id ,Technique_id ,Technique2_id ,Evenement_id, PoidID, Sexe, top_ippon ) VALUES (:Titre,:Date,:Duree,:Objet,:descr,:Categorie,:Vignette,:A_la_une,:Champion_id,:Technique_id,:Technique2_id,:Evenement_id,:PoidID,:Sexe,:top_ippon)");
 
                              $req4->bindValue('Titre',$_POST['Titre'], PDO::PARAM_STR);
                              $req4->bindValue('Date',date("Y-m-d G:i:s"), PDO::PARAM_STR);
                              $req4->bindValue('Duree',$_POST['Duree'], PDO::PARAM_STR);
                              $req4->bindValue('Objet',$_POST['Objet'], PDO::PARAM_STR);
-                             $req4->bindValue('description ',$_POST['description '], PDO::PARAM_STR);
+                             $req4->bindValue('descr',$_POST['description'], PDO::PARAM_STR);
                              $req4->bindValue('Categorie',$_POST['Categorie'], PDO::PARAM_STR);
                              $req4->bindValue('Vignette',$_POST['Vignette'], PDO::PARAM_STR);
                              $req4->bindValue('A_la_une',$_POST['A_la_une'], PDO::PARAM_STR);

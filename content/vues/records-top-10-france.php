@@ -84,12 +84,40 @@ $annee_titre=substr($evById->getDateDebut(), 0, 4);
 
 function slugify($text)
 {
-$text = preg_replace('/[^\pL\d]+/u', '-', $text); 
-$text = trim($text, '-');
-$text = strtolower($text);
-return $text;
+    $text = str_replace('é', 'e', $text); 
+    $text = str_replace('û', 'u', $text); 
+    $text = preg_replace('/[^\pL\d]+/u', '-', $text); 
+    $text = trim($text, '-');
+    $text = strtolower($text);
+    return $text;
 }
 
+
+
+function array_msort($array, $cols)
+	{
+		$colarr = array();
+		foreach ($cols as $col => $order) {
+			$colarr[$col] = array();
+			foreach ($array as $k => $row) { $colarr[$col]['_'.$k] = strtolower($row[$col]); }
+		}
+		$eval = 'array_multisort(';
+		foreach ($cols as $col => $order) {
+			$eval .= '$colarr[\''.$col.'\'],'.$order.',';
+		}
+		$eval = substr($eval,0,-1).');';
+		eval($eval);
+		$ret = array();
+		foreach ($colarr as $col => $arr) {
+			foreach ($arr as $k => $v) {
+				$k = substr($k,1);
+				if (!isset($ret[$k])) $ret[$k] = $array[$k];
+				$ret[$k][$col] = $array[$k][$col];
+			}
+		}
+		return $ret;
+	
+	}
 
 
 // --- requettes hommes et femmes
@@ -97,11 +125,18 @@ try {
     include("../database/connexion.php");
    $req = $bdd->prepare("SELECT R.ID,C.Nom as champion,C.ID as champ_id,R.Temps,p.NomPays as pays,E.Nom as evenement,E.PaysID as lieu_evenement,E.ID as ev_id,ece.Intitule,E.DateDebut,R.ChampionID FROM evresultats R,evenements E,evcategorieevenement ece, pays p, champions C where C.Sexe='M' and R.EvenementID=E.ID and ece.ID=E.CategorieID and R.ChampionID=C.ID and (p.Abreviation=C.PaysID or p.Abreviation_2=C.PaysID or p.Abreviation_3=C.PaysID or p.Abreviation_4=C.PaysID) and p.ID=18 ORDER BY R.Temps ASC limit 10;");
    $req->execute();
-   $world_best_men= array();
+   $world_best_men1= array();
    while ( $row  = $req->fetch(PDO::FETCH_ASSOC)) {
     //var_dump($row2);exit();  
-    array_push($world_best_men, $row);
-}
+        array_push($world_best_men1, $row);
+    }
+    $req12 = $bdd->prepare("SELECT R.ID,C.Nom as champion,C.ID as champ_id,R.Temps,p.NomPays as pays,E.Nom as evenement,E.PaysID as lieu_evenement,E.ID as ev_id,ece.Intitule,E.DateDebut,R.ChampionID FROM evresultats R,evenements E,evcategorieevenement ece, pays p, champions C where C.Sexe='M' and R.EvenementID=E.ID and ece.ID=E.CategorieID and R.ChampionID=C.ID and C.NvPaysID like '%FRA%' and (p.Abreviation=C.NvPaysID or p.Abreviation_2=C.NvPaysID or p.Abreviation_3=C.NvPaysID or p.Abreviation_4=C.NvPaysID) and C.DateChangementNat < E.DateDebut and p.ID=18 ORDER BY R.Temps ASC limit 10;");
+    $req12->execute();
+    while ( $row12  = $req12->fetch(PDO::FETCH_ASSOC)) {
+        //var_dump($row2);exit();  
+        array_push($world_best_men1, $row12);
+    }
+    $world_best_men=array_slice(array_msort($world_best_men1, array('Temps'=>SORT_ASC)),0,10);
 }
 catch(Exception $e)
 {
@@ -111,11 +146,18 @@ try {
     include("../database/connexion.php");
    $req2 = $bdd->prepare("SELECT R.ID,C.Nom as champion,C.ID as champ_id,R.Temps,p.NomPays as pays,E.Nom as evenement,E.PaysID as lieu_evenement,E.ID as ev_id,ece.Intitule,E.DateDebut,R.ChampionID FROM evresultats R,evenements E,evcategorieevenement ece, pays p, champions C where C.Sexe='F' and R.EvenementID=E.ID and ece.ID=E.CategorieID and R.ChampionID=C.ID and (p.Abreviation=C.PaysID or p.Abreviation_2=C.PaysID or p.Abreviation_3=C.PaysID or p.Abreviation_4=C.PaysID) and p.ID=18 ORDER BY R.Temps ASC limit 10;");
    $req2->execute();
-   $world_best_women= array();
+   $world_best_women1= array();
    while ( $row2  = $req2->fetch(PDO::FETCH_ASSOC)) {
-    //var_dump($row2);exit();  
-    array_push($world_best_women, $row2);
-}
+        //var_dump($row2);exit();  
+        array_push($world_best_women1, $row2);
+    }
+    $req22 = $bdd->prepare("SELECT R.ID,C.Nom as champion,C.ID as champ_id,R.Temps,p.NomPays as pays,E.Nom as evenement,E.PaysID as lieu_evenement,E.ID as ev_id,ece.Intitule,E.DateDebut,R.ChampionID FROM evresultats R,evenements E,evcategorieevenement ece, pays p, champions C where C.Sexe='F' and R.EvenementID=E.ID and ece.ID=E.CategorieID and R.ChampionID=C.ID and C.NvPaysID like '%FRA%' and (p.Abreviation=C.NvPaysID or p.Abreviation_2=C.NvPaysID or p.Abreviation_3=C.NvPaysID or p.Abreviation_4=C.NvPaysID) and C.DateChangementNat < E.DateDebut and p.ID=18 ORDER BY R.Temps ASC limit 10;");
+    $req22->execute();
+    while ( $row22  = $req22->fetch(PDO::FETCH_ASSOC)) {
+        //var_dump($row2);exit();  
+        array_push($world_best_women1, $row22);
+    }
+    $world_best_women=array_slice(array_msort($world_best_women1, array('Temps'=>SORT_ASC)),0,10);
 }
 catch(Exception $e)
 {
@@ -162,7 +204,7 @@ catch(Exception $e)
 
     <?php include_once('nv_header-integrer.php'); ?>
 
-    <div class="container page-content athlète-detail page-classement-top">
+    <div class="container page-content athlete-detail page-classement-top">
         <div class="row banniere1">
             <div  class="col-sm-12"><?php
                 if($pub728x90 !="") {
@@ -255,7 +297,7 @@ catch(Exception $e)
                                                     echo '<tr>';
                                                         echo '<td>'.$i.'</td>';
                                                         
-                                                        echo '<td><a href="athlète-'.$value['ChampionID'].'-'.slugify($value['champion']).'.html">'.$value['champion'].'</a></td>';
+                                                        echo '<td><a href="athlete-'.$value['ChampionID'].'-'.slugify($value['champion']).'.html">'.$value['champion'].'</a></td>';
                                                         echo '<td>'.$value['Temps'].'</td>';
                                                         echo '<td>'.$value['evenement'].'</td>';
                                                         echo '<td>'.substr($value['DateDebut'],0,4).'</td>';
@@ -297,7 +339,7 @@ catch(Exception $e)
                                                     ($flag!='NULL') ? $pays_flag='<span><img src="../../images/flags/'.$flag.'" alt=""/></span>':$pays_flag="";
                                                     echo '<tr>';
                                                         echo '<td>'.$i.'</td>';
-                                                        echo '<td><a href="athlète-'.$value['ChampionID'].'-'.slugify($value['champion']).'.html">'.$value['champion'].'</a></td>';
+                                                        echo '<td><a href="athlete-'.$value['ChampionID'].'-'.slugify($value['champion']).'.html">'.$value['champion'].'</a></td>';
                                                         echo '<td>'.$value['Temps'].'</td>';
                                                         echo '<td>'.$value['evenement'].'</td>';
                                                         echo '<td>'.substr($value['DateDebut'],0,4) .'</td>';
@@ -428,7 +470,7 @@ catch(Exception $e)
                         sortDescending: ": activer pour trier la colonne par ordre décroissant"
                     }
                 },
-                searching: false, paging: false, info: false
+                searching: false, paging: false, info: false,pageLength: 10,
         } );
         $('#tableauFemmes').DataTable( {
             language: {
@@ -458,7 +500,7 @@ catch(Exception $e)
                     sortDescending: ": activer pour trier la colonne par ordre décroissant"
                 }
             },
-            searching: false, paging: false, info: false
+            searching: false, paging: false, info: false,pageLength: 10,
         } );
         
         $('#genre').hide()

@@ -155,7 +155,8 @@ $ev_cat_age_list=$ev_cat_age->getCatParentes();
 function slugify($text)
 
 {
-
+    $text = str_replace('é', 'e', $text); 
+    $text = str_replace('û', 'u', $text); 
     $text = preg_replace('/[^\pL\d]+/u', '-', $text); 
 
     $text = trim($text, '-');
@@ -355,7 +356,7 @@ setlocale(LC_TIME, "fr_FR","French");
                             $cat_age=$ev_cat_age->getEventCatAgeByID($resultat['CategorieageID'])['donnees']->getIntitule();
 
                             $nom_res='<strong>'.$cat_event.' - '.$resultat['Nom'].'</strong> - '.utf8_encode(strftime("%A %d %B %Y",strtotime($resultat['DateDebut'])));
-                            $nom_res_lien=$cat_event.' - '.$resultat['Nom'].' - '.strftime("%A %d %B %Y",strtotime($resultat['DateDebut']));
+                            $nom_res_lien=$cat_event.' - '.$resultat['Nom'].' - '.utf8_encode(strftime("%A %d %B %Y",strtotime($resultat['DateDebut'])));
 
                             echo '<li><a href="/resultats-marathon-'.$resultat['ID'].'-'.slugify($nom_res_lien).'.html">'.$nom_res.'</a>
 

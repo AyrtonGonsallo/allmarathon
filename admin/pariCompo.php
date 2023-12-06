@@ -264,7 +264,7 @@ if($pari['corrige'])
                                                 {
                                                     $id   = $tab[0];
                                                     $name = $tab[1];
-                                                    echo '<a target="blank" href="../athlète-'.$id.'.html">'.$name.'</a><br />';
+                                                    echo '<a target="blank" href="../athlete-'.$id.'.html">'.$name.'</a><br />';
                                                 }
                                                     
                                                 }
@@ -287,7 +287,7 @@ if($pari['corrige'])
 
                                                     $id   = $tab[0];
                                                     $name = $tab[1];
-                                                    echo '<a target="blank" href="../athlète-'.$id.'.html">'.$name.'</a><br />';
+                                                    echo '<a target="blank" href="../athlete-'.$id.'.html">'.$name.'</a><br />';
                                                 }
                                             }
                                             

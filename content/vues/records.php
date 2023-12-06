@@ -105,10 +105,12 @@ catch(Exception $e)
 
 function slugify($text)
 {
-$text = preg_replace('/[^\pL\d]+/u', '-', $text); 
-$text = trim($text, '-');
-$text = strtolower($text);
-return $text;
+    $text = str_replace('é', 'e', $text); 
+    $text = str_replace('û', 'u', $text); 
+    $text = preg_replace('/[^\pL\d]+/u', '-', $text); 
+    $text = trim($text, '-');
+    $text = strtolower($text);
+    return $text;
 }
 
 ?>
@@ -180,7 +182,7 @@ return $text;
                                                 }
                                                 ($flag!='NULL') ? $pays_flag='<img src="../../images/flags/'.$flag.'" alt=""/>':$pays_flag="";
                                                 
-                                                echo $pays_flag.'<a class="record-link" href="athlète-'.$world_best['champ_id'].'-'.slugify($world_best['champion']).'.html">'.$world_best['champion'].'</a>';?>
+                                                echo $pays_flag.'<a class="record-link" href="athlete-'.$world_best['champ_id'].'-'.slugify($world_best['champion']).'.html">'.$world_best['champion'].'</a>';?>
                                             </td>
                                             <td>
                                                 <?php echo $world_best['Temps'];?>
@@ -199,7 +201,7 @@ return $text;
                                                     $nom=$pays->getFlagByAbreviation($france_best['lieu_evenement'])['donnees']['NomPays'];   
                                                 }
                                                 ($flag!='NULL') ? $pays_flag='<img src="../../images/flags/'.$flag.'" alt=""/>':$pays_flag="";
-                                                echo $pays_flag.'<a class="record-link" href="athlète-'.$france_best['champ_id'].'-'.slugify($france_best['champion']).'.html">'.$france_best['champion'].'</a>';?>
+                                                echo $pays_flag.'<a class="record-link" href="athlete-'.$france_best['champ_id'].'-'.slugify($france_best['champion']).'.html">'.$france_best['champion'].'</a>';?>
                                             </td>
                                             <td>
                                                 <?php echo $france_best['Temps'];?>
@@ -218,7 +220,7 @@ return $text;
                                                     $nom=$pays->getFlagByAbreviation($jo_best['lieu_evenement'])['donnees']['NomPays'];  
                                                 }
                                                 ($flag!='NULL') ? $pays_flag='<img src="../../images/flags/'.$flag.'" alt=""/>':$pays_flag="";
-                                                echo $pays_flag.'<a class="record-link" href="athlète-'.$jo_best['champ_id'].'-'.slugify($jo_best['champion']).'.html">'.$jo_best['champion'].'</a>';?>
+                                                echo $pays_flag.'<a class="record-link" href="athlete-'.$jo_best['champ_id'].'-'.slugify($jo_best['champion']).'.html">'.$jo_best['champion'].'</a>';?>
                                             </td>
                                             <td>
                                                 <?php echo $jo_best['Temps'];?>
@@ -237,7 +239,7 @@ return $text;
                                                     $nom=$pays->getFlagByAbreviation($cm_best['lieu_evenement'])['donnees']['NomPays'];  
                                                 }
                                                 ($flag!='NULL') ? $pays_flag='<img src="../../images/flags/'.$flag.'" alt=""/>':$pays_flag="";
-                                                echo $pays_flag.'<a class="record-link" href="athlète-'.$cm_best['champ_id'].'-'.slugify($cm_best['champion']).'.html">'.$cm_best['champion'].'</a>';?>
+                                                echo $pays_flag.'<a class="record-link" href="athlete-'.$cm_best['champ_id'].'-'.slugify($cm_best['champion']).'.html">'.$cm_best['champion'].'</a>';?>
                                             </td>
                                             <td>
                                                 <?php echo $cm_best['Temps'];?>
@@ -256,7 +258,7 @@ return $text;
                                                     $nom=$pays->getFlagByAbreviation($ce_best['lieu_evenement'])['donnees']['NomPays'];  
                                                 }
                                                 ($flag!='NULL') ? $pays_flag='<img src="../../images/flags/'.$flag.'" alt=""/>':$pays_flag="";
-                                                echo $pays_flag.'<a class="record-link" href="athlète-'.$ce_best['champ_id'].'-'.slugify($ce_best['champion']).'.html">'.$ce_best['champion'].'</a>';?>
+                                                echo $pays_flag.'<a class="record-link" href="athlete-'.$ce_best['champ_id'].'-'.slugify($ce_best['champion']).'.html">'.$ce_best['champion'].'</a>';?>
                                             </td>
                                             <td>
                                                 <?php echo $ce_best['Temps'];?>
@@ -286,7 +288,7 @@ return $text;
                                 $affichage.='<tr class="ligne-rec">
                                             
                                             <td>
-                                                '.'<a class="record-link" href="athlète-'.$record['champ_id'].'-'.slugify($record['champion']).'.html">'.$record['champion'].'</a>'.'
+                                                '.'<a class="record-link" href="athlete-'.$record['champ_id'].'-'.slugify($record['champion']).'.html">'.$record['champion'].'</a>'.'
                                                 <br>
                                             </td>
                                             <td>

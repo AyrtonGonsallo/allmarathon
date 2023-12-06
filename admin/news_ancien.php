@@ -166,7 +166,7 @@ tinyMCE.init({
         nameLink = tab[2];
         document.getElementById("autocomp"+index).style.display = "none";
         $('#temp1').val('');
-        $('#result').html('<a href="/athlète-'+idChamp+'-'+nameLink+'.html">'+name+'</a> ');
+        $('#result').html('<a href="/athlete-'+idChamp+'-'+nameLink+'.html">'+name+'</a> ');
     }
     
     $(document).ready(function(){

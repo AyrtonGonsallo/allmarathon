@@ -49,14 +49,14 @@
   .cd-span{
     float: none !important;
   }
-  .athlète-detail h1{
+  .athlete-detail h1{
     font-size: 18px !important;
     text-transform: uppercase;
   }
     .hide-on-mobile{
         display: none;
     }
-    body > div.container.page-content.athlète-detail.champion-detail > div:nth-child(2) > div > div > div > h1 > span{
+    body > div.container.page-content.athlete-detail.champion-detail > div:nth-child(2) > div > div > div > h1 > span{
       float: none !important;
       display: block;
       margin-top: 11px !important;
@@ -729,51 +729,51 @@
 
   .athlètes .resultats li>.list-inline {}
 
-  .athlète-detail .nav-tabs>li {
+  .athlete-detail .nav-tabs>li {
     width: fit-content;
   }
-.athlète-detail-no-padding-left{
+.athlete-detail-no-padding-left{
   padding-left: 0px !important;
 }
-.athlète-detail-no-padding-left h1{
+.athlete-detail-no-padding-left h1{
   margin-bottom: 0px !important;
 }
-  .athlète-detail .nav-tabs>li>a {
+  .athlete-detail .nav-tabs>li>a {
     font-size: 12px;
     padding-left: 10px;
     padding-right: 10px;
   }
 
-  .athlète-detail .tab-content .col-sm-6 {
+  .athlete-detail .tab-content .col-sm-6 {
     padding-left: 0px;
     padding-right: 0px;
   }
 
-  .athlète-detail .tab-content .col-sm-6 .btn {
+  .athlete-detail .tab-content .col-sm-6 .btn {
     width: 100%;
   }
 
-  .athlète-detail .tab-content dt {
+  .athlete-detail .tab-content dt {
     font-size: 15px;
   }
 
-  .athlète-detail .tab-content dd {
+  .athlete-detail .tab-content dd {
     font-size: 13px;
   }
 
-  .athlète-detail .tab-content .list-inline>li {
+  .athlete-detail .tab-content .list-inline>li {
     display: block;
     padding-left: 0px;
     padding-right: 0px;
   }
 
-  .athlète-detail .tab-content .list-inline>li>a {
+  .athlete-detail .tab-content .list-inline>li>a {
     width: 100%;
     margin-bottom: 5px;
   }
 
   /*.resultat-detail #classement_table {width: 70%!important;}*/
-  .athlète-detail table.classement tr>td {
+  .athlete-detail table.classement tr>td {
     padding: 5px 1px;
     font-size: 11px;
   }
@@ -782,18 +782,18 @@
     padding: 5px !important;
   }
 
-  .athlète-detail .videos-tab .col-sm-6 {
+  .athlete-detail .videos-tab .col-sm-6 {
     width: 49%;
     display: inline-block;
   }
 
-  .athlète-detail .videos-tab .col-sm-6 ul {
+  .athlete-detail .videos-tab .col-sm-6 ul {
     top: 0px;
     position: relative;
     margin-left: 0 !important;
   }
 
-  .athlète-detail .videos-tab .col-sm-6 ul>li>a {
+  .athlete-detail .videos-tab .col-sm-6 ul>li>a {
     font-size: 13px !important;
   }
   .btn-no-padd {
@@ -801,24 +801,24 @@
     padding: 0 !important;
     
 }
-.athlète-boutons-droits{
+.athlete-boutons-droits{
   float:left;
 }
-  .athlète-detail .nav-tabs {
+  .athlete-detail .nav-tabs {
     border-bottom: 0;
     margin-top: 20px;
   }
 
-  .athlète-detail .tab-pane ul.photos-tab {
+  .athlete-detail .tab-pane ul.photos-tab {
     width: 100%;
   }
 
-  .athlète-detail .tab-pane ul.photos-tab>li {
+  .athlete-detail .tab-pane ul.photos-tab>li {
     margin-right: 1px;
     width: 49.5%;
   }
 
-  .athlète-detail .tab-pane ul.photos-tab>li>a>img {
+  .athlete-detail .tab-pane ul.photos-tab>li>a>img {
     width: 100% !important;
   }
 
@@ -1687,7 +1687,7 @@
     width: 28% !important;
   }
 
-  .athlète-detail .tab-pane ul.photos-tab>li {
+  .athlete-detail .tab-pane ul.photos-tab>li {
     margin: 10px 8px 0 0;
   }
 

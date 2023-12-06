@@ -33,7 +33,7 @@ if(!empty($_SESSION['user'])) {
         $commentaire->addCommentaire($user_id,$com,$date_com,$news_id,$video_id,$champ_id);
         $_SESSION['commentaire_success']="Votre commentaire a bien été ajouté.";
         if($champ_id!=0) 
-        header("Location: /athlète-".$champ_id.".html");
+        header("Location: /athlete-".$champ_id.".html");
         elseif ($video_id!=0) {
         header("Location: /video-de-marathon-".$video_id.".html");
         }
@@ -44,7 +44,7 @@ if(!empty($_SESSION['user'])) {
     else {
         $_SESSION['commentaire_error']=$erreur_com;
         if($champ_id!=0) 
-        header("Location: /athlète-".$champ_id.".html");
+        header("Location: /athlete-".$champ_id.".html");
         elseif ($video_id!=0) {
         header("Location: /video-de-marathon-".$video_id.".html");
         }

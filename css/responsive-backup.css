@@ -121,24 +121,24 @@
     .athlètes .form-inline .form-group select{margin-top: 5px;width: 100%!important;}
     .athlètes .resultats li>a{font-size: 12px;}
     .athlètes .resultats li>.list-inline{}
-    .athlète-detail .nav-tabs>li {width: 50%;}
-    .athlète-detail .nav-tabs>li>a {font-size: 12px;padding-left: 0px;padding-right: 0px;}
-    .athlète-detail .tab-content .col-sm-6 {padding-left: 0px;padding-right: 0px;}
-    .athlète-detail .tab-content .col-sm-6 .btn {width: 100%;}
-    .athlète-detail .tab-content dt {font-size: 15px;}
-    .athlète-detail .tab-content dd {font-size: 13px;}
-    .athlète-detail .tab-content .list-inline>li {display: block;padding-left: 0px;padding-right: 0px;}
-    .athlète-detail .tab-content .list-inline>li>a {width: 100%;margin-bottom: 5px;}
+    .athlete-detail .nav-tabs>li {width: 50%;}
+    .athlete-detail .nav-tabs>li>a {font-size: 12px;padding-left: 0px;padding-right: 0px;}
+    .athlete-detail .tab-content .col-sm-6 {padding-left: 0px;padding-right: 0px;}
+    .athlete-detail .tab-content .col-sm-6 .btn {width: 100%;}
+    .athlete-detail .tab-content dt {font-size: 15px;}
+    .athlete-detail .tab-content dd {font-size: 13px;}
+    .athlete-detail .tab-content .list-inline>li {display: block;padding-left: 0px;padding-right: 0px;}
+    .athlete-detail .tab-content .list-inline>li>a {width: 100%;margin-bottom: 5px;}
     /*.resultat-detail #classement_table {width: 70%!important;}*/
-    .athlète-detail table.classement tr > td {padding: 5px 1px;font-size: 11px;}
+    .athlete-detail table.classement tr > td {padding: 5px 1px;font-size: 11px;}
     table.dataTable thead th {padding: 5px !important;}
-    .athlète-detail .videos-tab .col-sm-6{width: 49%; display: inline-block;}
-    .athlète-detail .videos-tab .col-sm-6 ul{top: 0px;position: relative; margin-left: 0!important;}
-    .athlète-detail .videos-tab .col-sm-6 ul>li>a{font-size: 13px!important;}
-    .athlète-detail .nav-tabs {border-bottom: 0;}
-    .athlète-detail .tab-pane ul.photos-tab {width: 100%;}
-    .athlète-detail .tab-pane ul.photos-tab>li {margin-right:1px;width: 49.5%;}
-    .athlète-detail .tab-pane ul.photos-tab>li>a>img {width: 100%!important;}
+    .athlete-detail .videos-tab .col-sm-6{width: 49%; display: inline-block;}
+    .athlete-detail .videos-tab .col-sm-6 ul{top: 0px;position: relative; margin-left: 0!important;}
+    .athlete-detail .videos-tab .col-sm-6 ul>li>a{font-size: 13px!important;}
+    .athlete-detail .nav-tabs {border-bottom: 0;}
+    .athlete-detail .tab-pane ul.photos-tab {width: 100%;}
+    .athlete-detail .tab-pane ul.photos-tab>li {margin-right:1px;width: 49.5%;}
+    .athlete-detail .tab-pane ul.photos-tab>li>a>img {width: 100%!important;}
     
     /*************Calendrier page************************/
     .calendrier-marathon .form-inline{width: 100%!important; margin-top: -20px;}
@@ -381,7 +381,7 @@
     .left-side article .desc-img h2 {font-size: 15px;}
     .athlètes #search_val_res, .athlètes #search_athlètes{width: 91%!important;}
     .athlètes .form-inline select#age{width: 28%!important;}    
-    .athlète-detail .tab-pane ul.photos-tab > li {margin: 10px 8px 0 0;}
+    .athlete-detail .tab-pane ul.photos-tab > li {margin: 10px 8px 0 0;}
     .page-content aside dt {font-size: 16px;}
     .page-content aside dt.facebook {font-size: 13px;}
     .left-side .tab-content dt h2 {font-size: 17px;}

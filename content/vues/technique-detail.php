@@ -127,7 +127,7 @@ function slugify($text)
 
     <?php include_once('nv_header-integrer.php'); ?>
 
-    <div class="container page-content athlète-detail technique-detail">
+    <div class="container page-content athlete-detail technique-detail">
         <div class="row banniere1">
             <a href="" class="col-sm-12"><?php
 if($pub728x90 !="") {

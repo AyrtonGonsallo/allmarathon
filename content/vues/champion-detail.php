@@ -6,7 +6,7 @@ error_reporting(E_ALL);
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
-
+setlocale(LC_TIME, "fr_FR","French");
 
 // (!empty($_SESSION['auth_error'])) ? $erreur_auth=$_SESSION['auth_error'] : $erreur_auth='';
 if(!empty($_SESSION['auth_error'])) {
@@ -37,7 +37,7 @@ include("../classes/abonnement.php");
 include("../classes/evCategorieAge.php");
 include("../classes/championAdminExterneClass.php");
 include("../classes/champion_admin_externe_palmares.php");
-
+include("../classes/evCategorieEvenement.php");
 
 $champion_admin_externe_palmares=new champion_admin_externe_palmares();
 $resultsPerso=$champion_admin_externe_palmares->getResultsPerso($id)['donnees'];
@@ -46,7 +46,7 @@ $champAdmin=new championAdminExterne();
 $isAdmin=$champAdmin->isAdmin($user_id,$id)['donnees'];
 
 $ev_cat_age=new evcategorieage();
-
+$ev_cat_event=new evCategorieEvenement();
 $champ_pop=new championPopularite();
 $event=new evenement();
 $user=new user();
@@ -147,6 +147,8 @@ if(!empty($_SESSION['commentaire_success'])){
 
     function slugify($text)
 {
+    $text = str_replace('é', 'e', $text); 
+    $text = str_replace('û', 'u', $text); 
     $text = preg_replace('/[^\pL\d]+/u', '-', $text); 
     $text = trim($text, '-');
     $text = strtolower($text);
@@ -188,7 +190,7 @@ $afficher_tab_medaille=false;
 
     <link rel="apple-touch-icon" href="../../images/favicon.ico">
     <link rel="icon" type="image/x-icon" href="../../images/favicon.ico" />
-    <?php echo '<link rel="canonical" href="https://allmarathon.fr/athlète-'.$champ->getId().'-'.slugify($champ->getNom()).'.html" />';?>
+    <?php echo '<link rel="canonical" href="https://allmarathon.fr/athlete-'.$champ->getId().'-'.slugify($champ->getNom()).'.html" />';?>
 
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/font-awesome.min.css">
@@ -216,7 +218,7 @@ $afficher_tab_medaille=false;
 
     <?php include_once('nv_header-integrer.php'); ?>
 
-    <div class="container page-content athlète-detail champion-detail">
+    <div class="container page-content athlete-detail champion-detail">
         <div class="row banniere1">
             <div  class="col-sm-12"><?php
                 if($pub728x90 !="") {
@@ -243,11 +245,11 @@ $afficher_tab_medaille=false;
                             ($flag!='NULL') ? $pays_flag='<img src="../../images/flags/'.$flag.'" alt=""/>':$pays_flag="";
                             
                             echo '<div class="row">
-                                <div class="col-sm-7 athlète-detail-no-padding-left">
+                                <div class="col-sm-7 athlete-detail-no-padding-left">
                                 <h1>'.$champ->getNom()." ".$pays_flag.'</h1>
                                 </div>
-                                <div class="col-sm-5 athlète-detail-no-padding-left no-padding-right">'; ?> 
-                                <span class="cd-span athlète-boutons-droits" >
+                                <div class="col-sm-5 athlete-detail-no-padding-left no-padding-right">'; ?> 
+                                <span class="cd-span athlete-boutons-droits" >
                                     <?php //echo '<a class="btn-no-padd info-bulle" href="/formulaire-administration-athlète.php?championID='.$id.'"><img src="/images/pictos/admin.png" title="Devenir administrateur"  /></a>'; ?>
                                     <?php if($user_id!=''){
                                         echo (!$isAdmin) ? '<a class="btn-no-padd info-bulle" href="/formulaire-administration-athlète.html?championID='.$id.'"><img src="/images/pictos/admin.png" title="Devenir administrateur"  /></a>': '<a href="/champion-detail-admin-'.$id.'.html" id="fiche_admin" type="button"><i class="fa fa-edit"></i><span>Modifier la fiche</span></a>  <a class="btn-no-padd info-bulle" href="mailto:lmathieu@allmarathon.net?subject='.$user_auth->getUsername().' ne souhaite plus administrer la fiche de '.$champ->getNom().'"><img src="/images/pictos/admin_1.png" title="Ne plus administrer cette fiche."  /></a>';
@@ -363,13 +365,13 @@ $afficher_tab_medaille=false;
                                         <?php 
                                 	foreach ($resultats_champ as $key => $value) {
                                         $cat_age=$ev_cat_age->getEventCatAgeByID($value['CategorieageID'])['donnees']->getIntitule();
-                                        $name_res=$value['Intitule'].' - '.$cat_age.' '.$value['Nom'].' '.$value['DateDebut'];
-                                        $name_res=slugify($name_res);
+                                        $cat_event=$ev_cat_event->getEventCatEventByID($value['CategorieID'])['donnees']->getIntitule();
                                         
+                                        $nom_res=slugify($cat_event.' - '.$value['Nom'].' - '.utf8_encode(strftime("%A %d %B %Y",strtotime($value['DateDebut']))));
                                 		echo '<tr>
 			                                    <td>'.$value['DateDebut'].'</td>
 			                                    <td align="left">'.$value['Rang'].'</td>
-			                                    <td><a href="/resultats-marathon-'.$value['ID'].'-'.$name_res.'.html">'.$value['Intitule'].' - '.$value['Nom'].'</a></td>
+			                                    <td><a href="/resultats-marathon-'.$value['ID'].'-'.$nom_res.'.html">'.$value['Intitule'].' - '.$value['Nom'].'</a></td>
 			                                    <td>'.$value['Temps'].'</td>
 			                                </tr>';
                                 	}

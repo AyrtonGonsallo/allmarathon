@@ -146,7 +146,7 @@ try{
 
     <?php include_once('nv_header-integrer.php'); ?>
 
-    <div class="container page-content athlète-detail champion-admin">
+    <div class="container page-content athlete-detail champion-admin">
         <div class="row banniere1">
             <a href="" class="col-sm-12"><?php
 if($pub728x90 !="") {

@@ -84,10 +84,12 @@ $annee_titre=substr($evById->getDateDebut(), 0, 4);
 
 function slugify($text)
 {
-$text = preg_replace('/[^\pL\d]+/u', '-', $text); 
-$text = trim($text, '-');
-$text = strtolower($text);
-return $text;
+    $text = str_replace('é', 'e', $text); 
+    $text = str_replace('û', 'u', $text); 
+    $text = preg_replace('/[^\pL\d]+/u', '-', $text); 
+    $text = trim($text, '-');
+    $text = strtolower($text);
+    return $text;;
 }
 
 
@@ -162,7 +164,7 @@ catch(Exception $e)
 
 <?php include_once('nv_header-integrer.php'); ?>
 
-<div class="container page-content athlète-detail page-classement-top">
+<div class="container page-content athlete-detail page-classement-top">
     <div class="row banniere1">
         <div  class="col-sm-12"><?php
             if($pub728x90 !="") {
@@ -256,7 +258,7 @@ catch(Exception $e)
                                                 echo '<tr>';
                                                     echo '<td>'.$i.'</td>';
                                                     echo '<td>'.$pays_flag.' '.$pays_datas['NomPays'].'</td>';
-                                                    echo '<td><a href="athlète-'.$value['ChampionID'].'-'.slugify($value['champion']).'.html">'.$value['champion'].'</a></td>';
+                                                    echo '<td><a href="athlete-'.$value['ChampionID'].'-'.slugify($value['champion']).'.html">'.$value['champion'].'</a></td>';
                                                     echo '<td>'.$value['Temps'].'</td>';
                                                     echo '<td>'.$value['evenement'].'</td>';
                                                     echo '<td>'.substr($value['DateDebut'],0,4).'</td>';
@@ -300,7 +302,7 @@ catch(Exception $e)
                                                 echo '<tr>';
                                                     echo '<td>'.$i.'</td>';
                                                     echo '<td>'.$pays_flag.' '.$pays_datas['NomPays'].'</td>';
-                                                    echo '<td><a href="athlète-'.$value['ChampionID'].'-'.slugify($value['champion']).'.html">'.$value['champion'].'</a></td>';
+                                                    echo '<td><a href="athlete-'.$value['ChampionID'].'-'.slugify($value['champion']).'.html">'.$value['champion'].'</a></td>';
                                                     echo '<td>'.$value['Temps'].'</td>';
                                                     echo '<td>'.$value['evenement'].'</td>';
                                                     echo '<td>'.substr($value['DateDebut'],0,4) .'</td>';

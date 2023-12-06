@@ -167,7 +167,7 @@ setlocale(LC_TIME, "fr_FR","French");
 
     <?php include_once('nv_header-integrer.php'); ?>
 
-    <div class="container page-content athlète-detail">
+    <div class="container page-content athlete-detail">
         <div class="row banniere1">
             <div  class="col-sm-12"><?php
                 if($pub728x90 !="") {
@@ -282,7 +282,7 @@ setlocale(LC_TIME, "fr_FR","French");
                                                     echo '<tr>';
                                                         echo '<td>'.$value['Rang'].'</td>';
                                                         echo '<td>'.$pays_flag.' '.$pays_datas['NomPays'].'</td>';
-                                                        echo '<td><a href="athlète-'.$value['ChampionID'].'-'.slugify($value['Nom']).'.html">'.$value['Nom'].'</a></td>';
+                                                        echo '<td><a href="athlete-'.$value['ChampionID'].'-'.slugify($value['Nom']).'.html">'.$value['Nom'].'</a></td>';
                                                         echo '<td>'.$value['Temps'].'</td>';
                                                     echo '</tr>';
                                                 }
@@ -324,7 +324,7 @@ setlocale(LC_TIME, "fr_FR","French");
                                                     echo '<tr>';
                                                         echo '<td>'.$value['Rang'].'</td>';
                                                         echo '<td>'.$pays_flag.' '.$pays_datas['NomPays'].'</td>';
-                                                        echo '<td><a href="athlète-'.$value['ChampionID'].'-'.slugify($value['Nom']).'.html">'.$value['Nom'].'</a></td>';
+                                                        echo '<td><a href="athlete-'.$value['ChampionID'].'-'.slugify($value['Nom']).'.html">'.$value['Nom'].'</a></td>';
                                                         echo '<td>'.$value['Temps'].'</td>';
                                                     echo '</tr>';
                                                 }

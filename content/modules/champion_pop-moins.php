@@ -20,6 +20,6 @@ $champ_pop=new championPopularite();
 
 $champ_pop->ne_plus_devenir_fan($champ_id,$user_id);
 $_SESSION['plus_fan']=1;
-header("Location: /athlète-".$champ_id.".html");
+header("Location: /athlete-".$champ_id.".html");
 
 ?>

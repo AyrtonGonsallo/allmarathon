@@ -395,9 +395,9 @@ if (sizeof($athlètes)>0) {
                                         <?php foreach($athlètes as $athlète) { ?>
 
                                         <tr class="odd gradeX">
-                                            <td class="col-sm-10"><?php echo $athlète->getNom_athlète(); ?></td>
+                                            <td class="col-sm-10"><?php echo $athlete->getNom_athlète(); ?></td>
                                             <td class="col-sm-2"><input type="checkbox" name="j_sup[]"
-                                                    value="<?php echo $athlète->getId_club_marathon();?>" /></td>
+                                                    value="<?php echo $athlete->getId_club_marathon();?>" /></td>
 
                                         </tr>
 

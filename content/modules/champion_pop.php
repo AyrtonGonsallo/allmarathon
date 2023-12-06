@@ -28,13 +28,13 @@ $champ_pop=new championPopularite();
     if($test){
         
        $_SESSION['fan_error']  = "Un seul vote par utilisateur et par athlète.";
-       header("Location: /athlète-".$champ_id.".html");
+       header("Location: /athlete-".$champ_id.".html");
 
     }else{
 
         $champ_pop->devenirFan($champ_id,$user_id,$date_fan,$ip,$user_agent,$host);
         $_SESSION['fan_success']=1;
-        header("Location: /athlète-".$champ_id.".html");
+        header("Location: /athlete-".$champ_id.".html");
            }   
 
         // echo $erreur;
@@ -48,7 +48,7 @@ $champ_pop=new championPopularite();
 				// // echo $query3;
     //         $result3   = mysql_query($query3) or die(mysql_error());
 
-    //         header("Location: athlète-$champ_id.html");
+    //         header("Location: athlete-$champ_id.html");
             
             
     //         exit();

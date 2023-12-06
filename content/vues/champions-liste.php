@@ -185,7 +185,7 @@ $nb_champs=$req->fetch(PDO::FETCH_ASSOC)['total'];
                         ($nb_images!=0) ? $nombre_images='<span style="margin-right: 6px;"><img src="../../images/pictos/cam.png" alt=""/></span>' : $nombre_images='';
                         $champion_name=slugify($chmp->getNom());
                         echo '<ul class="col-sm-6 list">
-                    <li><a href="athlète-'.$chmp->getId().'-'.$champion_name.'.html">'.$chmp->getNom().$pays_ab.'</a>
+                    <li><a href="athlete-'.$chmp->getId().'-'.$champion_name.'.html">'.$chmp->getNom().$pays_ab.'</a>
                         <ul class="list-inline">'.
                             $nombre_images.'    '.$nombre_videos.' '.$nombre_com.' '.$pays_flag.'
                             
@@ -212,7 +212,7 @@ $nb_champs=$req->fetch(PDO::FETCH_ASSOC)['total'];
                         ($nb_images!=0) ? $nombre_images='<span><img src="../../images/pictos/cam.png" alt=""/></span>' : $nombre_images='';
                         $champion_name=slugify($chmp->getNom());
                         echo '<ul class="col-sm-6 list">
-                    <li><a href="athlète-'.$chmp->getId().'-'.$champion_name.'.html">'.$chmp->getNom().$pays_ab.'</a>
+                    <li><a href="athlete-'.$chmp->getId().'-'.$champion_name.'.html">'.$chmp->getNom().$pays_ab.'</a>
                         <ul class="list-inline">'.
                             $nombre_images.$nombre_videos.$nombre_com.$pays_flag.'
                             
@@ -258,7 +258,7 @@ echo $pub300x60["code"] ? $pub300x60["code"] :  "<a href=". $pub300x250['url'] .
                         $flag=$pays->getFlagByAbreviation($ch->getPaysID())['donnees']['Flag'];
                         ($flag!='') ? $pays_flag='<span><img src="../../images/flags/'.$flag.'" alt=""/></span>':$pays_flag="";
                         $ch_name=slugify($ch->getNom());
-                        echo '<li><a href="athlète-'.$ch->getId().'-'.$ch_name.'.html">'.$ch->getNom().' ('.$age.' ans)</a></li>';
+                        echo '<li><a href="athlete-'.$ch->getId().'-'.$ch_name.'.html">'.$ch->getNom().' ('.$age.' ans)</a></li>';
                     }
                     ?>
 
@@ -283,7 +283,7 @@ echo $pub300x250["code"] ? $pub300x250["code"] :  "<a href=". $pub300x250['url']
                         }
                         ($flag!='') ? $pays_flag='<span><img src="../../images/flags/'.$flag.'" alt=""/></span>':$pays_flag="";
                         $ch_name=slugify($ch->getNom());
-                        echo '<li><a href="athlète-'.$ch->getId().'-'.$ch_name.'.html">'.$ch->getNom().' ('.$ch->getPaysID().') '.$pays_flag.'</a></li>';
+                        echo '<li><a href="athlete-'.$ch->getId().'-'.$ch_name.'.html">'.$ch->getNom().' ('.$ch->getPaysID().') '.$pays_flag.'</a></li>';
                         }
                     ?>
                     </ul>

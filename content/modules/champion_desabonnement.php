@@ -23,6 +23,6 @@ if(!empty($_SESSION['user'])) {
 $champ_abonnement=new abonnement();
 $champ_abonnement->desabonnement_champ($user_id,$champ_id);
 $_SESSION['plus_abonnee']=1;
-header("Location: /athlète-".$champ_id.".html");
+header("Location: /athlete-".$champ_id.".html");
            
 ?>

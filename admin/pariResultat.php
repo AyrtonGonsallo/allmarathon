@@ -275,7 +275,7 @@ if($pari['corrige'] && $erreur == "")
 
                                         <tr>
                                             <td>
-                                                <a target="blank" href="../athlète-<?php echo $id ?>.html"><?php echo $nom ?></a>
+                                                <a target="blank" href="../athlete-<?php echo $id ?>.html"><?php echo $nom ?></a>
                                             </td>
                                             <td>
                                                 <input type="checkbox" name="podium[]" value="<?php echo $id ?>" <?php if(in_array($id,$podium)) echo 'checked="checked"'; ?> />

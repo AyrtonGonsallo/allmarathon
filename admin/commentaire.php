@@ -59,7 +59,7 @@ if (session_status() == PHP_SESSION_NONE) {
         $commentaires[$com['ID']]['mail']   = $com['email'];
         $commentaires[$com['ID']]['text']   = str_replace("\\", "", $com['commentaire']);
         $commentaires[$com['ID']]['date']   = changeDate($com['date']);
-        $commentaires[$com['ID']]['lien']     = ($com['champion_id']!=0)?'<a href="../athlète-'.$com['champion_id'].'.html" target="blank">lien site</a> <a href="championDetail.php?championID='.$com['champion_id'].'" target="blank">lien admin</a>':(($com['news_id']!=0)?'<a href="../actualite-marathon-'.$com['news_id'].'.html" target="blank">lien</a>':'<a href="../video-de-marathon-'.$com['video_id'].'.html" target="blank">lien</a>');
+        $commentaires[$com['ID']]['lien']     = ($com['champion_id']!=0)?'<a href="../athlete-'.$com['champion_id'].'.html" target="blank">lien site</a> <a href="championDetail.php?championID='.$com['champion_id'].'" target="blank">lien admin</a>':(($com['news_id']!=0)?'<a href="../actualite-marathon-'.$com['news_id'].'.html" target="blank">lien</a>':'<a href="../video-de-marathon-'.$com['video_id'].'.html" target="blank">lien</a>');
     }
     
 function changeDate($date){

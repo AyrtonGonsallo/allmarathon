@@ -209,7 +209,7 @@ $login_url = $client->createAuthUrl();
 
     <?php include_once('nv_header-integrer.php'); ?>
 
-    <div class="container page-content athlète-detail membre-profil">
+    <div class="container page-content athlete-detail membre-profil">
         <div class="row banniere1">
             <a href="" class="col-sm-12"><?php
 if($pub728x90 !="") {
@@ -258,8 +258,8 @@ echo $pub728x90["code"] ? $pub728x90["code"] :  "<img src=".'../images/pubs/'.$p
                             echo '<br/> <strong>Administre les athlètes : </strong>';
                             $athlètes_adminitres="";
                             foreach($athlète_adminitres as $athlète){
-                                $champ=$champion->getChampionById($athlète->getChampion_id())['donnees'];
-                                $athlètes_adminitres.= ' <a href="/athlète-'.$champ->getId().'-'.slugify($champ->getNom()).'.html" class="link_customized">'.$champ->getNom().'</a> -';
+                                $champ=$champion->getChampionById($athlete->getChampion_id())['donnees'];
+                                $athlètes_adminitres.= ' <a href="/athlete-'.$champ->getId().'-'.slugify($champ->getNom()).'.html" class="link_customized">'.$champ->getNom().'</a> -';
                             }
                             echo substr($athlètes_adminitres, 0, -1);;
                         }
@@ -295,24 +295,24 @@ echo $pub728x90["code"] ? $pub728x90["code"] :  "<img src=".'../images/pubs/'.$p
                                     if($champ)
                                     {
                                         echo '
-                                        <li><img src="/images/CSS/administrateur.png" alt="" style="margin-left:3px;margin-right:3px" align="left" /> '.$profil->getUsername().' administre la fiche de <a href="/athlète-'.$champ->getID().'-'.slugify($champ->getNom()).'.html" class="link_customized">'.$champ->getNom().'</a>
+                                        <li><img src="/images/CSS/administrateur.png" alt="" style="margin-left:3px;margin-right:3px" align="left" /> '.$profil->getUsername().' administre la fiche de <a href="/athlete-'.$champ->getID().'-'.slugify($champ->getNom()).'.html" class="link_customized">'.$champ->getNom().'</a>
                                            ( '.depuis($j->getDate()).' ) </li>';
                                        }
                                        break;
                                        case 'champion':
                                        if($champ)
-                                         { echo '<li><img src="/images/CSS/fiche.png" alt="" style="margin-left:3px;margin-right:3px" align="left" /> La fiche de <a href="/athlète-'.$champ->getID().'-'.slugify($champ->getNom()).'.html" class="link_customized">'.$champ->getNom().'</a> a été mise à jour ( '.depuis($j->getDate()).' ) </li> ';}
+                                         { echo '<li><img src="/images/CSS/fiche.png" alt="" style="margin-left:3px;margin-right:3px" align="left" /> La fiche de <a href="/athlete-'.$champ->getID().'-'.slugify($champ->getNom()).'.html" class="link_customized">'.$champ->getNom().'</a> a été mise à jour ( '.depuis($j->getDate()).' ) </li> ';}
                                      break;
                                      case 'photo' :
                                      if($champ)
-                                         { echo '<li><img src="/images/CSS/photo.png" alt="" style="margin-left:3px;margin-right:3px;" align="left" /> Une photo a été ajoutée dans la galerie de <a href="/athlète-'.$champ->getID().'-'.slugify($champ->getNom()).'.html" class="link_customized" >'.$champ->getNom().'</a>  ( '.depuis($j->getDate()).' ) </li>';}
+                                         { echo '<li><img src="/images/CSS/photo.png" alt="" style="margin-left:3px;margin-right:3px;" align="left" /> Une photo a été ajoutée dans la galerie de <a href="/athlete-'.$champ->getID().'-'.slugify($champ->getNom()).'.html" class="link_customized" >'.$champ->getNom().'</a>  ( '.depuis($j->getDate()).' ) </li>';}
                                      break;
                                      case 'video' :
                                         if($champ)
-                                            {echo '<li><img src="/images/CSS/Video.png" alt="" style="margin-left:3px;margin-right:3px;" align="left" /> Une vidéo a été ajoutée dans la galerie de <a href="/athlète-'.$champ->getID().'-'.slugify($champ->getNom()).'.html" class="link_customized">'.$champ->getNom().'</a> ( '.depuis($j->getDate()).' )</li> ';}
+                                            {echo '<li><img src="/images/CSS/Video.png" alt="" style="margin-left:3px;margin-right:3px;" align="left" /> Une vidéo a été ajoutée dans la galerie de <a href="/athlete-'.$champ->getID().'-'.slugify($champ->getNom()).'.html" class="link_customized">'.$champ->getNom().'</a> ( '.depuis($j->getDate()).' )</li> ';}
                                         break;
                                     case 'commentaire' :
-                                        echo '<li><img src="/images/CSS/commentaire.png" alt="" style="margin-left:3px;margin-right:3px;" align="left" /> '.$profil->getUsername().' a commenté la fiche de <a href="/athlète-'.$champ->getID().'-'.slugify($champ->getNom()).'.html" class="link_customized">'.$champ->getNom().'</a> ( '.depuis($j->getDate()).' )  </li>';
+                                        echo '<li><img src="/images/CSS/commentaire.png" alt="" style="margin-left:3px;margin-right:3px;" align="left" /> '.$profil->getUsername().' a commenté la fiche de <a href="/athlete-'.$champ->getID().'-'.slugify($champ->getNom()).'.html" class="link_customized">'.$champ->getNom().'</a> ( '.depuis($j->getDate()).' )  </li>';
                                         break;
                                     case 'new_admin_club' :
                                         echo '<li><img src="/images/CSS/administrateur.png" alt="" style="margin-left:3px;margin-right:3px;" align="left" /> '.$profil->getUsername().' administre la fiche du club : <a href="/club-marathon-'.$club_ad->getID().'.html" class="link_customized">'.$club_ad->getClub().'</a> ( '.depuis($j->getDate()).' )  </li>';

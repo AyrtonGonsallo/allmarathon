@@ -253,7 +253,7 @@ if (session_status() == PHP_SESSION_NONE) {
         nameLink = tab[2];
         document.getElementById("autocomp" + index).style.display = "none";
         $('#temp1').val('');
-        $('#result').html('<a href="/athlète-' + idChamp + '-' + nameLink + '.html">' + name +
+        $('#result').html('<a href="/athlete-' + idChamp + '-' + nameLink + '.html">' + name +
             '</a> ');
     }
 

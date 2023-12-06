@@ -82,7 +82,7 @@
   </style>
 <link rel="stylesheet" href="/css/authentification.css">
 <link rel="alternate" type="application/rss+xml" title="allmarathon.fr - RSS feed" href="https://allmarathon.fr/flux-rss.xml" />
-<script src='https://www.google.com/recaptcha/api.js'></script>
+<script src='https://www.google.com/recaptcha/api.js' defer></script>
 <header class="header">
     <?php
 
@@ -544,9 +544,9 @@ class="fa fa-pinterest"></i></a></li>
 </header>
 <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
 <script>
-window.jQuery || document.write('<script src="../../js/vendor/jquery-1.12.0.min.js"><\/script>')
+window.jQuery || document.write('<script src="../../js/vendor/jquery-1.12.0.min.js" defer><\/script>')
 </script>
-<script src="/js/bootstrap.min.js"></script>
+<script src="/js/bootstrap.min.js" defer></script>
 <script type="text/javascript">
 $('.bootpopup').click(function() {
 

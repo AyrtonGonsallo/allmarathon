@@ -258,7 +258,7 @@ if (sizeof($athlètes)>0) {
                                     <?php foreach($athlètes as $athlète) { ?>
 
                                     <tr class="odd gradeX">
-                                        <td><?php echo $athlète->getNom_athlète(); ?></td>
+                                        <td><?php echo $athlete->getNom_athlète(); ?></td>
 
                                     </tr>
 

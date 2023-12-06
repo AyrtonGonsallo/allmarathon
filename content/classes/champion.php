@@ -610,7 +610,7 @@ class champion{
 	{
 		try {
 				  include("../database/connexion.php");
-				 $req = $bdd->prepare('SELECT DISTINCT E.CategorieageID,R.Rang,R.Temps,C.Intitule, C.tri, E.Nom, DATE_FORMAT(E.DateDebut, "%Y") AS DateDebut, E.ID FROM evcategorieevenement C INNER JOIN evenements E ON C.ID=E.CategorieID
+				 $req = $bdd->prepare('SELECT DISTINCT E.CategorieID,E.CategorieageID,R.Rang,R.Temps,C.Intitule, C.tri, E.Nom, DATE_FORMAT(E.DateDebut, "%Y") AS DateDebut, E.ID FROM evcategorieevenement C INNER JOIN evenements E ON C.ID=E.CategorieID
                             INNER JOIN evresultats R ON R.EvenementID=E.ID
                             WHERE R.ChampionID=:champ_id ORDER BY E.DateDebut DESC');
 	             $req->bindValue('champ_id',$champ_id, PDO::PARAM_INT);
