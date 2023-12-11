@@ -107,6 +107,12 @@ $tab = explode('-',$news_details->getDate());
     <meta name="Description" content="<?php echo str_replace('\\', '', str_replace('"', '\'', $news_details->getTitre()));?>, <?php echo str_replace('\\', '', str_replace('"', '\'', $news_details->getChapo()));?> " lang="fr" xml:lang="fr" />
     <?php echo '<link rel="canonical" href="https://allmarathon.fr/actualite-marathon-'.$news_details->getId().'-'.slugify($news_details->getTitre()).'.html" />';?>
     <meta name="robots" content="max-image-preview:large" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="<?php echo str_replace('\\', '', str_replace('"', '\'', $news_details->getTitre()));?>" />
+    <meta property="og:description" content="<?php echo str_replace('\\', '', str_replace('"', '\'', $news_details->getTitre()));?>, <?php echo str_replace('\\', '', str_replace('"', '\'', $news_details->getChapo()));?> " />
+    <meta property="og:image" content="<?php echo 'https://allmarathon.fr'.$img_src; ?>" />
+    <meta property="og:url" content="<?php echo 'https://allmarathon.fr/actualite-marathon-'.$news_details->getId().'-'.slugify($news_details->getTitre()).'.html';?>" />
+
     <link rel="apple-touch-icon" href="apple-favicon.png">
     <link rel="icon" type="image/x-icon" href="../../images/favicon.ico" />
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
