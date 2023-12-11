@@ -8,6 +8,7 @@
     url('../fonts/MuseoSans-500/MuseoSans-500.svg') format('svg'); /* Legacy iOS */
     font-weight: normal;
     font-style: normal;
+    font-display: swap;
 }
 
 @font-face {
@@ -20,6 +21,7 @@
     url('../fonts/MuseoSans-900/MuseoSans-900.svg') format('svg'); /* Legacy iOS */
     font-weight: normal;
     font-style: normal;
+    font-display: swap;
 }
 @font-face {
     font-family: 'fontawesome';
@@ -31,4 +33,5 @@
     url('../fonts/fontawesome-webfont.svg') format('svg'); /* Legacy iOS */
     font-weight: normal;
     font-style: normal;
+    font-display: swap;
 }

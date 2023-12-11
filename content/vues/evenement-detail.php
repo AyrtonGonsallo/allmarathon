@@ -1,4 +1,4 @@
-<?php
+<?php  header("Cache-Control: max-age=2592000");
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -540,14 +540,14 @@ echo $pub160x600["code"] ? $pub160x600["code"] :  "<a href=". $pub160x600['url']
     <script>
     window.jQuery || document.write('<script src="../../js/vendor/jquery-1.12.0.min.js"><\/script>')
     </script>
-    <script src="../../js/bootstrap.min.js"></script>
-    <script src="../../js/plugins.js"></script>
-    <script src="../../js/jquery.jcarousel.min.js"></script>
-    <script src="../../js/jquery.sliderPro.min.js"></script>
-    <script src="../../js/easing.js"></script>
-    <script src="../../js/jquery.ui.totop.min.js"></script>
-    <script src="../../js/herbyCookie.min.js"></script>
-    <script src="../../js/main.js"></script>
+    <script data-type="lazy" ddata-src="../../js/bootstrap.min.js"></script>
+    <script data-type="lazy" ddata-src="../../js/plugins.js"></script>
+    <script data-type="lazy" ddata-src="../../js/jquery.jcarousel.min.js"></script>
+    <script data-type="lazy" ddata-src="../../js/jquery.sliderPro.min.js"></script>
+    <script data-type="lazy" ddata-src="../../js/easing.js"></script>
+    <script data-type="lazy" ddata-src="../../js/jquery.ui.totop.min.js"></script>
+    <script data-type="lazy" ddata-src="../../js/herbyCookie.min.js"></script>
+    <script data-type="lazy" ddata-src="../../js/main.js"></script>
 
    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     

@@ -1,4 +1,4 @@
-<?php
+<?php header("Cache-Control: max-age=2592000");
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
@@ -119,7 +119,7 @@ $tab = explode('-',$news_details->getDate());
     {
       "@context": "https://schema.org",
       "@type": "NewsArticle",
-      "headline": "<?php echo $news_details->getTitre(); ?>",
+      "headline": "<?php echo str_replace('"',"",$news_details->getTitre()); ?>",
       "image": [
         "<?php echo 'https://allmarathon.fr'.$img_src; ?>"
        ],
@@ -144,14 +144,17 @@ $tab = explode('-',$news_details->getDate());
     <!-- Add your site or application content here -->
     <div id="fb-root"></div>
     <script>
-    (function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s);
-        js.id = id;
-        js.src = "//connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v2.6";
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
+         setTimeout(() => {
+            (function(d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) return;
+                js = d.createElement(s);
+                js.id = id;
+                js.src = "//connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v2.6";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+        }, "10000");
+    
     </script>
 
     <?php include_once('nv_header-integrer.php'); ?>
@@ -205,10 +208,12 @@ $tab = explode('-',$news_details->getDate());
                         $tab = explode('-',$news_details->getDate());
                         $yearNews  = $tab[0];
                         $img_src='/images/news/'.$yearNews.'/'.$news_details->getPhoto();
+                        $img_src_mobile='/images/news/'.$yearNews.'/thumb_'.$news_details->getPhoto();
                         $alt = ($news_details->getLegende())?'alt="'.$news_details->getLegende().'"':'alt="allmarathon news image"';
                         if ($img_src)
                             {
-                                echo '<img class="sp-image" '.$alt.' style="max-width: 100%;"src="'.$img_src.'"/>';
+                                echo '<img class="sp-image bureau" '.$alt.' style="max-width: 100%;"src="'.$img_src.'"/>';
+                                echo '<img class="sp-image mobile" '.$alt.' width="400px" height="auto" src="'.$img_src_mobile.'"/>';
                             }
                         }
                 ?>
@@ -241,12 +246,15 @@ $tab = explode('-',$news_details->getDate());
                             this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
                             };
                             */
-                            (function() { // DON'T EDIT BELOW THIS LINE
-                            var d = document, s = d.createElement('script');
-                            s.src = 'https://allmarathon.disqus.com/embed.js';
-                            s.setAttribute('data-timestamp', +new Date());
-                            (d.head || d.body).appendChild(s);
-                            })();
+                            setTimeout(() => {
+                                (function() { // DON'T EDIT BELOW THIS LINE
+                                    var d = document, s = d.createElement('script');
+                                    s.src = 'https://allmarathon.disqus.com/embed.js';
+                                    s.setAttribute('data-timestamp', +new Date());
+                                    (d.head || d.body).appendChild(s);
+                                    })();
+                            }, "10000");
+                            
                         </script>
                         <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 
@@ -323,35 +331,20 @@ if($pub160x600 !="") {
 
 
 
-    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script data-type='lazy' ddata-src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
     <script>
-    window.jQuery || document.write('<script src="../../js/vendor/jquery-1.12.0.min.js"><\/script>')
+    window.jQuery || document.write('<script data-type="lazy" ddata-src="../../js/vendor/jquery-1.12.0.min.js"><\/script>')
     </script>
-    <script src="../../js/bootstrap.min.js"></script>
-    <script src="../../js/plugins.js"></script>
-    <script src="../../js/jquery.jcarousel.min.js"></script>
-    <script src="../../js/jquery.sliderPro.min.js"></script>
-    <script src="../../js/easing.js"></script>
-    <script src="../../js/jquery.ui.totop.min.js"></script>
-    <script src="../../js/herbyCookie.min.js"></script>
-    <script src="../../js/main.js"></script>
+    <script data-type="lazy" ddata-src="../../js/bootstrap.min.js"></script>
+    <script data-type="lazy" ddata-src="../../js/plugins.js"></script>
+    <script data-type="lazy" ddata-src="../../js/jquery.jcarousel.min.js"></script>
+    <script data-type="lazy" ddata-src="../../js/jquery.sliderPro.min.js"></script>
+    <script data-type="lazy" ddata-src="../../js/easing.js"></script>
+    <script data-type="lazy" ddata-src="../../js/jquery.ui.totop.min.js"></script>
+    <script data-type="lazy" ddata-src="../../js/herbyCookie.min.js"></script>
+    <script data-type="lazy" ddata-src="../../js/main.js"></script>
 
-    <script>
-    /*(function(i, s, o, g, r, a, m) {
-        i['GoogleAnalyticsObject'] = r;
-        i[r] = i[r] || function() {
-            (i[r].q = i[r].q || []).push(arguments)
-        }, i[r].l = 1 * new Date();
-        a = s.createElement(o),
-            m = s.getElementsByTagName(o)[0];
-        a.async = 1;
-        a.src = g;
-        m.parentNode.insertBefore(a, m)
-    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
-
-    ga('create', 'UA-1833149-1', 'auto');
-    ga('send', 'pageview');*/
-    </script>
+   
 
     <?php
     if($user_id!=""){
@@ -404,23 +397,21 @@ if($pub160x600 !="") {
 
     <!--FaceBook-->
     <script>
-    (function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s);
-        js.id = id;
-        js.src = "//connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v2.5";
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
+        setTimeout(() => {
+            (function(d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) return;
+                js = d.createElement(s);
+                js.id = id;
+                js.src = "//connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v2.5";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+        }, "10000");
+    
     </script>
+    
    
-       <script type="text/javascript">
-         $(document).ready(function() {
-            $("#reactions__container").hide()
-            $("#reactions__container").css('opacity', '0.2');
-            console.log("hidden",$("#reactions__container"))
-         })
-        </script>
+       
 
 </body>
 

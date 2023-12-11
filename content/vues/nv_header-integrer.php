@@ -82,7 +82,23 @@
   </style>
 <link rel="stylesheet" href="/css/authentification.css">
 <link rel="alternate" type="application/rss+xml" title="allmarathon.fr - RSS feed" href="https://allmarathon.fr/flux-rss.xml" />
-<script src='https://www.google.com/recaptcha/api.js' defer></script>
+<script>
+{
+    const load = () => {
+        document.querySelectorAll("script[data-type='lazy']").forEach(el => el.setAttribute("src", el.getAttribute("ddata-src")));
+        document.querySelectorAll("script[data-type='lazy']").forEach(el => console.log(el.getAttribute("ddata-src")+" chargé en différé"));
+        
+    }
+    const timer = setTimeout(load, 15000);
+    const trigger = () => {
+        load();
+        clearTimeout(timer);
+    }
+    const events = ["mouseover","keydown","touchmove","touchstart"];
+    events.forEach(e => window.addEventListener(e, trigger, {passive: true, once: true}));
+}
+</script>
+<script ddata-src='https://www.google.com/recaptcha/api.js'  data-type='lazy'></script>
 <header class="header">
     <?php
 
@@ -544,9 +560,9 @@ class="fa fa-pinterest"></i></a></li>
 </header>
 <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
 <script>
-window.jQuery || document.write('<script src="../../js/vendor/jquery-1.12.0.min.js" defer><\/script>')
+window.jQuery || document.write('<script src="../../js/vendor/jquery-1.12.0.min.js" ><\/script>')
 </script>
-<script src="/js/bootstrap.min.js" defer></script>
+<script src="/js/bootstrap.min.js" ></script>
 <script type="text/javascript">
 $('.bootpopup').click(function() {
 
@@ -702,5 +718,5 @@ $(document).ready(function() {
 });
 
 </script>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7261110840191217"
+<script ddata-src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7261110840191217" data-type='lazy'
      crossorigin="anonymous"></script>

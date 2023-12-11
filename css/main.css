@@ -1882,9 +1882,21 @@ section.last_articles_part1 {
 .image_news img {
     object-fit: cover !important;
 }
+.mobile{
+    display: none;
+}
+.bureau{ 
+    display: block;
+}
 @media only screen and (max-width: 425px){
     .article-img img, .image_news img {
         object-fit: cover !important;
+    }
+    .mobile{
+        display: block;
+    }
+    .bureau{ 
+        display: none;
     }
 }
 /*VIDEOS BLOC*/

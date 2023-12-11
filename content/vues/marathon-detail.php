@@ -1,4 +1,4 @@
-<?php
+<?php header("Cache-Control: max-age=2592000");
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -619,33 +619,33 @@ if($pays_datas){
 
     </style>
 
-    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script data-type="lazy" ddata-src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
     <script>
-    window.jQuery || document.write('<script src="../../js/vendor/jquery-1.12.0.min.js"><\/script>')
+    window.jQuery || document.write('<script data-type="lazy" ddata-src="../../js/vendor/jquery-1.12.0.min.js"><\/script>')
     </script>
-    <script src="../../js/bootstrap.min.js"></script>
-    <script src="../../js/plugins.js"></script>
-    <script src="../../js/jquery.jcarousel.min.js"></script>
-    <script src="../../js/jquery.sliderPro.min.js"></script>
-    <script src="../../js/easing.js"></script>
-    <script src="../../js/jquery.ui.totop.min.js"></script>
-    <script src="../../js/herbyCookie.min.js"></script>
-    <script src="../../js/main.js"></script>
+    <script data-type="lazy" ddata-src="../../js/bootstrap.min.js"></script>
+    <script data-type="lazy" ddata-src="../../js/plugins.js"></script>
+    <script data-type="lazy" ddata-src="../../js/jquery.jcarousel.min.js"></script>
+    <script data-type="lazy" ddata-src="../../js/jquery.sliderPro.min.js"></script>
+    <script data-type="lazy" ddata-src="../../js/easing.js"></script>
+    <script data-type="lazy" ddata-src="../../js/jquery.ui.totop.min.js"></script>
+    <script data-type="lazy" ddata-src="../../js/herbyCookie.min.js"></script>
+    <script data-type="lazy" ddata-src="../../js/main.js"></script>
 
-   <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+   <script data-type="lazy" ddata-src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     
 
     <!-- Add mousewheel plugin (this is optional) -->
-    <script type="text/javascript" src="/js/jquery.mousewheel-3.0.6.pack.js"></script>
+    <script type="text/javascript" data-type="lazy" ddata-src="/js/jquery.mousewheel-3.0.6.pack.js"></script>
 
     <!-- Add fancyBox -->
-    <script type="text/javascript" src="/js/jquery.fancybox.pack.js?v=2.1.5"></script>
+    <script type="text/javascript" data-type="lazy" ddata-src="/js/jquery.fancybox.pack.js?v=2.1.5"></script>
 
     <!-- Optionally add helpers - button, thumbnail and/or media -->
-    <script type="text/javascript" src="/js/jquery.fancybox-buttons.js?v=1.0.5"></script>
-    <script type="text/javascript" src="/js/jquery.fancybox-media.js?v=1.0.6"></script>
+    <script type="text/javascript" data-type="lazy" ddata-src="/js/jquery.fancybox-buttons.js?v=1.0.5"></script>
+    <script type="text/javascript" data-type="lazy" ddata-src="/js/jquery.fancybox-media.js?v=1.0.6"></script>
 
-    <script type="text/javascript" src="/js/jquery.fancybox-thumbs.js?v=1.0.7"></script>
+    <script type="text/javascript" data-type="lazy" ddata-src="/js/jquery.fancybox-thumbs.js?v=1.0.7"></script>
     <script type="text/javascript">
     $(document).ready(function() {
         $(".fancybox").fancybox({
