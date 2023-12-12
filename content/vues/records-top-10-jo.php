@@ -141,7 +141,12 @@ catch(Exception $e)
     <link rel="icon" type="image/x-icon" href="../../images/favicon.ico" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
   
-  
+    <meta property="og:title" content="Jeux olympiques : les 10 meilleures performances sur marathon" />
+    <meta property="og:description" content="Découvrez les 10 meilleurs performances de tous les temps réalisées sur marathon - Jeux olympiques, hommes et femmes." />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:type" content="siteweb" />
+    <meta property="og:image" content="https://allmarathon.fr/images/allmarathon.png" />
+    <meta property="og:url" content="https://allmarathon.fr/10-meilleures-performances-jeux-olympiques-marathon.html" />
   
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/font-awesome.min.css">

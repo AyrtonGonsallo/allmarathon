@@ -163,7 +163,12 @@ try{
 
     <meta name="Description" content="Retrouvez tous les marathons en France et dans le monde : agenda, dates, résultats, records, infos." lang="fr" xml:lang="fr">
 
-    
+    <meta property="og:title" content="Agenda - Calendrier des marathons en France et dans le monde." />
+    <meta property="og:description" content="Retrouvez tous les marathons en France et dans le monde : agenda, dates, résultats, records, infos." />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:type" content="siteweb" />
+    <meta property="og:image" content="https://allmarathon.fr/images/allmarathon.png" />
+    <meta property="og:url" content="https://allmarathon.fr/calendrier-agenda-marathons.html" />
 
     <link rel="canonical" href="https://allmarathon.fr/calendrier-agenda-marathons.html" />
 

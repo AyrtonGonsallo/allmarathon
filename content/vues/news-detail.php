@@ -193,6 +193,20 @@ $tab = explode('-',$news_details->getDate());
 
                         <h2 class="mini_h2"><?php echo "auteur : ".$news_details->getAuteur()." / "; ?>
                             <?php echo '<span style="margin-top: 7px;font-family: MuseoSans-500;text-transform: none;">'.changeDate($news_details->getDate()).' / '.$source.'</span>' ; ?>
+                            <script>
+                            setTimeout(() => {
+                                (function() { // DON'T EDIT BELOW THIS LINE
+                                    var d = document, s = d.createElement('script');
+                                    s.src = '//allmarathon.disqus.com/count.js';
+                                    s.setAttribute('data-timestamp', +new Date());
+                                    s.setAttribute('id', "dsq-count-scr");
+                                    (d.head || d.body).appendChild(s);
+                                    })();
+                            }, "10000");
+                            
+                        </script>
+                            <a style="float: right;font-weight: bold;" href="<?php echo 'https://allmarathon.fr/actualite-marathon-'.$news_details->getId().'-'.slugify($news_details->getTitre()).'.html';?>#disqus_thread"># COMMENTAIRES</a>
+
 
                         </h2>
 

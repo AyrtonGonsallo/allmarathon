@@ -48,13 +48,13 @@
                         <dt>athlèteS</dt>
                         <dd>
                             <ul>
-                                <li><a href="/athl%C3%A8te-36-eliud-kipchoge.html">Eliud Kipchoge</a></li>
-                                <li><a href="/athl%C3%A8te-4438-abebe-bikila.html">Abebe Bikila</a>
+                                <li><a href="/athlete-36-eliud-kipchoge.html">Eliud Kipchoge</a></li>
+                                <li><a href="/athlete-4438-abebe-bikila.html">Abebe Bikila</a>
                                 </li>
-                                <li><a href="/athl%C3%A8te-1060-mohamed-farah.html">Mohamed Farah</a></li>
-                                <li><a href="/athl%C3%A8te-4245-waldemar-cierpinski.html">Waldemar Cierpinski</a></li>
-                                <li><a href="/athl%C3%A8te-38-hassan-chahdi.html">Hassan Chahdi</a></li>
-                                <li><a href="/athl%C3%A8te-1079-kelvin-kiptum.html">Kelvin Kiptum</a></li>
+                                <li><a href="/athlete-1060-mohamed-farah.html">Mohamed Farah</a></li>
+                                <li><a href="/athlete-4245-waldemar-cierpinski.html">Waldemar Cierpinski</a></li>
+                                <li><a href="/athlete-38-hassan-chahdi.html">Hassan Chahdi</a></li>
+                                <li><a href="/athlete-1079-kelvin-kiptum.html">Kelvin Kiptum</a></li>
                             </ul>
                         </dd>
                     </div>
@@ -153,13 +153,13 @@
                                 <div class="panel-body">
                                     <dd>
                                         <ul>
-                                        <li><a href="/athl%C3%A8te-36-eliud-kipchoge.html">Eliud Kipchoge</a></li>
-                                <li><a href="/athl%C3%A8te-4438-abebe-bikila.html">Abebe Bikila</a>
+                                        <li><a href="/athlete-36-eliud-kipchoge.html">Eliud Kipchoge</a></li>
+                                <li><a href="/athlete-4438-abebe-bikila.html">Abebe Bikila</a>
                                 </li>
-                                <li><a href="/athl%C3%A8te-1060-mohamed-farah.html">Mohamed Farah</a></li>
-                                <li><a href="/athl%C3%A8te-4245-waldemar-cierpinski.html">Waldemar Cierpinski</a></li>
-                                <li><a href="/athl%C3%A8te-38-hassan-chahdi.html">Hassan Chahdi</a></li>
-                                <li><a href="/athl%C3%A8te-1079-kelvin-kiptum.html">Kelvin Kiptum</a></li>
+                                <li><a href="/athlete-1060-mohamed-farah.html">Mohamed Farah</a></li>
+                                <li><a href="/athlete-4245-waldemar-cierpinski.html">Waldemar Cierpinski</a></li>
+                                <li><a href="/athlete-38-hassan-chahdi.html">Hassan Chahdi</a></li>
+                                <li><a href="/athlete-1079-kelvin-kiptum.html">Kelvin Kiptum</a></li>
                                         </ul>
                                     </dd>
                                 </div>

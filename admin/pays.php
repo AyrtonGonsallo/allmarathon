@@ -13,7 +13,7 @@ if (session_status() == PHP_SESSION_NONE) {
                 exit();
     }
 
-    if($_SESSION['admin'] == false && $_SESSION['news'] == false){
+    if($_SESSION['admin'] == false && $_SESSION['pays'] == false){
         header('Location: login.php');
         exit();
     }
@@ -53,38 +53,22 @@ if (session_status() == PHP_SESSION_NONE) {
     $erreur = "";
     $statut=false;
     if( isset($_POST['sub']) ){
-        if($_POST['Titre']=="")
+        if($_POST['NomPays']=="")
             {$erreur .= "Erreur titre.<br />";}
         if($erreur == ""){
-            $fileName = $_FILES['photo']['name'];
+            $fileName = $_FILES['Flag']['name'];
             try {
-                if($_POST['bref']==1){
-                    $req4 = $bdd->prepare("INSERT INTO news (date,source,auteur,titre,chapo,texte,photo,admin,liens_champions,aLaUne,aLaDeux,categorieID,url,legende,lien1,textlien1,evenementID) VALUES (:date,:source,:auteur,:titre,:chapo,:texte,:photo,:admin,:liens_champions,:aLaUne,:aLaDeux,:categorie,:url,:legende,:lien1,:textlien1,:evenementID)");
-                }else{
-                    $req4 = $bdd->prepare("INSERT INTO news (date,source,auteur,titre,chapo,texte,photo,admin,liens_champions,aLaUne,aLaDeux,url,legende,lien1,textlien1,evenementID) VALUES (:date,:source,:auteur,:titre,:chapo,:texte,:photo,:admin,:liens_champions,:aLaUne,:aLaDeux,:url,:legende,:lien1,:textlien1,:evenementID)");
-
-                }
-                if($_POST['bref']==1){
-                    $req4->bindValue('categorie','11', PDO::PARAM_INT);
-
-                }
-                 $req4->bindValue('date',$_POST['Date'], PDO::PARAM_STR);
-                 $req4->bindValue('source',$_POST['Source'], PDO::PARAM_STR);
-                 $req4->bindValue('auteur',$_POST['auteur'], PDO::PARAM_STR);
-                 $req4->bindValue('titre',$_POST['Titre'], PDO::PARAM_STR);
-                 $req4->bindValue('aLaUne',$_POST['aLaUne'], PDO::PARAM_STR);
-                 $req4->bindValue('aLaDeux',$_POST['aLaDeux'], PDO::PARAM_STR);
-                 $req4->bindValue('liens_champions',$_POST['liens_champions'], PDO::PARAM_STR);
-                 $req4->bindValue('chapo',$_POST['Chapo'], PDO::PARAM_STR);
-                 $req4->bindValue('texte',$_POST['Texte'], PDO::PARAM_STR);
-                 $req4->bindValue('photo',$fileName, PDO::PARAM_STR);
-                 $req4->bindValue('url',$_POST['Url'], PDO::PARAM_STR);
-                 $req4->bindValue('legende',$_POST['Legende'], PDO::PARAM_STR);
-                 $req4->bindValue('lien1',$_POST['Lien1'], PDO::PARAM_STR);
-                 $req4->bindValue('textlien1',$_POST['TextLien1'], PDO::PARAM_STR);
-                 $req4->bindValue('evenementID',$_POST['evenementID'], PDO::PARAM_INT);
-
-                 $req4->bindValue('admin',$_SESSION['login'], PDO::PARAM_STR);
+                
+                $req4 = $bdd->prepare("INSERT INTO `pays`( `Abreviation`, `NomPays`, `texte`, `Flag`, `Abreviation_2`, `Abreviation_3`, `Abreviation_4`, `Abreviation_5`,prefixe) VALUES (:ab,:np,:txt,:flag,:ab2,:ab3,:ab4,:ab5,:pref)");
+                $req4->bindValue('pref',$_POST['prefixe'], PDO::PARAM_STR);
+                 $req4->bindValue('ab',$_POST['Abreviation'], PDO::PARAM_STR);
+                 $req4->bindValue('np',$_POST['NomPays'], PDO::PARAM_STR);
+                 $req4->bindValue('txt',$_POST['Texte'], PDO::PARAM_STR);
+                 $req4->bindValue('flag',$fileName, PDO::PARAM_STR);
+                 $req4->bindValue('ab5',$_POST['Abreviation_5'], PDO::PARAM_STR);
+                 $req4->bindValue('ab2',$_POST['Abreviation_2'], PDO::PARAM_STR);
+                 $req4->bindValue('ab3',$_POST['Abreviation_3'], PDO::PARAM_STR);
+                 $req4->bindValue('ab4',$_POST['Abreviation_4'], PDO::PARAM_STR);
                  $statut=$req4->execute();
 
                  
@@ -93,18 +77,18 @@ if (session_status() == PHP_SESSION_NONE) {
             {
                 die('Erreur : ' . $e->getMessage());
             }
-            $newsID = $bdd->lastInsertId();
+            $paysID = $bdd->lastInsertId();
             if($statut)  {  
-                $array       = explode('-',$_POST['Date']);
-                $destination_path = "../images/news/".$array[0]."/";
+                
+                $destination_path = "../images/flags/";
                  if(!is_dir($destination_path)){
                        mkdir($destination_path);
                        chmod($destination_path,0777);
                    }
                 
-                if(!empty($_FILES['photo']['name'])){
+                if(!empty($_FILES['Flag']['name'])){
                     /*  cr�ation de l'mage au bon format */
-                    $fileinfo = $_FILES['photo'];
+                    $fileinfo = $_FILES['Flag'];
                     $fichierSource = $fileinfo['tmp_name'];
                     $fichierName   = $fileinfo['name'];
 
@@ -125,15 +109,7 @@ if (session_status() == PHP_SESSION_NONE) {
                           }
                     }else{
 
-                            $x = 414;
-                            $size = getimagesize($fichierSource);
-                            $y = ($x * $size[1]) / $size[0];
-                            $img_new = imagecreatefromjpeg($fichierSource);
-
-                            $img_mini = imagecreatetruecolor($x, $y);
-                            imagecopyresampled($img_mini, $img_new, 0, 0, 0, 0, $x, $y, $size[0], $size[1]);
-
-                            imagejpeg($img_mini, $destination_path . "thumb_" . strtolower($fichierName));
+                            
 
                             if(move_uploaded_file($fichierSource,$destination_path.$fichierName)) {
                                 $result = "Fichier corectement envoy� !";
@@ -150,7 +126,7 @@ if (session_status() == PHP_SESSION_NONE) {
     }
 
     try{
-      $req = $bdd->prepare("SELECT * FROM news ORDER BY ID DESC");
+      $req = $bdd->prepare("SELECT * FROM pays ORDER BY ID DESC");
       $req->execute();
       $result1= array();
       while ( $row  = $req->fetch(PDO::FETCH_ASSOC)) {  
@@ -162,38 +138,7 @@ if (session_status() == PHP_SESSION_NONE) {
         die('Erreur : ' . $e->getMessage());
     }
 
-    // $query1    = sprintf('SELECT * FROM news ORDER BY ID DESC');
-    // $result1   = mysql_query($query1);
-      try{
-          $req1 = $bdd->prepare("SELECT E.ID,E.Nom,E.DateDebut,E.CategorieID,C.Intitule FROM evenements E INNER JOIN evcategorieevenement C ON E.CategorieID=C.ID ORDER BY E.ID DESC");
-          $req1->execute();
-          $result2= array();
-          while ( $row  = $req1->fetch(PDO::FETCH_ASSOC)) {  
-            array_push($result2, $row);
-          }
-      }
-      catch(Exception $e)
-      {
-          die('Erreur : ' . $e->getMessage());
-      }
-
-    // $query2    = sprintf('SELECT E.ID,E.Nom,E.DateDebut,E.CategorieID,C.Intitule FROM evenements E INNER JOIN evcategorieevenement C ON E.CategorieID=C.ID ORDER BY E.ID DESC');
-    // $result2   = mysql_query($query2);
     
-      try{
-            $req3 = $bdd->prepare("SELECT * FROM newscategorie ORDER BY Intitule");
-            $req3->execute();
-            $result3= array();
-            while ( $row  = $req3->fetch(PDO::FETCH_ASSOC)) {  
-              array_push($result3, $row);
-            }
-        }
-      catch(Exception $e)
-      {
-          die('Erreur : ' . $e->getMessage());
-      }
-    // $query3    = sprintf('SELECT * FROM newscategorie ORDER BY Intitule');
-    // $result3   = mysql_query($query3);
 
 
 ?>
@@ -326,88 +271,44 @@ if (session_status() == PHP_SESSION_NONE) {
 <body>
     <?php require_once "menuAdmin.php"; ?>
     <fieldset style="float:left;">
-        <legend>Ajouter news</legend>
-        <form action="news.php" method="post" enctype="multipart/form-data">
+        <legend>Ajouter un pays</legend>
+        <form action="pays.php" method="post" enctype="multipart/form-data">
             <p id="pErreur" align="center"><?php echo $erreur; ?></p>
             <table>
                 <tr>
-                    <td align="right"><label>A la une : </label></td>
-                    <td><input type="radio" name="aLaUne" id="oui" value="1" /><label
-                            for="oui">oui</label>&nbsp;&nbsp;&nbsp;<input type="radio" name="aLaUne" id="non" value="0"
-                            checked="checked" /><label for="non">non</label></td>
+                    <td align="right"><label for="NomPays">NomPays : </label></td>
+                    <td><input type="text" name="NomPays" value="" /></td>
+                </tr>
+                <tr><td><label for="prefixe">Préfixe : </label></td><td><input id="prefixe" type="text" name="prefixe" value="En" /></td></tr>
+
+                <tr>
+                    <td align="right"><label for="Abreviation">Abreviation : </label></td>
+                    <td><input type="text" name="Abreviation" value="" /></td>
                 </tr>
                 <tr>
-                    <td align="right"><label>A la deux : </label></td>
-                    <td><input type="radio" name="aLaDeux" id="oui" value="1" /><label
-                            for="oui">oui</label>&nbsp;&nbsp;&nbsp;<input type="radio" name="aLaDeux" id="non" value="0"
-                            checked="checked" /><label for="non">non</label></td>
+                    <td align="right"><label for="Abreviation_2">Abreviation_2 : </label></td>
+                    <td><input type="text" name="Abreviation_2" value="" /></td>
                 </tr>
                 <tr>
-                    <td align="right"><label>En bref : </label></td>
-                    <td><input type="radio" name="bref" id="oui" value="1" /><label
-                            for="oui">oui</label>&nbsp;&nbsp;&nbsp;<input type="radio" name="bref" id="non" value="0"
-                            checked="checked" /><label for="non">non</label></td>
+                    <td align="right"><label for="Abreviation_3">Abreviation_3 : </label></td>
+                    <td><input type="text" name="Abreviation_3" value="" /></td>
                 </tr>
                 <tr>
-                    <td align="right"><label for="Date">Date : </label></td>
-                    <td><input type="text" name="Date" id="timepicker" value="<?php echo date("Y-m-d G:i:s")?>" /></td>
+                    <td align="right"><label for="Abreviation_4">Abreviation_4 : </label></td>
+                    <td><input type="text" name="Abreviation_4" value="" /></td>
                 </tr>
                 <tr>
-                    <td align="right"><label for="Source">Source : </label></td>
-                    <td><input type="text" name="Source" value="" /></td>
+                    <td align="right"><label for="Abreviation_5">Abreviation_5 : </label></td>
+                    <td><input type="text" name="Abreviation_5" value="" /></td>
                 </tr>
-                <tr>
-                    <td align="right"><label for="auteur">Nom de l'auteur : </label></td>
-                    <td><input type="text" name="auteur" value="Laurent MATHIEU" /></td>
-                </tr>
-                <tr>
-                    <td align="right"><label for="Titre">Titre : </label></td>
-                    <td><input type="text" name="Titre" value="" /></td>
-                </tr>
-                
-                <tr>
-                    <td align="right"><label for="Chapo">Chapo : </label></td>
-                    <td><textarea name="Chapo" cols="50" rows="7"></textarea></td>
-                </tr>
+    
                 <tr>
                     <td align="right"><label for="Texte">Texte : </label></td>
                     <td><textarea name="Texte" cols="30" rows="9"></textarea></td>
                 </tr>
-                <tr>
-                    <td align="right"><label for="Url">Url : </label></td>
-                    <td><input type="text" name="Url" value="" /></td>
-                </tr>
-                <tr>
-                    <td align="right"><label for="Legende">L&eacute;gende : </label></td>
-                    <td><input type="text" name="Legende" value="" /></td>
-                </tr>
-                <tr>
-                    <td align="right"><label for="Lien1">Lien 1 : </label></td>
-                    <td><input type="text" name="Lien1" value="" /></td>
-                </tr>
-                <tr>
-                    <td align="right"><label for="TextLien1">Texte lien 1 : </label></td>
-                    <td><input type="text" name="TextLien1" value="" /></td>
-                </tr>
-                <tr>
-                    <td><label>Liens champions </label></td>
-                    <td>
-                        <div id="autoCompChamp1">
-                            <input autocomplete="off" type="text" id="temp1" value="" />
-                            <div id="autocomp1" style="display:none;" class="autocomp"></div>
-                            <input style="display:none;" id="champion1" name="liens_champions" type="text" value="" />
-                            <div id="result" style="display: inline;"></div </div>
-
-
-                    </td>>
-                </tr>
-
-                <tr><td><label for="evenementID">évènement lié : </label></td><td><input id="evenementID" type="number" name="evenementID" value="" /></td></tr>
-
-
                 <tr align="center">
-                    <td><label for="photo">Photo : </label></td>
-                    <td><input type="file" name="photo" /></td>
+                    <td><label for="Flag">Drapeau : </label></td>
+                    <td><input type="file" name="Flag" /></td>
                 </tr>
 
                 <tr align="center">
@@ -418,7 +319,7 @@ if (session_status() == PHP_SESSION_NONE) {
     </fieldset>
 
     <fieldset style="float:left;">
-        <legend>Liste des news</legend>
+        <legend>Liste des pays</legend>
         <div>
         <div id="pager" class="pager">
             <form>
@@ -441,29 +342,39 @@ if (session_status() == PHP_SESSION_NONE) {
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Titre</th>
-                        <th>Une</th>
-                        <th>Deux</th>
-                        <th>Date</th>
+                        <th>Abreviation	</th>
+                        <th>Abreviation_2</th>
+                        <th>Abreviation_3</th>
+                        <th>Abreviation_4</th>
+                        <th>Abreviation_5</th>
+                        <th>Préfixe	</th>
+                        <th>NomPays	</th>
+                        <th>texte</th>
+                        <th>Flag</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php //while($news = mysql_fetch_array($result1)){<?>
-                    <?php foreach ($result1 as $news) {
-			$incheck_deux='<input type="checkbox" name="check_deux" value="'.$news['ID'].'" checked="checked" onclick="chkit2('.$news['ID'].',this.checked);"/>';
-			$uncheck_deux='<input type="checkbox" name="uncheck_deux" value="'.$news['ID'].'" onclick="chkit2('.$news['ID'].',this.checked);"/>';
-            $deux = ($news['aLaDeux']) ? ''.$incheck_deux.'' : ''.$uncheck_deux.'';
-			$incheck_une='<input type="checkbox" name="check_une" value="'.$news['ID'].'" checked="checked" onclick="chkit1('.$news['ID'].',this.checked);"/>';
-			$uncheck_une='<input type="checkbox" name="uncheck_une" value="'.$news['ID'].'" onclick="chkit1('.$news['ID'].',this.checked);"/>';
-            echo "<tr align=\"center\" ><td>".$news['ID']."</td><td>".$news['titre']."</td><td>",($news['aLaUne'])?"".$incheck_une."":"".$uncheck_une."","</td><td>" . $deux . "</td><td>".$news['date']."</td>
-                <td>";
-            if($news['admin'] == $_SESSION['login'] || $_SESSION['admin'] == true){
-                echo "<img style=\"cursor:pointer;\" src=\"../images/edit.png\" alt=\"edit\" title=\"modifier\" onclick=\"location.href='newsDetail.php?newsID=".$news['ID']."'\" />
-                <img style=\"cursor:pointer;\" src=\"../images/supprimer.png\" alt=\"supprimer\" title=\"supprimer\"  onclick=\"if(confirm('Voulez vous vraiment supprimer ".addslashes($news['titre'])." ?')) { location.href='supprimerNews.php?newsID=".$news['ID']."';} else { return 0;}\" />";
-            }
-            echo "</td></tr>";
-        } ?>
+                    <?php //while($pays = mysql_fetch_array($result1)){<?>
+                    <?php foreach ($result1 as $pays) {
+                        $pays_flag_url='https://allmarathon.fr/images/flags/'.$pays['Flag'];
+                        echo "<tr align=\"center\" >
+                            <td>".$pays['ID']."</td>
+                            <td>".$pays['Abreviation']."</td>
+                            <td>".$pays['Abreviation_2']."</td>
+                            <td>".$pays['Abreviation_3']."</td>
+                            <td>".$pays['Abreviation_4']."</td>
+                            <td>".$pays['Abreviation_5']."</td>
+                            <td>".$pays['prefixe']."</td>
+                            <td>".$pays['NomPays']."</td>
+                            <td>".$pays['texte']."</td>
+                            <td><img src=".$pays_flag_url." alt=''></td>
+                            <td>";
+                                echo "<img style=\"cursor:pointer;\" src=\"../images/edit.png\" alt=\"edit\" title=\"modifier\" onclick=\"location.href='paysDetail.php?paysID=".$pays['ID']."'\" />
+                                <img style=\"cursor:pointer;\" src=\"../images/supprimer.png\" alt=\"supprimer\" title=\"supprimer\"  onclick=\"if(confirm('Voulez vous vraiment supprimer ".addslashes($pays['NomPays'])." ?')) { location.href='supprimerPays.php?paysID=".$pays['ID']."';} else { return 0;}\" />";
+                            echo "</td>
+                        </tr>";
+                    } ?>
                 </tbody>
             </table>
         </div>

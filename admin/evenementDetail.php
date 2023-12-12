@@ -139,49 +139,156 @@ if(isset($_GET['evenementID']) or isset($_GET['evenement_filsID'])){
                            
 
                              try {
+                                if(empty($_FILES['affiche']['name'])){
+                                    $req4 = $bdd->prepare("UPDATE ".$table." SET Nom=:Nom,prefixe=:prefixe,Sexe=:Sexe,DateDebut=:DateDebut,parcours_iframe=:pifr,parcours_image=:pimg,Presentation=:Presentation,lien_resultats_complet=:lrc,CategorieageID=:CategorieageID,CategorieID=:CategorieID,Visible=:Visible,Valider=:Valider,Contact=:Contact,Mail=:Mail,Web=:Web,insta=:insta,facebook=:facebook,youtube=:youtube,marathon_id=:mar_id,video_teaser=:vit,Telephone=:Telephone,".$reqDoc." PaysID=:PaysID WHERE ID=:event_id");
 
-                 $req4 = $bdd->prepare("UPDATE ".$table." SET Nom=:Nom,Sexe=:Sexe,DateDebut=:DateDebut,Presentation=:Presentation,lien_resultats_complet=:lrc,CategorieageID=:CategorieageID,CategorieID=:CategorieID,Visible=:Visible,Valider=:Valider,Contact=:Contact,Mail=:Mail,Web=:Web,insta=:insta,facebook=:facebook,youtube=:youtube,marathon_id=:mar_id,affiche=:aff,video_teaser=:vit,Telephone=:Telephone,".$reqDoc." PaysID=:PaysID WHERE ID=:event_id");
-                 $fileName = $_FILES['affiche']['name'];
-                $req4->bindValue('Nom',$_POST['Nom'], PDO::PARAM_STR);
+                                }else if(empty($_FILES['parcours_image']['name'])){
+                                    $req4 = $bdd->prepare("UPDATE ".$table." SET Nom=:Nom,prefixe=:prefixe,Sexe=:Sexe,DateDebut=:DateDebut,parcours_iframe=:pifr,Presentation=:Presentation,lien_resultats_complet=:lrc,CategorieageID=:CategorieageID,CategorieID=:CategorieID,Visible=:Visible,Valider=:Valider,Contact=:Contact,Mail=:Mail,Web=:Web,insta=:insta,facebook=:facebook,youtube=:youtube,marathon_id=:mar_id,affiche=:aff,video_teaser=:vit,Telephone=:Telephone,".$reqDoc." PaysID=:PaysID WHERE ID=:event_id");
 
-                 $req4->bindValue('Sexe',$_POST['Sexe'], PDO::PARAM_STR);
-                 $req4->bindValue('mar_id',$_POST['marathon'], PDO::PARAM_INT);
-                 $req4->bindValue('DateDebut',$_POST['DateDebut'], PDO::PARAM_STR);
-                 $req4->bindValue('lrc',$_POST['lrc'], PDO::PARAM_STR);
-                 
-                 $req4->bindValue('aff',$fileName, PDO::PARAM_STR);
-                 $req4->bindValue('vit',$_POST['video_teaser'], PDO::PARAM_STR);
-                 
+                                }
+                                $fileName = $_FILES['affiche']['name'];
+                                $parcours_image = $_FILES['parcours_image']['name'];
+                                $req4->bindValue('Nom',$_POST['Nom'], PDO::PARAM_STR);
+                                $req4->bindValue('prefixe',$_POST['prefixe'], PDO::PARAM_STR);
+                                $req4->bindValue('Sexe',$_POST['Sexe'], PDO::PARAM_STR);
+                                $req4->bindValue('mar_id',$_POST['marathon'], PDO::PARAM_INT);
+                                $req4->bindValue('DateDebut',$_POST['DateDebut'], PDO::PARAM_STR);
+                                $req4->bindValue('lrc',$_POST['lrc'], PDO::PARAM_STR);
+                                $req4->bindValue('pifr',$_POST['parcours_iframe'], PDO::PARAM_STR);
+                                if(!empty($_FILES['affiche']['name'])){
+                                    $req4->bindValue('aff',$fileName, PDO::PARAM_STR);
 
-                 $req4->bindValue('Presentation',$_POST['Presentation'], PDO::PARAM_STR);
+                                }else if(!empty($_FILES['parcours_image']['name'])){
+                                    $req4->bindValue('pimg',$parcours_image, PDO::PARAM_STR);
 
-                 $req4->bindValue('CategorieageID',$_POST['CategorieAgeID'], PDO::PARAM_STR);
+                                }
+                                
+                                $req4->bindValue('vit',$_POST['video_teaser'], PDO::PARAM_STR);
+                                
 
-                 $req4->bindValue('CategorieID',$_POST['CategorieID'], PDO::PARAM_STR);
+                                $req4->bindValue('Presentation',$_POST['Presentation'], PDO::PARAM_STR);
 
-                 $req4->bindValue('Visible',$_POST['Visible'], PDO::PARAM_INT);
+                                $req4->bindValue('CategorieageID',$_POST['CategorieAgeID'], PDO::PARAM_STR);
 
-                 $req4->bindValue('Valider',$_POST['Valider'], PDO::PARAM_INT);
+                                $req4->bindValue('CategorieID',$_POST['CategorieID'], PDO::PARAM_STR);
+
+                                $req4->bindValue('Visible',$_POST['Visible'], PDO::PARAM_INT);
+
+                                $req4->bindValue('Valider',$_POST['Valider'], PDO::PARAM_INT);
 
 
-                 $req4->bindValue('Contact',$_POST['Contact'], PDO::PARAM_STR);
+                                $req4->bindValue('Contact',$_POST['Contact'], PDO::PARAM_STR);
 
-                 $req4->bindValue('Mail',$_POST['Mail'], PDO::PARAM_STR);
-                 $req4->bindValue('insta',$_POST['insta'], PDO::PARAM_STR);
-                 $req4->bindValue('facebook',$_POST['facebook'], PDO::PARAM_STR);
-                 $req4->bindValue('youtube',$_POST['youtube'], PDO::PARAM_STR);
-                 $req4->bindValue('Web',$_POST['Web'], PDO::PARAM_STR);
+                                $req4->bindValue('Mail',$_POST['Mail'], PDO::PARAM_STR);
+                                $req4->bindValue('insta',$_POST['insta'], PDO::PARAM_STR);
+                                $req4->bindValue('facebook',$_POST['facebook'], PDO::PARAM_STR);
+                                $req4->bindValue('youtube',$_POST['youtube'], PDO::PARAM_STR);
+                                $req4->bindValue('Web',$_POST['Web'], PDO::PARAM_STR);
 
-                 $req4->bindValue('Telephone',$_POST['Telephone'], PDO::PARAM_STR);
+                                $req4->bindValue('Telephone',$_POST['Telephone'], PDO::PARAM_STR);
 
-                 $req4->bindValue('PaysID',$_POST['PaysID'], PDO::PARAM_STR);
+                                $req4->bindValue('PaysID',$_POST['PaysID'], PDO::PARAM_STR);
 
-                 $req4->bindValue('event_id',$_GET['evenementID'], PDO::PARAM_INT);
+                                $req4->bindValue('event_id',$_GET['evenementID'], PDO::PARAM_INT);
 
-                 
+                                
 
-                
-                 $statut=$req4->execute();
+                                
+                                $statut=$req4->execute();
+
+                                if($statut)  {  
+                                                
+                                    $destination_path = "../images/events/";
+                                    if(!is_dir($destination_path)){
+                                        mkdir($destination_path);
+                                        chmod($destination_path,0777);
+                                    }
+                                    
+                                        if(!empty($_FILES['affiche']['name'])){
+                                            /*  cr�ation de l'mage au bon format */
+                                            $fileinfo = $_FILES['affiche'];
+                                            $fichierSource = $fileinfo['tmp_name'];
+                                            $fichierName   = $fileinfo['name'];
+                        
+                                            if ( $fileinfo['error']) {
+                                                switch ( $fileinfo['error']){
+                                                        case 1: // UPLOAD_ERR_INI_SIZE
+                                                            $result = "'Le fichier d�passe la limite autoris�e par le serveur (fichier php.ini) !'";
+                                                        break;
+                                                        case 2: // UPLOAD_ERR_FORM_SIZE
+                                                            $result =  "'Le fichier d�passe la limite autoris�e dans le formulaire HTML !'";
+                                                        break;
+                                                        case 3: // UPLOAD_ERR_PARTIAL
+                                                            $result = "'L'envoi du fichier a �t� interrompu pendant le transfert !'";
+                                                        break;
+                                                        case 4: // UPLOAD_ERR_NO_FILE
+                                                            $result = "'Le fichier que vous avez envoy� a une taille nulle !'";
+                                                        break;
+                                                }
+                                            }else{
+                        
+                                                    $x = 414;
+                                                    $size = getimagesize($fichierSource);
+                                                    $y = ($x * $size[1]) / $size[0];
+                                                    $img_new = imagecreatefromjpeg($fichierSource);
+                        
+                                                    $img_mini = imagecreatetruecolor($x, $y);
+                                                    imagecopyresampled($img_mini, $img_new, 0, 0, 0, 0, $x, $y, $size[0], $size[1]);
+                        
+                                                    imagejpeg($img_mini, $destination_path . "thumb_" . strtolower($fichierName));
+                        
+                                                    if(move_uploaded_file($fichierSource,$destination_path.$fichierName)) {
+                                                        $result = "Fichier corectement envoy� !";
+                                                    }else{
+                                                        $result = "Erreur phase finale";
+                                                    }
+                                                }
+                    
+                    
+                                        }
+                                        if(!empty($_FILES['parcours_image']['name'])){
+                                        /*  cr�ation de l'mage au bon format */
+                                        $fileinfo = $_FILES['parcours_image'];
+                                        $fichierSource = $fileinfo['tmp_name'];
+                                        $fichierName   = $fileinfo['name'];
+                    
+                                        if ( $fileinfo['error']) {
+                                                switch ( $fileinfo['error']){
+                                                        case 1: // UPLOAD_ERR_INI_SIZE
+                                                        $result = "'Le fichier d�passe la limite autoris�e par le serveur (fichier php.ini) !'";
+                                                        break;
+                                                        case 2: // UPLOAD_ERR_FORM_SIZE
+                                                        $result =  "'Le fichier d�passe la limite autoris�e dans le formulaire HTML !'";
+                                                        break;
+                                                        case 3: // UPLOAD_ERR_PARTIAL
+                                                            $result = "'L'envoi du fichier a �t� interrompu pendant le transfert !'";
+                                                        break;
+                                                        case 4: // UPLOAD_ERR_NO_FILE
+                                                        $result = "'Le fichier que vous avez envoy� a une taille nulle !'";
+                                                        break;
+                                                }
+                                        }else{
+                    
+                                                $x = 414;
+                                                $size = getimagesize($fichierSource);
+                                                $y = ($x * $size[1]) / $size[0];
+                                                $img_new = imagecreatefromjpeg($fichierSource);
+                    
+                                                $img_mini = imagecreatetruecolor($x, $y);
+                                                imagecopyresampled($img_mini, $img_new, 0, 0, 0, 0, $x, $y, $size[0], $size[1]);
+                    
+                                                imagejpeg($img_mini, $destination_path . "thumb_" . strtolower($fichierName));
+                    
+                                                if(move_uploaded_file($fichierSource,$destination_path.$fichierName)) {
+                                                    $result = "Fichier corectement envoy� !";
+                                                }else{
+                                                    $result = "Erreur phase finale";
+                                                }
+                                            }
+                    
+                    
+                                        }
+                                }
 
             }
 
@@ -391,10 +498,22 @@ if(isset($_GET['evenementID']) or isset($_GET['evenement_filsID'])){
         
 
         <tr><td><label for="Nom">Intitul&eacute; (Ville + nom): </label></td><td><input type="text" id="nom" name="Nom"  value="<?php echo str_replace('\\', '',str_replace('"', '\'', $event['Nom']));?>"  /></td></tr>
+        <tr><td><label for="prefixe">Préfixe : </label></td><td><input id="prefixe" type="text" name="prefixe" value="<?php echo $event['prefixe'];?>" /></td></tr>
 
         <tr><td ><label for="DateDebut">Date d&eacute;but : </label></td><td><input type="text" name="DateDebut" id="datepicker" value="<?php echo $event['DateDebut'];?>" /></td></tr>
         <tr><td><label for="marathon">Marathon de l’évènement : </label></td><td><input id="marathon" type="number" name="marathon" value="<?php echo $event['marathon_id'];?>" /></td></tr>
-
+        <tr><td><label for="parcours_iframe">Parcours iframe : </label></td><td><textarea cols="50" rows="10" name="parcours_iframe" value="<?php echo $event['marathon_id'];?>"></textarea></td></tr>
+                <tr><td><label for="parcours_image">Parcours image : </label></td><td><input type="file" name="parcours_image"/></td></tr>
+                <tr><td colspan="2">
+                    <?php
+                    
+                    $destination_path = "../images/events/";
+                    if($event['parcours_image']!="" && $event['parcours_image']!=NULL){?>
+                        <img alt="image_news" src="<?php echo $destination_path."".$event['parcours_image'] ?>" width="200px">
+                    <?php }else{?>
+                        <img alt="image-defaut_news" src="../images/news/defaut.jpg" width="200px">
+                    <?php } ?>
+                </td></tr>
 
         <tr><td ><label for="Sexe">Sexe : </label></td>
 

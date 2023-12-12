@@ -81,6 +81,13 @@ function slugify($text)
     <title>Vidéos de marathon. Jeux olympiques, championnats du monde, championnats d'Europe, World Majors Marathon.</title>
     <meta name="Description" lang="fr" content="Allmarathon.fr, les plus belles videos de marathon : Résumé des courses, conseils entrainement marathon, interviews de marathoniens ">
     
+    <meta property="og:title" content="Vidéos de marathon. Jeux olympiques, championnats du monde, championnats d'Europe, World Majors Marathon." />
+    <meta property="og:description" content="Allmarathon.fr, les plus belles videos de marathon : Résumé des courses, conseils entrainement marathon, interviews de marathoniens." />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:type" content="siteweb" />
+    <meta property="og:image" content="https://allmarathon.fr/images/allmarathon.png" />
+    <meta property="og:url" content="https://allmarathon.fr/videos-de-marathon.html" />
+
     <link rel="canonical" href="https://allmarathon.fr/videos-de-marathon.html" />
     <link rel="apple-touch-icon" href="apple-favicon.png">
     <link rel="icon" type="image/x-icon" href="../../images/favicon.ico" />

@@ -88,7 +88,7 @@ RewriteRule ^agenda-marathons-par-mois\.html$ /content/vues/marathons-liste-par-
 RewriteRule ^calendrier-marathons-([a-zA-ZéïÎîëàèÉ\-]*)-([0-9]+)\.html$ /content/vues/marathons-liste-evenements-par-pays.php?paysID=$2[L]
 RewriteRule ^calendrier-marathons-([a-zA-ZûéïÎî]*)-([0-9]+)-([0-9]+)\.html$ /content/vues/marathons-liste-evenements-par-mois.php?mois=$2&annee=$3 [L]
 RewriteRule ^records-marathon-masculins\.html$ /content/vues/records.php [L]
-RewriteRule ^records-marathon-féminins\.html$ /content/vues/records-féminins.php [L]
+RewriteRule ^records-marathon-feminins\.html$ /content/vues/records-féminins.php [L]
 RewriteRule ^video-de-marathon-([0-9]+)\.html$ /content/vues/video-detail.php?videoID=$1 [L]
 RewriteRule ^videos-de-marathon\.html$ /content/vues/video-liste.php [L]
 RewriteRule ^10-meilleures-performances-mondiales-marathon\.html$ /content/vues/records-top-10-monde.php [L]

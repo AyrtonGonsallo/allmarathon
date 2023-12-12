@@ -191,6 +191,12 @@ setlocale(LC_TIME, "fr_FR","French");
 
     <meta name="Description" content="Résultats de tous les marathons nationaux et internationaux :  Championnats de France, Championnats d'Europe, Championnats du Monde, Jeux Olympiques, World Major" lang="fr" xml:lang="fr">
 
+    <meta property="og:title" content="Résultats de tous les marathons nationaux et internationaux." />
+    <meta property="og:description" content="Résultats de tous les marathons nationaux et internationaux :  Championnats de France, Championnats d'Europe, Championnats du Monde, Jeux Olympiques, World Major." />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:type" content="siteweb" />
+    <meta property="og:image" content="https://allmarathon.fr/images/allmarathon.png" />
+    <meta property="og:url" content="https://allmarathon.fr/resultats-marathon.html" />
     
     <link rel="canonical" href="https://allmarathon.fr/resultats-marathon.html" />
 

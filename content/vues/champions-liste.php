@@ -82,6 +82,13 @@ $nb_champs=$req->fetch(PDO::FETCH_ASSOC)['total'];
     <link rel="apple-touch-icon" href="apple-favicon.png">
     <link rel="icon" type="image/x-icon" href="../../images/favicon.ico" />
     
+    <meta property="og:title" content="Champions de marathon, athlètes célèbres : palmarès, photos et vidéos." />
+    <meta property="og:description" content="Retrouvez les palmarès de <?php echo $nb_champs;?> coureurs, ainsi  que les photos et vidéos des athlètes et marathoniens célèbres. " />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:type" content="siteweb" />
+    <meta property="og:image" content="https://allmarathon.fr/images/allmarathon.png" />
+    <meta property="og:url" content="https://allmarathon.fr/cv-champions-de-marathon.html" />
+
     <link rel="canonical" href="https://allmarathon.fr/cv-champions-de-marathon.html" />
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/font-awesome.min.css">

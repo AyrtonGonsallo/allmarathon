@@ -3,6 +3,7 @@ class evenement{
 	
 	private $id;
 	private $nom;
+	private $prefixe;
 	private $sexe;
 	private $dateDebut;
 	private $dateFin;
@@ -81,6 +82,14 @@ class evenement{
 
 	public function setNom($nom){
 		$this->nom = $nom;
+	}
+
+	public function getPrefixe(){
+		return $this->prefixe;
+	}
+
+	public function setPrefixe($prefixe){
+		$this->prefixe = $prefixe;
 	}
 
 	public function getSexe(){

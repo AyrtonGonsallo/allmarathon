@@ -167,8 +167,12 @@ if($pays_datas){
     <link rel="apple-touch-icon" href="apple-favicon.png">
     <link rel="icon" type="image/x-icon" href="../../images/favicon.ico" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
-  
-  
+    <meta property="og:type" content="siteweb" />
+    <meta property="og:title" content="<?php echo $categorie;?> - <?php echo $marathon['nom'];?> - <?php echo $pays_datas['NomPays'];?>" />
+    <meta property="og:description" content="Toutes les informations sur le marathon de <?php echo $marathon['lieu'];?> : prochaine édition, résultats des éditions précédentes, records... " />
+    <meta property="og:image" content="<?php echo 'https://allmarathon.fr/images/marathons/'.$marathon['image'];?>" />
+    <meta property="og:url" content="<?php echo 'https://allmarathon.fr/marathons-'.$marathon['id'].'-'.slugify($marathon['nom']).'.html';?>" />
+
     <?php echo '<link rel="canonical" href="https://allmarathon.fr/marathons-'.$marathon['id'].'-'.slugify($marathon['nom']).'.html" />';?>
 
     <link rel="stylesheet" href="../../css/bootstrap.min.css">

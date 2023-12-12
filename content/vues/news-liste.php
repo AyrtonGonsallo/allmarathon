@@ -212,11 +212,17 @@ setlocale(LC_TIME, "fr_FR","French");
 
     <?php require_once("../scripts/header_script.php") ?>
 
-    <title>Marathon : les actualit&eacute;s du marathon en France et dans le monde</title>
+    <title>Marathon : les actualités du marathon en France et dans le monde</title>
 
     <meta name="Description" content="Les actualités du marathon en France et dans le monde. News, résultats, interviews, vidéos, comptes-rendus, brèves, sondages. | allmarathon.fr" lang="fr" xml:lang="fr">
 
-    
+    <meta property="og:title" content="Marathon : les actualités du marathon en France et dans le monde" />
+    <meta property="og:description" content="Les actualités du marathon en France et dans le monde. News, résultats, interviews, vidéos, comptes-rendus, brèves, sondages." />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="https://allmarathon.fr/images/allmarathon.png" />
+    <meta property="og:url" content="https://allmarathon.fr/actualites-marathon.html" />
+
     <link rel="canonical" href="https://allmarathon.fr/actualites-marathon.html" />
 
 

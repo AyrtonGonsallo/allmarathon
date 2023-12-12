@@ -108,6 +108,11 @@ $getMobileAds=$pub->getMobileAds("accueil")['donnees'];
     <?php require_once("../scripts/header_script.php") ?>
     <title><?php echo $video->getTitre();?> | allmarathon</title>
     <meta name="Description" lang="fr" content="Vidéo : <?php echo $video->getTitre();?>. Durée : <?php echo $video->getDuree();?>. Thème : <?php echo $event_name;?> - <?php echo $champ_name;?>">
+    <meta property="og:type" content="video" />
+    <meta property="og:title" content="<?php echo $video->getTitre();?>" />
+    <meta property="og:image" content="https://allmarathon.fr/images/allmarathon.png" />
+    <meta property="og:url" content="<?php echo 'https://allmarathon.fr/video-de-marathon-'.$video->getId().'.html';?>" />
+    <meta property="og:description" content="Vidéo : <?php echo $video->getTitre();?>. Durée : <?php echo $video->getDuree();?>. Thème : <?php echo $event_name;?> - <?php echo $champ_name;?>" />
 
     <?php echo '<link rel="canonical" href="https://allmarathon.fr/video-de-marathon-'.$video->getId().'.html" />';?>
 

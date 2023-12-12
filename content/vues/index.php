@@ -113,9 +113,12 @@ function switch_cat($cat)
     <meta name=" robots " content="index, follow" />
     <link rel="canonical" href="https://allmarathon.fr" />
     <meta property="og:title" content=" Suivez l’actualité du marathon : calendrier, résultats, vidéos | allmarathon.fr " />
-    <meta property="og:description" content="Tous les jours des infos concernant les marathons en France et dans le monde" />
-    <meta property="og:image" content="https://allmarathon.fr/image-allmarathon.jpg " />
+    <meta property="og:description" content="allmarathon, toutes les informations concernant les marathons en France et dans le monde. News, calendrier, résultats, vidéos. Pour les passionnés des 42 kms." />
     <meta property="og:locale" content="fr_FR" />
+    <meta property="og:type" content="siteweb" />
+    <meta property="og:image" content="https://allmarathon.fr/images/allmarathon.png" />
+    <meta property="og:url" content="https://allmarathon.fr" />
+
     <link rel="apple-touch-icon" href="apple-favicon.png">
     <link rel="icon" type="image/x-icon" href="../../images/favicon.ico" />
     <link rel="stylesheet" href="../../css/bootstrap.min.css">

@@ -186,7 +186,12 @@ $afficher_tab_medaille=false;
     <?php require_once("../scripts/header_script.php") ?>
     <title><?php echo $champ->getNom();?>, coureur de marathon. Résultats, vidéos, photos, record.</title>
     <meta name="Description" lang="fr" content="<?php echo $champ->getNom();?> est athlète, marathonien. Pays: <?php echo $pays_intitule;?>. Record de <?php echo $champ->getNom();?> sur marathon, résultats, photos, vidéos.">
-    
+    <meta property="og:type" content="siteweb" />
+    <meta property="og:title" content="<?php echo $champ->getNom();?>, coureur de marathon. Résultats, vidéos, photos, record." />
+    <meta property="og:image" content="https://allmarathon.fr/images/allmarathon.png" />
+    <meta property="og:url" content="<?php echo 'https://allmarathon.fr/athlete-'.$champ->getId().'-'.slugify($champ->getNom()).'.html';?>" />
+    <meta property="og:description" content="<?php echo $champ->getNom();?> est athlète, marathonien. Pays: <?php echo $pays_intitule;?>. Record de <?php echo $champ->getNom();?> sur marathon, résultats, photos, vidéos." />
+
 
     <link rel="apple-touch-icon" href="../../images/favicon.ico">
     <link rel="icon" type="image/x-icon" href="../../images/favicon.ico" />

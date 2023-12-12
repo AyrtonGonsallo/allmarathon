@@ -125,7 +125,12 @@ function slugify($text)
     </title>
     <meta name="description" content="Liste des records du marathon masculin. Record du monde, record olympique, meilleurs performance en Europe, et records nationaux. ">
     <link rel="canonical" href="https://allmarathon.fr/records-marathon-masculins.html" />
-    
+    <meta property="og:type" content="siteweb" />
+    <meta property="og:title" content="Records du marathon masculin : record du monde, record olympique, continentaux et nationaux" />
+    <meta property="og:image" content="https://allmarathon.fr/images/allmarathon.png" />
+    <meta property="og:url" content="https://allmarathon.fr/records-marathon-masculins.html" />
+    <meta property="og:description" content="Liste des records du marathon masculin. Record du monde, record olympique, meilleurs performance en Europe, et records nationaux. " />
+
     <link rel="apple-touch-icon" href="apple-favicon.png">
     <link rel="icon" type="image/x-icon" href="../../images/favicon.ico" />
 
@@ -168,7 +173,7 @@ function slugify($text)
                         <h1> Tous les records du marathon hommes </h1>
                         <h2>Record du monde, record d’Europe, record olympique, records des grands 
                         championnats et records nationaux du marathon masculin.</h2>
-                        <a href="/records-marathon-féminins.html" class="records-link">
+                        <a href="/records-marathon-feminins.html" class="records-link">
                         Records féminins du marathon
                         </a><br><br>
                                     <div class="title-border"><h3 class="record-title">Record du monde</h3><h3 class="record-title-colored"><a href="10-meilleures-performances-mondiales-marathon.html" class="record-link">Meilleures performances - top 10</a></h3></div>

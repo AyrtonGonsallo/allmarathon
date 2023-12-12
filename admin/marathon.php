@@ -35,12 +35,13 @@ if( isset($_POST['sub'])){
                         try {
                             
                             
-                                $sql ="INSERT INTO `marathons`( `nom`, `site_web`, `Instagram`, `facebook`, `youtube`, `description`, `image`, `lieu`,`PaysID`,Visible) VALUES (:nom,:site_web,:insta,:fb,:yt,:descr,:img,:lieu,:PaysID,:vis)";
+                                $sql ="INSERT INTO `marathons`( `nom`, prefixe,`site_web`, `Instagram`, `facebook`, `youtube`, `description`, `image`, `lieu`,`PaysID`,Visible) VALUES (:nom,:prefixe,:site_web,:insta,:fb,:yt,:descr,:img,:lieu,:PaysID,:vis)";
                             
                                 $fileName = $_FILES['img']['name'];
                              $req4 = $bdd->prepare($sql);
                              // :nom,:site_web,:insta,:fb,:yt,:descr,:img,:lieu
                              $req4->bindValue('nom',$_POST['nom'], PDO::PARAM_STR);
+                             $req4->bindValue('prefixe',$_POST['prefixe'], PDO::PARAM_STR);
                              $req4->bindValue('site_web',$_POST['site_web'], PDO::PARAM_STR);
                              $req4->bindValue('vis',1, PDO::PARAM_STR);
                              $req4->bindValue('insta',$_POST['insta'], PDO::PARAM_STR);
@@ -225,6 +226,7 @@ if( isset($_POST['sub'])){
             
                 
                 <tr><td><label for="Nom">Intitul&eacute; : </label></td><td><input id="nom" type="text" name="nom" value="" /></td></tr>
+                <tr><td><label for="prefixe">Préfixe : </label></td><td><input id="prefixe" type="text" name="prefixe" value="" /></td></tr>
                 <tr><td><label for="site_web">site web  : </label></td><td><input id="site_web" type="text" name="site_web" value="" /></td></tr>
                 <tr><td><label for="insta">Instagram  : </label></td><td><input id="insta" type="text" name="insta" value="" /></td></tr>
                 <tr><td><label for="fb">facebook  : </label></td><td><input id="fb" type="text" name="fb" value="" /></td></tr>
