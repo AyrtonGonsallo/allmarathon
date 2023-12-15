@@ -67,13 +67,18 @@ setlocale(LC_TIME, "fr_FR","French");
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport"><meta http-equiv="x-ua-compatible" content="ie=edge">
     <?php require_once("../scripts/header_script.php") ?>
-    <title>Calendrier des marathons - <?php echo $pays_datas->getNomPays();?></title>
-    <meta name="Description" lang="fr" content="A vos agendas ! Le calendrier complet des marathons : <?php echo $pays_datas->getNomPays();?> ">
+    <title>Calendrier des marathons <?php echo $pays_datas->getPrefixe();?> <?php echo $pays_datas->getNomPays();?></title>
+    <meta name="Description" lang="fr" content="A vos agendas ! Le calendrier complet des marathons <?php echo $pays_datas->getPrefixe();?> <?php echo $pays_datas->getNomPays();?> ">
+    <meta property="og:type" content="siteweb" />
+    <meta property="og:title" content="Calendrier des marathons <?php echo $pays_datas->getPrefixe();?> <?php echo $pays_datas->getNomPays();?>" />
+    <meta property="og:description" content="A vos agendas ! Le calendrier complet des marathons <?php echo $pays_datas->getPrefixe();?> <?php echo $pays_datas->getNomPays();?> " />
+    <meta property="og:image" content="https://allmarathon.fr/images/allmarathon.png" />
+    <meta property="og:url" content="<?php echo 'https://allmarathon.fr/calendrier-marathons-'.slugify($pays_datas->getNomPays()).'-'.$pays_datas->getId().'.html';?>" />
 
     <link rel="apple-touch-icon" href="apple-favicon.png">
     <link rel="icon" type="image/x-icon" href="../../images/favicon.ico" />
     
-    <link rel="canonical" href="https://allmarathon.fr/cv-champions-de-marathon.html" />
+    <link rel="canonical" href="<?php echo 'https://allmarathon.fr/calendrier-marathons-'.slugify($pays_datas->getNomPays()).'-'.$pays_datas->getId().'.html';?>" />
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/font-awesome.min.css">
     <link rel="stylesheet" href="../../css/fonts.css">
@@ -130,39 +135,79 @@ setlocale(LC_TIME, "fr_FR","French");
                     <div class="col-sm-12">
                     <a href="/calendrier-agenda-marathons.html">Marathons</a> > <a href="/agenda-marathons-par-pays.html">Marathons par pays</a> > <?php echo $pays_datas->getNomPays();?>
 
-                        <h1>Calendrier des marathons (<?php echo $pays_datas->getNomPays();?>)</h1>
+                        <h1>Calendrier des marathons  <?php echo $pays_datas->getPrefixe();?> <?php echo $pays_datas->getNomPays();?></h1>
 
                        
                     </div>
-
                     <div class="col-sm-12">
+
+                        <?php echo $pays_datas->getTexte();?>
+
                        
                     </div>
-
-                    <?php 
-                    $part1=getMarathonsAgendaByPaysfiltered($pays->getPaysById($paysID)['donnees']->getAbreviation(),$pays->getPaysById($paysID)['donnees']->getAbreviation2(),$pays->getPaysById($paysID)['donnees']->getAbreviation3(),$pays->getPaysById($paysID)['donnees']->getAbreviation4())['donnees_1'];
-                    $part2=getMarathonsAgendaByPaysfiltered($pays->getPaysById($paysID)['donnees']->getAbreviation(),$pays->getPaysById($paysID)['donnees']->getAbreviation2(),$pays->getPaysById($paysID)['donnees']->getAbreviation3(),$pays->getPaysById($paysID)['donnees']->getAbreviation4())['donnees_2'];
-                    echo '<ul class="col-sm-12 resultats">';
-                    if($part1){
-                        
-                            foreach ( $part1 as $key => $resultat) {
-                                $nom_res='<strong>'.$resultat['Nom'].'</strong> - '.utf8_encode(strftime("%A %d %B %Y",strtotime($resultat['DateDebut'])));
-                                echo '<li><a href="/marathons-'.$resultat['id'].'-'.slugify($resultat['Nom']).'.html">'.$nom_res.'</a></li>';
-                                
-                            }
                     
-                       
-                    }
-                    if($part2){
-                        
-                            foreach ( $part2 as $key => $resultat) {
-                                $nom_res='<strong>'.$resultat['Nom'].'</strong> - '.utf8_encode(strftime("%A %d %B %Y",strtotime($resultat['DateDebut'])));
-                                echo '<li><a href="/marathons-'.$resultat['id'].'-'.slugify($resultat['Nom']).'.html">'.$nom_res.'</a></li>';
-                            }
-                        
-                    }echo '</ul>';
-                ?>
+
+                    
+                
                 </div>
+
+
+
+
+                <ul class="col-sm-12 resultats">
+                <div class="row" id="liste-marathons">
+                        <?php 
+                        $i=0;                             
+                        setlocale(LC_TIME, "fr_FR","French");
+                        $res="";
+                        $part=getMarathonsAgendaByPaysflitered($pays->getPaysById($paysID)['donnees']->getAbreviation(),$pays->getPaysById($paysID)['donnees']->getAbreviation2(),$pays->getPaysById($paysID)['donnees']->getAbreviation3(),$pays->getPaysById($paysID)['donnees']->getAbreviation4())['donnees'];
+                        foreach ($part as $key => $resultat) {
+                
+                            $pays_flag=$pays->getFlagByAbreviation($resultat['PaysID'])['donnees']['Flag'];
+                           $nom_res= $resultat['nom'];
+                
+                            $res.= '<div class="col-sm-6 marathon-grid">
+                                <a class="page-marathon-link" href="/marathons-'.$resultat['id'].'-'.slugify($nom_res).'.html">
+                                    <h4 class="page-marathon-title">'.$nom_res.'<img class="marathon-title-flag" style="float:right" src="../../images/flags/'.$pays_flag.'" alt=""/></h4></a> ';
+                                     
+                                    $img_src='/images/marathons/thumb_'.$resultat['image'];
+                                    $full_image_path="http://" . $_SERVER['HTTP_HOST'] .$img_src;
+                                    //$res.= $full_image_path;
+                                    
+                                    if ($img_src)
+                                        {
+                                            $res.= '<div class="marathon-liste-image" style="background-image:url('.$img_src.')"></div>';
+                                        }else{
+                                            $res.= '<div class="marathon-liste-image" style="background-color:#000"></div>';
+                                        }
+                                     if($resultat['last_linked_events_cat_id']){
+                                        $res.= '<div><b>'.$ev_cat_event->getEventCatEventByID($resultat['last_linked_events_cat_id'])['donnees']->getIntitule().'</b></div>';
+                
+                                     }else{
+                                        $res.= '<div><b>Pas d\'évenement</b></div>';
+                
+                                     }
+                                    if($resultat["date_prochain_evenement"]!='NULL'){
+                                        $nom_premier_even= $resultat["date_prochain_evenement_nom"];
+                                        $id= $resultat["date_prochain_evenement_id"];
+                                        $date_premier_even=strftime("%A %d %B %Y",strtotime($resultat["date_prochain_evenement"]));
+                                                
+                                        $res.= '<div>'.utf8_encode($date_premier_even).'</div>';
+                                    }else{
+                                        $res.= '<div>Prochaine date à venir</div>';
+                                    }
+                                    $res.= '<span class="tt-les-infos"><a class="page-marathon-link" href="/marathons-'.$resultat['id'].'-'.slugify($nom_res).'.html">Toutes les infos</a></span>';
+                
+                                
+                            $res.= '</div>';
+                            $i++;
+                        }
+                        echo $res;
+                        ?>
+                </div>
+                    </ul>
+
+
 
                 <div class="clearfix"></div>
 

@@ -4,6 +4,9 @@ class pays{
 	private $Abreviation;
 	private $Abreviation_2;
 	private $Abreviation_3;
+	private $prefixe;
+	private $continent;
+	private $texte;
 	private $Abreviation_4;
 	private $NomPays;
 	private $Flag;
@@ -40,6 +43,30 @@ class pays{
 
 	public function setNomPays($NomPays){
 		$this->NomPays = $NomPays;
+	}
+
+	public function getPrefixe(){
+		return $this->prefixe;
+	}
+
+	public function setPrefixe($prefixe){
+		$this->prefixe = $prefixe;
+	}
+
+	public function getContinent(){
+		return $this->continent;
+	}
+
+	public function setContinent($continent){
+		$this->continent = $continent;
+	}
+
+	public function getTexte(){
+		return $this->texte;
+	}
+
+	public function setTexte($texte){
+		$this->texte = $texte;
 	}
 
 	public function getFlag(){

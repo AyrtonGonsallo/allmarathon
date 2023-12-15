@@ -59,9 +59,10 @@ if (session_status() == PHP_SESSION_NONE) {
             $fileName = $_FILES['Flag']['name'];
             try {
                 
-                $req4 = $bdd->prepare("INSERT INTO `pays`( `Abreviation`, `NomPays`, `texte`, `Flag`, `Abreviation_2`, `Abreviation_3`, `Abreviation_4`, `Abreviation_5`,prefixe) VALUES (:ab,:np,:txt,:flag,:ab2,:ab3,:ab4,:ab5,:pref)");
+                $req4 = $bdd->prepare("INSERT INTO `pays`( `Abreviation`, `NomPays`,continent, `texte`, `Flag`, `Abreviation_2`, `Abreviation_3`, `Abreviation_4`, `Abreviation_5`,prefixe) VALUES (:ab,:np,:cont,:txt,:flag,:ab2,:ab3,:ab4,:ab5,:pref)");
                 $req4->bindValue('pref',$_POST['prefixe'], PDO::PARAM_STR);
                  $req4->bindValue('ab',$_POST['Abreviation'], PDO::PARAM_STR);
+                 $req4->bindValue('cont',$_POST['continent'], PDO::PARAM_STR);
                  $req4->bindValue('np',$_POST['NomPays'], PDO::PARAM_STR);
                  $req4->bindValue('txt',$_POST['Texte'], PDO::PARAM_STR);
                  $req4->bindValue('flag',$fileName, PDO::PARAM_STR);
@@ -280,7 +281,19 @@ if (session_status() == PHP_SESSION_NONE) {
                     <td><input type="text" name="NomPays" value="" /></td>
                 </tr>
                 <tr><td><label for="prefixe">Préfixe : </label></td><td><input id="prefixe" type="text" name="prefixe" value="En" /></td></tr>
-
+                <tr>
+                    <td> 
+                        <label for="continent">Continent : </label></td><td>
+                        <select name="continent" style="width: 86%;height: 50px;background: #f6f6f6;text-align:center">
+                            <option value="Afrique">Afrique</option>
+                            <option value="Amérique du Nord">Amérique du Nord</option>
+                            <option value="Amérique du Sud">Amérique du Sud</option>
+                            <option value="Asie">Asie</option>
+                            <option value="Europe">Europe</option>
+                            <option value="Océanie">Océanie</option>
+                        </select>
+                    </td>
+                </tr>                
                 <tr>
                     <td align="right"><label for="Abreviation">Abreviation : </label></td>
                     <td><input type="text" name="Abreviation" value="" /></td>
@@ -348,6 +361,7 @@ if (session_status() == PHP_SESSION_NONE) {
                         <th>Abreviation_4</th>
                         <th>Abreviation_5</th>
                         <th>Préfixe	</th>
+                        <th>Continent</th>
                         <th>NomPays	</th>
                         <th>texte</th>
                         <th>Flag</th>
@@ -366,6 +380,7 @@ if (session_status() == PHP_SESSION_NONE) {
                             <td>".$pays['Abreviation_4']."</td>
                             <td>".$pays['Abreviation_5']."</td>
                             <td>".$pays['prefixe']."</td>
+                            <td>".$pays['continent']."</td>
                             <td>".$pays['NomPays']."</td>
                             <td>".$pays['texte']."</td>
                             <td><img src=".$pays_flag_url." alt=''></td>

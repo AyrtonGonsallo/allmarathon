@@ -87,6 +87,8 @@ $annee_titre=substr($evById->getDateDebut(), 0, 4);
 
 function slugify($text)
 {
+    $text = str_replace('é', 'e', $text); 
+    $text = str_replace('û', 'u', $text); 
 $text = preg_replace('/[^\pL\d]+/u', '-', $text); 
 $text = trim($text, '-');
 $text = strtolower($text);

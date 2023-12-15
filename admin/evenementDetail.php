@@ -139,11 +139,15 @@ if(isset($_GET['evenementID']) or isset($_GET['evenement_filsID'])){
                            
 
                              try {
-                                if(empty($_FILES['affiche']['name'])){
+                                if(empty($_FILES['affiche']['name']) and !empty($_FILES['parcours_image']['name'])){
                                     $req4 = $bdd->prepare("UPDATE ".$table." SET Nom=:Nom,prefixe=:prefixe,Sexe=:Sexe,DateDebut=:DateDebut,parcours_iframe=:pifr,parcours_image=:pimg,Presentation=:Presentation,lien_resultats_complet=:lrc,CategorieageID=:CategorieageID,CategorieID=:CategorieID,Visible=:Visible,Valider=:Valider,Contact=:Contact,Mail=:Mail,Web=:Web,insta=:insta,facebook=:facebook,youtube=:youtube,marathon_id=:mar_id,video_teaser=:vit,Telephone=:Telephone,".$reqDoc." PaysID=:PaysID WHERE ID=:event_id");
 
-                                }else if(empty($_FILES['parcours_image']['name'])){
+                                }else if(!empty($_FILES['affiche']['name']) and empty($_FILES['parcours_image']['name'])){
                                     $req4 = $bdd->prepare("UPDATE ".$table." SET Nom=:Nom,prefixe=:prefixe,Sexe=:Sexe,DateDebut=:DateDebut,parcours_iframe=:pifr,Presentation=:Presentation,lien_resultats_complet=:lrc,CategorieageID=:CategorieageID,CategorieID=:CategorieID,Visible=:Visible,Valider=:Valider,Contact=:Contact,Mail=:Mail,Web=:Web,insta=:insta,facebook=:facebook,youtube=:youtube,marathon_id=:mar_id,affiche=:aff,video_teaser=:vit,Telephone=:Telephone,".$reqDoc." PaysID=:PaysID WHERE ID=:event_id");
+
+                                }
+                                else if(empty($_FILES['parcours_image']['name']) and empty($_FILES['affiche']['name'])){
+                                    $req4 = $bdd->prepare("UPDATE ".$table." SET Nom=:Nom,prefixe=:prefixe,Sexe=:Sexe,DateDebut=:DateDebut,parcours_iframe=:pifr,Presentation=:Presentation,lien_resultats_complet=:lrc,CategorieageID=:CategorieageID,CategorieID=:CategorieID,Visible=:Visible,Valider=:Valider,Contact=:Contact,Mail=:Mail,Web=:Web,insta=:insta,facebook=:facebook,youtube=:youtube,marathon_id=:mar_id,video_teaser=:vit,Telephone=:Telephone,".$reqDoc." PaysID=:PaysID WHERE ID=:event_id");
 
                                 }
                                 $fileName = $_FILES['affiche']['name'];
@@ -502,7 +506,7 @@ if(isset($_GET['evenementID']) or isset($_GET['evenement_filsID'])){
 
         <tr><td ><label for="DateDebut">Date d&eacute;but : </label></td><td><input type="text" name="DateDebut" id="datepicker" value="<?php echo $event['DateDebut'];?>" /></td></tr>
         <tr><td><label for="marathon">Marathon de l’évènement : </label></td><td><input id="marathon" type="number" name="marathon" value="<?php echo $event['marathon_id'];?>" /></td></tr>
-        <tr><td><label for="parcours_iframe">Parcours iframe : </label></td><td><textarea cols="50" rows="10" name="parcours_iframe" value="<?php echo $event['marathon_id'];?>"></textarea></td></tr>
+        <tr><td><label for="parcours_iframe">Parcours iframe : </label></td><td><textarea cols="50" rows="10" name="parcours_iframe" ><?php echo $event['parcours_iframe'];?></textarea></td></tr>
                 <tr><td><label for="parcours_image">Parcours image : </label></td><td><input type="file" name="parcours_image"/></td></tr>
                 <tr><td colspan="2">
                     <?php

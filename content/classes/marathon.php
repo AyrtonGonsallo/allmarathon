@@ -5,7 +5,8 @@ include("evCategorieEvenement.php");
 function slugify($text)
 
 {
-
+	$text = str_replace('é', 'e', $text); 
+    $text = str_replace('û', 'u', $text); 
     $text = preg_replace('/[^\pL\d]+/u', '-', $text); 
 
     $text = trim($text, '-');
@@ -632,32 +633,55 @@ function array_msort($array, $cols)
 	    }
 	}
 
-	function getMarathonsAgendaByPaysfiltered($pays_ab1,$pays_ab2,$pays_ab3,$pays_ab4){
+	
+
+	function getMarathonsAgendaByPaysflitered($pays_ab1,$pays_ab2,$pays_ab3,$pays_ab4){
 		try {
 			include("../database/connexion.php");
-            $liste= array();
-            $req0 = $bdd->prepare("select m.nom as Nom,m.id,e.DateDebut,e.PaysID from marathons m,evenements e where e.marathon_id=m.id and e.DateDebut>DATE(NOW()) and (e.PaysID=:pays_ab1 or e.PaysID=:pays_ab2 or e.PaysID=:pays_ab3 or e.PaysID=:pays_ab4) order by e.DateDebut asc;");
+            $results= array();
+            $req0 = $bdd->prepare("select m.nom as nom,m.image,m.id,e.DateDebut,e.PaysID from marathons m,evenements e where e.marathon_id=m.id and e.DateDebut>DATE(NOW()) and (e.PaysID=:pays_ab1 or e.PaysID=:pays_ab2 or e.PaysID=:pays_ab3 or e.PaysID=:pays_ab4) order by e.DateDebut asc;");
             $req0->bindValue('pays_ab1',$pays_ab1, PDO::PARAM_STR);
 			$req0->bindValue('pays_ab2',$pays_ab2, PDO::PARAM_STR);
 			$req0->bindValue('pays_ab3',$pays_ab3, PDO::PARAM_STR);
 			$req0->bindValue('pays_ab4',$pays_ab4, PDO::PARAM_STR);
             $req0->execute();
             
-            while ( $row0  = $req0->fetch(PDO::FETCH_ASSOC)) {    
-                array_push($liste, $row0); 
-            }
-            $bdd=null;
-            $len = (int) count($liste);
-            $firsthalf = array_slice($liste, 0, $len / 2);
-            $secondhalf = array_slice($liste, $len / 2);
-            return array('validation'=>true,'donnees_1'=>$firsthalf ,'donnees_2'=>$secondhalf,'message'=>'');
-	    }
-	       
-	    catch(Exception $e){
-	        die('Erreur : ' . $e->getMessage());
-	    }
-	}
+			$last_linked_events= array();
+			while ( $row  = $req0->fetch(PDO::FETCH_ASSOC)) {  
+				$req2 = $bdd->prepare("SELECT * FROM evenements where marathon_id=:mar_id and Valider=1  AND (DateDebut > :today) ORDER BY DateDebut limit 1");
+				$req2->bindValue('mar_id', $row["id"], PDO::PARAM_INT);
+				
+				$req2->bindValue('today', date('Y-m-d'), PDO::PARAM_STR); 
+				$req2->execute();
+				if($req2->rowCount()>0){
+					while ( $row2  = $req2->fetch(PDO::FETCH_ASSOC)) {
+						//var_dump($row2);exit();  
+						//array_push($first_events, $row2);
+						$row['date_prochain_evenement']=$row2['DateDebut'];
+						$row['date_prochain_evenement_nom']=$row2['Nom'];
+						$row['date_prochain_evenement_id']=$row2['ID'];
+						$row['last_linked_events_cat_id']=$row2['CategorieID'];
 
+					}
+				}else {
+					//array_push($first_events, NULL);
+					$row['date_prochain_evenement']='NULL';
+					$row['last_linked_events_cat_id']=NULL;
+		
+				}
+				array_push($results, $row);
+		  }
+		 	$results_sorted_by_next_event=array_msort($results, array('date_prochain_evenement'=>SORT_ASC,'nom'=>SORT_ASC));
+        	return array('validation'=>true,'donnees'=>$results_sorted_by_next_event,'message'=>'');
+		}
+		  catch(Exception $e)
+		  {
+			  die('Erreur : ' . $e->getMessage());
+		  }
+
+	}
+	       
+	   
     function getMarathonsAgendaByMois(){
 		try {
 			include("../database/connexion.php");

@@ -160,16 +160,16 @@ if($pays_datas){
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport"><meta http-equiv="x-ua-compatible" content="ie=edge">
     <?php require_once("../scripts/header_script.php") ?>
-    <title><?php echo $categorie;?> - <?php echo $marathon['nom'];?> - <?php echo $pays_datas['NomPays'];?> | allmarathon.fr</title>
-    <meta name="Description" content="Toutes les informations sur le marathon de <?php echo $marathon['lieu'];?> : prochaine édition, résultats des éditions précédentes, records... " lang="fr" xml:lang="fr" />
+    <title><?php echo $categorie;?> <?php echo $marathon['prefixe'];?> <?php echo $marathon['nom'];?> | allmarathon.fr</title>
+    <meta name="Description" content="Toutes les informations sur le marathon <?php echo $marathon['prefixe'];?> <?php echo $marathon['nom'];?> : prochaine édition, résultats des éditions précédentes, records... " lang="fr" xml:lang="fr" />
     
 
     <link rel="apple-touch-icon" href="apple-favicon.png">
     <link rel="icon" type="image/x-icon" href="../../images/favicon.ico" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
     <meta property="og:type" content="siteweb" />
-    <meta property="og:title" content="<?php echo $categorie;?> - <?php echo $marathon['nom'];?> - <?php echo $pays_datas['NomPays'];?>" />
-    <meta property="og:description" content="Toutes les informations sur le marathon de <?php echo $marathon['lieu'];?> : prochaine édition, résultats des éditions précédentes, records... " />
+    <meta property="og:title" content="<?php echo $categorie;?> <?php echo $marathon['prefixe'];?> <?php echo $marathon['nom'];?>  | allmarathon.fr" />
+    <meta property="og:description" content="Toutes les informations sur le marathon <?php echo $marathon['prefixe'];?> <?php echo $marathon['nom'];?> : prochaine édition, résultats des éditions précédentes, records... " />
     <meta property="og:image" content="<?php echo 'https://allmarathon.fr/images/marathons/'.$marathon['image'];?>" />
     <meta property="og:url" content="<?php echo 'https://allmarathon.fr/marathons-'.$marathon['id'].'-'.slugify($marathon['nom']).'.html';?>" />
 
@@ -225,12 +225,13 @@ if($pays_datas){
                             class="fa fa-facebook"></i><a href="'.$marathon['facebook'].'" target="_blank">Facebook</a><br>':'';
                             $lien_insta=($marathon['Instagram'])?'<i
                             class="fa fa-instagram"></i><a href="'.$marathon['Instagram'].'" target="_blank">Instagram</a><br>':'';
-                            $lien_site=($marathon['site_web'])?'<img src="../../images/website.png" alt=""/><a href="'.$marathon['site_web'].'" target="_blank">Visitez le site du marathon '.$marathon['nom'].'</a><br>':'';
+                            $lien_site=($marathon['site_web'])?'<img src="../../images/website.png" alt=""/><a href="'.$marathon['site_web'].'" target="_blank">Visitez le site du marathon '.$marathon['prefixe']." ".$marathon['nom'].'</a><br>':'';
                             $lieu=($marathon['lieu'])?'<img src="../../images/location.png" alt=""/>'.$marathon['lieu'].' ('.$pays_datas['NomPays'].')<br>':'';
                             $proch_date=($next_date)?'<h2 style="font-size: 15px;"><img src="../../images/calendar.png" alt=""/>Le <strong>Marathon de '.$next_date['Nom'].' '.strftime("%Y",strtotime($next_date['DateDebut'])).'</strong> aura lieu le '.utf8_encode(strftime("%d %B",strtotime($next_date['DateDebut']))).'</h2><br>':'';
 
-                            echo '<h1 style="text-transform:uppercase">'.strtoupper($marathon['nom']).' '.$pays_flag.'</h1>'; ?>
-                            
+                            echo '<h1 style="text-transform:uppercase">Marathon '.$marathon['prefixe'].' '.strtoupper($marathon['nom']).' '.$pays_flag.'</h1>'; ?>
+                            <a href="/calendrier-agenda-marathons.html">Marathons</a> > <a href="calendrier-marathons-<?php echo slugify($pays_datas['NomPays']); ?>-<?php echo $pays_datas['ID']; ?>.html"><?php echo $pays_datas['NomPays'];?></a> > <?php echo utf8_encode(strftime("%B",strtotime($next_date['DateDebut'])));?>
+
                             <?php 
                             $img_src='/images/marathons/'.$marathon['image'];
                             $full_image_path="https://" . $_SERVER['HTTP_HOST'] .$img_src;

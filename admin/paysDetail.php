@@ -37,10 +37,11 @@ if($_GET['paysID']!=""){
             $fileName = ($_FILES['Flag']['name']!="") ? $_FILES['Flag']['name'] : $pays['Flag'] ;
 
              try {
-                 $req4 = $bdd->prepare("UPDATE `pays` SET `Abreviation`=:ab,prefixe=:pref,`NomPays`=:np,`texte`=:txt,`Flag`=:flag,`Abreviation_2`=:ab2,`Abreviation_3`=:ab3,`Abreviation_4`=:ab4,`Abreviation_5`=:ab5   WHERE ID=:id");
+                 $req4 = $bdd->prepare("UPDATE `pays` SET `Abreviation`=:ab,prefixe=:pref,continent=:cont,`NomPays`=:np,`texte`=:txt,`Flag`=:flag,`Abreviation_2`=:ab2,`Abreviation_3`=:ab3,`Abreviation_4`=:ab4,`Abreviation_5`=:ab5   WHERE ID=:id");
                  $req4->bindValue('pref',$_POST['prefixe'], PDO::PARAM_STR);
                  $req4->bindValue('ab',$_POST['Abreviation'], PDO::PARAM_STR);
                  $req4->bindValue('np',$_POST['NomPays'], PDO::PARAM_STR);
+                 $req4->bindValue('cont',$_POST['continent'], PDO::PARAM_STR);
                  $req4->bindValue('txt',$_POST['Texte'], PDO::PARAM_STR);
                  $req4->bindValue('flag',$fileName, PDO::PARAM_STR);
                  $req4->bindValue('ab5',$_POST['Abreviation_5'], PDO::PARAM_STR);
@@ -183,7 +184,19 @@ tinyMCE.init({
                     <td><input type="text" name="NomPays" value="<?php echo $pays['NomPays'];?>" /></td>
                 </tr>
                 <tr><td><label for="prefixe">Préfixe : </label></td><td><input id="prefixe" type="text" name="prefixe" value="<?php echo $pays['prefixe'];?>" /></td></tr>
-
+                <tr>
+                    <td> 
+                        <label for="continent">Continent : </label></td><td>
+                        <select name="continent" style="width: 86%;height: 50px;background: #f6f6f6;text-align:center">
+                            <option <?php if($pays['continent']=="Afrique"){echo "selected";}?> value="Afrique">Afrique</option>
+                            <option  <?php if($pays['continent']=="Amérique du Nord"){echo "selected";}?> value="Amérique du Nord">Amérique du Nord</option>
+                            <option  <?php if($pays['continent']=="Amérique du Sud"){echo "selected";}?> value="Amérique du Sud">Amérique du Sud</option>
+                            <option  <?php if($pays['continent']=="Asie"){echo "selected";}?> value="Asie">Asie</option>
+                            <option  <?php if($pays['continent']=="Europe"){echo "selected";}?> value="Europe">Europe</option>
+                            <option  <?php if($pays['continent']=="Océanie"){echo "selected";}?> value="Océanie">Océanie</option>
+                        </select>
+                    </td>
+                </tr> 
                 <tr>
                     <td align="right"><label for="Abreviation">Abreviation : </label></td>
                     <td><input type="text" name="Abreviation" value="<?php echo $pays['Abreviation'];?>" /></td>
