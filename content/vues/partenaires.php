@@ -163,7 +163,7 @@ echo $pub728x90["code"] ? $pub728x90["code"] :  "<img src=".'../images/pubs/'.$p
                                     <td class="col-md-3" align="left"></td>
                                     <td style="width: 100%;padding: 0px 14px;" class="pull-right">
                                         <div class="g-recaptcha"
-                                            data-sitekey="6Lf2-bwlAAAAAFZRxwBD28d2vUPvDT-MPfBEgZJx"></div>
+                                            data-sitekey="6LdcITUpAAAAAJNe_-kxs-4q4Xy9_HrQnk3FvTkx"></div>
                                     </td>
                                 </tr>
 

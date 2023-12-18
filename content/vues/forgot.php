@@ -120,7 +120,7 @@ echo $pub728x90["code"] ? $pub728x90["code"] :  "<img src=".'../images/pubs/'.$p
 
                                     <div id="formulaireligne" class="texte4 form-group">
                                         <div class="g-recaptcha left"
-                                            data-sitekey="6Lf2-bwlAAAAAFZRxwBD28d2vUPvDT-MPfBEgZJx"></div>
+                                            data-sitekey="6LdcITUpAAAAAJNe_-kxs-4q4Xy9_HrQnk3FvTkx"></div>
                                         <div class="right">
                                             <input type="submit" name="Envoyer" value="Envoyer" />
                                         </div>

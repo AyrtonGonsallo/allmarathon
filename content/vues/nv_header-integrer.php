@@ -233,23 +233,7 @@
                     <li> <a data-category="Header_Links" data-action="Top Menu Click" data-label="RECORDS"
 
                     href="/records-marathon-masculins.html" class="header--nav--link pull-right1">Records</a></li>
-                    <li class="rs_header menu-item-search formobile">
-                            <ul>
-                            <li class="fb"> <a href="https://whatsapp.com/channel/0029Va3y67f0G0Xmv2z5jC2A" target="_blank"><i
-
-class="fa fa-whatsapp"></i></a></li>
-                                <li class="fb"> <a href="https://www.facebook.com/allmarathon.fr" target="_blank"><i
-
-                                            class="fa fa-facebook"></i></a></li>
-
-                                <li class="in"> <a href="https://www.instagram.com/allmarathon.fr" target="_blank"><i
-
-                                            class="fa fa-instagram"></i></a></li>
-                                <li class="fb"> <a href="https://www.pinterest.fr/allmarathon/" target="_blank"><i
-
-class="fa fa-pinterest"></i></a></li>
-                            </ul>
-                        </li>
+                    
                 </ul>
 
             </li>
@@ -282,30 +266,7 @@ class="fa fa-pinterest"></i></a></li>
                 </form>
             </li>
             
-            <li class="rs_header">
-            <ul>
-                <li class="fb">
-                    <a href="https://whatsapp.com/channel/0029Va3y67f0G0Xmv2z5jC2A" target="_blank">
-                        <i class="fa fa-whatsapp"></i>
-                    </a>
-                </li>
-                <li class="fb"> 
-                    <a href="https://www.facebook.com/allmarathon.fr" target="_blank">
-                        <i class="fa fa-facebook"></i>
-                    </a>
-                </li>
-                <li class="in"> 
-                    <a href="https://www.instagram.com/allmarathon.fr" target="_blank">
-                        <i class="fa fa-instagram"></i>
-                    </a>
-                </li>
-                <li class="in"> 
-                    <a href="https://www.pinterest.fr/allmarathon/" target="_blank">
-                        <i class="fa fa-pinterest"></i>
-                    </a>
-                </li>
-            </ul>
-            </li>
+            
 
 
 
@@ -494,7 +455,7 @@ class="fa fa-pinterest"></i></a></li>
 
                                             <div class='g-recaptcha left'
 
-                                                data-sitekey='6Lf2-bwlAAAAAFZRxwBD28d2vUPvDT-MPfBEgZJx'></div>
+                                                data-sitekey='6LdcITUpAAAAAJNe_-kxs-4q4Xy9_HrQnk3FvTkx'></div>
 
                                             <?php } ?>
 

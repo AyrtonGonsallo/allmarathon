@@ -237,7 +237,7 @@ echo $pub728x90["code"] ? $pub728x90["code"] :  "<img src=".'../images/pubs/'.$p
                             </div>
                             <!-- <div class="g-recaptcha" id="g-recaptcha-response" name="g-recaptcha-response" data-sitekey="6Lc-wRsTAAAAAP8A0DXsgrJhboYw05SPxJlWYuRY"></div> -->
                             <div class="g-recaptcha" id="g-recaptcha"
-                                data-sitekey="6Lf2-bwlAAAAAFZRxwBD28d2vUPvDT-MPfBEgZJx"></div><br>
+                                data-sitekey="6LdcITUpAAAAAJNe_-kxs-4q4Xy9_HrQnk3FvTkx"></div><br>
                             <div class="form-group">
                                 <div class="col-sm-offset-1 col-sm-11">
                                     <input value="Valider" type="submit" name="register_button" class="btn_custom" />
