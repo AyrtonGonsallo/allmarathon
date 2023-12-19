@@ -148,7 +148,7 @@
             </div>
             </div>
             <div style="padding: 8px 0;" class="col-sm-6">
-            <div class="g-recaptcha" id="g-recaptcha"
+            <div class="g-recaptcha" id="g-recaptcha" style="padding:16px 16px"
                                 data-sitekey="6LdcITUpAAAAAJNe_-kxs-4q4Xy9_HrQnk3FvTkx"></div>
             </div>
             
