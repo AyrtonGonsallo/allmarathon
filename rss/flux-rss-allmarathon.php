@@ -52,7 +52,7 @@ function display_rss($result1){
         echo '<item>
                 <title>'.$titre.'</title>
                 <description>
-                    <![CDATA[ <img src="'.$photo.'" alt="'.$alt.'">'.$description.' ]]>
+                    <![CDATA[ '.$description.' <img src="'.$photo.'" alt=""> ]]>
                 </description>
                 <dc:creator>'.$auteur.'</dc:creator>
                 <source>'.$source.'</source>
