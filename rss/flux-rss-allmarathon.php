@@ -52,12 +52,12 @@ function display_rss($result1){
         echo '<item>
                 <title>'.$titre.'</title>
                 <description>
-                    <![CDATA[ '.$description.' <img src="'.$photo.'" alt=""> ]]>
+                    <![CDATA[ '.$description.']]>
                 </description>
                 <dc:creator>'.$auteur.'</dc:creator>
                 <source>'.$source.'</source>
                 <category>'.$categorie.'</category>
-                <enclosure url="'.$photo.'" length="50000" type="image/jpeg"/>
+                <enclosure url="'.$photo.'" length="'.strlen($photo).'" type="image/jpeg"/>
                 <guid>'. $loc.'</guid>
                 <pubDate>'.date(DATE_ISO8601, strtotime($date)).'</pubDate>
                 <date>publié le '.utf8_encode(strftime("%A %d %B %Y - %H:%M:%S",strtotime($date))).'</date>
