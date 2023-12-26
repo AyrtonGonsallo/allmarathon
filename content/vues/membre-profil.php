@@ -67,7 +67,7 @@ $liste_pays=$pays->getAll()['donnees'];
 
 
 $champAdminExterne=new championAdminExterne();
-$athlète_adminitres=$champAdminExterne->getChampionsByUser($user_id)['donnees'];
+$athlete_adminitres=$champAdminExterne->getChampionsByUser($user_id)['donnees'];
 
 $comments = new commentaire();
 $commentsByUser=$comments->getCommentairesByUser($user_id)['donnees'];
@@ -253,15 +253,15 @@ echo $pub728x90["code"] ? $pub728x90["code"] :  "<img src=".'../images/pubs/'.$p
                             $pays_flag= ($flag!='') ? '<span><img  class="flag_membre" src="/images/flags/'.$flag.'" alt=""/></span>':"";
                             echo '<br/> <strong>Pays : '.$pays_flag.' </strong>'.$pays->getFlagByAbreviation($profil->getPays())['donnees']['NomPays'];
                         }
-                        if(sizeof($athlète_adminitres)!=0) {
+                        if(sizeof($athlete_adminitres)!=0) {
 
                             echo '<br/> <strong>Administre les athlètes : </strong>';
-                            $athlètes_adminitres="";
-                            foreach($athlète_adminitres as $athlète){
+                            $athletes_adminitres="";
+                            foreach($athlete_adminitres as $athlete){
                                 $champ=$champion->getChampionById($athlete->getChampion_id())['donnees'];
-                                $athlètes_adminitres.= ' <a href="/athlete-'.$champ->getId().'-'.slugify($champ->getNom()).'.html" class="link_customized">'.$champ->getNom().'</a> -';
+                                $athletes_adminitres.= ' <a href="/athlete-'.$champ->getId().'-'.slugify($champ->getNom()).'.html" class="link_customized">'.$champ->getNom().'</a> -';
                             }
-                            echo substr($athlètes_adminitres, 0, -1);;
+                            echo substr($athletes_adminitres, 0, -1);;
                         }
 
                         

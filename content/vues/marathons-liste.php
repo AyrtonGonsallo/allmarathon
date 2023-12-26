@@ -219,7 +219,7 @@ try{
 
         </style>
 
-    <!--<script src="js/vendor/modernizr-2.8.3.min.js"></script>-->
+    <!--<script data-type='lazy' ddata-src="js/vendor/modernizr-2.8.3.min.js"></script>-->
 
 </head>
 
@@ -428,31 +428,31 @@ try{
     <link href=
 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css'
           rel='stylesheet'>
-<script src=
+<script data-type='lazy' ddata-src=
 "https://ajax.googleapis.com/ajax/libs/jquery/1.12.1/jquery.min.js" >
     </script>
       
-    <script src=
+    <script data-type='lazy' ddata-src=
 "https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" >
     </script>
 
    
 
-    <script src="../../js/bootstrap.min.js"></script>
+    <script data-type='lazy' ddata-src="../../js/bootstrap.min.js"></script>
 
-    <script src="../../js/plugins.js"></script>
+    <script data-type='lazy' ddata-src="../../js/plugins.js"></script>
 
-    <script src="../../js/jquery.jcarousel.min.js"></script>
+    <script data-type='lazy' ddata-src="../../js/jquery.jcarousel.min.js"></script>
 
-    <script src="../../js/jquery.sliderPro.min.js"></script>
+    <script data-type='lazy' ddata-src="../../js/jquery.sliderPro.min.js"></script>
 
-    <script src="../../js/easing.js"></script>
+    <script data-type='lazy' ddata-src="../../js/easing.js"></script>
 
-    <script src="../../js/jquery.ui.totop.min.js"></script>
+    <script data-type='lazy' ddata-src="../../js/jquery.ui.totop.min.js"></script>
 
-    <script src="../../js/herbyCookie.min.js"></script>
+    <script data-type='lazy' ddata-src="../../js/herbyCookie.min.js"></script>
 
-    <script src="../../js/main.js"></script>
+    <script data-type='lazy' ddata-src="../../js/main.js"></script>
 
 
 
@@ -1010,7 +1010,7 @@ try{
 
     <!--Google+-->
 
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script data-type='lazy' ddata-src="https://apis.google.com/js/platform.js" async defer></script>
 
 </body>
 

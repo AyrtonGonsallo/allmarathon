@@ -213,9 +213,9 @@
 
   var AUTOHIDE = Boolean(0);
 </script>
-<script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
+<script data-type='lazy' ddata-src="https://sibforms.com/forms/end-form/build/main.js"></script>
 
-<script src="https://www.google.com/recaptcha/api.js?hl=fr"></script>
+<script data-type='lazy' ddata-src="https://www.google.com/recaptcha/api.js?hl=fr"></script>
 
 <!-- END - We recommend to place the above code in footer or bottom of your website html  -->
 <!-- End Brevo Form -->
