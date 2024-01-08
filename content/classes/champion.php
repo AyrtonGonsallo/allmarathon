@@ -585,15 +585,13 @@ class champion{
 			 	die('Erreur : ' . $e->getMessage());
 	         }
 	}
-	public function getUserChampion($nom,$prenom,$date,$pays)
+	public function getUserChampion($uid)
 	{
 		try {
 				  include("../database/connexion.php");
-				 $req = $bdd->prepare('SELECT * FROM champions WHERE Nom like :nom and Nom like :prenom and DateNaissance =:date and PaysID =:pays');
-	             $req->bindValue('nom','%'.$nom.'%', PDO::PARAM_STR);
-				 $req->bindValue('prenom','%'.$prenom.'%', PDO::PARAM_STR);
-				 $req->bindValue('date',$date, PDO::PARAM_STR);
-				 $req->bindValue('pays',$pays, PDO::PARAM_STR);
+				 $req = $bdd->prepare('SELECT * FROM champions WHERE user_id=:uid');
+	            
+				 $req->bindValue('uid',$uid, PDO::PARAM_INT);
 	             $req->execute();
 	             if($req->rowCount() > 0){
 		             $champ=self::constructWithArray($req->fetch(PDO::FETCH_ASSOC));

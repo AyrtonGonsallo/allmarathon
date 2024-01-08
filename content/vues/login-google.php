@@ -2,6 +2,7 @@
 require('./config.php');
 # the createAuthUrl() method generates the login URL.
 $login_url = $client->createAuthUrl();
+setlocale(LC_TIME, "fr_FR","French");
 /* 
  * After obtaining permission from the user,
  * Google will redirect to the login-google.php with the "code" query parameter.
@@ -35,7 +36,7 @@ if (isset($_GET['code'])):
   require('../database/connexion.php');
 
   # Checking whether the email already exists in our database.
-  $check_google_user_exists = $bdd->prepare("SELECT id FROM `users_google` WHERE `email` like :email");
+  $check_google_user_exists = $bdd->prepare("SELECT id FROM `users` WHERE `email` like :email");
   $check_google_user_exists->bindValue("email", '%'.$email.'%', PDO::PARAM_STR);
   $check_google_user_exists->execute();
   $cond=$check_google_user_exists->fetch(PDO::FETCH_ASSOC);
@@ -44,27 +45,52 @@ if (isset($_GET['code'])):
   //var_dump($cond) ;exit(-1);
   if(!$cond){
     # Inserting the new user into the database
-    $query_template = "INSERT INTO `users_google`  (`oauth_uid`, `first_name`, `last_name`,`email`,`profile_pic`,`gender`,`local`) VALUES (:param1,:param2,:param3,:param4,:param5,:param6,:param7)";
+    $query_template = "INSERT INTO `users` (`id` ,`nom` ,`prenom` ,`username` ,`email` ,`newsletter` ,`offres` ,`password`,`user_regdate`,`oauth_uid`,`profile_pic`,`gender`,`local`)
+		VALUES (NULL , :nom, :prenom, :username, :email, :newsletter, :offres, :password,:t,:param1,:param2,:param3,:param4)";
+
     $insert_stmt = $bdd->prepare($query_template);
+    $insert_stmt->bindValue('nom', $f_name, PDO::PARAM_STR);
+    $insert_stmt->bindValue('prenom', $l_name, PDO::PARAM_STR);
+    $insert_stmt->bindValue('username', $f_name." ".$l_name, PDO::PARAM_STR);
+    $insert_stmt->bindValue('email', $email, PDO::PARAM_STR);
+    
+    $insert_stmt->bindValue('newsletter',0, PDO::PARAM_STR);
+    $insert_stmt->bindValue('offres', 0, PDO::PARAM_STR);
+    $insert_stmt->bindValue('password', 0, PDO::PARAM_STR);
+    $insert_stmt->bindValue('t', strftime("%A %d %B %Y",strtotime(date()))." à ".date("h:i:sa"), PDO::PARAM_STR);
     $insert_stmt->bindValue("param1", $google_id, PDO::PARAM_STR);
-    $insert_stmt->bindValue("param2",$f_name,  PDO::PARAM_STR);
-    $insert_stmt->bindValue("param3",  $l_name, PDO::PARAM_STR);
-    $insert_stmt->bindValue("param4",  $email,  PDO::PARAM_STR);
-    $insert_stmt->bindValue("param6",  $gender,  PDO::PARAM_STR);
-    $insert_stmt->bindValue("param7", $local, PDO::PARAM_STR);
-    $insert_stmt->bindValue("param5",  $picture, PDO::PARAM_STR);
+    $insert_stmt->bindValue("param3",  $gender,  PDO::PARAM_STR);
+    $insert_stmt->bindValue("param4", $local, PDO::PARAM_STR);
+    $insert_stmt->bindValue("param2",  $picture, PDO::PARAM_STR);
     $insert_stmt->execute();
 	  $google_user_id=$bdd->lastInsertId();
     if(!$google_user_id){
       echo "Failed to insert user.";
     }
+
+    $query_template2 = "INSERT INTO `champions`(user_id	,`Nom`, `Taille`, `Poids`, `Site`, DateChangementNat,`NvPaysID`, `Lien_site_équipementier`, `Facebook`, `Equipementier`, `Instagram`, `Bio`) VALUES (:user_id,:p1,180,65,'à remplir',9999-12-31,'AFG','à remplir','à remplir','à remplir','à remplir','à remplir')";
+
+    $insert_stmt2 = $bdd->prepare($query_template2);
+
+    $insert_stmt2->bindValue('user_id', $google_user_id, PDO::PARAM_INT);
+
+    $insert_stmt2->bindValue('p1', $f_name, PDO::PARAM_STR);
+    
+    $insert_stmt2->execute();
+	  $google_user_id2=$bdd->lastInsertId();
+    if(!$google_user_id2){
+      echo "Failed to insert champion.";
+    }
+    /*
     $check_simple_user_exists = $bdd->prepare("SELECT id FROM `users` WHERE user_google_id =:user_google_id or email like :email");
     $check_simple_user_exists->bindValue("user_google_id", $google_user_id, PDO::PARAM_INT);
     $check_simple_user_exists->bindValue("email", '%'.$email.'%', PDO::PARAM_STR);
     $check_simple_user_exists->execute();
     $result_id=$check_simple_user_exists->fetch(PDO::FETCH_ASSOC);
     $user_id=($result_id)?$result_id['id']:$user_id;
-  }else{
+    */
+  }/*
+  else{
     $google_user_id=$cond['id'];
     $check_simple_user_exists = $bdd->prepare("SELECT id FROM `users` WHERE user_google_id =:user_google_id or email like :email");
     $check_simple_user_exists->bindValue("user_google_id", $google_user_id, PDO::PARAM_INT);
@@ -72,9 +98,10 @@ if (isset($_GET['code'])):
     $check_simple_user_exists->execute();
     $result_id=$check_simple_user_exists->fetch(PDO::FETCH_ASSOC);
     $user_id=($result_id)?$result_id['id']:$user_id;
-  }
+  }*/
 
     # lier google et le systeme interne
+    /*
     $update1 = $bdd->prepare("UPDATE `users` SET `user_google_id`=:google_id WHERE id=:id");
     $update1->bindValue("id", $user_id, PDO::PARAM_INT);
     $update1->bindValue("google_id", $google_user_id, PDO::PARAM_INT);
@@ -84,22 +111,22 @@ if (isset($_GET['code'])):
     $update2->bindValue("id", $user_id, PDO::PARAM_INT);
     $update2->bindValue("google_id", $google_user_id, PDO::PARAM_INT);
     $update2->execute();
-
+*/
     
     
     require_once('../../functions.php');
-    
-    $check_user_exists2 = $bdd->prepare("SELECT * FROM `users` WHERE `user_google_id` = :ugid");
-  $check_user_exists2->bindValue("ugid",$google_user_id, PDO::PARAM_INT);
+    /**/
+    $check_user_exists2 = $bdd->prepare("SELECT * FROM `users` WHERE email like :email");
+    $check_user_exists2->bindValue("email", '%'.$email.'%', PDO::PARAM_STR);
   $check_user_exists2->execute();
   $cond2=$check_user_exists2->fetch(PDO::FETCH_ASSOC);
  
-    if ($cond2 ) {
+    
       $_SESSION['user']  =$cond2['username'];
       $_SESSION['user_id'] = $cond2['id'];
       $_SESSION['google_user_id'] = $google_user_id;
 
-    }
+    
 
 
   header('Location: membre-profil.php');

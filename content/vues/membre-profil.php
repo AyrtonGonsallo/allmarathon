@@ -60,7 +60,7 @@ $profil =$user->getUserById($user_id)['donnees'];
 
 
 $champion=new champion();
-$user_champ=$champion->getUserChampion($profil->getNom(),$profil->getPrenom(),$profil->getDate_naissance(),$profil->getPays())['donnees'];
+$user_champ=$champion->getUserChampion($user_id)['donnees'];
 $pays=new pays();
 $liste_pays=$pays->getAll()['donnees'];
 
@@ -343,7 +343,7 @@ echo $pub728x90["code"] ? $pub728x90["code"] :  "<img src=".'../images/pubs/'.$p
                             }
                             ?>
 
-                                    <form
+<form
                                         action="/content/modules/update_profile.php?profilID=<?php echo $profil->getId(); ?>"
                                         method="post">
 
@@ -564,8 +564,9 @@ echo $pub728x90["code"] ? $pub728x90["code"] :  "<img src=".'../images/pubs/'.$p
                                 
                                 <?php 
                                     require('../database/connexion.php');
-                                    $google_user_request = $bdd->prepare("SELECT * FROM `users_google` WHERE `user_id` = :id");
+                                    $google_user_request = $bdd->prepare("SELECT * FROM `users` WHERE id = :id");
                                     $google_user_request->bindValue("id", $user_id, PDO::PARAM_INT);
+
                                     $google_user_request->execute();
                                     $google_user=$google_user_request->fetch(PDO::FETCH_ASSOC);
                                     if($google_user){
@@ -576,7 +577,7 @@ echo $pub728x90["code"] ? $pub728x90["code"] :  "<img src=".'../images/pubs/'.$p
                                                     <ul><li><strong>Infos : </strong></li>
                                                     <li><img src="'.$google_user['profile_pic'].'"></li>
                                                     <li><strong>ID:</strong> '.$google_user['id'].'</li>
-                                                    <li><strong>Full Name:</strong> '.$google_user['first_name'].' '.$google_user['last_name'].'</li>
+                                                    <li><strong>Full Name:</strong> '.$google_user['nom'].' '.$google_user['prenom'].'</li>
                                                     <li><strong>Email:</strong> '.$google_user['email'].'</li>
                                                 </ul>';
                                             if($google_user['is_connected']==1){

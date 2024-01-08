@@ -4,12 +4,14 @@ setlocale(LC_TIME, "fr_FR","French");
 function slugify($text)
 {
 // Swap out Non "Letters" with a -
-$text = preg_replace('/[^\pL\d]+/u', '-', $text); 
+$text = str_replace('é', 'e', $text); 
+    $text = str_replace('û', 'u', $text); 
+    $text = str_replace('à', 'a', $text);
+    $text = str_replace('è', 'e', $text);
+    $text = preg_replace('/[^\pL\d]+/u', '-', $text); 
+    $text = trim($text, '-');
+    $text = strtolower($text);
 
-   // Trim out extra -'s
-$text = trim($text, '-');
-   // Make text lowercase
-   $text = strtolower($text);
    return $text;
 }
 
@@ -37,7 +39,7 @@ function display_rss($result1){
     // Boucle qui liste les URL
     foreach ($result1 as $res) {
         $url_text=slugify($res['titre']);
-        $loc        = 'https://www.allmarathon.fr/actualite-marathon-'.$res['ID'].'-'.$url_text.'.html';
+        $loc        = 'https://www.allmarathon.fr/actualite-marathon-'.$res['ID'].'-'.slugify($url_text).'.html';
         $date = $res['date'];
         $titre = $res['titre'];
         $tab = explode('-',$date);
@@ -55,12 +57,11 @@ function display_rss($result1){
                     <![CDATA[ '.$description.']]>
                 </description>
                 <dc:creator>'.$auteur.'</dc:creator>
-                <source>'.$source.'</source>
+                
                 <category>'.$categorie.'</category>
                 <enclosure url="'.$photo.'" length="'.strlen($photo).'" type="image/jpeg"/>
-                <guid>'. $loc.'</guid>
-                <pubDate>'.date(DATE_ISO8601, strtotime($date)).'</pubDate>
-                <date>publié le '.utf8_encode(strftime("%A %d %B %Y - %H:%M:%S",strtotime($date))).'</date>
+                <guid isPermaLink="false">'. $loc.'</guid>
+                <pubDate>'.date(DATE_RSS, strtotime($date)).'</pubDate>
               </item>';
     }   
 }
@@ -85,10 +86,11 @@ function display_rss($result1){
     <channel>
     <title>allmarathon.fr - Les actualités du marathon en France et dans le monde.</title>
     <link>https://allmarathon.fr</link>
+    <atom:link href="https://allmarathon.fr/flux-rss.xml" rel="self" type="application/rss+xml" />
     <description>Les actualités du marathon en France et dans le monde. News, résultats, interviews, vidéos, comptes-rendus, brèves, sondages. | allmarathon.fr</description>
     <language>fr-fr</language>
     <copyright>Copyright allmarathon.fr</copyright>
-    <pubDate><?php echo date();?></pubDate>
+    <pubDate><?php echo date(DATE_RSS);?></pubDate>
     <?php display_rss(get_data_rss()); ?>
     </channel>
     </rss>

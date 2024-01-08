@@ -118,6 +118,7 @@ RewriteRule ^sitemaps/sitemap-evenements.xml/?$ sitemaps/sitemap-evenements.php
 RewriteRule ^sitemaps/sitemap-marathons.xml/?$ sitemaps/sitemap-marathons.php
 
 RewriteRule ^flux-rss.xml/?$ rss/flux-rss-allmarathon.php
+RewriteRule ^api-indexation/?$ rss/api-indexation.php
 
 RewriteRule ^resultats-marathon_-1_.html$ https://www.allmarathon.fr/resultats-marathon.html [R=301,L]
 RewriteRule ^marathons.html$ https://www.allmarathon.fr/calendrier-agenda-marathons.html [R=301,L]

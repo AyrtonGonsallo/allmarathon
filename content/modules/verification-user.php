@@ -19,8 +19,9 @@ $response_array['message'] = '';
 
 if(isset($_POST['register_button']) && !empty($_POST['register_button'])){
     if(isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response'])){
-        
-        $secret = '6Lf2-bwlAAAAADuE8YsrNoV5QRlYgc3x6QV4awPP';
+
+        //$former_secret = '6Lf2-bwlAAAAADuE8YsrNoV5QRlYgc3x6QV4awPP';
+        $secret = '6LdcITUpAAAAALEmLKI-oW8aMZdXAKHhJxd-V8B6';
         $verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secret.'&response='.$_POST['g-recaptcha-response']);
         $response = json_decode($verifyResponse);
         $errors = "";
@@ -109,9 +110,9 @@ if(isset($_POST['register_button']) && !empty($_POST['register_button'])){
                     $php_mail->Port = 465;
                     $php_mail->SMTPSecure = 'ssl';
                     $php_mail->SMTPAuth = true;
-                    $php_mail->Username = "martinodegaardnash@gmail.com";
-                    $php_mail->Password = "zJX8CvbTgAH7";
-                    $php_mail->SetFrom("martinodegaardnash@gmail.com","Allmarathon Contact");
+                    $php_mail->Username = "roquetigrinho@gmail.com";
+                    $php_mail->Password = "rpoikwiwlyzenkst";
+                    $php_mail->SetFrom("roquetigrinho@gmail.com","Allmarathon Contact");
                     //$php_mail->addAddress($mail, $nom.' '.$prenom);
                     $php_mail->AddAddress($mail);
                     $php_mail->IsHTML(true);
@@ -126,10 +127,12 @@ if(isset($_POST['register_button']) && !empty($_POST['register_button'])){
                         $response_array['status'] = 'success';
                         $response_array['message'] .= "<span style='color:green;'>Votre compte vient d'être créé, vous avez reçu un mail.</span><br><span style='color:green;'>merci et bienvenu parmi les membres de la communauté allmarathon! </span><br><span style='color:green;'>Nous vous conseillons d'associer votre compte à google pour vous connecter plus rapidement.</span><br>";
                     }
-                    }
-                    $response_array['status'] = 'success';
+                    }else{
+                        $response_array['status'] = 'success';
                     $response_array['message'] .= "<span style='color:green;'>Votre compte vient d'être créé, vous n'avez pas demandé à recevoir un mail.</span><br><span style='color:green;'>Merci et bienvenu parmi les membres de la communauté allmarathon! </span><br><span style='color:green;'>Nous vous conseillons d'associer votre compte à google pour vous connecter plus rapidement.</span><br>";
                    
+                    }
+                    
             }else{ 
                 $response_array['status'] = 'error';
                 $response_array['message'] .= "<span style='color:#cc0000;'> Pseudo ou e-mail existe déjà s'il vous plaît choisir un autre</span><br><br>";

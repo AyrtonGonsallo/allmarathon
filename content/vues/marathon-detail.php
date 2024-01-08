@@ -230,7 +230,7 @@ if($pays_datas){
                             $proch_date=($next_date)?'<h2 style="font-size: 15px;"><img src="../../images/calendar.png" alt=""/>Le <strong>Marathon de '.$next_date['Nom'].' '.strftime("%Y",strtotime($next_date['DateDebut'])).'</strong> aura lieu le '.utf8_encode(strftime("%d %B",strtotime($next_date['DateDebut']))).'</h2><br>':'';
 
                             echo '<h1 style="text-transform:uppercase">Marathon '.$marathon['prefixe'].' '.strtoupper($marathon['nom']).' '.$pays_flag.'</h1>'; ?>
-                            <a href="/calendrier-agenda-marathons.html">Marathons</a> > <a href="calendrier-marathons-<?php echo slugify($pays_datas['NomPays']); ?>-<?php echo $pays_datas['ID']; ?>.html"><?php echo $pays_datas['NomPays'];?></a> > <?php echo utf8_encode(strftime("%B",strtotime($next_date['DateDebut'])));?>
+                            <a href="/calendrier-agenda-marathons.html">Marathons</a> > <a href="calendrier-marathons-<?php echo slugify($pays_datas['NomPays']); ?>-<?php echo $pays_datas['ID']; ?>.html"><?php echo $pays_datas['NomPays'];?></a> <?php if($next_date){echo "> ".utf8_encode(strftime("%B",strtotime($next_date['DateDebut'])));}?>
 
                             <?php 
                             $img_src='/images/marathons/'.$marathon['image'];

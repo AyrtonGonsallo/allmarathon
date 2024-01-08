@@ -98,6 +98,7 @@ if(isset($_SESSION['admin']) && isset($_SESSION['login'])):
         <?php if($_SESSION['admin']):?><li class="menuItem"><a href="records.php">Records</a></li><?php endif ?>
         <?php if($_SESSION['admin']):?><li class="menuItem"><a href="index_script.php">Script de détection de doublons</a><?php endif ?>
         <?php if($_SESSION['admin']):?><li class="menuItem"><a href="pays.php">Pays</a></li><?php endif ?>
+        <?php if($_SESSION['admin']):?><li class="menuItem"><a href="api-indexation.php">Google Indexing API</a></li><?php endif ?>
         
 
         </ul>
