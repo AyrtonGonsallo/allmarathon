@@ -30,16 +30,17 @@ include("../classes/video.php");
 include("../classes/evenement.php");
 include("../classes/newscategorie.php");
 include("../classes/evCategorieAge.php");
-
+include("../classes/champion.php");
 include("../classes/pub.php");
 include("../classes/commentaire.php");
 
 $commentaire=new commentaire();
 
 $news=new news();
+$champion=new champion();
 
 $last_news=$news->getLastNews();
-
+$pays=new pays();
 $bref_news=$news->getBrefNews();
 
 $last_articles_part1=$news->news_home(0);
@@ -62,7 +63,7 @@ $ev_cat_event=new evCategorieEvenement();
 
 $event=new evenement();
 
-$home_events=getHomeEvents();
+$home_events=getThisMonthEvents();
 
 
 $nc=new newscategorie();
@@ -110,7 +111,7 @@ function switch_cat($cat)
     <meta content="width=device-width, initial-scale=1.0" name="viewport"><meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Suivez l’actualité du marathon : calendrier, résultats, vidéos | allmarathon.fr</title>
     <meta name="description" content="allmarathon, toutes les informations concernant les marathons en France et dans le monde. News, calendrier, résultats, vidéos. Pour les passionnés des 42 kms.">
-    <meta name=" robots " content="index, follow" />
+    
     <link rel="canonical" href="https://allmarathon.fr" />
     <meta property="og:title" content=" Suivez l’actualité du marathon : calendrier, résultats, vidéos | allmarathon.fr " />
     <meta property="og:description" content="allmarathon, toutes les informations concernant les marathons en France et dans le monde. News, calendrier, résultats, vidéos. Pour les passionnés des 42 kms." />
@@ -142,19 +143,30 @@ function switch_cat($cat)
 </head>
 <body>
     <?php include_once('nv_header-integrer.php'); ?>
+    <?php $i=0;
+        $article=$last_news['donnees'][0];
+        $tab = explode('-',$article->getDate());
+        $yearNews  = $tab[0]; ?>
+        <div class="news_alune mt-100">
+            <div class="image_news">
+                <?php $alt = ($article->getLegende())?'alt="'.$article->getLegende().'"':'alt="allmarathon news image"';
+                    echo '<a href="/actualite-marathon-'.$article->getId().'-'.slugify($article->getTitre()).'.html">
+                    <img class="img-responsive mobile"'.$alt.'src="../../images/news/'.$yearNews.'/'.$article->getPhoto().'" /></a>' ?>
+            </div>            
+        </div>
+
+                    
     <div class="container page-content homepage">
-        <div class="row banniere1">
+        <div class="row banniere1 bureau">
         </div>
         <div class="row">
 
             <div class="col-sm-8 left-side">
-            <h1>Allmarathon, portail d'information consacré au marathon</h1>
-            <br>
-            <br>
+            
                 <section class="articles_alune">
 
                     <?php
-
+                            $i=0;
                             foreach($last_news['donnees'] as $article)
 
                                 {
@@ -190,12 +202,16 @@ function switch_cat($cat)
                         <div class="image_news">
 
                             <?php $alt = ($article->getLegende())?'alt="'.$article->getLegende().'"':'alt="allmarathon news image"';
-
+                            if($i==0){
+                                $display="bureau";
+                            }else{
+                                $display="";
+                            }
                             echo '<a
 
                                                     href="/actualite-marathon-'.$article->getId().'-'.slugify($article->getTitre()).'.html"><img
 
-                                                        class="img-responsive"'.$alt.'
+                                                        class="img-responsive '.$display.'"'.$alt.'
 
                                                         src="../../images/news/'.$yearNews.'/'.$article->getPhoto().'" /></a>' ?>
 
@@ -205,19 +221,24 @@ function switch_cat($cat)
 
                             <?php echo '<a href="/actualite-marathon-'.$article->getId().'-'.slugify($article->getTitre()).'.html">'.$article->getTitre().'</a><br>'; 
 
-                echo '<p class="style-p">'.$article->getChapo().'</p>
+                echo '<p class="style-p bureau">'.$article->getChapo().'</p>
 
                '
 
                 ;
-
+                if($article->getVideoID()){
+                    $vid=$vd->getVideoById($article->getVideoID())["donnees"];
+                    echo "<a href='video-de-marathon-".$vid->getId().".html'  class='home-link mr-5 '>Vidéo: ". $vid->getTitre()."</a>";
+                }
                             ?>
 
                         </div>
 
                     </div>
 
-                    <?php   } ?>
+                    <?php  
+                        $i++;
+                } ?>
 
                 </section>
 
@@ -274,17 +295,24 @@ function switch_cat($cat)
 
                                 </a></div>
 
-                            <div class=" desc-img">
+                                <div class=" desc-img">
 
-                                <h2> <a href="/actualite-marathon-'.$article_home->getId().'-'.slugify($article_home->getTitre()).'.html" style="color: #222;">'.$article_home->getTitre().'</a> </h2>
-
-                                <p>'.$article_home->getChapo().$coms.'</p>
-
-                                '.$lien_1.$lien_2.$lien_3.'
-
-                            </div>
-
-                        </article>';
+                                    <h2> <a href="/actualite-marathon-'.$article_home->getId().'-'.slugify($article_home->getTitre()).'.html" style="color: #222;">'.$article_home->getTitre().'</a> </h2>';
+                                if($article_home->getChampionID()){
+                                    $chmp=$champion->getChampionById($article_home->getChampionID())["donnees"];
+                                    echo "<a href='athlete-".$chmp->getId()."-".$chmp->getNom().".html' class='home-link mr-5 '>Le palmarès de ". $chmp->getNom()."</a>";
+                                }
+                                if($article_home->getEvenementID()){
+                                    $evenement=$event->getEvenementByID($article_home->getEvenementID())["donnees"];
+                                    $cat_event=$ev_cat_event->getEventCatEventByID($evenement->getCategorieId())['donnees']->getIntitule();
+            
+                                    $nom_res='<strong>'.$cat_event.' - '.$evenement->getNom().'</strong> - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
+                                    $nom_res_lien=$cat_event.' - '.$evenement->getNom().' - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
+            
+                                    echo "<a href='/resultats-marathon-".$evenement->getId()."-".slugify($nom_res_lien).".html' class='home-link mr-5 '>Résultats complets</a>";
+                                }
+                                echo '</div>
+                            </article>';
 
                     }?>
 
@@ -345,23 +373,128 @@ function switch_cat($cat)
 
                     <div class=" desc-img">
 
-                        <h2> <a href="/actualite-marathon-'.$article_home->getId().'-'.slugify($article_home->getTitre()).'.html" style="color: #222;">'.$article_home->getTitre().'</a> </h2>
+                    <h2> <a href="/actualite-marathon-'.$article_home->getId().'-'.slugify($article_home->getTitre()).'.html" style="color: #222;">'.$article_home->getTitre().'</a> </h2>';
+                    if($article_home->getChampionID()){
+                        $chmp=$champion->getChampionById($article_home->getChampionID())["donnees"];
+                        echo "<a href='athlete-".$chmp->getId()."-".$chmp->getNom().".html' class='home-link mr-5 '>Le palmarès de ". $chmp->getNom()."</a>";
+                    }
+                    if($article_home->getEvenementID()){
+                        $evenement=$event->getEvenementByID($article_home->getEvenementID())["donnees"];
+                        $cat_event=$ev_cat_event->getEventCatEventByID($evenement->getCategorieId())['donnees']->getIntitule();
 
-                        <p>'.$article_home->getChapo().$coms.'</p>
+                        $nom_res='<strong>'.$cat_event.' - '.$evenement->getNom().'</strong> - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
+                        $nom_res_lien=$cat_event.' - '.$evenement->getNom().' - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
 
-                        '.$lien_1.$lien_2.$lien_3.'
-
-                    </div>
-
-                    </article>';
+                        echo "<a href='/resultats-marathon-".$evenement->getId()."-".slugify($nom_res_lien).".html' class='home-link mr-5 '>Résultats complets</a>";
+                    }
+                    echo '</div>
+                </article>';
 
                     }?>
 
                 </section>
-                <section class="dernieres-video">
-                    <?php include 'dernieres-video.php';?>
-                </section>
-                <section class="last_articles_part2  ">
+               
+                <a href="/actualites-marathon.html" class="mx-auto w-fc mobile bouton-mobile">Plus d'actus</a>
+
+            </div> 
+
+            <aside class="col-sm-4">
+
+
+                <dt class="bref to_hide_mobile">
+                    <h2 class="h2-aside">
+                        <span class="material-symbols-outlined ic-15">rocket_launch</span>
+                        Vite lu
+                    </h2>
+                </dt>
+         
+                <dd class="bref to_hide_mobile marg_bot">
+
+                    <ul class="clearfix">
+
+                        <?php
+
+                    foreach ($bref_news['donnees'] as $article_bref) {
+                        $tab = explode('-',$article_bref->getDate());
+                        $yearNews  = $tab[0];
+                        echo '<li><a href="/actualite-marathon-'.$article_bref->getId().'-'.slugify($article_bref->getTitre()).'.html">
+                            <div class="row">
+                                <div class="vitu-lu-image col-sm-6" style="background-image:url(../../images/news/'.$yearNews.'/'.$article_bref->getPhoto().')"></div>
+                                <div class="col-sm-6 pr-0 vitu-lu-title">'.$article_bref->getTitre().'</div>
+                            </div>
+                        </a></li>';
+
+                
+
+                    }
+
+                    ?>
+                    <!--
+                        <li class="last"><a href="/actualites-marathon-11--.html">[+] de brèves</a></li>
+                    -->
+                    </ul>
+
+                </dd>
+
+                <dt class="calendar to_hide_mobile marg_top">
+                    <h2 class="h2-aside">
+                        <span class="material-symbols-outlined  ic-15">alarm_on</span>
+                        Coming soon
+                    </h2>
+                </dt>
+
+                <dd class="calendar to_hide_mobile marg_bot">
+
+                    <ul class="clearfix marathons-home">
+
+                        
+
+                        <?php
+
+                
+
+                    echo $home_events;
+
+                    
+
+                    ?>
+                        <?php $today = date("Y/m/d");?>
+                        <li class="last mx-auto"><a href="<?php echo 'calendrier-marathons-'.utf8_encode(strftime("%B",strtotime($today))).'-'.intval((date("m"))).'-'.strftime("%Y",strtotime($today)).'.html'; ?>" class="mx-auto w-fc">Tous les marathons de <?php echo utf8_encode(strftime("%B",strtotime($today)));?></a></li>
+
+                    </ul>
+
+                </dd>
+
+                
+
+                
+
+            </aside>
+
+        </div>
+
+    </div> 
+    </div>
+
+
+    <section class="dernieres-video bureau">
+        <?php include 'dernieres-video.php';?>
+    </section>
+    <section class="dernieres-video mobile">
+        <?php include 'dernieres-video-mobile.php';?>
+    </section>
+
+
+
+    <div class="container page-content homepage">
+        <div class="row banniere1 bureau">
+        </div>
+        <div class="row">
+
+            <div class="col-sm-8 left-side">
+            
+                
+                <section class="last_articles_part2 bureau">
 
                     <?php
 
@@ -418,14 +551,21 @@ function switch_cat($cat)
 
                                 <div class=" desc-img">
 
-                                    <h2><a href="/actualite-marathon-'.$article->getId().'-'.slugify($article->getTitre()).'.html" style="color: #222;">'.$article->getTitre().'</a></h2>
+                                <h2> <a href="/actualite-marathon-'.$article->getId().'-'.slugify($article->getTitre()).'.html" style="color: #222;">'.$article->getTitre().'</a> </h2>';
+                                if($article->getChampionID()){
+                                    $chmp=$champion->getChampionById($article->getChampionID())["donnees"];
+                                    echo "<a href='athlete-".$chmp->getId()."-".$chmp->getNom().".html' class='home-link mr-5 '>Le palmarès de ". $chmp->getNom()."</a>";
+                                }
+                                if($article->getEvenementID()){
+                                    $evenement=$event->getEvenementByID($article->getEvenementID())["donnees"];
+                                    $cat_event=$ev_cat_event->getEventCatEventByID($evenement->getCategorieId())['donnees']->getIntitule();
 
-                                    <p>'.$article->getChapo().$coms.'</p>
+                                    $nom_res='<strong>'.$cat_event.' - '.$evenement->getNom().'</strong> - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
+                                    $nom_res_lien=$cat_event.' - '.$evenement->getNom().' - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
 
-                                    '.$lien_1.$lien_2.$lien_3.'
-
-                                </div>
-
+                                    echo "<a href='/resultats-marathon-".$evenement->getId()."-".slugify($nom_res_lien).".html' class='home-link mr-5 '>Résultats complets</a>";
+                                }
+                                echo '</div>
                             </article>';
 
                 }
@@ -433,39 +573,54 @@ function switch_cat($cat)
                 ?>
 
                 </section>
+                <aside>
+                    <dt class="bref mobile">
+                        <h2 class="h2-aside">
+                            <span class="material-symbols-outlined ic-15">
+                                directions_run
+                            </span>
+                            Résultats récents
+                        </h2>
+                    </dt>
 
-            </div> 
+                    <dd class="result mobile marg_bot">
 
-            <aside class="col-sm-4">
-
-
-                <dt class="bref to_hide_mobile"><h2 class="h2-aside">EN BREF</h2></dt>
-
-                <dd class="bref to_hide_mobile marg_bot">
-
-                    <ul class="clearfix">
+                        <ul class="clearfix">
 
                         <?php
+                        $i=0;
+                        foreach ($last_results['donnees'] as $result) {   
+                            if($i%2==0){
+                                $class="gray-background";
+                            }else{
+                                $class="";
+                            }
+                            $ev_cat_age_intitule=$ev_cat_age->getEventCatAgeByID($result->getCategorieAgeID())['donnees']->getIntitule();
+                            $marathon = getMarathonsById($result->getmarathon_id())["donnees"][0];
+                            $marathon_nom = $marathon["nom"];
+                            $marathon_prefixe = $marathon["prefixe"];
+                            $pays_nom=$pays->getFlagByAbreviation($result->getPaysID())['donnees']['NomPays'];
+                            $nom_res=$result->getCategorie().' '.$ev_cat_age_intitule.' ('.$result->getSexe().') - '.$result->getNom().' - '.substr($result->getDateDebut(),0,4);
+                            $nom_res_lien_archive=$result->getCategorie().' - '.$result->getNom().' - '.utf8_encode(strftime("%A %d %B %Y",strtotime($result->getDateDebut())));
+                            echo '<a href="/resultats-marathon-'.$result->getID().'-'.slugify($nom_res_lien_archive).'.html"><div class="res-recents row '.$class.'"> <div class="col-lg-3 col-sm-3 pt-10"><span class="res-recents-date"><b>'.date("d/m",strtotime($result->getDateDebut())).'</b></span></div><div class="col-lg-9 col-sm-9"><strong>Marathon '.$marathon_prefixe.' '.$marathon_nom.'</strong><br><span>'. $pays_nom.'</span></div></div></a>';
+                            $i++;
+                        }
 
-                    foreach ($bref_news['donnees'] as $article_bref) {
+                        ?>
 
-                    echo '<li><a href="/actualite-marathon-'.$article_bref->getId().'-'.slugify($article_bref->getTitre()).'.html"><span>'.date("d-m", strtotime($article_bref->getDate())).'</span>&nbsp;
+                            <li class="last mx-auto"><a href="/resultats-marathon.html" class="mx-auto w-fc">Voir tous les résultats</a></li>
 
-'.$article_bref->getTitre().'</a></li>';
+                        </ul>
 
-                    }
+                    </dd>
+                    <dt class="calendar mobile marg_top">
+                    <h2 class="h2-aside">
+                        <span class="material-symbols-outlined  ic-15">alarm_on</span>
+                        Coming soon
+                    </h2>
+                </dt>
 
-                    ?>
-
-                        <li class="last"><a href="/actualites-marathon-11--.html">[+] de brèves</a></li>
-
-                    </ul>
-
-                </dd>
-
-                <dt class="calendar to_hide_mobile marg_top"><h2 class="h2-aside">CALENDRIER</h2></dt>
-
-                <dd class="calendar to_hide_mobile marg_bot">
+                <dd class="calendar mobile marg_bot">
 
                     <ul class="clearfix marathons-home">
 
@@ -480,37 +635,54 @@ function switch_cat($cat)
                     
 
                     ?>
-
-                        
-
-                        <li class="last"><a href="/calendrier-agenda-marathons.html">[+] de dates</a></li>
+                        <?php $today = date("Y/m/d");?>
+                        <li class="last mx-auto"><a href="<?php echo 'calendrier-marathons-'.utf8_encode(strftime("%B",strtotime($today))).'-'.intval((date("m"))).'-'.strftime("%Y",strtotime($today)).'.html'; ?>" class="mx-auto w-fc">Tous les marathons de <?php echo utf8_encode(strftime("%B",strtotime($today)));?></a></li>
 
                     </ul>
 
                 </dd>
+                </aside>
+            </div> 
 
-                <dt class="result to_hide_mobile marg_top"><h2 class="h2-aside">Les derniers résultats</h2></dt>
+            <aside class="col-sm-4">
+
+
+
+            <dt class="bref to_hide_mobile">
+                    <h2 class="h2-aside">
+                        <span class="material-symbols-outlined ic-15">
+                            directions_run
+                        </span>
+                        Résultats récents
+                    </h2>
+                </dt>
 
                 <dd class="result to_hide_mobile marg_bot">
 
                     <ul class="clearfix">
 
-                        <?php
-
+                    <?php
+                    $i=0;
                     foreach ($last_results['donnees'] as $result) {   
-
-                     $ev_cat_age_intitule=$ev_cat_age->getEventCatAgeByID($result->getCategorieAgeID())['donnees']->getIntitule();
-
-                     $nom_res=$result->getCategorie().' '.$ev_cat_age_intitule.' ('.$result->getSexe().') - '.$result->getNom().' - '.substr($result->getDateDebut(),0,4);
-                     $nom_res_lien_archive=$result->getCategorie().' - '.$result->getNom().' - '.strftime("%A %d %B %Y",strtotime($result->getDateDebut()));
-
-                     echo '<li><a href="/resultats-marathon-'.$result->getID().'-'.slugify($nom_res_lien_archive).'.html"> <strong>'.$result->getCategorie().' - '.$result->getNom().' <small>'.$ev_cat_age_intitule.' - le '.date("d/m/Y",strtotime($result->getDateDebut())).'</small></strong><img class="flag_side" src="../../images/flags/'.$result->getPaysID().'.jpg" alt=""></a></li>';
-
+                        if($i%2==0){
+                            $class="gray-background";
+                        }else{
+                            $class="";
+                        }
+                        $ev_cat_age_intitule=$ev_cat_age->getEventCatAgeByID($result->getCategorieAgeID())['donnees']->getIntitule();
+                        $marathon = getMarathonsById($result->getmarathon_id())["donnees"][0];
+                        $marathon_nom = $marathon["nom"];
+                        $marathon_prefixe = $marathon["prefixe"];
+                        $pays_nom=$pays->getFlagByAbreviation($result->getPaysID())['donnees']['NomPays'];
+                        $nom_res=$result->getCategorie().' '.$ev_cat_age_intitule.' ('.$result->getSexe().') - '.$result->getNom().' - '.substr($result->getDateDebut(),0,4);
+                        $nom_res_lien_archive=$result->getCategorie().' - '.$result->getNom().' - '.utf8_encode(strftime("%A %d %B %Y",strtotime($result->getDateDebut())));
+                        echo '<a href="/resultats-marathon-'.$result->getID().'-'.slugify($nom_res_lien_archive).'.html"><div class="res-recents row '.$class.'"> <div class="col-lg-3 pt-10"><span class="res-recents-date"><b>'.date("d/m",strtotime($result->getDateDebut())).'</b></span></div><div class="col-lg-9"><strong>Marathon '.$marathon_prefixe.' '.$marathon_nom.'</strong><br><span>'. $pays_nom.'</span></div></div></a>';
+                        $i++;
                     }
 
                     ?>
 
-                        <li class="last"><a href="/resultats-marathon.html">[+] de résultats</a></li>
+                        <li class="last mx-auto"><a href="/resultats-marathon.html" class="mx-auto w-fc">Voir tous les résultats</a></li>
 
                     </ul>
 

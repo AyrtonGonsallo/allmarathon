@@ -1384,7 +1384,7 @@ if (count($last_news) < 1) {
 
                                         <td style="word-wrap: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; width: 100%; color: #0a0a0a; font-family: Helvetica, Arial, sans-serif; font-weight: normal; line-height: 1.3; font-size: 16px; margin: 0 auto; padding: 0 8px 0px 16px;"><span
 
-                                                                        style="color: #fefefe; font-family: 'Roboto', sans-serif !important; font-weight: 400 !important; text-align: center; line-height: 1.3; text-decoration: none; font-size: 1.1em !important; display: inline-block; width: 98.5%; background: #fcb614; margin: 0; padding: 10px 0; border: 0 solid #ec5840;text-transform: uppercase;">derniers résultats</span> </td>
+                                                                        style="color: #fefefe; font-family: 'Roboto', sans-serif !important; font-weight: 400 !important; text-align: center; line-height: 1.3; text-decoration: none; font-size: 1.1em !important; display: inline-block; width: 98.5%; background: #fbff0b; margin: 0; padding: 10px 0; border: 0 solid #ec5840;text-transform: uppercase;">derniers résultats</span> </td>
 
                                     </tr>
 
@@ -1444,7 +1444,7 @@ if (count($last_news) < 1) {
 
                                         <td style="word-wrap: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; width: 100%; color: #0a0a0a; font-family: Helvetica, Arial, sans-serif; font-weight: normal; line-height: 1.3; font-size: 16px; margin: 0 auto; padding: 0 8px 0px 16px;"><span
 
-                                                                        style="color: #fefefe; font-family: 'Roboto', sans-serif !important; font-weight: 400 !important; text-align: center; line-height: 1.3; text-decoration: none; font-size: 1.1em !important; display: inline-block; width: 98.5%; background: #fcb614; margin: 0; padding: 10px 0; border: 0 solid #ec5840;text-transform: uppercase">Dernières vidéos
+                                                                        style="color: #fefefe; font-family: 'Roboto', sans-serif !important; font-weight: 400 !important; text-align: center; line-height: 1.3; text-decoration: none; font-size: 1.1em !important; display: inline-block; width: 98.5%; background: #fbff0b; margin: 0; padding: 10px 0; border: 0 solid #ec5840;text-transform: uppercase">Dernières vidéos
 
                                                                     </span> </td>
 
@@ -1564,7 +1564,7 @@ if (count($last_news) < 1) {
 
                                                                         href="http://www.allmarathon.fr/calendrier-marathon.html"
 
-                                                                        style="color: #fefefe; font-family: 'Roboto', sans-serif !important; font-weight: 400 !important; text-align: center; line-height: 1.3; text-decoration: none; font-size: 1.1em !important; display: inline-block; border-radius: 3px; width: 100%; background: #fcb614; margin: 0; padding: 10px 0; border: 0 solid #ec5840;text-transform: uppercase;">calendrier</a></td>
+                                                                        style="color: #fefefe; font-family: 'Roboto', sans-serif !important; font-weight: 400 !important; text-align: center; line-height: 1.3; text-decoration: none; font-size: 1.1em !important; display: inline-block; border-radius: 3px; width: 100%; background: #fbff0b; margin: 0; padding: 10px 0; border: 0 solid #ec5840;text-transform: uppercase;">calendrier</a></td>
 
                                                         </tr>
 
@@ -1618,7 +1618,7 @@ if (count($last_news) < 1) {
 
                                                                         href="https://www.alljudo.shop/" target='blank'
 
-                                                                        style="color: #fefefe; font-family: 'Roboto', sans-serif !important; font-weight: 400 !important; text-align: center; line-height: 1.3; text-decoration: none; font-size: 1.1em !important; display: inline-block; border-radius: 3px; width: 100%; background: #fcb614; margin: 0; padding: 10px 0; border: 0 solid #ec5840;text-transform: uppercase;"><font color="#fee616">Bons plans marathon</font></a>
+                                                                        style="color: #fefefe; font-family: 'Roboto', sans-serif !important; font-weight: 400 !important; text-align: center; line-height: 1.3; text-decoration: none; font-size: 1.1em !important; display: inline-block; border-radius: 3px; width: 100%; background: #fbff0b; margin: 0; padding: 10px 0; border: 0 solid #ec5840;text-transform: uppercase;"><font color="#fee616">Bons plans marathon</font></a>
 
                                                             </td>
 
@@ -1732,7 +1732,7 @@ if (count($last_news) < 1) {
 
                                                                 <a href="https://www.facebook.com/groups/867377543414039/" target="_blank"
 
-                                                                   style="color: #fefefe; font-family: 'Roboto', sans-serif !important; font-weight: 400 !important; text-align: center; line-height: 1.3; text-decoration: none; font-size: 1.1em !important; display: inline-block; border-radius: 3px; width: 100%; background: #fcb614; margin: 0; padding: 10px 0; border: 0 solid #ec5840;">ANNONCES JUDO</a>
+                                                                   style="color: #fefefe; font-family: 'Roboto', sans-serif !important; font-weight: 400 !important; text-align: center; line-height: 1.3; text-decoration: none; font-size: 1.1em !important; display: inline-block; border-radius: 3px; width: 100%; background: #fbff0b; margin: 0; padding: 10px 0; border: 0 solid #ec5840;">ANNONCES JUDO</a>
 
                                                             </td>
 

@@ -2,7 +2,7 @@
 
 /*
  * What follows is the result of much research on cross-browser styling.
- * C#fcb614it left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
+ * C#fbff0bit left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
  * Kroc Camen, and the H5BP dev community and team.
  */
 
@@ -15,8 +15,94 @@ html {
     font-size: 1em;
     line-height: 1.4;
 }
+b{
+    font-family: "Poppins-ExtraBold";
+}
+.mx-auto{
+    margin-left: auto;
+    margin-right: auto;
+}
+.m-h-400{
+    min-height: 400px;
+}
+.m-h-300{
+    min-height: 300px;
+}
+.w-fc{
+    width: fit-content !important;
+}
+strong{
+    font-family: "Poppins-ExtraBold";
+}
+.ic-15{
+    font-size: 15px !important;
+}
+.mt-100{
+    margin-top: 100px;
+}
+.pr-0{
+    padding-right: 0 !important;
+}
+.pt-10{
+    padding-top: 10px;
+}
+.mr-5{
+    margin-right: 5px;
+}
+.align-bottom{
+    position: absolute;
+    bottom: 0;
+}
+.uppercase{
+    text-transform: uppercase;
+}
+.capitalize{
+    text-transform: capitalize;
+}
+.vitu-lu-image{
+    width: 32%;
+    background-size: cover;
+    height: 60px;
+    margin-right: 20px;
+    margin-left: 14px;
+}
+.vitu-lu-title{
+    font-family: 'Poppins-Medium';
+    font-size: 18px;
+}
+.coming-soon-image{
+    min-height: auto;
+    margin: 0px;
+    display: grid;
+    grid-template-columns: 1fr;
+    padding: 0;
+}
+.dernieres-video-image{
+    width: auto;
+    height: 175px;
+    background-position: center;
+    background-size: cover;
+    text-align: center;
+    padding-top: 24%;
+}
+.res-recents{
+    padding: 10px 5px;
+}
+.bouton-mobile{
+    background-color: #95d7fe;
+    padding: 10px 30px;
+    font-size: 15.96px;
+    color: black;
+}
+.res-recents-date{
+    background-color: #95d7fe;
+    border: solid 1px #fbff0b;
+}
 
 
+.gray-background{
+    background-color: #eeeff0;
+}
 .marg_bot {
     margin-bottom: 30px !important;
 }
@@ -35,7 +121,7 @@ html {
     text-align: center;
 }
 .title-newsletter {
-    background-color: #fcb614;
+    background-color: #fbff0b;
     color: #fff;
     padding: 5px 10px;
     font-weight: 600;
@@ -54,7 +140,7 @@ html {
     text-align: center;
     width: auto;
     text-decoration: none;
-    background-color: #fcb614;
+    background-color: #fbff0b;
     font-weight: 700;
     border-radius: 7px;
 }
@@ -79,7 +165,7 @@ table.dataTable.no-footer {
     border-bottom: 1px solid #000000 !important;
     border-top: 1px solid #000000 !important;
 
-    background-color: #fcb614;
+    background-color: #fbff0b;
 }
 .resultat-detail .dataTables_wrapper{
     margin-top: 30px;
@@ -98,7 +184,7 @@ table.dataTable.no-footer {
     padding-bottom: 20px;
 }
 .marathon-link:hover h4{
-    color: #fcb614;
+    color: #fbff0b;
 }
 .marathons-home .marathon-link{
     color: black;
@@ -117,10 +203,10 @@ table.dataTable.no-footer {
     height: 89px;
     font-size: 33px;
     font-weight: bold;
-    color: #fcb614;
+    color: #fbff0b;
     line-height: 16px;
     text-align: center;
-    font-family: MuseoSans-500;
+    font-family: 'Poppins-Light';
 }
 .marathons-home  .marathon-title-flag {
     width: 53px;
@@ -140,7 +226,7 @@ table.dataTable.no-footer {
 }
 .marathons-home .marathon-title{
     color: #000;
-    font-size: 17px;
+    font-size: 18px;
     font-weight: 900;
     line-height: 18px;
     margin-left: 0;
@@ -152,7 +238,7 @@ table.dataTable.no-footer {
 .marathons-home span.calendar i {
     font-size: 13px;
     font-style: normal;
-    color: #fcb614;
+    color: #fbff0b;
     text-transform: uppercase;
     display: block;
     line-height: 10px;
@@ -167,7 +253,7 @@ table.dataTable.no-footer {
 }
 .resultat-detail table.dataTable thead th {
     border-bottom: 1px solid #000000 !important;
-    background-color: #fcb614;
+    background-color: #fbff0b;
 }
 .resultat-detail table.dataTable.row-border tbody th,.resultat-detail table.dataTable.row-border tbody td,.resultat-detail  table.dataTable.display tbody th,.resultat-detail  table.dataTable.display tbody td {
     border-bottom: 1px solid #000000 !important;
@@ -255,18 +341,20 @@ ul {
     margin: 0;
     padding: 0;
 }
-
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    font-family: "Poppins-Bold";
+}
 .container-fluid {
     background: url("../img/bg_body.jpg") repeat-x 0 0;
     height: 211px;
 }
 
 .container {
-    font-family: MuseoSans-500;
+    font-family: 'Poppins-Light';
     
 }
 .container.page-content {
-    font-family: MuseoSans-500;
+    font-family: 'Poppins-regular';
     min-height: 680px;
 }
 
@@ -274,7 +362,7 @@ header nav.social {
     height: 29px;
 }
 
-/*background-color: #fcb614*/
+/*background-color: #fbff0b*/
 header nav.social>ul>li>a {
     color: #959daa;
 }
@@ -395,7 +483,7 @@ header ul li.photos img {
 header nav.main-menu {
     padding: 0;
     height: 25px;
-    font-family: MuseoSans-900;
+    font-family: 'Poppins-SemiBold';
 }
 
 header nav.main-menu>ul {
@@ -475,10 +563,10 @@ input.form-control.search_header {
     display: block;
     margin-bottom: 10px;
     margin-left: 0;
-    font-family: "MuseoSans-500";
+    font-family: "'Poppins-Light'";
 }
 .left-side h2 {
-    font-family: MuseoSans-900;
+    font-family: 'Poppins-SemiBold';
     font-size: 18px;
     margin-top: 0;
     margin-bottom: 10px;
@@ -486,7 +574,7 @@ input.form-control.search_header {
 .dropdown_menu_user li a.link:hover {
     color: #fff;
     text-decoration: none;
-    background-color: #fcb614;
+    background-color: #fbff0b;
     -webkit-transition: all 400ms ease;
     -moz-transition: all 400ms ease;
     -o-transition: all 400ms ease;
@@ -574,7 +662,7 @@ li.rs_header {
 a.link:visited,
 a.link:active,
 a.link:focus {
-    color: #fcb614;
+    color: #fbff0b;
     text-decoration: none;
     outline: none;
 }
@@ -600,7 +688,7 @@ a.link:focus {
     font-size: 27px;
     line-height: 100%;
     display: inline-block;
-    font-family: "MuseoSans-900", lucida sans, arial, sans-serif;
+    font-family: "Poppins-regular","'Poppins-SemiBold'", lucida sans, arial, sans-serif;
 
 }
 
@@ -626,16 +714,29 @@ input#header-search:focus {
         bottom: 9px;
     }
 }
-
+.header--logo{
+    font-family: "Poppins-ExtraBold";
+    font-size: 24px;
+    margin: 0 40px 0 20px;
+}
+.header--logo span{
+    color:#a6ddfe;
+    position: relative !important;
+    text-transform: lowercase !important;
+    padding: 0;
+    right: 0px !important;
+}
+.header--logo:hover{
+  text-decoration: none !important;
+}
 .header--nav--link {
     color: #000 !important;
-    float: left;
-    font-size: 16px;
-    font-weight: 600;
+    font-size: 19px;
+    font-weight: 100;
     line-height: 4em;
     padding: 0 10px;
     letter-spacing: 0.5px;
-    text-transform: uppercase;
+    text-transform: capitalize;
     transition: all ease 0.3s;
 }
 @media (min-width:1120px) and (max-width:1428px){
@@ -652,7 +753,7 @@ input#header-search:focus {
 
 .header--nav--link:hover {
 
-    color: #fcb614 !important;
+    color: #fbff0b !important;
     text-decoration: none;
 }
 
@@ -675,7 +776,7 @@ input#header-search:focus {
     text-align: center;
     text-indent: 0;
     width: 100%;
-    font-family: MuseoSans-500;
+    font-family: 'Poppins-Light';
     border: 1px solid transparent;
 }
 
@@ -697,6 +798,8 @@ li.menu-item-categories .hamburger-menu-button {
     width: 100%;
     margin-top: 0;
     margin-bottom: 0;
+    display: flex;
+    justify-content: end;
 }
 
 .header--logo img {
@@ -717,7 +820,7 @@ li.menu-item-categories .hamburger-menu-button {
 }
 
 .menu-item-search {
-    width: 30.2%;
+    width: 26.2%;
 }
 
 #search_1 {
@@ -738,6 +841,7 @@ li.menu-item-categories .hamburger-menu-button {
 
 .header--loop {
     margin-top: 0px;
+    float: right;
 }
 
 .header--loop:hover {
@@ -750,10 +854,6 @@ li.menu-item-categories .hamburger-menu-button {
     height: 33px;
     background-color: #fff;
     width: 100% !important;
-
-    border: 1px solid rgba(0, 0, 0) !important;
-    
-
 }
 
 @media (max-width: 1320px) {
@@ -772,7 +872,7 @@ li.menu-item-categories .hamburger-menu-button {
 .form-group-search {
     margin-bottom: 0 !important;
     margin-top: 16px;
-    width: 90%;
+    width: 80%;
 }
 
 /*(min-width: 768px) and*/
@@ -811,7 +911,15 @@ li.menu-item-categories .hamburger-menu-button {
     .form-group-search {
         display: none !important;
     }
-
+    .bureau{ 
+        display: none !important;
+    }
+    .mobile{
+        display: block !important;
+    }
+    .article-img img, .image_news img{
+        width: 100%;
+    }
     /* .navbar-custom {
         padding: 0 20px 37px;
     } */
@@ -847,15 +955,16 @@ li.menu-item-categories .hamburger-menu-button {
     }
 
     li.menu-item-categories .nav-category {
+        background-image: linear-gradient(white,90%,#98d8fe);
         background-color: #0e0e0e;
         box-shadow: 0 2px 3px #e5e5e5;
         clear: both;
         display: none;
         position: absolute;
-        right: 0;
-        left: 0;
+        right: -26px;
         text-align: center;
         top: 68px;
+        height: 92vh;
         width: 100vw;
         z-index: 100;
     }
@@ -867,7 +976,7 @@ li.menu-item-categories .hamburger-menu-button {
     }
 
     li.menu-item-categories .nav-category li a {
-        color: #fff !important;
+        color: #000000 !important;
         display: inline-block;
         float: none;
         white-space: nowrap;
@@ -887,7 +996,7 @@ li.menu-item-categories .hamburger-menu-button {
     }
 
     .nav-category li .header--nav--link:hover {
-        border-bottom-color: #fcb614 !important;
+        border-bottom-color: #fbff0b !important;
     }
 }
 
@@ -914,7 +1023,7 @@ li.menu-item-categories .hamburger-menu-button {
 .dernieres-video{
     margin-top:30px;
     margin-bottom:50px;
-    background-color: #fcb614;
+    background-color: #fbff0b;
     padding: 20px;
 }
 .page-event-marathon-link:hover{
@@ -922,16 +1031,16 @@ li.menu-item-categories .hamburger-menu-button {
 }
 .page-content aside dt,.h2-aside {
     max-width: 300px;
-    font-family: MuseoSans-900;
+    font-family: 'Poppins-Bold';
     box-sizing: border-box;
     color: #333;
-    font-size: 18px;
+    font-size: 19px;
     padding: 3px 0 3px 5px;
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
     font-weight: normal;
 }
 .date-regroupees{
-    background-color: #fcb614 !important;
+    background-color: #fbff0b !important;
 }
 .h2-aside {
     margin-bottom: 0px !important;
@@ -949,13 +1058,14 @@ li.menu-item-categories .hamburger-menu-button {
 .page-content aside dd ul {}
 
 .page-content aside dd ul li {
-    border-bottom: 1px solid #000000;
+    /*border-bottom: 1px solid #000000;*/
     padding: 5px 3px;
 }
 
 .page-content aside dd ul li:last-child {
     border-bottom: none;
-    padding: 0;
+    /*width: fit-content;*/
+    /*padding: 0;*/
 }
 
 .page-content aside dd ul li.last:hover {
@@ -978,7 +1088,7 @@ li.menu-item-categories .hamburger-menu-button {
 .page-content aside dd ul li.last a {
     width: auto;
     display: block;
-    float: right;
+    /*float: right;*/
     padding: 3px 5px;
     color: #aea8a8;
     font-weight: bold;
@@ -990,12 +1100,12 @@ li.menu-item-categories .hamburger-menu-button {
     margin-bottom: 5px !important;
 }
 .page-content aside dd.bref ul li:hover a {
-    color: #fcb614;
+    color: #fbff0b;
 }
 .records-link{
     color: #333;
     font-weight: bolder;
-    background-color: #fcb614;
+    background-color: #fbff0b;
     width: fit-content;
     font-size: 12px;
     display: block;
@@ -1012,16 +1122,16 @@ li.menu-item-categories .hamburger-menu-button {
     display: inline-block;
     padding: 2px 5px;
     background-color: #000;
-    color: #fcb614;
+    color: #fbff0b;
 }
 
 /* .page-content aside dd.bref ul li.last a {
-    background-color: #fcb614;
+    background-color: #fbff0b;
 } */
 
 .page-content aside dd.result ul li.last a {
     /* background-color: #007ab8; */
-    font-size: 12px;
+    font-size: 18px;
     color: #007ab8;
     text-decoration: none;
 }
@@ -1043,7 +1153,7 @@ li.menu-item-categories .hamburger-menu-button {
 }
 
 /* .page-content aside dt.bref {
-    background-color: #fcb614;
+    background-color: #fbff0b;
 } */
 
 /* .page-content aside dt.result {
@@ -1051,7 +1161,7 @@ li.menu-item-categories .hamburger-menu-button {
 } */
 
 .page-content aside dt.calendar {
-    /* background-color: #fcb614; */
+    /* background-color: #fbff0b; */
     color: #333;
 }
 
@@ -1061,7 +1171,7 @@ li.menu-item-categories .hamburger-menu-button {
 }
 
 /* .page-content aside dd.bref ul li a span {
-    background-color: #fcb614;
+    background-color: #fbff0b;
 } */
 
 /*.page-contenter aside dd.result ul li a span {background-color: #007ab8;}*/
@@ -1084,8 +1194,8 @@ li.menu-item-categories .hamburger-menu-button {
     margin-top: 0px;
 }
 
-.page-content aside dd.result ul li a {
-    font-size: 12px;
+.page-content aside dd.result  a {
+    font-size: 16px;
     color: #333;
     text-decoration: none;
     /* background-color: #434a5a; */
@@ -1093,19 +1203,15 @@ li.menu-item-categories .hamburger-menu-button {
     padding: 5px;
 }
 
-.page-content aside dd.result ul li a:hover {
-    color: #fcb614;
+.page-content aside dd.result  a:hover {
+    color: #fbff0b;
 }
 
 /* .page-content aside dd.result ul li a img {
     float: left;
     margin: 0 6px 0 0;
 } */
-.page-content aside dd.result ul li a {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
+
 
 .page-content aside dd.result ul li a strong {
     display: table-cell;
@@ -1135,22 +1241,20 @@ li.menu-item-categories .hamburger-menu-button {
     margin-top: -5px;
 }
 
-.page-content aside dd.calendar ul li.last a {
-    margin-left: 4px;
-}
 
 .page-content aside dd.calendar ul li a {
-    font-size: 12px;
+    font-size: 18px;
     color: #333;
     text-decoration: none;
     /* background-color: #434a5a; */
-    display: block;
+    display: grid;
+    width: fit-content;
     padding: 5px 5px 8px 5px;
 }
 
 .page-content aside dd.calendar ul li a:hover {
     
-    color: #fcb614;
+    color: #fbff0b;
 }
 
 .page-content aside dd.calendar ul li.last a:hover {
@@ -1168,15 +1272,16 @@ li.menu-item-categories .hamburger-menu-button {
     height: 46px;
     font-size: 25px;
     font-weight: bold;
-    color: #fcb614;
+    color: #fbff0b;
     line-height: 16px;
     text-align: center;
-    font-family: MuseoSans-500;
+    font-family: 'Poppins-Light';
 }
 
 .last a{
-    background-color: #fcb614;
+    background-color: #a6ddfe;
     color: #000 !important;
+    font-family: "Poppins-bold";
 }
 .last a:hover{
     text-decoration: underline;
@@ -1184,7 +1289,7 @@ li.menu-item-categories .hamburger-menu-button {
 .page-content aside dd.calendar ul li a span.calendar i {
     font-size: 9px;
     font-style: normal;
-    color: #fcb614;
+    color: #fbff0b;
     text-transform: uppercase;
     display: block;
     line-height: 10px;
@@ -1203,7 +1308,7 @@ li.menu-item-categories .hamburger-menu-button {
 .page-content aside dd.calendar ul li.active {}
 
 .page-content aside dd.calendar ul li.active a {
-    background: #fcb614 url(../img/exclamation.png) no-repeat 240px center;
+    background: #fbff0b url(../img/exclamation.png) no-repeat 240px center;
     color: #fff;
 }
 
@@ -1247,7 +1352,7 @@ li.menu-item-categories .hamburger-menu-button {
 }
 
 .left-side article .article-img {
-    width: 100%;
+    width: 35%;
 }
 
 .left-side article .article-img a {
@@ -1278,13 +1383,14 @@ li.menu-item-categories .hamburger-menu-button {
 
 .left-side article .desc-img {
     font-size: 10px;
+    position:relative
 }
 
 .left-side article .desc-img h2 {
-    font-family: MuseoSans-900;
-    font-size: 22px;
+    font-family: 'Poppins-Black';
+    font-size: 30px;
     margin: 0 0 5px 0;
-    line-height: 27px !important;
+    line-height: 30px !important;
 }
 
 .left-side article .desc-img p {
@@ -1298,7 +1404,7 @@ li.menu-item-categories .hamburger-menu-button {
 }
 
 .left-side article .desc-img .link-media a {
-    color: #fcb614;
+    color: #fbff0b;
     text-decoration: none;
 }
 
@@ -1312,7 +1418,7 @@ li.menu-item-categories .hamburger-menu-button {
     color: #ffffff;
     font-size: 23px;
     font-weight: bold;
-    font-family: MuseoSans-500;
+    font-family: 'Poppins-Light';
     padding: 3px 0 3px 17px;
     margin-top: 7px;
     margin-top: 25px;
@@ -1322,7 +1428,7 @@ li.menu-item-categories .hamburger-menu-button {
     background-color: #434a5a;
     color: #ffffff;
     padding: 20px 15px;
-    font-family: MuseoSans-500;
+    font-family: 'Poppins-Light';
     margin-bottom: 25px;
 }
 
@@ -1430,7 +1536,7 @@ li.menu-item-categories .hamburger-menu-button {
     background-color: #bd9f54;
     color: #ffffff;
     font-size: 23px;
-    font-family: MuseoSans-900;
+    font-family: 'Poppins-SemiBold';
     padding: 3px 0 3px 17px;
     margin-top: 7px;
 }
@@ -1494,7 +1600,7 @@ li.menu-item-categories .hamburger-menu-button {
     background-color: #434a5a;
     color: #ffffff;
     font-size: 23px;
-    font-family: MuseoSans-900;
+    font-family: 'Poppins-SemiBold';
     padding: 3px 0 3px 17px;
     margin-top: 7px;
 }
@@ -1610,7 +1716,7 @@ header .logo-slide .next {
 
 footer {
     width: 100%;
-    background-color: #171b22;
+    background-color: #fbff0b;
     
 }
 .resultat-detail{
@@ -1651,16 +1757,16 @@ footer .ban_footer {
 }
 
 footer .main {
-    background-color: #171b22;
+    background-color: #fbff0b;
     padding: 15px;
 }
 
 footer .main dt {
-    color: #fcb614;
-    font-size: 17px;
-    text-transform: uppercase;
+    color: #000000;
+    font-size: 18px;
+    text-transform: capitalize;
     font-weight: bold;
-    font-family: "MuseoSans-900";
+    font-family: "Poppins-Black";
 }
 
 footer .main dd {}
@@ -1674,9 +1780,13 @@ footer .main ul.without-title {
 }
 
 footer .main ul li a {
-    color: #ffffff;
+    color: #000000;
     text-decoration: none;
-    font-size: 11px;
+    font-size: 15px;
+    font-family: "Poppins-Medium";
+}
+footer   a {
+    color: #000000 !important;
 }
 
 footer .main ul li a:hover {
@@ -1689,7 +1799,7 @@ footer .main .col>ul {
 
 footer .copyright {
     font-size: 10px;
-    color: #ffffff;
+    color: #000000;
     padding: 3px 5px;
     text-align: center;
 }
@@ -1700,7 +1810,7 @@ footer .copyright p {
 
 /********footer***********/
 .col-sm-4 span {
-    color: #ffffff;
+    color: #000000;
     text-decoration: none !important;
 }
 
@@ -1743,10 +1853,9 @@ footer .copyright p {
     margin-left: -12px;
   } */
 li.menu-item-categories .hamburger-menu-button {
-    border: 1px solid #000000;
     width: 40px;
     height: 40px;
-    box-shadow: 0 4px 6px #e5e5e5;
+    
     justify-content: center;
     align-items: center;
     border-radius: 50%;
@@ -1758,14 +1867,16 @@ li.menu-item-categories .hamburger-menu-button {
 .hamburger-menu-button-open::before,
 .hamburger-menu-button-open::after {
     position: absolute;
-    width: 24px;
-    height: 2px;
-    background: #000000;
-    border-radius: 4px;
+    width: 31px;
+    height: 7px;
+    background: #95d7fe;
     -webkit-transition: all 0.3s;
     transition: all 0.3s;
 }
-
+.hamburger-menu-button-open {
+    background: #ffffff !important;
+    height: 0px;
+}
 .hamburger-menu-button-open::before,
 .hamburger-menu-button-open::after {
     left: 0;
@@ -1773,7 +1884,7 @@ li.menu-item-categories .hamburger-menu-button {
 }
 
 .hamburger-menu-button-open::before {
-    top: 6px;
+    top: -1px;
 }
 
 .hamburger-menu-button-open::after {
@@ -1808,34 +1919,34 @@ li.menu-item-categories .hamburger-menu-button {
 }
 .style-p{
     color: #000 ;
-    font-size: 16px;
+    font-size: 17px;
     line-height: 27px;
     
 }
 .title_news a,
 .video_title {
-    font-family: MuseoSans-900;
-    font-size: 22px;
-    line-height: 27px;
+    font-family: 'Poppins-Black';
+    font-size: 34px;
+    line-height: 42px;
     color: #333;
 
 }
 .home-link{
-    background-color: #fcb614;
+    background-color: #fbff0b;
     color:#000;
     width: fit-content;
+    font-family: 'Poppins-Bold';
     padding: 5px;
+    font-size: 18px !important;
     font-weight: bold;
 }
 .title_news a, .video_title, .left-side article .desc-img h2{
-    text-transform: uppercase;
+    text-transform: none;
 }
-.capitalize{
-    text-transform: capitalize;
-}
+
 @media only screen and (min-width: 800px){
     .title_news a, .video_title, .left-side article .desc-img h2{
-        text-transform: uppercase;
+        text-transform: none;
     }
 }
 
@@ -1846,18 +1957,29 @@ section.last_articles_part2 article {
     display: flex;
     padding: 15px;
 }
-
+.more-dates a{
+    width: auto;
+    display: block;
+    float: right;
+    padding: 3px 5px;
+    color: #aea8a8;
+    font-weight: bold;
+}
 section.last_articles_part1 .desc-img,
 section.last_articles_part2 .desc-img {
     width: 80%;
+    /*min-height: 200px;*/
+    flex-direction: column;
     padding-left: 6%;
+    justify-content: space-between;
+    display: flex;
 }
 .liens-noirs-soulignes-hover-jaune{
     color: #000000 !important;
     text-decoration: underline !important;
 }
 .liens-noirs-soulignes-hover-jaune:hover{
-    color: #fcb614 !important;
+    color: #fbff0b !important;
 }
 section.last_articles_part1 {
     margin-top: 40px;
@@ -1866,12 +1988,12 @@ section.last_articles_part1 {
     
     font-size: 16px !important;
     
-    color: #fcb614 !important;
+    color: #fbff0b !important;
     text-decoration: none !important;
 }
 .tag_tag {
     text-align: right;
-    background: #fcb614;
+    background: #fbff0b;
     max-width: max-content;
     padding: 3px 10px;
     color: #fff;
@@ -1933,7 +2055,7 @@ section.last_articles_part1 {
 }
 
 .title-content a {
-    font-family: MuseoSans-900;
+    font-family: 'Poppins-SemiBold';
     font-size: 14px;
     color: #333 !important;
     text-decoration: none !important;
@@ -1964,7 +2086,7 @@ line-height: 32px;font-size: 15px;
     text-decoration : underline;
 }
 .marathon-medias a:hover{
-    color: #fcb614;
+    color: #fbff0b;
 }
 .marathon-medias img{
     margin-right: 10px;
@@ -1980,7 +2102,7 @@ line-height: 32px;font-size: 15px;
    color: #000;
 }
 .top-chronos ul li a:hover{
-    color: #fcb614;
+    color: #fbff0b;
  }
  .top-chronos , .top-chronos-ul {
     padding-right: 0px;
@@ -2056,7 +2178,7 @@ line-height: 32px;font-size: 15px;
     font-size: 14px;
     font-weight: bolder;
     background-color: #000;
-    color: #fcb614;
+    color: #fbff0b;
     padding: 4px 6px;
     width: fit-content;
 }
@@ -2118,7 +2240,7 @@ div#st-1 .st-btn {
     display: inline-block !important;
 }
 
-.all_sha#fcb614 {
+.all_sha#fbff0b {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2169,7 +2291,7 @@ div#copy-button a i {
     display: unset !important;
 }
 
-.resultat_sha#fcb614 {
+.resultat_sha#fbff0b {
     display: flex;
     justify-content: center;
     /* align-items: center; */
@@ -2178,7 +2300,7 @@ div#copy-button a i {
 
 h2.mini_h2 {
     margin-top: 7px;
-    font-family: MuseoSans-500;
+    font-family: 'Poppins-Light';
     text-transform: none;
     font-size: 12px;
     padding-left: 10px;
@@ -2208,17 +2330,17 @@ h2.mini_h2 {
 /*.sp-selected-thumbnail {border-radius: 5px;}*/
 
 .sp-bottom-thumbnails.sp-has-pointer .sp-selected-thumbnail:before {
-    border-bottom: 5px solid #fcb614;
+    border-bottom: 5px solid #fbff0b;
 }
 
 .sp-bottom-thumbnails.sp-has-pointer .sp-selected-thumbnail:after {
-    border-bottom: 13px solid #fcb614;
+    border-bottom: 13px solid #fbff0b;
 }
 
 /***************************************************************************************************************************/
 /***************************************************** Calendar Start ******************************************************/
 .left-side h1 {
-    font-family: MuseoSans-900;
+    font-family: 'Poppins-SemiBold';
     font-size: 24px;
     padding-top: 0;
     padding-bottom: 0px;
@@ -2237,8 +2359,8 @@ h2.mini_h2 {
     background-color: #7f7f7f;
 }
 
-.left-side .tab-content dt.title-#fcb614 {
-    background-color: #fcb614;
+.left-side .tab-content dt.title-#fbff0b {
+    background-color: #fbff0b;
 }
 
 .left-side .tab-content dt h2 {
@@ -2309,8 +2431,8 @@ h2.mini_h2 {
     background-color: rgba(0, 0, 0, 0.8);
 }
 
-.left-side .tab-content dd a.btn-#fcb614 {
-    background-color: #fcb614;
+.left-side .tab-content dd a.btn-#fbff0b {
+    background-color: #fbff0b;
     display: inline-block;
     text-transform: uppercase;
     font-size: 12px;
@@ -2318,7 +2440,7 @@ h2.mini_h2 {
     color: #ffffff;
 }
 
-.left-side .tab-content dd a.btn-#fcb614:hover {
+.left-side .tab-content dd a.btn-#fbff0b:hover {
     text-decoration: none;
     background-color: rgba(217, 33, 40, 0.8);
 }
@@ -2335,7 +2457,7 @@ h2.mini_h2 {
 }
 .left-side .btn-primary {
     color: #000000;
-    background-color: #fcb614;
+    background-color: #fbff0b;
     border-color: #000000;
 }
 
@@ -2345,7 +2467,7 @@ h2.mini_h2 {
 
 .left-side .btn-primary:hover {
     color: #000000;
-    background-color: #fcb614;
+    background-color: #fbff0b;
     border-color: rgba(0, 0, 0, 0.8);
 }
 
@@ -2361,7 +2483,7 @@ h2.mini_h2 {
     border-top: none;
     border-right: none;
     border-left: none;
-    border-bottom: 2px solid #fcb614;
+    border-bottom: 2px solid #fbff0b;
     color: #000000;
     font-size: 20px;
     text-transform: uppercase;
@@ -2375,26 +2497,26 @@ h2.mini_h2 {
     border-top: none;
     border-right: none;
     border-left: none;
-    border-bottom: 2px solid #fcb614;
+    border-bottom: 2px solid #fbff0b;
     color: #000000;
-    background-color:#fcb614 ;
+    background-color:#fbff0b ;
 }
 .no-padding-left{
     padding-left: 0 !important;
 }
 .results-buttons{
     color: #000000;
-    background-color: #fcb614;
+    background-color: #fbff0b;
     margin-top: -3px;
     border: solid black 1px;
     font-weight: 200;
 }
 .results-buttons:hover{
-    background-color: #fcb614;
+    background-color: #fbff0b;
 }
 .marathons .results-search{
     color: #000000;
-    background-color: #fcb614;
+    background-color: #fbff0b;
     border-top: black solid 1px;
     border-bottom: black solid 1px;
     border-right: black solid 1px;
@@ -2402,7 +2524,7 @@ h2.mini_h2 {
 }
 #categorie{
     border: black solid 1px;
-    background-color: #fcb614;
+    background-color: #fbff0b;
 }
 .page-classement-top #categorie{
     margin-bottom: 20px;
@@ -2464,7 +2586,7 @@ h2.mini_h2 {
 /***************************************************** News Start ******************************************************/
 
 .left-side h1 strong {
-    color: #fcb614;
+    color: #fbff0b;
 }
 
 .left-side ul.news-cat>li {
@@ -2483,13 +2605,13 @@ h2.mini_h2 {
 .left-side ul.news-cat>li.active {}
 
 .left-side ul.news-cat>li.active a {
-    background-color: #fcb614;
+    background-color: #fbff0b;
     border-color: #a0181f;
     color: #ffffff;
 }
 
 .news .left-side h2 {
-    font-family: MuseoSans-900;
+    font-family: 'Poppins-SemiBold';
     font-size: 25px;
     text-transform: uppercase;
 }
@@ -2502,7 +2624,7 @@ h2.mini_h2 {
 }
 
 .news .left-side a.link-all {
-    color: #fcb614;
+    color: #fbff0b;
 }
 
 .page-content aside dd.result ul li a span.logo-site {
@@ -2601,13 +2723,13 @@ h2.mini_h2 {
 
 .athlètes .search-alpha>li>ul>li.active a {
     font-size: 1.8em;
-    color: #fcb614;
+    color: #fbff0b;
     line-height: 0.7em;
 }
 
 .athlètes .search-alpha>li>ul>li>a {
     text-transform: uppercase;
-    font-family: MuseoSans-900;
+    font-family: 'Poppins-SemiBold';
     font-size: 1.2em;
     color: #000000;
     transition: all 300ms ease-in-out;
@@ -2680,7 +2802,7 @@ h2.mini_h2 {
 }
 
 .athlètes aside dd.anniversaires ul li:hover a {
-    color: #fcb614;
+    color: #fbff0b;
 }
 
 .athlètes aside dd.anniversaires ul li:hover {
@@ -2723,7 +2845,7 @@ h2.mini_h2 {
 /***************************************************************************************************************************/
 
 .athlete-detail .nav-tabs {
-    border-bottom: 2px solid #fcb614;
+    border-bottom: 2px solid #fbff0b;
 }
 .athlete-boutons-droits{
     float:right;
@@ -2733,7 +2855,7 @@ h2.mini_h2 {
 }
 
 .athlete-detail .nav-tabs>li>a {
-    font-family: MuseoSans-900;
+    font-family: 'Poppins-SemiBold';
     font-size: 17px;
     padding-left: 20px;
     padding-right: 20px;
@@ -2881,7 +3003,7 @@ margin-bottom: 10px;
 .tt-les-infos a{
     display: inline-block;
     padding: 2px 5px;
-    background-color: #fcb614;
+    background-color: #fbff0b;
     font-size: 10px;
     font-weight: bolder;
     color: #000 !important;
@@ -2927,7 +3049,7 @@ margin-bottom: 10px;
     color: #333;
     float: right;
     font-weight: bolder;
-    background-color: #fcb614;
+    background-color: #fbff0b;
     width: fit-content;
     font-size: 12px;
     margin: 3px 2px;
@@ -2993,7 +3115,7 @@ margin-bottom: 10px;
 }
 
 .athlete-detail a.view-all {
-    background-color: #fcb614;
+    background-color: #fbff0b;
     display: inline-block;
     text-transform: uppercase;
     font-size: 12px;
@@ -3011,7 +3133,7 @@ margin-bottom: 10px;
     color: #666666;
 }
 
-.athlete-detail h2.borde#fcb614 {
+.athlete-detail h2.borde#fbff0b {
     text-transform: uppercase;
     font-size: 1.6em;
     border-top: 2px solid #cccccc;
@@ -3019,7 +3141,7 @@ margin-bottom: 10px;
 }
 
 h1.news-detail {
-    font-family: MuseoSans-900;
+    font-family: 'Poppins-SemiBold';
     font-size: 24px;
     border-top: none;
     margin: 0;
@@ -3166,7 +3288,7 @@ ul.resultats>li>ul>li {
 }
 
 .mentions h1 {
-    color: #fcb614;
+    color: #fbff0b;
     margin: 20px 0 5px 0;
     text-transform: uppercase;
 }
@@ -3315,7 +3437,7 @@ ul.partenaires-actuels {
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background-color: #fcb614;
+    background-color: #fbff0b;
     color: #ffffff;
     text-align: center;
     line-height: 20px;
@@ -3345,7 +3467,7 @@ ul.partenaires-actuels {
 }
 
 .red {
-    color: #fcb614;
+    color: #fbff0b;
 }
 
 .partner {
@@ -3373,7 +3495,7 @@ ul.partenaires-actuels {
     }
     .tag_tag {
         text-align: right !important;
-        background: #fcb614 !important;
+        background: #fbff0b !important;
         max-width: max-content !important;
         padding: 0px 5px !important;
         color: #fff !important;
@@ -3695,7 +3817,7 @@ ul.partenaires-actuels {
 #fiche_admin,
 .btn_custom {
     margin-right: 50px;
-    background-color: #fcb614;
+    background-color: #fbff0b;
     display: inline-block;
     text-transform: uppercase;
     font-size: 12px;
@@ -3758,7 +3880,7 @@ dt.anchor {
 
 .anchor_link:hover,
 .anchor_link:visited:hover {
-    color: #fcb614 !important;
+    color: #fbff0b !important;
 }
 
 .anchor_link:focus,
@@ -3862,7 +3984,7 @@ dt.anchor {
 
 .contact_admin {
     margin-right: 50px;
-    background-color: #fcb614;
+    background-color: #fbff0b;
     display: inline-block;
     text-transform: uppercase;
     font-size: 13px;
@@ -3992,7 +4114,7 @@ ul.comments #com_but {
 }
 
 input.form-control.error {
-    border: 1px solid #fcb614;
+    border: 1px solid #fbff0b;
 }
 
 .res_club {
@@ -4016,7 +4138,7 @@ input.form-control.error {
 }
 
 .new_btn {
-    background-color: #fcb614;
+    background-color: #fbff0b;
     font-size: 14px;
     color: #fff;
     padding: 3px 5px;
@@ -4067,7 +4189,7 @@ input.form-control.error {
 }
 
 #catalogueAllmarathon h2 {
-    font-family: MuseoSans-900;
+    font-family: 'Poppins-SemiBold';
     font-size: 22px;
     margin-bottom: 24px;
     margin-top: 20px;
@@ -4221,7 +4343,7 @@ a.btn-achat:hover {
 }
 
 #titre-produit {
-    font-family: MuseoSans-900;
+    font-family: 'Poppins-SemiBold';
     /*background: #ff0001;*/
     margin: 0px;
     color: #000;
@@ -4231,7 +4353,7 @@ a.btn-achat:hover {
 }
 
 .offre h1 {
-    font-family: MuseoSans-900;
+    font-family: 'Poppins-SemiBold';
     background: #ff0001;
     margin: 0px;
     color: #fff;
@@ -4251,15 +4373,15 @@ a.btn-achat:hover {
     margin-top: 50px;
 }
 
-.infoProduct .pricebar#fcb614 {
+.infoProduct .pricebar#fbff0b {
     text-decoration: line-through;
     display: block;
     text-align: center;
     color: #ff0001;
 }
 
-.productPriceBlock .pricebloc span.pricebar#fcb614 {
-    color: #fcb614;
+.productPriceBlock .pricebloc span.pricebar#fbff0b {
+    color: #fbff0b;
     text-decoration: line-through;
     font-size: 22px;
 }
@@ -4321,7 +4443,7 @@ a.btn-achat:hover {
     list-style: none;
 }
 
-#suggestionArticle .pricebar#fcb614 {
+#suggestionArticle .pricebar#fbff0b {
     color: #ff0001;
     text-decoration: line-through;
 }
@@ -4357,7 +4479,7 @@ a.btn-achat:hover {
 }
 
 .permalien span {
-    color: #fcb614;
+    color: #fbff0b;
 }
 
 .productAchat-p2 .btn-achat {
@@ -4392,7 +4514,7 @@ a.btn-achat:hover {
 }
 
 .titlesugg {
-    font-family: MuseoSans-900;
+    font-family: 'Poppins-SemiBold';
     font-size: 20px;
     margin-bottom: 24px;
 }
@@ -4404,7 +4526,7 @@ a.btn-achat:hover {
     padding-right: 0px;
 }
 .sous-evenements dt:hover{
-    color: #fcb614;
+    color: #fbff0b;
   }
   .sous-evenements:hover {
     text-decoration: none;
@@ -4458,7 +4580,9 @@ a.btn-achat:hover {
     font-size: 11px;
 }
 .titre-videos{
-    color:black;font-size:14px;cursor:pointer;
+    color:black;
+    font-size:20px;
+    cursor:pointer;
     text-transform: uppercase;
     
   }

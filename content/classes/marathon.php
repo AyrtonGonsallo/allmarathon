@@ -188,6 +188,47 @@ function array_msort($array, $cols)
 				return $res;
 	}
 
+	function display_results_4($results){
+		$pays=new pays();
+		$ev_cat_event=new evCategorieEvenement();
+				$i=0;                             
+				setlocale(LC_TIME, "fr_FR","French");
+				$res="";
+				foreach ($results as $resultat) {
+		
+					$pays_flag=$pays->getFlagByAbreviation($resultat['PaysID'])['donnees']['Flag'];
+				   $nom_res= $resultat['nom'];
+				   $timestamp=strtotime($resultat["date_prochain_evenement"]);
+					$res.= '<div class="col-sm-12 bottom-border"><a class="marathon-link" href="/marathons-'.$resultat['id'].'-'.slugify($nom_res).'.html">
+					<div class="coming-soon-image">
+						';
+							$date_premier_even=strftime("%A %d %B %Y",strtotime($resultat["date_prochain_evenement"]));
+							$img_src='/images/marathons/thumb_'.$resultat['image'];
+							$full_image_path="https://" . $_SERVER['HTTP_HOST'] .$img_src;
+							//$res.= $full_image_path;
+							
+							if ($img_src)
+								{
+									$res.= '<div class="marathon-image" style="background-image:url('.$img_src.')"></div>';
+								}else{
+									$res.= '<div class="marathon-image" style="background-color:#000"></div>';
+								}
+							
+								$res.= '
+								</div>
+								<h4 class="marathon-title">Marathon '.$nom_res.'</h4> 
+								<div class="capitalize">'.utf8_encode($date_premier_even).'</div></a> ';
+								
+                                   
+							
+							
+						
+					$res.= '</div>';
+					$i++;
+				}
+				return $res;
+	}
+
 
 	function getMarathonsbyName($order,$offset,$par_pages,$page)
 	{
@@ -516,6 +557,54 @@ function array_msort($array, $cols)
 		  return display_results_3($results_sorted_by_next_event);
 	}
 
+
+
+	function getThisMonthEvents(){
+		try{
+			include("../database/connexion.php");
+
+			$req = $bdd->prepare("SELECT * FROM marathons");
+			$req->execute();
+			$results= array();
+			//$first_events= array();
+			$last_linked_events= array();
+			while ( $row  = $req->fetch(PDO::FETCH_ASSOC)) {  
+				$req2 = $bdd->prepare("SELECT * FROM evenements where marathon_id=:mar_id and Valider=1  AND (DateDebut > :today) ORDER BY DateDebut limit 1");
+				$req2->bindValue('mar_id', $row["id"], PDO::PARAM_INT);
+				
+				$req2->bindValue('today', date('Y-m-d'), PDO::PARAM_STR); 
+				$req2->execute();
+				if($req2->rowCount()>0){
+					while ( $row2  = $req2->fetch(PDO::FETCH_ASSOC)) {
+						//var_dump($row2);exit();  
+						//array_push($first_events, $row2);
+						$row['date_prochain_evenement']=$row2['DateDebut'];
+						$row['date_prochain_evenement_nom']=$row2['Nom'];
+						$row['date_prochain_evenement_id']=$row2['ID'];
+						$row['last_linked_events_cat_id']=$row2['CategorieID'];
+
+					}
+				}else {
+					//array_push($first_events, NULL);
+					$row['date_prochain_evenement']='NULL';
+					$row['last_linked_events_cat_id']=NULL;
+		
+				}
+		
+				
+				
+			  array_push($results, $row);
+		  }}
+		  catch(Exception $e)
+		  {
+			  die('Erreur : ' . $e->getMessage());
+		  }
+
+		  $results_sorted_by_next_event=array_slice(array_msort($results, array('date_prochain_evenement'=>SORT_ASC,'nom'=>SORT_ASC)),0,4);
+		  return display_results_4($results_sorted_by_next_event);
+	}
+
+
 	function getBestMarathonResultsByYear($marathon_id,$sexe,$limit)
 	{
 		try {
@@ -721,6 +810,27 @@ function array_msort($array, $cols)
             $firsthalf = array_slice($liste, 0, $len / 2);
             $secondhalf = array_slice($liste, $len / 2);
             return array('validation'=>true,'donnees_1'=>$firsthalf ,'donnees_2'=>$secondhalf,'message'=>'');
+	    }
+	       
+	    catch(Exception $e){
+	        die('Erreur : ' . $e->getMessage());
+	    }
+	}
+	function getMarathonsById($id){
+		try {
+			include("../database/connexion.php");
+            $liste= array();
+            $req0 = $bdd->prepare("select * from marathons where id=:id");
+            
+			$req0->bindValue('id',$id, PDO::PARAM_INT);
+            $req0->execute();
+            while ( $row0  = $req0->fetch(PDO::FETCH_ASSOC)) {    
+                array_push($liste, $row0); 
+            }
+           
+            $bdd=null;
+           
+            return array('validation'=>true,'donnees'=>$liste,'message'=>'');
 	    }
 	       
 	    catch(Exception $e){

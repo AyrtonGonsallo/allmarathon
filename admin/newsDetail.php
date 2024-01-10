@@ -37,7 +37,7 @@ if($_GET['newsID']!=""){
             $fileName = ($_FILES['photo']['name']!="") ? $_FILES['photo']['name'] : $news['photo'] ;
 
              try {
-                 $req4 = $bdd->prepare("UPDATE news SET date=:date,source=:source,auteur=:auteur,titre=:titre,chapo=:chapo,texte=:texte,photo =:photo ,categorieID=:categorieID,aLaUne =:aLaUne,aLaDeux=:aLaDeux,url=:url,legende=:legende,lien1=:lien1,textlien1=:textlien1,liens_champions=:liens_champions,evenementID=:evenementID  WHERE ID=:id");
+                 $req4 = $bdd->prepare("UPDATE news SET date=:date,source=:source,auteur=:auteur,titre=:titre,chapo=:chapo,texte=:texte,photo =:photo ,categorieID=:categorieID,aLaUne =:aLaUne,aLaDeux=:aLaDeux,url=:url,legende=:legende,lien1=:lien1,textlien1=:textlien1,liens_champions=:liens_champions,evenementID=:evenementID ,championID=:championID,videoID=:videoID WHERE ID=:id");
 
                  $req4->bindValue('date',$_POST['Date'], PDO::PARAM_STR);
                  $req4->bindValue('source',$_POST['Source'], PDO::PARAM_STR);
@@ -53,6 +53,8 @@ if($_GET['newsID']!=""){
                  $req4->bindValue('liens_champions',$_POST['liens_champions'], PDO::PARAM_STR);
                  $req4->bindValue('categorieID',$_POST['bref'], PDO::PARAM_INT);
                  $req4->bindValue('evenementID',$_POST['evenementID'], PDO::PARAM_INT);
+                 $req4->bindValue('championID',$_POST['championID'], PDO::PARAM_INT);
+                 $req4->bindValue('videoID',$_POST['videoID'], PDO::PARAM_INT);
                  $req4->bindValue('aLaUne',$_POST['aLaUne'], PDO::PARAM_INT);
                  $req4->bindValue('aLaDeux',$_POST['aLaDeux'], PDO::PARAM_INT);
                  
@@ -333,6 +335,8 @@ $(document).ready(function() {
                 </div>
         </td></tr>
         <tr><td><label for="evenementID">évènement lié : </label></td><td><input id="evenementID" type="number" name="evenementID" value="<?php echo $news['evenementID'];?>" /></td></tr>
+        <tr><td><label for="championID">coureur lié : </label></td><td><input id="championID" type="number" name="championID" value="<?php echo $news['championID'];?>" /></td></tr>
+        <tr><td><label for="videoID">video lié : </label></td><td><input id="videoID" type="number" name="videoID" value="<?php echo $news['videoID'];?>" /></td></tr>
 
         
         

@@ -24,6 +24,8 @@ class news {
 		private $aLaUne;
 		private $aLaDeux;
 		private $evenementID;
+		private $championID;
+		private $videoID;
 		private $categorieID;
 		private $admin;
 
@@ -224,6 +226,20 @@ class news {
 			$this->evenementID = $evenementID;
 		}
 
+		public function getChampionID(){
+			return $this->championID;
+		}
+
+		public function setChampionID($championID){
+			$this->championID = $championID;
+		}
+		public function getVideoID(){
+			return $this->videoID;
+		}
+
+		public function setVideoID($videoID){
+			$this->videoID = $videoID;
+		}
 		public function getCategorieID(){
 			return $this->categorieID;
 		}
@@ -280,7 +296,7 @@ class news {
 	    	
 	    	try {
 				  include("../database/connexion.php");
-				 $req = $bdd->prepare("SELECT * FROM news WHERE  categorieID='11' ORDER BY date DESC LIMIT 0,8");
+				 $req = $bdd->prepare("SELECT * FROM news WHERE  categorieID='11' ORDER BY date DESC LIMIT 0,5");
 	             $req->execute();
 	             $news_bref = array();
 	             while ( $row  = $req->fetch(PDO::FETCH_ASSOC)) {    

@@ -195,13 +195,13 @@ echo $pub728x90["code"] ? $pub728x90["code"] :  "<img src=".'../images/pubs/'.$p
                 $yearNews  = $tab[0];
                 $lien_1="";$lien_2="";$lien_3="";
                 if($article_home->getLien1()!=""){
-                    $lien_1="<a href='".$article_home->getLien1()."'style='color: #fcb614;'> > ".$article_home->getTextlien1()."</a><br>";
+                    $lien_1="<a href='".$article_home->getLien1()."'style='color: #fbff0b;'> > ".$article_home->getTextlien1()."</a><br>";
                 }
                 if($article_home->getLien2()!=""){
-                     $lien_2="<a href='".$article_home->getLien2()."'style='color: #fcb614;'> > ".$article_home->getTextlien2()."</a><br>";
+                     $lien_2="<a href='".$article_home->getLien2()."'style='color: #fbff0b;'> > ".$article_home->getTextlien2()."</a><br>";
                 }
                 if($article_home->getLien3()!=""){
-                    $lien_3="<a href='".$article_home->getLien3()."'style='color: #fcb614;'> > ".$article_home->getTextlien3()."</a>";
+                    $lien_3="<a href='".$article_home->getLien3()."'style='color: #fbff0b;'> > ".$article_home->getTextlien3()."</a>";
                 }
                 echo '<article class="row"style="margin-bottom: 25px;">
                 <div class="col-sm-5">
@@ -254,13 +254,13 @@ foreach($last_articles_part2['donnees'] as $article){
                 $yearNews  = $tab[0];
                 $lien_1="";$lien_2="";$lien_3="";
                 if($article->getLien1()!=""){
-                    $lien_1="<a href='".$article->getLien1()."'style='color: #fcb614;'> > ".$article->getTextlien1()."</a><br>";
+                    $lien_1="<a href='".$article->getLien1()."'style='color: #fbff0b;'> > ".$article->getTextlien1()."</a><br>";
                 }
                 if($article->getLien2()!=""){
-                     $lien_2="<a href='".$article->getLien2()."'style='color: #fcb614;'> > ".$article->getTextlien2()."</a><br>";
+                     $lien_2="<a href='".$article->getLien2()."'style='color: #fbff0b;'> > ".$article->getTextlien2()."</a><br>";
                 }
                 if($article->getLien3()!=""){
-                    $lien_3="<a href='".$article->getLien3()."'style='color: #fcb614;'> > ".$article->getTextlien3()."</a>";
+                    $lien_3="<a href='".$article->getLien3()."'style='color: #fbff0b;'> > ".$article->getTextlien3()."</a>";
                 }
                 echo '<article class="row">
                 <div class="col-sm-5">

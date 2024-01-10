@@ -128,8 +128,8 @@ echo $pub728x90["code"] ? $pub728x90["code"] :  "<img src=".'../images/pubs/'.$p
 
                 <div class="row">
                     <div class="col-sm-12">
-                        <h1>Nous avons trouvé <strong style="color:#fcb614; "><?php echo $nombre_res; ?></strong>
-                            résultats sur votre recherche <strong style="color:#fcb614; ">"<?php echo $key_search; ?>" :
+                        <h1>Nous avons trouvé <strong style="color:#fbff0b; "><?php echo $nombre_res; ?></strong>
+                            résultats sur votre recherche <strong style="color:#fbff0b; ">"<?php echo $key_search; ?>" :
                             </strong><br> <?php echo $articles_txt.$results_txt.$vd_txt.$champions_txt.$marathons_txt ?></h1>
                         <!-- TAB CONTENT -->
                         <div class="tab-content">

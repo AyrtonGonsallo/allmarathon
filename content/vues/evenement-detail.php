@@ -495,7 +495,7 @@ if($pub300x60 !="") {
 echo $pub300x60["code"] ? $pub300x60["code"] :  "<a href=". $pub300x60['url'] ." target='_blank'><img src=".'../images/pubs/'.$pub300x60['image'] . " alt='' style=\"width: 100%;\" />";
 }
 ?></a></p>
-        <dt class="archive" style="background-color: #fcb614;">Derniers résultats enregistrés</dt>
+        <dt class="archive" style="background-color: #fbff0b;">Derniers résultats enregistrés</dt>
         <dd class="archive">
             <ul class="clearfix">
                 <?php

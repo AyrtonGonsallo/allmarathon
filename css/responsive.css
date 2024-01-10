@@ -14,6 +14,44 @@
       }
     }
 @media (max-width: 767px) {
+  .dernieres-video-image {
+    padding-top: 14%;
+}
+  .header--logo img {
+    width: 195px !important;
+}
+.header {
+    box-shadow: none !important;
+    border-bottom: none !important;
+}
+.res-recents{
+  display: flex;
+}
+#sib-form > div:nth-child(1) > div > p{
+  font-size: 18px !important;
+}
+#sib-form > div.row > div{
+  padding: 0 !important;
+}
+#sib-form > div.row > div > div > div > div{
+  margin: 0 !important;
+}
+.sib-form .entry__field{
+background: none !important;
+border: none !important;
+}
+.sib-form .input, .sib-form .input__affix {
+  border-radius: 10px;
+  border: solid 1px !important; 
+
+}
+.material-symbols-outlined{
+  position:  relative !important;
+}
+footer .container{
+  margin-left: 20px;
+  width: auto !important;
+}
   .odd{
     background-color: white !important;
   }
@@ -43,9 +81,8 @@
     align-items: start;
     display: flex;
   }
-  aside{
-    display: none;
-  }
+  
+  
   .cd-span{
     float: none !important;
   }
@@ -133,7 +170,7 @@
     float: none !important;
     margin: 0;
     position: absolute;
-    left: 0;
+    right: 26px;
 
 
   }
@@ -158,19 +195,45 @@
 
   li.menu-item-categories .nav-category>li {
     display: block !important;
-    border-top: 1px solid rgb(51 51 51 / 22%);
+    /*border-top: 1px solid rgb(51 51 51 / 22%);*/
   }
 
   li.menu-item-categories .nav-category li a {
     text-align: center;
     width: 100%;
     line-height: initial;
-    font-size: 12px;
+    font-size: 15px;
     color: #333 !important;
-    padding: 10px;
+    padding: 25px 10px;
     font-weight: bold;
   }
-
+  section.last_articles_part1 .desc-img,
+  section.last_articles_part2 .desc-img {
+      width: 80%;
+      min-height: auto;
+      padding-left: 0;
+      display: flex;
+      gap:11px;
+    flex-direction: column;
+  }
+  .active-menu-link::before {
+    content: ">";
+    color: #a6ddfe;
+    font-size: 25px;
+    font-family: "Poppins-ExtraBold";
+}
+  section.last_articles_part1 article, section.last_articles_part2 article {
+    padding: 0px;
+}
+  .title_news a{
+    display: block;
+  }
+  .left-side article .desc-img h2 {
+    line-height: 20px !important;
+}
+.title_news a, .video_title{
+  line-height: 22px;
+}
   li.menu-item-categories .nav-category li a:hover {
     text-decoration: none;
   }
@@ -231,9 +294,13 @@
   }
 
   li.logo {
-    margin: auto;
+    margin-left: 10px;
   }
-
+  nav.header--nav>ul {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
   li.menu-item-search.formobile {
     display: block !important;
     width: unset !important;
@@ -259,7 +326,7 @@
     position: unset;
     display: block;
     margin-top: 10px;
-    text-transform: capitalize;
+    text-transform: lowercase;
     font-weight: bold;
   }
 
@@ -472,7 +539,7 @@
 
   .video_title,
   section.last_articles_part1 {
-    margin-top: 20px;
+    margin-top: 0px;
   }
 
   .title_news a {
@@ -490,6 +557,8 @@
 
   section.last_articles_part1.to_show_mobile article {
     display: flex !important;
+    flex-direction: column;
+    gap: 15px;
   }
 
   .news_alune {
@@ -563,7 +632,7 @@
 
 
   .footer_mobile h4.panel-title {
-    color: #fcb614 !important;
+    color: #fbff0b !important;
     font-family: MuseoSans-900
   }
 
@@ -1345,7 +1414,7 @@
 
   footer .dropdown .btn {
     width: 100%;
-    background: #fcb614;
+    background: #fbff0b;
     color: #fff;
     border-color: #fff;
     margin-bottom: 20px;
@@ -1359,7 +1428,7 @@
   footer .open>.dropdown-toggle.btn-default.focus,
   .open>.dropdown-toggle.btn-default:focus,
   .open>.dropdown-toggle.btn-default:hover {
-    background: #fcb614;
+    background: #fbff0b;
     color: #fff;
     border-color: #fff;
   }
@@ -1741,18 +1810,29 @@
 /****************Autres Mobiles******************************************/
 @media (max-width: 490px) {
   .title_news a {
-    font-size: 16px;
+    font-size: 18px;
   }
-
+  .home-link{
+    font-size: 12.4px !important;
+    position: relative !important;
+  }
   .all_videos .single_video .img-video {
     height: 150px;
   }
 
-
+  .active-menu-link{
+    font-family: "Poppins-Bold";
+  }
+  .active-menu-link::before { 
+    content: ">";
+    color: #a6ddfe;
+    font-size: 25px;
+    font-family: "Poppins-ExtraBold";
+  }
   section.last_articles_part1 .desc-img,
   section.last_articles_part2 .desc-img {
     width: 100%;
-    padding-left: 4%;
+    padding-left: 0px;
   }
 
   .left-side article .desc-img h2 {

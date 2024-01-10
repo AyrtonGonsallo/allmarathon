@@ -36,7 +36,7 @@ body {
 
 .ui-tabs .ui-tabs-active {
 
-  background-color:#fcb614 !important;
+  background-color:#fbff0b !important;
 
 }
 
@@ -44,7 +44,7 @@ body {
 
  
 
-  background-color:#fcb614 !important;
+  background-color:#fbff0b !important;
 
 }
 
@@ -198,7 +198,7 @@ input[type=reset] {
 
   cursor: pointer;
 
-  background-color: #fcb614;
+  background-color: #fbff0b;
 
   border: none;
 
@@ -570,7 +570,7 @@ input[type=text]:not(.youtube):placeholder {
 
   height: 2px;
 
-  background-color: #fcb614;
+  background-color: #fbff0b;
 
   content: "";
 
@@ -1102,7 +1102,7 @@ table.tab1 tbody td {
 
   flex: 1;
 
-  border: 1px solid #fcb614;
+  border: 1px solid #fbff0b;
 
   padding: 20px;
 
@@ -1164,9 +1164,9 @@ fieldset.upload_form {
 
   border: 2px solid;
 
-  background-color: #fcb614;
+  background-color: #fbff0b;
 
-  border-color: #fcb614;
+  border-color: #fbff0b;
 
   border-radius: 10px;
 

@@ -23,7 +23,9 @@ input.form-control.search_header:active, input.form-control.search_header:focus 
     border: transparent;
 }
 input.form-control.search_header {
-    color: rgb(51 51 51 / 55%) !important;border: 0;
+    color: rgb(231 15 15) !important;
+    border: 0;
+    background-color: #eeeff0;
 }
 
 .overlay {
@@ -64,7 +66,7 @@ input.form-control.search_header {
 
 .auth--header {
 
-    background-color: #fcb614;
+    background-color: #fbff0b;
     color: #fff;
     padding: .7em 0;
     text-align: center;
@@ -72,7 +74,7 @@ input.form-control.search_header {
 
 }
 a.link:hover {
-    color: #fcb614;
+    color: #fbff0b;
 }
 .auth--header img {
 
@@ -223,7 +225,7 @@ a.link:hover {
 
 #error {
 
-    color: #fcb614;
+    color: #fbff0b;
     font-weight: 700;
     margin-bottom: .5em;
 
@@ -301,7 +303,7 @@ a.link:hover {
 }
 
 input.red {
-    border:1px solid #fcb614
+    border:1px solid #fbff0b
 }
 .modal-last-link{
     color: #000;
@@ -319,7 +321,7 @@ input.red {
 
 .auth--footer1 {
 
-    background-color: #fcb614;
+    background-color: #fbff0b;
     color: white;
     float: left;
     font-size: 1em;
@@ -356,7 +358,7 @@ input.red {
 }
 
 .forget-box { position:absolute;top:61px;left:19px;font-size:12px; }
-.forget-box a { color:#fcb614; }
+.forget-box a { color:#fbff0b; }
 .relative { position:relative; }
 
 .paywall {
@@ -436,7 +438,7 @@ input.red {
 
 }
 .button__red{
-    background-color: #fcb614;
+    background-color: #fbff0b;
     display: inline-block;
     text-transform: uppercase;
     font-size: 12px;
@@ -445,7 +447,7 @@ input.red {
    
 }
 .link{
-        color: #fcb614;
+        color: #fbff0b;
 }
 .input_auth{
     background: #fff;

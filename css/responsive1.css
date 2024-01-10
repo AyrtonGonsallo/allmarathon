@@ -178,11 +178,11 @@
     footer .main .col-sm-6 a  {width: 100%;}
     footer .main .col-sm-6 a>img  {width: 100%;}
     
-    footer .dropdown .btn{width: 100%;background: #fcb614;color: #fff;border-color: #fff;margin-bottom: 20px;}
+    footer .dropdown .btn{width: 100%;background: #fbff0b;color: #fff;border-color: #fff;margin-bottom: 20px;}
     footer .btn .caret {color: #fff;}
 
 
-    footer .open>.dropdown-toggle.btn-default.focus, .open>.dropdown-toggle.btn-default:focus, .open>.dropdown-toggle.btn-default:hover{background: #fcb614;color: #fff;border-color: #fff;}
+    footer .open>.dropdown-toggle.btn-default.focus, .open>.dropdown-toggle.btn-default:focus, .open>.dropdown-toggle.btn-default:hover{background: #fbff0b;color: #fff;border-color: #fff;}
     footer .dropdown-menu{width: 100%;background-color: #171b22;position: relative;}
     footer .dropdown-menu .dropdown-header {font-size: 15px;color: #434a5a;font-weight: bold;}
     footer .copyright {text-align: center;}

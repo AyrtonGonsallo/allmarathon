@@ -402,7 +402,7 @@ try{
                     <?php
                         echo $home_events;
                     ?>
-                    <li class="last"><a href="/calendrier-agenda-marathons.html">[+] de dates</a></li>
+                    <li class="last more-dates"><a href="/calendrier-agenda-marathons.html">[+] de dates</a></li>
                 </ul>
                 </dd>
             </aside>
@@ -476,12 +476,12 @@ try{
     if(page==(nb_pages-1)){
         style_suivant={'pointer-events': 'none' ,"background-color": "#cccccc22",  'cursor' : 'default'}
     } else{
-        style_suivant={'pointer-events': 'all' ,"background-color": "#fcb614",  'cursor' : 'pointer'}
+        style_suivant={'pointer-events': 'all' ,"background-color": "#fbff0b",  'cursor' : 'pointer'}
     }
     if(page==0){
         style_precedent={'pointer-events': 'none' ,"background-color": "#cccccc22", 'cursor' : 'default'}
     } else{
-        style_precedent={'pointer-events': 'all' ,"background-color": "#fcb614",  'cursor' : 'pointer'}
+        style_precedent={'pointer-events': 'all' ,"background-color": "#fbff0b",  'cursor' : 'pointer'}
         
     }
     $("#current").text(next);
@@ -496,12 +496,12 @@ try{
         if(page==(nb_pages-1)){
             style_suivant={'pointer-events': 'none' ,"background-color": "#cccccc22",  'cursor' : 'default'}
         } else{
-            style_suivant={'pointer-events': 'all' ,"background-color": "#fcb614",  'cursor' : 'pointer'}
+            style_suivant={'pointer-events': 'all' ,"background-color": "#fbff0b",  'cursor' : 'pointer'}
         }
         if(page==0){
             style_precedent={'pointer-events': 'none' ,"background-color": "#cccccc22", 'cursor' : 'default'}
         } else{
-            style_precedent={'pointer-events': 'all' ,"background-color": "#fcb614",  'cursor' : 'pointer'}
+            style_precedent={'pointer-events': 'all' ,"background-color": "#fbff0b",  'cursor' : 'pointer'}
             
         }
         $("#current").text(next);
@@ -768,12 +768,12 @@ try{
             if(page==(nb_pages-1)){
                 style_suivant={'pointer-events': 'none' ,"background-color": "#cccccc22",  'cursor' : 'default'}
             } else{
-                style_suivant={'pointer-events': 'all' ,"background-color": "#fcb614",  'cursor' : 'pointer'}
+                style_suivant={'pointer-events': 'all' ,"background-color": "#fbff0b",  'cursor' : 'pointer'}
             }
             if(page==0){
                 style_precedent={'pointer-events': 'none' ,"background-color": "#cccccc22", 'cursor' : 'default'}
             } else{
-               style_precedent={'pointer-events': 'all' ,"background-color": "#fcb614",  'cursor' : 'pointer'}
+               style_precedent={'pointer-events': 'all' ,"background-color": "#fbff0b",  'cursor' : 'pointer'}
                
             }
             $(this).css(style_suivant)
@@ -830,7 +830,7 @@ try{
             page-=1;
             next=page+1;
             if(page<(nb_pages-1)){
-                style_suivant={'pointer-events': 'all' ,"background-color": "#fcb614", 'cursor' : 'pointer'}
+                style_suivant={'pointer-events': 'all' ,"background-color": "#fbff0b", 'cursor' : 'pointer'}
             } else{
                 style_suivant={'pointer-events': 'none' ,"background-color": "#cccccc22", 'cursor' : 'default'}
 
@@ -838,7 +838,7 @@ try{
             if(page==0){
                 style_precedent={'pointer-events': 'none' ,"background-color": "#cccccc22", 'cursor' : 'default'}
             } else{
-               style_precedent={'pointer-events': 'all' ,"background-color": "#fcb614",  'cursor' : 'pointer'}
+               style_precedent={'pointer-events': 'all' ,"background-color": "#fbff0b",  'cursor' : 'pointer'}
                
             }
             $("#next-link").css(style_suivant)

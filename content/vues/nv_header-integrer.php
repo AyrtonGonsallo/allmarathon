@@ -81,7 +81,9 @@
     }
   </style>
 <link rel="stylesheet" href="/css/authentification.css">
+<meta name="robots" content="noindex, nofollow" />
 <link rel="alternate" type="application/rss+xml" title="allmarathon.fr - RSS feed" href="https://allmarathon.fr/flux-rss.xml" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300,0,0" />
 <script>
 {
     const load = () => {
@@ -118,7 +120,9 @@
 
             $target_modal='data-target="#SigninModal"';
 
-            $signin_compte="SIGN IN";
+            $signin_compte='<span class="material-symbols-outlined">
+            account_circle
+            </span>';
 
         }
 
@@ -128,9 +132,7 @@
 
             <li class="logo">
 
-                <a href="/" class="header--nav--link header--logo"><img src="/images/allmarathon.png" 
-
-                        alt="logo"></a>
+            <a href="/" class="header--nav--link header--logo"><img src="/images/logo-allmarathon.svg" alt="logo"></a>
 
             </li>
 
@@ -156,11 +158,11 @@
 
                             <a href=<?php echo $href_modal;?> data-toggle="modal" <?php echo $target_modal;?> class=" ">
 
-                                <div class="header-signin"><?php echo $signin_compte; ?></div><i class="fa fa-user"></i>
+                            <span class="material-symbols-outlined">
+                                account_circle
+                                </span>
 
-                                <span
-
-                                    class="tag_name_m"><?php echo ($user_session!='') ? 'Mon Compte':'Connexion'?></span>
+                            <span class="tag_name_m">se connecter</span>
 
                             </a>
 
@@ -172,9 +174,11 @@
 
                                 data-label="Search" href="#" class="header--nav--link header--loop">
                                 
-                                <i class="fa fa-search" title="Search"></i>
+                                <span class="material-symbols-outlined">
+                                search
+                                </span>
 
-                                <span class="tag_name_m">Chercher</span>
+                                <span class="tag_name_m">chercher</span>
 
                             </a>
 
@@ -182,13 +186,7 @@
 
                                 class="navbar-form navbar-left navbar-custom">
 
-                                <a data-category="Header_Links" id="search_2" data-action="Search Click"
-
-                                    data-label="Search" href="#" class="header--nav--link header--loop">
-
-                                    <i class="fa fa-search" title="Search"></i> 
-
-                                </a>
+                               
 
                                 <div class="form-group form-group-search">
 
@@ -197,7 +195,15 @@
                                         placeholder="">
 
                                 </div>
+                                <a data-category="Header_Links" id="search_2" data-action="Search Click"
 
+                                    data-label="Search" href="#" class="header--nav--link header--loop">
+
+                                    <span class="material-symbols-outlined">
+search
+</span>
+
+                                </a>
 
 
                             </form>
@@ -206,7 +212,7 @@
                         
                     </div>
 
-                    <li class="visible-xs"> <a data-category="Header_Links" data-action="Top Menu Click"
+                    <li class="visible-xs"> <a data-category="Header_Links" data-action="Top Menu Click" id="home"
 
                             data-label="DECONNEXION" href="/" class="header--nav--link pull-left1">Accueil</a></li>
 
@@ -244,25 +250,31 @@
 
                   href="#"  class="header--nav--link header--loop">
 
-                    <i class="fa fa-search" title="Search"></i> 
+                    <span class="material-symbols-outlined">
+search
+</span>
 
                 </a>
 
                 <form method="post" action="/resultats-recherche.html" class="navbar-form navbar-left navbar-custom" id="recherche-form">
 
-                    <a data-category="Header_Links" id="search_2" data-action="Search Click" data-label="Search" href="javascript:{}" onclick="document.getElementById('recherche-form').submit(); return false;"
-
-                         class="header--nav--link header--loop">
-
-                        <i class="fa fa-search" title="Search"></i> 
-
-                    </a>
+                   
 
                     <div class="form-group form-group-search">
 
                         <input type="text" name="recherche_glob" class="form-control search_header" placeholder="">
 
                     </div>
+
+                    <a data-category="Header_Links" id="search_2" data-action="Search Click" data-label="Search" href="javascript:{}" onclick="document.getElementById('recherche-form').submit(); return false;"
+
+                    class="header--nav--link header--loop">
+
+                    <span class="material-symbols-outlined">
+search
+</span>
+
+                    </a>
                 </form>
             </li>
             
@@ -288,14 +300,16 @@
 
                             class="header--nav--link header--nav--border signin visible-lg visible-md visible-sm">
 
-                            <div class="header-signin"><?php echo $signin_compte; ?></div><i class="fa fa-user"></i>
+                            <div class="header-signin"><?php echo $signin_compte; ?></div>
 
                         </a>
 
 
                         <ul class="dropdown_menu_user">
 
-                            <li><a class="link" href="/membre-profil.php"><i class="fa fa-user"></i> Mon compte</a></li>
+                            <li><a class="link" href="/membre-profil.php"><span class="material-symbols-outlined">
+account_circle
+</span> Mon compte</a></li>
 
                             <li><a class="link" href="/membre-profil.php"><i class="fa fa-comment"></i> Commentaires</a>
 
@@ -479,7 +493,9 @@
 
                             <a class="header--nav--link header--nav--border account-dropdown-wrapper" href=""
 
-                                data-name="" data-sub=""> MY ACCOUNT<i class="fa fa-user"></i> </a>
+                                data-name="" data-sub=""> MY ACCOUNT<span class="material-symbols-outlined">
+account_circle
+</span> </a>
 
                             <ul class="account-dropdown">
 
@@ -572,7 +588,12 @@ $('.bootpopup').click(function() {
 </script>
 
 <script>
+function getCurrentURL () {
 
+   return window.location.href.split("/")
+
+ }
+ 
 function forgot() {
 
     $('#SigninModal').trigger("click");
@@ -617,6 +638,12 @@ $('li.menu-item-categories .fa-bars, li.menu-item-categories .hamburger-menu-but
 
 });
 $(document).ready(function() {
+    urlparts = getCurrentURL()
+    if("" == urlparts[1]){
+        console.log("home page")
+        $('#home').addClass("active-menu-link");
+    }
+    
     if (window.matchMedia("(min-width: 1121px)").matches) {
         $('header #connected_user').hover(function() {
             $('header .dropdown_menu_user').animate({

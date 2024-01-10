@@ -59,15 +59,16 @@ if (session_status() == PHP_SESSION_NONE) {
             $fileName = $_FILES['photo']['name'];
             try {
                 if($_POST['bref']==1){
-                    $req4 = $bdd->prepare("INSERT INTO news (date,source,auteur,titre,chapo,texte,photo,admin,liens_champions,aLaUne,aLaDeux,categorieID,url,legende,lien1,textlien1,evenementID) VALUES (:date,:source,:auteur,:titre,:chapo,:texte,:photo,:admin,:liens_champions,:aLaUne,:aLaDeux,:categorie,:url,:legende,:lien1,:textlien1,:evenementID)");
+                    $req4 = $bdd->prepare("INSERT INTO news (date,source,auteur,titre,chapo,texte,photo,admin,liens_champions,aLaUne,aLaDeux,categorieID,url,legende,lien1,textlien1,evenementID,championID,videoID) VALUES (:date,:source,:auteur,:titre,:chapo,:texte,:photo,:admin,:liens_champions,:aLaUne,:aLaDeux,:categorie,:url,:legende,:lien1,:textlien1,:evenementID,:championID,:videoID)");
                 }else{
-                    $req4 = $bdd->prepare("INSERT INTO news (date,source,auteur,titre,chapo,texte,photo,admin,liens_champions,aLaUne,aLaDeux,url,legende,lien1,textlien1,evenementID) VALUES (:date,:source,:auteur,:titre,:chapo,:texte,:photo,:admin,:liens_champions,:aLaUne,:aLaDeux,:url,:legende,:lien1,:textlien1,:evenementID)");
+                    $req4 = $bdd->prepare("INSERT INTO news (date,source,auteur,titre,chapo,texte,photo,admin,liens_champions,aLaUne,aLaDeux,url,legende,lien1,textlien1,evenementID,championID,videoID) VALUES (:date,:source,:auteur,:titre,:chapo,:texte,:photo,:admin,:liens_champions,:aLaUne,:aLaDeux,:url,:legende,:lien1,:textlien1,:evenementID,:championID,:videoID)");
 
                 }
                 if($_POST['bref']==1){
                     $req4->bindValue('categorie','11', PDO::PARAM_INT);
 
                 }
+                
                  $req4->bindValue('date',$_POST['Date'], PDO::PARAM_STR);
                  $req4->bindValue('source',$_POST['Source'], PDO::PARAM_STR);
                  $req4->bindValue('auteur',$_POST['auteur'], PDO::PARAM_STR);
@@ -83,7 +84,8 @@ if (session_status() == PHP_SESSION_NONE) {
                  $req4->bindValue('lien1',$_POST['Lien1'], PDO::PARAM_STR);
                  $req4->bindValue('textlien1',$_POST['TextLien1'], PDO::PARAM_STR);
                  $req4->bindValue('evenementID',$_POST['evenementID'], PDO::PARAM_INT);
-
+                 $req4->bindValue('videoID',$_POST['videoID'], PDO::PARAM_INT);
+                 $req4->bindValue('championID',$_POST['championID'], PDO::PARAM_INT);
                  $req4->bindValue('admin',$_SESSION['login'], PDO::PARAM_STR);
                  $statut=$req4->execute();
 
@@ -403,6 +405,8 @@ if (session_status() == PHP_SESSION_NONE) {
                 </tr>
 
                 <tr><td><label for="evenementID">évènement lié : </label></td><td><input id="evenementID" type="number" name="evenementID" value="" /></td></tr>
+                <tr><td><label for="championID">coureur lié : </label></td><td><input id="championID" type="number" name="championID" value="" /></td></tr>
+                <tr><td><label for="videoID">video lié : </label></td><td><input id="videoID" type="number" name="videoID" value="" /></td></tr>
 
 
                 <tr align="center">

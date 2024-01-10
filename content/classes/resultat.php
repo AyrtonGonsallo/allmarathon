@@ -9,6 +9,7 @@ class resultat{
 	private $paysID;
 	private $ID;	
 	private $type;
+	private $marathon_id;
 	private $sexe;
 	private $categorie;
 	private $age;
@@ -106,7 +107,13 @@ class resultat{
 	public function setCategorie($categorie){
 		$this->categorie = $categorie;
 	}
+	public function getmarathon_id(){
+		return $this->marathon_id;
+	}
 
+	public function setmarathon_id($marathon_id){
+		$this->marathon_id = $marathon_id;
+	}
 	public function getAge(){
 		return $this->age;
 	}
@@ -119,7 +126,7 @@ class resultat{
 		 	
 		 	try {
 				  include("../database/connexion.php");
-				 $req = $bdd->prepare("SELECT e.CategorieageID,e.CategorieID,e.Nom,e.DateDebut,e.PaysID,e.ID,e.Sexe,c.Intitule AS Categorie,a.Intitule AS Age FROM evenements e LEFT JOIN evcategorieevenement c ON e.CategorieID = c.ID LEFT JOIN evcategorieage a ON e.CategorieageID = a.ID WHERE e.Visible=1 ORDER BY e.DateDebut DESC LIMIT 10");
+				 $req = $bdd->prepare("SELECT e.CategorieageID,e.CategorieID,e.Nom,e.DateDebut,e.PaysID,e.ID,e.Sexe,e.marathon_id,c.Intitule AS Categorie,a.Intitule AS Age FROM evenements e LEFT JOIN evcategorieevenement c ON e.CategorieID = c.ID LEFT JOIN evcategorieage a ON e.CategorieageID = a.ID WHERE e.Visible=1 ORDER BY e.DateDebut DESC LIMIT 10");
 	             $req->execute();
 	             $last_results = array();
 	             while ( $row  = $req->fetch(PDO::FETCH_ASSOC)) {    

@@ -188,7 +188,7 @@ a.link:visited,a.link:active,a.link:focus{
     outline: none;
 }
 .header {
-    background: #fcb614;
+    background: #fbff0b;
     /*box-shadow: 0 3px 3px #e5e5e5;*/
     position: fixed;
     width: 100%;
@@ -223,7 +223,7 @@ input#header-search:focus {
 }
 
 .header--nav--link {
-    border-bottom: 2px solid #fcb614;
+    border-bottom: 2px solid #fbff0b;
     color: #fff;
     float: left;
     font-size: .8em;
