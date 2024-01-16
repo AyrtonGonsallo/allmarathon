@@ -218,7 +218,7 @@ search
 
                     <li> <a data-category="Header_Links" data-action="Top Menu Click" data-label="ACTUALITE"
 
-                            href="/actualites-marathon.html" class="header--nav--link pull-right1">actualités</a></li>
+                            href="/actualites-marathon.html" class="header--nav--link pull-right1" id="news">actualités</a></li>
 
                     <li> <a data-category="Header_Links" data-action="Top Menu Click" data-label="MARATHON"
 
@@ -588,7 +588,7 @@ $('.bootpopup').click(function() {
 </script>
 
 <script>
-function getCurrentURL () {
+function getCurrentURL() {
 
    return window.location.href.split("/")
 
@@ -638,10 +638,17 @@ $('li.menu-item-categories .fa-bars, li.menu-item-categories .hamburger-menu-but
 
 });
 $(document).ready(function() {
+    const regex_url_actus = new RegExp(/actualites-marathon(.|-)*.html/);
+
     urlparts = getCurrentURL()
-    if("" == urlparts[1]){
+    console.log("url parts",urlparts)
+    url_actuelle=urlparts[3]
+    if("" == url_actuelle){
         console.log("home page")
         $('#home').addClass("active-menu-link");
+    }else if(regex_url_actus.test(url_actuelle)){
+        console.log("news page")
+        $('#news').addClass("active-menu-link");
     }
     
     if (window.matchMedia("(min-width: 1121px)").matches) {

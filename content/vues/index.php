@@ -119,7 +119,6 @@ function switch_cat($cat)
     <meta property="og:type" content="siteweb" />
     <meta property="og:image" content="https://allmarathon.fr/images/allmarathon.png" />
     <meta property="og:url" content="https://allmarathon.fr" />
-
     <link rel="apple-touch-icon" href="apple-favicon.png">
     <link rel="icon" type="image/x-icon" href="../../images/favicon.ico" />
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
@@ -403,7 +402,7 @@ function switch_cat($cat)
 
                 <dt class="bref to_hide_mobile">
                     <h2 class="h2-aside">
-                        <span class="material-symbols-outlined ic-15">rocket_launch</span>
+                        <span class="material-symbols-outlined ">rocket_launch</span>
                         Vite lu
                     </h2>
                 </dt>
@@ -419,8 +418,8 @@ function switch_cat($cat)
                         $yearNews  = $tab[0];
                         echo '<li><a href="/actualite-marathon-'.$article_bref->getId().'-'.slugify($article_bref->getTitre()).'.html">
                             <div class="row">
-                                <div class="vitu-lu-image col-sm-6" style="background-image:url(../../images/news/'.$yearNews.'/'.$article_bref->getPhoto().')"></div>
-                                <div class="col-sm-6 pr-0 vitu-lu-title">'.$article_bref->getTitre().'</div>
+                                <div class="vite-lu-image col-sm-6" style="background-image:url(../../images/news/'.$yearNews.'/'.$article_bref->getPhoto().')"></div>
+                                <div class="col-sm-6 pr-0 vite-lu-title">'.$article_bref->getTitre().'</div>
                             </div>
                         </a></li>';
 
@@ -438,7 +437,7 @@ function switch_cat($cat)
 
                 <dt class="calendar to_hide_mobile marg_top">
                     <h2 class="h2-aside">
-                        <span class="material-symbols-outlined  ic-15">alarm_on</span>
+                        <span class="material-symbols-outlined  ">alarm_on</span>
                         Coming soon
                     </h2>
                 </dt>
@@ -486,7 +485,7 @@ function switch_cat($cat)
 
 
 
-    <div class="container page-content homepage">
+    <div class="container page-content2 homepage">
         <div class="row banniere1 bureau">
         </div>
         <div class="row">
@@ -576,7 +575,7 @@ function switch_cat($cat)
                 <aside>
                     <dt class="bref mobile">
                         <h2 class="h2-aside">
-                            <span class="material-symbols-outlined ic-15">
+                            <span class="material-symbols-outlined ">
                                 directions_run
                             </span>
                             Résultats récents
@@ -615,7 +614,7 @@ function switch_cat($cat)
                     </dd>
                     <dt class="calendar mobile marg_top">
                     <h2 class="h2-aside">
-                        <span class="material-symbols-outlined  ic-15">alarm_on</span>
+                        <span class="material-symbols-outlined  ">alarm_on</span>
                         Coming soon
                     </h2>
                 </dt>
@@ -650,7 +649,7 @@ function switch_cat($cat)
 
             <dt class="bref to_hide_mobile">
                     <h2 class="h2-aside">
-                        <span class="material-symbols-outlined ic-15">
+                        <span class="material-symbols-outlined ">
                             directions_run
                         </span>
                         Résultats récents
@@ -709,6 +708,8 @@ function switch_cat($cat)
     <script src="../../js/jquery.sliderPro.min.js"></script>
     <script src="../../js/easing.js"></script>
     <script src="../../js/jquery.ui.totop.min.js"></script>
+    <script src="../../js/main.js"></script>
+
 </body>
 
 </html>
