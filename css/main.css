@@ -65,16 +65,17 @@ strong{
 .capitalize{
     text-transform: capitalize;
 }
-.vitu-lu-image{
-    width: 32%;
+.vite-lu-image{
+    width: 35%;
     background-size: cover;
-    height: 60px;
-    margin-right: 20px;
+    height: 73px;
+    margin-right: 11px;
     margin-left: 14px;
 }
-.vitu-lu-title{
+.vite-lu-title{
     font-family: 'Poppins-Medium';
-    font-size: 18px;
+    font-size: 15px;
+    line-height: 19px;
 }
 .coming-soon-image{
     min-height: auto;
@@ -85,14 +86,14 @@ strong{
 }
 .dernieres-video-image{
     width: auto;
-    height: 175px;
+    height: 144px;
     background-position: center;
     background-size: cover;
     text-align: center;
-    padding-top: 24%;
+    padding-top: 16%;
 }
 .res-recents{
-    padding: 10px 5px;
+    padding: 12px 5px;
 }
 .bouton-mobile{
     background-color: #95d7fe;
@@ -102,7 +103,7 @@ strong{
 }
 .res-recents-date{
     background-color: #95d7fe;
-    border: solid 1px #fbff0b;
+    padding: 2px 5px;
 }
 
 
@@ -223,18 +224,17 @@ table.dataTable.no-footer {
     padding-right: 0;
 }
 .marathons-home .marathon-image {
-   
     background-size: cover;
     width: auto;
-    height: 89px;
+    height: 100px;
     background-position-y: center;
     margin-bottom: 0px;
 }
 .marathons-home .marathon-title{
     color: #000;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 900;
-    line-height: 18px;
+    line-height: 15px;
     margin-left: 0;
     margin-right: 0;
     margin-bottom: 5px;
@@ -737,13 +737,11 @@ input#header-search:focus {
 }
 .header--nav--link {
     color: #000 !important;
-    font-size: 19px;
+    font-size: 18px;
     font-weight: 100;
     line-height: 4em;
-    padding: 0 10px;
-    letter-spacing: 0.5px;
+    padding: 0 20px;
     text-transform: capitalize;
-    transition: all ease 0.3s;
 }
 @media (min-width:1120px) and (max-width:1428px){
     .header--nav--link {
@@ -809,12 +807,9 @@ li.menu-item-categories .hamburger-menu-button {
 }
 
 .header--logo img {
-    /* background: url("/images/sprite.png") 0px 0px no-repeat #fff;
-    text-indent: -9999px; */
-    width: 145px;
-    /* border-bottom: 2px solid #fff; */
-    margin-bottom: 10px;
-    margin-left: 10px;
+    width:145px;
+    margin-bottom: 7px;
+    margin-left:10px ;
 }
 
 .pull-right {
@@ -1009,7 +1004,9 @@ li.menu-item-categories .hamburger-menu-button {
 .page-content {
     margin-top: 5.5em;
 }
-
+.page-content2 {
+    margin-top: 2.5em;
+}
 .page-content .banniere1 {
     text-align: center;
     margin: 10px 0 20px;
@@ -1049,7 +1046,7 @@ li.menu-item-categories .hamburger-menu-button {
     background-color: #fbff0b !important;
 }
 .h2-aside {
-    margin-bottom: 0px !important;
+    margin-bottom: 10px !important;
     padding-left: 0 !important;
     margin-top: 0 !important;
 }
@@ -1084,11 +1081,9 @@ li.menu-item-categories .hamburger-menu-button {
 
 .page-content aside dd.bref ul li a {
     font-size: 12px;
-    font-weight: bold;
     color: black;
     text-decoration: none;
     box-sizing: border-box;
-    width: 100%;
 }
 
 .page-content aside dd ul li.last a {
@@ -1135,26 +1130,16 @@ li.menu-item-categories .hamburger-menu-button {
     background-color: #fbff0b;
 } */
 
-.page-content aside dd.result ul li.last a {
-    /* background-color: #007ab8; */
-    font-size: 18px;
-    color: #007ab8;
-    text-decoration: none;
-}
 
-.page-content aside dd.result ul li.last a:hover {
-    
-    text-decoration: underline;
-}
 
-.page-content aside dd.calendar ul li.last a {
-    padding: 3px 5px;
+.page-content aside dd.calendar ul li.last a,.page-content2 aside dd.result ul li.last a {
+    padding: 5px 15px;
     color: #aea8a8;
     font-weight: bold;
-
+   border-radius: 3px;
 }
 
-.page-content aside dd.calendar ul li.last a:hover {
+.page-content aside dd.calendar ul li.last a:hover,.page-content2 aside dd.result ul li.last a:hover {
     text-decoration: underline;
 }
 
@@ -1200,13 +1185,12 @@ li.menu-item-categories .hamburger-menu-button {
     margin-top: 0px;
 }
 
-.page-content aside dd.result  a {
+.page-content2 aside dd.result  a {
     font-size: 16px;
     color: #333;
     text-decoration: none;
-    /* background-color: #434a5a; */
     display: block;
-    padding: 5px;
+    padding: 0px;
 }
 
 .page-content aside dd.result  a:hover {
@@ -1249,13 +1233,9 @@ li.menu-item-categories .hamburger-menu-button {
 
 
 .page-content aside dd.calendar ul li a {
-    font-size: 18px;
-    color: #333;
+    font-size: 16px;
     text-decoration: none;
-    /* background-color: #434a5a; */
     display: grid;
-    width: fit-content;
-    padding: 5px 5px 8px 5px;
 }
 
 .page-content aside dd.calendar ul li a:hover {
@@ -1358,7 +1338,7 @@ li.menu-item-categories .hamburger-menu-button {
 }
 
 .left-side article .article-img {
-    width: 35%;
+    width: 38%;
 }
 
 .left-side article .article-img a {
@@ -1394,9 +1374,8 @@ li.menu-item-categories .hamburger-menu-button {
 
 .left-side article .desc-img h2 {
     font-family: 'Poppins-Black';
-    font-size: 30px;
+    font-size: 27px;
     margin: 0 0 5px 0;
-    line-height: 30px !important;
 }
 
 .left-side article .desc-img p {
@@ -1769,7 +1748,7 @@ footer .main {
 
 footer .main dt {
     color: #000000;
-    font-size: 18px;
+    font-size: 16px;
     text-transform: capitalize;
     font-weight: bold;
     font-family: "Poppins-Black";
@@ -1778,7 +1757,7 @@ footer .main dt {
 footer .main dd {}
 
 footer .main ul li {
-    line-height: 18px;
+    line-height: 22px;
 }
 
 footer .main ul.without-title {
@@ -1788,7 +1767,7 @@ footer .main ul.without-title {
 footer .main ul li a {
     color: #000000;
     text-decoration: none;
-    font-size: 15px;
+    font-size: 13px;
     font-family: "Poppins-Medium";
 }
 footer   a {
@@ -1916,35 +1895,36 @@ li.menu-item-categories .hamburger-menu-button {
 /*FIRST BLOC*/
 
 .title_news {
-    margin: 25px 0;
-    margin-top: 2%;
+    margin: 25px 0 50px 0;
 }
 
 .news_alune .title_news {
     margin-top: 2%;
 }
 .style-p{
-    color: #000 ;
+    color: #000;
     font-size: 17px;
     line-height: 27px;
+    margin: 5px 0 15px 0;
     
 }
 .title_news a,
 .video_title {
     font-family: 'Poppins-Black';
-    font-size: 34px;
-    line-height: 42px;
-    color: #333;
+    font-size: 31px;
+    line-height: 38px;
+    color: #000;
 
 }
 .home-link{
     background-color: #fbff0b;
-    color:#000;
+    color: #000;
     width: fit-content;
     font-family: 'Poppins-Bold';
-    padding: 5px;
-    font-size: 18px !important;
+    padding: 5px 15px;
+    font-size: 16px !important;
     font-weight: bold;
+    border-radius: 3px;
 }
 .title_news a, .video_title, .left-side article .desc-img h2{
     text-transform: none;
@@ -1974,9 +1954,8 @@ section.last_articles_part2 article {
 section.last_articles_part1 .desc-img,
 section.last_articles_part2 .desc-img {
     width: 80%;
-    /*min-height: 200px;*/
     flex-direction: column;
-    padding-left: 6%;
+    padding-left: 3%;
     justify-content: space-between;
     display: flex;
 }
@@ -3616,7 +3595,7 @@ ul.partenaires-actuels {
 
 @media screen and (min-width: 1200px) {
     .container {
-        width: 1002px;
+        width: 1140px;
     }
 
     li.menu-item-categories .hamburger-menu-button {
@@ -4586,11 +4565,9 @@ a.btn-achat:hover {
     font-size: 11px;
 }
 .titre-videos{
-    color:black;
-    font-size:20px;
-    cursor:pointer;
-    text-transform: uppercase;
-    
+    color: black;
+    font-size: 18px;
+    cursor: pointer;
   }
   .titre-videos:hover{
     color: #000000;

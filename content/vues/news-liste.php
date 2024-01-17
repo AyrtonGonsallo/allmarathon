@@ -746,8 +746,8 @@ include_once('nv_header-integrer.php'); ?>
                         $yearNews  = $tab[0];
                         echo '<li><a href="/actualite-marathon-'.$article_bref->getId().'-'.slugify($article_bref->getTitre()).'.html">
                             <div class="row">
-                                <div class="vitu-lu-image col-sm-6" style="background-image:url(../../images/news/'.$yearNews.'/'.$article_bref->getPhoto().')"></div>
-                                <div class="col-sm-6 pr-0 vitu-lu-title">'.$article_bref->getTitre().'</div>
+                                <div class="vite-lu-image col-sm-6" style="background-image:url(../../images/news/'.$yearNews.'/'.$article_bref->getPhoto().')"></div>
+                                <div class="col-sm-6 pr-0 vite-lu-title">'.$article_bref->getTitre().'</div>
                             </div>
                         </a></li>';
 
@@ -862,7 +862,7 @@ if($pub160x600 !="") {
             </aside>
     </div>
 </div>
-            <aside class="mobile vitu-lu-mobile-box">
+            <aside class="mobile vite-lu-mobile-box">
 
                 <dt class="bref ">
                     <h2 class="h2-aside">
@@ -882,8 +882,8 @@ if($pub160x600 !="") {
                         $yearNews  = $tab[0];
                         echo '<li><a href="/actualite-marathon-'.$article_bref->getId().'-'.slugify($article_bref->getTitre()).'.html">
                             <div class="row">
-                                <div class="vitu-lu-image col-sm-6" style="background-image:url(../../images/news/'.$yearNews.'/'.$article_bref->getPhoto().')"></div>
-                                <div class="col-sm-6 pr-0 vitu-lu-title">'.$article_bref->getTitre().'</div>
+                                <div class="vite-lu-image col-sm-6" style="background-image:url(../../images/news/'.$yearNews.'/'.$article_bref->getPhoto().')"></div>
+                                <div class="col-sm-6 pr-0 vite-lu-title">'.$article_bref->getTitre().'</div>
                             </div>
                         </a></li>';
 
