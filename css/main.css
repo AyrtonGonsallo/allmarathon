@@ -28,6 +28,12 @@ b{
 .m-h-300{
     min-height: 300px;
 }
+.mt-0{
+    margin-top: 0px !important;
+}
+.no-mh{
+    min-height: auto !important;
+}
 .w-fc{
     width: fit-content !important;
 }

@@ -121,7 +121,7 @@
                 
             </div>
             </div>
-            <div style="padding: 8px 0;" class="col-sm-12">
+            <div style="padding: 8px 0 0px 0;" class="col-sm-12">
             <div class="sib-input sib-form-block">
                 
                 <div class="form__label-row form__label-row--horizontal" style="margin:0">
@@ -139,18 +139,17 @@
                 </label>
                     </div>
                 </div>
-                <label class="entry__error entry__error--primary" style="font-size:16px; text-align:left; font-family:&quot;Poppins-regular&quot;, sans-serif; color:#661d1d; background-color:#ffeded; border-radius:3px; border-color:#ff4949;">
-                </label>
+                
                 
             </div>
             </div>
-            <div style="padding: 8px 0;" class="col-sm-12">
-            <div class="g-recaptcha" id="g-recaptcha" style="padding:16px 16px"
+            <div style="padding: 0px 0 8px 0;" class="col-sm-12">
+            <div class="g-recaptcha" id="g-recaptcha" style="padding:0 0 16px 0px"
                                 data-sitekey="6LdcITUpAAAAAJNe_-kxs-4q4Xy9_HrQnk3FvTkx"></div>
             </div>
             
         </div>
-        <div style="padding: 8px 0;">
+        <div style="padding: 0px 0 8px 0;">
           <div class="sib-form-block" style="text-align: center">
             <button class="sib-form-block__button sib-form-block__button-with-loader" style="font-size:16px; text-align:center; font-weight:700; font-family:&quot;Poppins-regular&quot;, sans-serif; color:#000000; background-color:#95d7fe; border-radius:3px; border-width:0px;" form="sib-form" type="submit">
               <svg class="icon clickable__icon progress-indicator__icon sib-hide-loader-icon" viewBox="0 0 512 512">

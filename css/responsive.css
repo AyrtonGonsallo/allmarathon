@@ -17,6 +17,30 @@
   .dernieres-video-image {
     padding-top: 14%;
 }
+.news-mobile-box{
+  display: grid !important;
+}
+.vitu-lu-image{
+  float: left;
+  margin-left: 0px;
+  margin-right: 15px;
+}
+.vitu-lu-mobile-box{
+  background-color: #fbff0b;
+  padding-top: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.vitu-lu-mobile-box li{
+  margin-bottom: 20px;
+}
+.vitu-lu-mobile-box h2{
+  margin-bottom: 20px !important;
+  
+}
+.vitu-lu-title{
+  color: #000000;
+}
   .header--logo img {
     width: 195px !important;
 }
@@ -1664,6 +1688,10 @@ footer .container{
   .formobile,
   section.last_articles_part1.to_show_mobile {
     display: none !important;
+  }
+  .active-menu-link{
+      background-color: #fbff0b;
+      display: inline;
   }
 
 }

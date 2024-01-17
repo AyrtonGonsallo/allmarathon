@@ -119,7 +119,6 @@ function switch_cat($cat)
     <meta property="og:type" content="siteweb" />
     <meta property="og:image" content="https://allmarathon.fr/images/allmarathon.png" />
     <meta property="og:url" content="https://allmarathon.fr" />
-
     <link rel="apple-touch-icon" href="apple-favicon.png">
     <link rel="icon" type="image/x-icon" href="../../images/favicon.ico" />
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
@@ -709,6 +708,8 @@ function switch_cat($cat)
     <script src="../../js/jquery.sliderPro.min.js"></script>
     <script src="../../js/easing.js"></script>
     <script src="../../js/jquery.ui.totop.min.js"></script>
+    <script src="../../js/main.js"></script>
+
 </body>
 
 </html>
