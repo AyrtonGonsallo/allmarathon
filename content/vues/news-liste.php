@@ -108,7 +108,7 @@ if($key_word!=""){
 
 else{
 
-    $articles=$news->getArticlesPerPage($page,$sort);
+    $articles=$news->getAllArticlesDesc();
 
 }
 
@@ -347,7 +347,7 @@ include_once('nv_header-integrer.php'); ?>
 
                                     $img_a_afficher= '<img class="img-responsive" alt="" src="'.$src_a_afficher.'"/>';
 
-                                    echo '<article class="row news-mobile-box mobile mt-100">
+                                    echo '<article class="row news-mobile-box mobile mt-77">
 
                                
 
@@ -397,7 +397,7 @@ include_once('nv_header-integrer.php'); ?>
 
 
 
-            <section class="last_articles_part1 mt-0 bureau">
+            <section class="last_articles_part1 mt-0 bureau lazyblock">
 
 
                 <?php
@@ -899,7 +899,7 @@ if($pub160x600 !="") {
 
                 </dd>
             </aside>
-            <div class="container page-content news  no-mh">
+            <div class="container page-content news  no-mh mobile">
             <div class="row">
 
             <div class="col-sm-8 left-side">
@@ -1010,49 +1010,7 @@ if($pub160x600 !="") {
 
             </section>
 
-                <ul class="pager">
-
-                    <?php 
-
-                            if($next==$articles_par_page) $style_suivant='style="pointer-events: none;cursor: default;"';
-
-                            else $style_suivant='';
-
-                            if(intval($next)<2) $style_precedent='style="pointer-events: none;cursor: default;"';
-
-                            else $style_precedent='';
-
-                            if($sort!='') {
-
-
-
-                        ?>
-
-                    <li id="precedent_btn">
-
-                        <?php echo '<a href="/actualites-marathon-'.$sort.'-'.$previous.'-'.$key_word.'.html" '.$style_precedent.'> Précédent</a>'; ?>
-
-                    </li>
-
-                    <li><?php echo $next; ?> / <?php echo $articles_par_page; ?></li>
-
-                    <li id="suivant_btn">
-
-                        <?php echo '<a href="/actualites-marathon-'.$sort.'-'.$next.'-'.$key_word.'.html" '.$style_suivant.'> Suivant</a>'; ?>
-
-                    </li>
-
-                    <?php } else {
-
-                         echo '<li id="precedent_btn"><a href="/actualites-marathon--'.$previous.'-'.$key_word.'.html" '.$style_precedent.'> Précédent</a></li>
-
-                          <li>'.$next.' / '.$articles_par_page.'</li>
-
-                        <li id="suivant_btn"><a href="/actualites-marathon--'.$next.'-'.$key_word.'.html" '.$style_suivant.'> Suivant</a> </li>';
-
-                     }?>
-
-                </ul>
+               
 
 
 
@@ -1154,8 +1112,33 @@ if($pub160x600 !="") {
 
     </script>
 
+<script type="text/javascript">
+
+    
+
+    $(document).ready(function() {
 
 
+        $(".lazyblock div").slice(12).hide();
+        $(".lazyblock article").slice(6).hide();
+
+            var mincount = 2;
+            var maxcount = 12;
+            
+
+            $(window).scroll(function () {
+                //console.log("left: ",$(window).scrollTop() + $(window).height())
+                //console.log("right: ",$(document).height() - 20)
+                if ($(window).scrollTop() + $(window).height() >= $(document).height() - 500) {
+                    $(".lazyblock div").slice(mincount, maxcount).slideDown(100);
+                    $(".lazyblock article").slice(mincount, maxcount).slideDown(100);
+                    mincount = mincount + 2;
+                    maxcount = maxcount + 2
+
+                }
+            });
+        })
+    </script>
     <script type='text/javascript'>
 
     function sortArticles() {

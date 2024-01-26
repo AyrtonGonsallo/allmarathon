@@ -146,7 +146,7 @@ function switch_cat($cat)
         $article=$last_news['donnees'][0];
         $tab = explode('-',$article->getDate());
         $yearNews  = $tab[0]; ?>
-        <div class="news_alune mt-100">
+        <div class="news_alune mt-77">
             <div class="image_news">
                 <?php $alt = ($article->getLegende())?'alt="'.$article->getLegende().'"':'alt="allmarathon news image"';
                     echo '<a href="/actualite-marathon-'.$article->getId().'-'.slugify($article->getTitre()).'.html">
@@ -227,7 +227,7 @@ function switch_cat($cat)
                 ;
                 if($article->getVideoID()){
                     $vid=$vd->getVideoById($article->getVideoID())["donnees"];
-                    echo "<a href='video-de-marathon-".$vid->getId().".html'  class='home-link mr-5 '>Vidéo: ". $vid->getTitre()."</a>";
+                    echo "<a href='video-de-marathon-".$vid->getId().".html'  class='home-link mr-5'>Vidéo : ". $vid->getTitre()."</a>";
                 }
                             ?>
 
@@ -635,7 +635,7 @@ function switch_cat($cat)
 
                     ?>
                         <?php $today = date("Y/m/d");?>
-                        <li class="last mx-auto"><a href="<?php echo 'calendrier-marathons-'.utf8_encode(strftime("%B",strtotime($today))).'-'.intval((date("m"))).'-'.strftime("%Y",strtotime($today)).'.html'; ?>" class="mx-auto w-fc">Tous les marathons de <?php echo utf8_encode(strftime("%B",strtotime($today)));?></a></li>
+                        <li class="last mx-auto"><a href="<?php echo 'calendrier-marathons-'.utf8_encode(strftime("%B",strtotime($today))).'-'.intval((date("m"))).'-'.strftime("%Y",strtotime($today)).'.html'; ?>" class="mx-auto w-fc bouton-mobile">Tous les marathons de <?php echo utf8_encode(strftime("%B",strtotime($today)));?></a></li>
 
                     </ul>
 

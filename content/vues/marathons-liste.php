@@ -136,13 +136,17 @@ try{
         
         
       array_push($results, $row);
+
+      
   }}
   catch(Exception $e)
   {
       die('Erreur : ' . $e->getMessage());
   }
   $results_sorted_by_next_event=array_slice(array_msort($results, array('date_prochain_evenement'=>SORT_ASC,'nom'=>SORT_ASC)),0,400);
-
+  $req = $bdd->prepare("SELECT count(*) AS nbr FROM marathons");
+  $req->execute();
+  $nombre_de_marathons= $req->fetch(PDO::FETCH_ASSOC);
 ?>
 
 <!doctype html>
@@ -254,7 +258,7 @@ try{
 
         <div class="row">
 
-            <div class="col-sm-8 left-side">
+            <div class="col-sm-12 left-side">
 
 
 
@@ -265,32 +269,35 @@ try{
                     <div class="col-sm-12 no-padding-left">
 
 
-                        <h1>Calendrier des marathons en France et dans le monde</h1>
-                        <h2>Histoire, palmarès, résultats, agenda des marathons les plus célèbres : Boston, Chicago, New-York, Londres, Berlin, Tokyo, Paris ...</h2>
-
-                        <form action="" method="post" class="form-inline" role="form">
-
-                            <div class="form-group" style="width:100%; white-space: nowrap; margin-bottom: 5px;">
-
-                                <input type="search" id="search_val_res" placeholder="Recherche" class="form-control"
-
-                                    style="width:93%" />
-
-                                <button type="button" id="goToSearch_Result" class="btn results-search"><i
-
-                                        class="fa fa-search"></i></button>
-
-                            </div>
-
-                        </form>
+                        <h1 class="float-l">Calendrier des marathons en France et dans le monde</h1><span class="total-marathons"><?php echo $nombre_de_marathons["nbr"]." résultats";?></span>
+                        <h2  class="clear-b">Histoire, palmarès, résultats, agenda des marathons les plus célèbres : Boston, Chicago, New-York, Londres, Berlin, Tokyo...</h2>
+                        
+                       
 
                         <div>
                         <div class="row">
-                            <div class="col-sm-6">
-                                <a href="/agenda-marathons-par-pays.html" class="liens-noirs-soulignes-hover-jaune">Liste des marathons par pays</a>
+                            <div class="col-sm-3">
+                                <a href="/agenda-marathons-par-pays.html" class="home-link">Marathons par pays</a>
+                            </div>
+                            <div class="col-sm-3">
+                                <a href="/agenda-marathons-par-mois.html" class="home-link">Marathons par mois</a>
                             </div>
                             <div class="col-sm-6">
-                                <a href="/agenda-marathons-par-mois.html" class="liens-noirs-soulignes-hover-jaune">Liste des marathons par mois</a>
+                                <form action="" method="post" class="form-inline" role="form">
+
+                                    <div class="form-group" style="width:100%; white-space: nowrap; margin-bottom: 5px;">
+
+                                        <input type="search" id="search_val_res" placeholder="Recherche" class="form-control"
+
+                                            style="width:93%" />
+
+                                        <button type="button" id="goToSearch_Result" class="btn results-search"><i
+
+                                                class="fa fa-search"></i></button>
+
+                                    </div>
+
+                                </form>
                             </div>
                         </div>
                             
@@ -314,7 +321,7 @@ try{
 
 
                     <ul class="col-sm-12 resultats">
-                <div class="row" id="liste-marathons">
+                <div class="row lazyblock" id="liste-marathons">
                         <?php 
                         $i=0;                             
                         setlocale(LC_TIME, "fr_FR","French");
@@ -324,7 +331,7 @@ try{
                             $pays_flag=$pays->getFlagByAbreviation($resultat['PaysID'])['donnees']['Flag'];
                            $nom_res= $resultat['nom'];
                 
-                            $res.= '<div class="col-sm-6 marathon-grid">
+                            $res.= '<div class="col-sm-4 marathon-grid">
                                 <a class="page-marathon-link" href="/marathons-'.$resultat['id'].'-'.slugify($nom_res).'.html">
                                     <h4 class="page-marathon-title">'.$nom_res.'<img class="marathon-title-flag" style="float:right" src="../../images/flags/'.$pays_flag.'" alt=""/></h4></a> ';
                                      
@@ -395,18 +402,7 @@ try{
 
 
 
-            <aside class="col-sm-4">
-                <dt class="archive">les 10 prochains marathons</dt>
-                <dd class="archive next-marathons">
-                <ul class="clearfix marathons-home">
-                    <?php
-                        echo $home_events;
-                    ?>
-                    <li class="last more-dates"><a href="/calendrier-agenda-marathons.html">[+] de dates</a></li>
-                </ul>
-                </dd>
-            </aside>
-
+            
         </div>
 
 
@@ -432,7 +428,7 @@ try{
 "https://ajax.googleapis.com/ajax/libs/jquery/1.12.1/jquery.min.js" >
     </script>
       
-    <script data-type='lazy' ddata-src=
+    <script src=
 "https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" >
     </script>
 
@@ -465,6 +461,23 @@ try{
     
 
     $(document).ready(function() {
+
+
+        $(".lazyblock div").slice(12).hide();
+
+            var mincount = 12;
+            var maxcount = 24;
+            
+
+            $(window).scroll(function () {
+                if ($(window).scrollTop() + $(window).height() >= $(document).height() - 50) {
+                    $(".lazyblock div").slice(mincount, maxcount).slideDown(200);
+
+                    mincount = mincount + 24;
+                    maxcount = maxcount + 24
+
+                }
+            });
         
     var type_req_courrante="getMarathonsbyNextEventDate";
     var ordre_courrant="ASC";

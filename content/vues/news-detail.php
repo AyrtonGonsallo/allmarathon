@@ -25,7 +25,7 @@ if(!empty($_SESSION['commentaire_success'])){
 
 $id_news=$_GET['newsID'];
 
-
+include("../classes/video.php");
 
 include("../classes/news.php");
 include("../classes/commentaire.php");
@@ -39,7 +39,7 @@ $new_galerie=new newsgalerie();
 $galerie=$new_galerie->getGalerieByNewsID($id_news)['donnees'];
 
 $pub=new pub();
-
+$vd=new video();
 $pub728x90=$pub->getBanniere728_90("actualite")['donnees'];
 $pub300x60=$pub->getBanniere300_60("actualite")['donnees'];
 $pub300x250=$pub->getBanniere300_250("actualite")['donnees'];
@@ -165,9 +165,63 @@ $tab = explode('-',$news_details->getDate());
 
     <?php include_once('nv_header-integrer.php'); ?>
 
+    <div class="mobile mt-77">
+        <?php 
+            $source=($news_details->getSource()) ? "source : ".$news_details->getSource() : "";
+            echo'<h1 class="news-detail">'.$news_details->getTitre().'</h1>'; ?>
 
-    <div class="container page-content athlete-detail">
-        <div class="row banniere1">
+        <h2 class="mini_h2"><?php echo '<span class="news-details-subtitle" >'."Par : ".$news_details->getAuteur()." - "; ?>
+            <?php echo changeDate($news_details->getDate()).' - '.$source.'</span>' ; ?>
+            <script>
+            setTimeout(() => {
+                (function() { // DON'T EDIT BELOW THIS LINE
+                    var d = document, s = d.createElement('script');
+                    s.src = '//allmarathon.disqus.com/count.js';
+                    s.setAttribute('data-timestamp', +new Date());
+                    s.setAttribute('id', "dsq-count-scr");
+                    (d.head || d.body).appendChild(s);
+                    })();
+            }, "10000");
+            
+        </script>
+            <span class="comment-count-container">
+                <a style="font-weight: bold;" href="<?php echo 'https://allmarathon.fr/actualite-marathon-'.$news_details->getId().'-'.slugify($news_details->getTitre()).'.html';?>#disqus_thread"># </a>
+                <span class="material-symbols-outlined">chat_bubble</span>
+            </span>
+
+
+        </h2>
+
+        <?php if(sizeof($galerie)!=0) {?>
+        <div class="slider-pro" id="my-slider">
+            <div class="sp-slides">
+                <?php
+            foreach ($galerie as $key => $value) {
+                echo '<div class="sp-slide">
+                <img class="sp-image" src="/images/news/'.$value->getPath().'"/>
+                <img class="sp-thumbnail" src="/images/news/'.$value->getPath().'"/>
+            </div>';
+            }
+                
+            ?>
+            </div>
+        </div>
+        <?php }else{
+        $tab = explode('-',$news_details->getDate());
+        $yearNews  = $tab[0];
+        $img_src='/images/news/'.$yearNews.'/'.$news_details->getPhoto();
+        $img_src_mobile='/images/news/'.$yearNews.'/thumb_'.$news_details->getPhoto();
+        $alt = ($news_details->getLegende())?'alt="'.$news_details->getLegende().'"':'alt="allmarathon news image"';
+        if ($img_src)
+            {
+                echo '<img class="sp-image" '.$alt.' width="400px" height="auto" src="'.$img_src_mobile.'"/>';
+            }
+        }
+        ?>
+    </div>
+
+    <div class="container page-content news-detail">
+        <div class="row banniere1 bureau">
             <div  class="col-sm-12"><?php
                 if($pub728x90 !="") {
                 echo '<a target="_blank" href="'.$pub728x90["url"].'" class="col-sm-12">';
@@ -189,10 +243,10 @@ $tab = explode('-',$news_details->getDate());
 
                         <?php 
                     $source=($news_details->getSource()) ? "source : ".$news_details->getSource() : "";
-                    echo'<h1 class="news-detail">'.$news_details->getTitre().'</h1>'; ?>
+                    echo'<h1 class="news-detail bureau">'.$news_details->getTitre().'</h1>'; ?>
 
-                        <h2 class="mini_h2"><?php echo "auteur : ".$news_details->getAuteur()." / "; ?>
-                            <?php echo '<span style="margin-top: 7px;font-family: MuseoSans-500;text-transform: none;">'.changeDate($news_details->getDate()).' / '.$source.'</span>' ; ?>
+                        <h2 class="mini_h2 bureau"><?php echo '<span class="news-details-subtitle" >'."Par : ".$news_details->getAuteur()." - "; ?>
+                            <?php echo changeDate($news_details->getDate()).' - '.$source.'</span>' ; ?>
                             <script>
                             setTimeout(() => {
                                 (function() { // DON'T EDIT BELOW THIS LINE
@@ -205,13 +259,16 @@ $tab = explode('-',$news_details->getDate());
                             }, "10000");
                             
                         </script>
-                            <a style="float: right;font-weight: bold;" href="<?php echo 'https://allmarathon.fr/actualite-marathon-'.$news_details->getId().'-'.slugify($news_details->getTitre()).'.html';?>#disqus_thread"># COMMENTAIRES</a>
+                            <span class="comment-count-container">
+                                <a style="font-weight: bold;" href="<?php echo 'https://allmarathon.fr/actualite-marathon-'.$news_details->getId().'-'.slugify($news_details->getTitre()).'.html';?>#disqus_thread"># </a>
+                                <span class="material-symbols-outlined">chat_bubble</span>
+                            </span>
 
 
                         </h2>
 
                         <?php if(sizeof($galerie)!=0) {?>
-                        <div class="slider-pro" id="my-slider">
+                        <div class="slider-pro bureau" id="my-slider">
                             <div class="sp-slides">
                                 <?php
                             foreach ($galerie as $key => $value) {
@@ -233,28 +290,32 @@ $tab = explode('-',$news_details->getDate());
                         if ($img_src)
                             {
                                 echo '<img class="sp-image bureau" '.$alt.' style="max-width: 100%;"src="'.$img_src.'"/>';
-                                echo '<img class="sp-image mobile" '.$alt.' width="400px" height="auto" src="'.$img_src_mobile.'"/>';
                             }
                         }
                 ?>
-                        <div class="row" style="margin: 10px 0;">
-
-                            <?php include_once("shareButtons.php"); ?>
-                        </div>
 
                         <br>
-                        <p class="title-act-marathon" style="font-size: 16px;font-weight:bold; margin-top: 10px;">
+                        <p class="title-act-marathon">
                             <?php echo $news_details->getChapo(); ?></p>
-                        <p style="font-size: 16px; margin-top: 10px;"><?php echo $news_details->getTexte(); ?></p>
+                        <div class="text-act-marathon">
+                            <?php echo $news_details->getTexte(); ?>
+                    </div>
                         <br />
                         <?php  
                         $lien_1= ($news_details->getLien1()!="") ? '<a href="'.$news_details->getLien1().'" class="link-all"> '.$news_details->getTextlien1().'</a><br>' : "";
                         $lien_2=($news_details->getLien2()!="") ? '<a href="'.$news_details->getLien2().'" class="link-all"> '.$news_details->getTextlien2().'</a><br>': "";
                         $lien_3=($news_details->getLien3()!="") ? '<a href="'.$news_details->getLien3().'" class="link-all"> '.$news_details->getTextlien3().'</a><br>': "";
                         
-                        echo $lien_1.$lien_2.$lien_3; ?>
+                        echo $lien_1.$lien_2.$lien_3; 
+                        if($news_details->getVideoID()){
+                            $vid=$vd->getVideoById($news_details->getVideoID())["donnees"];
+                            echo "<a href='video-de-marathon-".$vid->getId().".html'  class='icon-link mr-5  mx-auto-mobile'><span class='material-symbols-outlined'>link</span> Vidéo : ". $vid->getTitre()."</a>";
+                        }?>
                         <br />
+                        <div class="row mobile" style="margin: 10px 0;">
 
+                        <?php include_once("shareButtons.php"); ?>
+                        </div>
                         <div id="disqus_thread"></div>
                         <script>
                             /**
@@ -286,60 +347,65 @@ $tab = explode('-',$news_details->getDate());
             <aside class="col-sm-4">
                 <p class="ban"><?php
                 /*
-if($pub300x60 !="") {
-echo $pub300x60["code"] ? $pub300x60["code"] :  "<a href=". $pub300x60['url'] ." target='_blank'><img src=".'../images/pubs/'.$pub300x60['image'] . " alt='' style=\"width: 100%;\" />";
-}*/
-?></a></p>
+                if($pub300x60 !="") {
+                echo $pub300x60["code"] ? $pub300x60["code"] :  "<a href=". $pub300x60['url'] ." target='_blank'><img src=".'../images/pubs/'.$pub300x60['image'] . " alt='' style=\"width: 100%;\" />";
+                }*/
+                ?></a>
+                </p>
 
-                <div class="for_mobile">
-                    <dt class="bref">EN BREF</dt>
-                    <dd class="bref">
-                        <ul class="clearfix">
-                            <?php
-                    foreach ($bref_news['donnees'] as $article_bref) {
-                        echo '<li><a href="/actualite-marathon-'.$article_bref->getId().'-'.slugify($article_bref->getTitre()).'.html"><span>'.date("d-m", strtotime($article_bref->getDate())).'</span>&nbsp;'.$article_bref->getTitre().'</a></li>';
-                        }
-                    ?>
-                            <li class="last"><a href="actualites-marathon-11--.html">[+] de brèves</a></li>
-                        </ul>
-                    </dd>
-                    <div class="marg_bot"></div>
-                </div>
-                <p class="ban"><?php
-if($pub300x250 !="") {
-echo $pub300x250["code"] ? $pub300x250["code"] :  "<a href=". $pub300x250['url'] ." target='_blank'><img src=".'../images/pubs/'.$pub300x250['image'] . " alt='' style=\"width: 100%;\" />";
-}
-?></a></p>
-                
-                <div class="marg_bot"></div>
-                <dt class="suggestions">suggestions d’articles</dt>
-                <dd class="suggestions">
+                <dt class="bref to_hide_mobile">
+                    <h2 class="h2-aside">
+                        <span class="material-symbols-outlined ic-15">rocket_launch</span>
+                        Vite lu
+                    </h2>
+                </dt>
+         
+                <dd class="bref to_hide_mobile marg_bot">
+
                     <ul class="clearfix">
+
                         <?php
-                    foreach ($news_suggestion as $key => $value) {
-                        $image_src='/images/news/'.substr($value->getDate(), 0,4).'/thumb_'.strtolower($value->getPhoto());
-                        $src_a_afficher= ($image_src) ? $image_src : '/images/news/2015/thumb_defaut.jpg';
-                        $img_a_afficher= '<img class="img-responsive news_suggestion" alt="" src="'.$src_a_afficher.'"/>';
-                        echo '<li><a href="/actualite-marathon-'.$value->getId().'-'.slugify($value->getTitre()).'.html"><span>'.$img_a_afficher.'</span> <strong>'.$value->getTitre().'</strong></a></li>';
+
+                    foreach ($bref_news['donnees'] as $article_bref) {
+                        $tab = explode('-',$article_bref->getDate());
+                        $yearNews  = $tab[0];
+                        echo '<li><a href="/actualite-marathon-'.$article_bref->getId().'-'.slugify($article_bref->getTitre()).'.html">
+                            <div class="row">
+                                <div class="vite-lu-image col-sm-6" style="background-image:url(../../images/news/'.$yearNews.'/'.$article_bref->getPhoto().')"></div>
+                                <div class="col-sm-6 pr-0 vite-lu-title">'.$article_bref->getTitre().'</div>
+                            </div>
+                        </a></li>';
+
+                
+
                     }
 
                     ?>
-                        <li></li>
-                    </ul>
-                </dd>
+                <p class="ban"><?php
+                    if($pub300x250 !="") {
+                    echo $pub300x250["code"] ? $pub300x250["code"] :  "<a href=". $pub300x250['url'] ." target='_blank'><img src=".'../images/pubs/'.$pub300x250['image'] . " alt='' style=\"width: 100%;\" />";
+                    }
+                    ?></a>
+                </p>
+                
+               
                 <div class="marg_bot"></div>
-                <p class="ban ban_160-600"><a href=""><?php
-if($pub160x600 !="") {
-    //var_dump($pub160x600["url"]); exit;
-    if($pub160x600["code"]==""){
-        echo "<a href=".'http://allmarathon.fr/'.$pub160x600["url"]." target='_blank'><img src=".'../images/news/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" /></a>";
-    }
-    else{
-        echo $pub160x600["code"];
-    }
-/*echo $pub160x600["code"] ? $pub160x600["code"] :  "<img src=".'../images/pubs/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" />";*/
-}
-?></a></p>
+                <p class="ban ban_160-600">
+                    <a href="">
+                        <?php
+                        if($pub160x600 !="") {
+                            //var_dump($pub160x600["url"]); exit;
+                            if($pub160x600["code"]==""){
+                                echo "<a href=".'http://allmarathon.fr/'.$pub160x600["url"]." target='_blank'><img src=".'../images/news/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" /></a>";
+                            }
+                            else{
+                                echo $pub160x600["code"];
+                            }
+                        /*echo $pub160x600["code"] ? $pub160x600["code"] :  "<img src=".'../images/pubs/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" />";*/
+                        }
+                        ?>
+                    </a>
+                </p>
                 <div class="marg_bot"></div>
 
             </aside>

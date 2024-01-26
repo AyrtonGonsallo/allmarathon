@@ -54,7 +54,7 @@ function array_msort($array, $cols)
 			$pays_flag=$pays->getFlagByAbreviation($resultat['PaysID'])['donnees']['Flag'];
 		   $nom_res= $resultat['nom'];
 
-			$res.= '<div class="col-sm-6 marathon-grid">
+			$res.= '<div class="col-sm-4 marathon-grid">
 				<a class="page-marathon-link" href="/marathons-'.$resultat['id'].'-'.slugify($nom_res).'.html">
 					<h4 class="page-marathon-title">'.$nom_res.'<img class="marathon-title-flag" style="float:right" src="../../images/flags/'.$pays_flag.'" alt=""/></h4></a> ';
 					 
@@ -106,7 +106,7 @@ function array_msort($array, $cols)
 					$pays_flag=$pays->getFlagByAbreviation($resultat['PaysID'])['donnees']['Flag'];
 				   $nom_res= $resultat['nom'];
 		
-					$res.= '<div class="col-sm-6 marathon-grid">
+					$res.= '<div class="col-sm-4 marathon-grid">
 						<a class="page-marathon-link" href="/marathons-'.$resultat['id'].'-'.slugify($nom_res).'.html">
 							<h4 class="page-marathon-title">'.$nom_res.'<img class="marathon-title-flag" style="float:right" src="../../images/flags/'.$pays_flag.'" alt=""/></h4></a> ';
 							 

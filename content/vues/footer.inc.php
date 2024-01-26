@@ -249,8 +249,7 @@
                                             target="_blank">Flux RSS</a></li>
                                         </ul>
                                     </dd>
-                        <br>
-
+                        
                     </div>
                     
                     <div class="col-sm-2">

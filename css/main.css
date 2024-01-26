@@ -22,6 +22,7 @@ b{
     margin-left: auto;
     margin-right: auto;
 }
+
 .m-h-400{
     min-height: 400px;
 }
@@ -45,6 +46,9 @@ strong{
 }
 .mt-100{
     margin-top: 100px;
+}
+.mt-77{
+    margin-top: 77px;
 }
 .pr-0{
     padding-right: 0 !important;
@@ -281,7 +285,9 @@ table.dataTable.no-footer {
     background: #b3d4fc;
     text-shadow: none;
 }
-
+li.menu-item-categories  {
+    min-width: 600px;
+}
 /*
  * A better looking default horizontal rule
  */
@@ -664,7 +670,19 @@ li.rs_header {
     text-decoration: none;
     outline: none;
 }
-
+.text-act-marathon{
+    font-size: 20px;
+    margin-top: 10px;
+}
+.text-act-marathon a{
+    text-decoration: underline;
+}
+.title-act-marathon{
+    font-family: "Poppins-Bold";
+    font-size: 20px;
+    font-weight:bold; 
+    margin-top: 10px;
+}
 a.link:visited,
 a.link:active,
 a.link:focus {
@@ -672,13 +690,17 @@ a.link:focus {
     text-decoration: none;
     outline: none;
 }
-
+.comment-count-container{
+    display: flex;
+    width: 32px;
+    float: right;
+}
 .header {
     background: #fff;
     box-shadow: 0 3px 3px #e5e5e5;
     position: fixed;
     width: 100%;
-    border-bottom: black 1px solid !important;
+    border-bottom: white 1px solid !important;
     top: 0;
     left: 0;
     z-index: 999999999;
@@ -740,10 +762,12 @@ input#header-search:focus {
     font-size: 18px;
     font-weight: 100;
     line-height: 4em;
-    padding: 0 20px;
+    padding: 0 0px;
     text-transform: capitalize;
+    letter-spacing: -0.3px;
 }
 @media (min-width:1120px) and (max-width:1428px){
+   
     .header--nav--link {
         padding: 0 5px !important;
     }
@@ -792,10 +816,41 @@ li.menu-item-categories .fa-bars,
 li.menu-item-categories .hamburger-menu-button {
     display: none !important;
 }
+.float-r{
+    float: right;
+}
+.float-l{
+    float: left;
+}
+.clear-b{
+    clear: both;
+}
+.marathons h1{
+    font-size: 20px;
+    font-family: 'Poppins-Bold';
+}
+.marathons h2{
+    font-family: 'Poppins-regular';
+    font-size: 20px;
+}
 
-/*li.menu-item-categories  {
-    box-shadow: 0 3px 3px #e5e5e5;
-}*/
+.marathons input{
+    font-family: 'Poppins-regular';
+    font-size: 20px;
+    background-color: #eeeff0;
+    border: none !important;
+}
+.total-marathons{
+    background-color: #95d7fe;
+    padding:  0 10px;
+    font-family: 'Poppins-bold';
+    font-size: 20px;
+    float: right;
+}
+li.menu-item-categories  li{
+    margin-left: 10px;
+    margin-right: 10px;
+}
 
 .navbar-custom {
     padding: 0;
@@ -962,7 +1017,7 @@ li.menu-item-categories .hamburger-menu-button {
         clear: both;
         display: none;
         position: absolute;
-        right: -26px;
+        right: -17px;
         text-align: center;
         top: 68px;
         height: 92vh;
@@ -1136,7 +1191,7 @@ li.menu-item-categories .hamburger-menu-button {
     padding: 5px 15px;
     color: #aea8a8;
     font-weight: bold;
-   border-radius: 3px;
+   border-radius: 2px;
 }
 
 .page-content aside dd.calendar ul li.last a:hover,.page-content2 aside dd.result ul li.last a:hover {
@@ -1926,6 +1981,22 @@ li.menu-item-categories .hamburger-menu-button {
     font-weight: bold;
     border-radius: 3px;
 }
+.icon-link{
+    background-color: #fbff0b;
+    color: #000;
+    width: fit-content;
+    font-family: 'Poppins-Bold';
+    padding: 5px 15px;
+    font-size: 16px !important;
+    font-weight: bold;
+    border-radius: 3px;
+    align-items: center;
+    display: flex;
+}
+#thread__container{
+    font-family: 'Poppins-Black';
+    font-size: 20px;
+}
 .title_news a, .video_title, .left-side article .desc-img h2{
     text-transform: none;
 }
@@ -2501,10 +2572,7 @@ h2.mini_h2 {
 }
 .marathons .results-search{
     color: #000000;
-    background-color: #fbff0b;
-    border-top: black solid 1px;
-    border-bottom: black solid 1px;
-    border-right: black solid 1px;
+    background-color: #eeeff0;
     margin-top: 0px;
 }
 #categorie{
@@ -3117,17 +3185,24 @@ margin-bottom: 10px;
     border-radius: 0;
     color: #666666;
 }
-
+.news-detail a{
+    color: #000;
+}
 .athlete-detail h2.borde#fbff0b {
     text-transform: uppercase;
     font-size: 1.6em;
     border-top: 2px solid #cccccc;
     padding-top: 20px;
 }
-
+.news-details-subtitle{
+    font-size: 15px;
+    font-family: 'Poppins-Light';
+    margin-top: 7px;
+    text-transform: none;
+}
 h1.news-detail {
-    font-family: 'Poppins-SemiBold';
-    font-size: 24px;
+    font-family: 'Poppins-Black';
+    font-size: 34px;
     border-top: none;
     margin: 0;
     color: #333;
@@ -3606,6 +3681,9 @@ ul.partenaires-actuels {
 @media screen and (max-width: 1120px) {
     li.menu-item-categories .hamburger-menu-button {
         display: flex !important;
+    }
+    li.menu-item-categories  {
+        min-width: 0px !important;
     }
 }
 
