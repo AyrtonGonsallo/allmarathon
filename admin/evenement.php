@@ -75,7 +75,7 @@ if( isset($_POST['sub'])){
                         try {
                             
                             
-                                $sql .="INSERT INTO evenements (Nom,prefixe,parcours_image,parcours_iframe,	Sexe,DateDebut,Presentation,CategorieageID,CategorieID,Visible,".$reqDocBegin." PaysID,Web,insta,facebook,youtube,affiche,video_teaser,marathon_id) VALUES (:nom,:prefixe,:parcours_image,:parcours_iframe,:sexe,:dateDebut,:Presentation,:CategorieAgeID,:CategorieID,:Visible, ".$reqDocEnd." :PaysID,:site,:insta,:facebook,:youtube,:affiche,:video_teaser,:marathon_id)";
+                                $sql .="INSERT INTO evenements (Nom,prefixe,parcours_image,parcours_iframe,	Sexe,DateDebut,Presentation,CategorieageID,CategorieID,Visible,a_l_affiche,".$reqDocBegin." PaysID,Web,insta,facebook,youtube,affiche,video_teaser,marathon_id) VALUES (:nom,:prefixe,:parcours_image,:parcours_iframe,:sexe,:dateDebut,:Presentation,:CategorieAgeID,:CategorieID,:Visible,:a_l_affiche, ".$reqDocEnd." :PaysID,:site,:insta,:facebook,:youtube,:affiche,:video_teaser,:marathon_id)";
                             
                                 $fileName = $_FILES['affiche']['name'];
                                 $parcours_image	 = $_FILES['parcours_image']['name'];
@@ -93,6 +93,7 @@ if( isset($_POST['sub'])){
                              $req4->bindValue('CategorieAgeID',6, PDO::PARAM_INT);
                              $req4->bindValue('CategorieID',$_POST['CategorieID'], PDO::PARAM_STR);
                              $req4->bindValue('Visible',$_POST['Visible'], PDO::PARAM_STR);
+                             $req4->bindValue('a_l_affiche',$_POST['a_l_affiche'], PDO::PARAM_STR);
                              $req4->bindValue('PaysID',$_POST['PaysID'], PDO::PARAM_STR);
                              $req4->bindValue('site',$_POST['site'], PDO::PARAM_STR);
                              $req4->bindValue('insta',$_POST['insta'], PDO::PARAM_STR);
@@ -287,8 +288,12 @@ if( isset($_POST['sub'])){
                     $("table.tablesorter")
                     .tablesorter({widthFixed: false, widgets: ['zebra']})
                     .tablesorterPager({container: $("#pager")});
+
+                    $("table.tablesorter.pager2")
+                    .tablesorterPager({container: $("#pager2")});
                 }
                 );
+               
 
             </script>
             <link href="../fonction/ui/css/ui-darkness/jquery-ui-1.7.1.custom.css" rel="stylesheet" type="text/css" />
@@ -328,7 +333,8 @@ if( isset($_POST['sub'])){
             <table>
                 
                 <tr><td><label for="Type">Visible : </label></td><td><input  type="radio" name="Visible" id="visible_oui" value="1" checked="checked"/><label for="visible_oui">Oui</label>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="Visible" id="visible_non" value="0" /><label for="visible_non">non</label></td></tr>
-                
+                <tr><td><label for="Type">À l'affiche : </label></td><td><input  type="radio" name="a_l_affiche" id="a_l_affiche_oui" value="1" /><label for="a_l_affiche_oui">Oui</label>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="a_l_affiche" id="a_l_affiche_non" value="0" checked="checked"/><label for="a_l_affiche_non">non</label></td></tr>
+
                 <tr><td><label for="Nom">Intitul&eacute; (Ville + nom) : </label></td><td><input id="nom" type="text" name="Nom" value="" /></td></tr>
                 <tr><td><label for="prefixe">Préfixe : </label></td><td><input id="prefixe" type="text" name="prefixe" value="" /></td></tr>
 
@@ -426,7 +432,7 @@ if( isset($_POST['sub'])){
     <legend>Liste des marathons</legend>
     <div >
 
-        <div id="pager" class="pager">
+        <div id="pager2" class="pager pager2">
            <form>
               <img src="../fonction/tablesorter/first.png" class="first"/>
               <img src="../fonction/tablesorter/prev.png" class="prev"/>
@@ -443,7 +449,7 @@ if( isset($_POST['sub'])){
      </div>
      <br />
 
-     <table class="tablesorter">
+     <table class="tablesorter pager2">
         <thead>
             <tr><th>ID</th><th>nom</th><th>lieu</th><th>PaysID</th><th>Action</th></tr>
         </thead>

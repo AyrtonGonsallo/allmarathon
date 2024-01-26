@@ -351,7 +351,7 @@ include_once('nv_header-integrer.php'); ?>
 
                                
 
-                                    <div class="article-img"><a href="/actualite-marathon-'.$article->getId().'-'.$url_text.'.html">'.$img_a_afficher.'<strong>'.$cat.'</strong><img class="media" src="'.$img_src.'" alt=""></a></div>
+                                    <div class="article-img"><a href="/actualite-marathon-'.$article->getId().'-'.$url_text.'.html">'.$img_a_afficher.'<img class="media" src="'.$img_src.'" alt=""></a></div>
 
                                
 
@@ -470,7 +470,7 @@ include_once('nv_header-integrer.php'); ?>
 
                                
 
-                                    <div class="article-img"><a href="/actualite-marathon-'.$article->getId().'-'.$url_text.'.html">'.$img_a_afficher.'<strong>'.$cat.'</strong><img class="media" src="'.$img_src.'" alt=""></a></div>
+                                    <div class="article-img"><a href="/actualite-marathon-'.$article->getId().'-'.$url_text.'.html">'.$img_a_afficher.'<img class="media" src="'.$img_src.'" alt=""></a></div>
 
                                
 
@@ -903,7 +903,7 @@ if($pub160x600 !="") {
             <div class="row">
 
             <div class="col-sm-8 left-side">
-            <section class="last_articles_part1 mt-0 mobile">
+            <section class="last_articles_part1 mt-0 mobile lazyblock-mobile">
 
 
                 <?php
@@ -976,7 +976,7 @@ if($pub160x600 !="") {
 
                                
 
-                                    <div class="article-img"><a href="/actualite-marathon-'.$article->getId().'-'.$url_text.'.html">'.$img_a_afficher.'<strong>'.$cat.'</strong><img class="media" src="'.$img_src.'" alt=""></a></div>
+                                    <div class="article-img"><a href="/actualite-marathon-'.$article->getId().'-'.$url_text.'.html">'.$img_a_afficher.'<img class="media" src="'.$img_src.'" alt=""></a></div>
 
                                
 
@@ -1118,25 +1118,46 @@ if($pub160x600 !="") {
 
     $(document).ready(function() {
 
+        if(window.outerWidth < 740) {
+            $(".lazyblock-mobile div").slice(12).hide();
+            $(".lazyblock-mobile article").slice(6).hide();
 
-        $(".lazyblock div").slice(12).hide();
-        $(".lazyblock article").slice(6).hide();
+                var mincount = 2;
+                var maxcount = 12;
+                
 
-            var mincount = 2;
-            var maxcount = 12;
-            
+                $(window).scroll(function () {
+                    //console.log("left: ",$(window).scrollTop() + $(window).height())
+                    //console.log("right: ",$(document).height() - 20)
+                    if ($(window).scrollTop() + $(window).height() >= 7000) {
+                        $(".lazyblock-mobile div").slice(mincount, maxcount).slideDown(100);
+                        $(".lazyblock-mobile article").slice(mincount, maxcount).slideDown(100);
+                        mincount = mincount + 2;
+                        maxcount = maxcount + 2
 
-            $(window).scroll(function () {
-                //console.log("left: ",$(window).scrollTop() + $(window).height())
-                //console.log("right: ",$(document).height() - 20)
-                if ($(window).scrollTop() + $(window).height() >= $(document).height() - 500) {
-                    $(".lazyblock div").slice(mincount, maxcount).slideDown(100);
-                    $(".lazyblock article").slice(mincount, maxcount).slideDown(100);
-                    mincount = mincount + 2;
-                    maxcount = maxcount + 2
+                    }
+                });
+        }else{
+            $(".lazyblock div").slice(12).hide();
+            $(".lazyblock article").slice(6).hide();
 
-                }
-            });
+                var mincount = 2;
+                var maxcount = 12;
+                
+
+                $(window).scroll(function () {
+                    //console.log("left: ",$(window).scrollTop() + $(window).height())
+                    //console.log("right: ",$(document).height() - 20)
+                    if ($(window).scrollTop() + $(window).height() >= $(document).height() - 500) {
+                        $(".lazyblock div").slice(mincount, maxcount).slideDown(100);
+                        $(".lazyblock article").slice(mincount, maxcount).slideDown(100);
+                        mincount = mincount + 2;
+                        maxcount = maxcount + 2
+
+                    }
+                });
+        }
+       
         })
     </script>
     <script type='text/javascript'>

@@ -140,14 +140,14 @@ if(isset($_GET['evenementID']) or isset($_GET['evenement_filsID'])){
 
                              try {
                                 if(empty($_FILES['affiche']['name']) and !empty($_FILES['parcours_image']['name'])){
-                                    $req4 = $bdd->prepare("UPDATE ".$table." SET Nom=:Nom,prefixe=:prefixe,Sexe=:Sexe,DateDebut=:DateDebut,parcours_iframe=:pifr,parcours_image=:pimg,Presentation=:Presentation,lien_resultats_complet=:lrc,CategorieageID=:CategorieageID,CategorieID=:CategorieID,Visible=:Visible,Valider=:Valider,Contact=:Contact,Mail=:Mail,Web=:Web,insta=:insta,facebook=:facebook,youtube=:youtube,marathon_id=:mar_id,video_teaser=:vit,Telephone=:Telephone,".$reqDoc." PaysID=:PaysID WHERE ID=:event_id");
+                                    $req4 = $bdd->prepare("UPDATE ".$table." SET Nom=:Nom,prefixe=:prefixe,Sexe=:Sexe,DateDebut=:DateDebut,parcours_iframe=:pifr,parcours_image=:pimg,Presentation=:Presentation,lien_resultats_complet=:lrc,CategorieageID=:CategorieageID,CategorieID=:CategorieID,Visible=:Visible,a_l_affiche=:a_l_affiche,Valider=:Valider,Contact=:Contact,Mail=:Mail,Web=:Web,insta=:insta,facebook=:facebook,youtube=:youtube,marathon_id=:mar_id,video_teaser=:vit,Telephone=:Telephone,".$reqDoc." PaysID=:PaysID WHERE ID=:event_id");
 
                                 }else if(!empty($_FILES['affiche']['name']) and empty($_FILES['parcours_image']['name'])){
-                                    $req4 = $bdd->prepare("UPDATE ".$table." SET Nom=:Nom,prefixe=:prefixe,Sexe=:Sexe,DateDebut=:DateDebut,parcours_iframe=:pifr,Presentation=:Presentation,lien_resultats_complet=:lrc,CategorieageID=:CategorieageID,CategorieID=:CategorieID,Visible=:Visible,Valider=:Valider,Contact=:Contact,Mail=:Mail,Web=:Web,insta=:insta,facebook=:facebook,youtube=:youtube,marathon_id=:mar_id,affiche=:aff,video_teaser=:vit,Telephone=:Telephone,".$reqDoc." PaysID=:PaysID WHERE ID=:event_id");
+                                    $req4 = $bdd->prepare("UPDATE ".$table." SET Nom=:Nom,prefixe=:prefixe,Sexe=:Sexe,DateDebut=:DateDebut,parcours_iframe=:pifr,Presentation=:Presentation,lien_resultats_complet=:lrc,CategorieageID=:CategorieageID,CategorieID=:CategorieID,Visible=:Visible,a_l_affiche=:a_l_affiche,Valider=:Valider,Contact=:Contact,Mail=:Mail,Web=:Web,insta=:insta,facebook=:facebook,youtube=:youtube,marathon_id=:mar_id,affiche=:aff,video_teaser=:vit,Telephone=:Telephone,".$reqDoc." PaysID=:PaysID WHERE ID=:event_id");
 
                                 }
                                 else if(empty($_FILES['parcours_image']['name']) and empty($_FILES['affiche']['name'])){
-                                    $req4 = $bdd->prepare("UPDATE ".$table." SET Nom=:Nom,prefixe=:prefixe,Sexe=:Sexe,DateDebut=:DateDebut,parcours_iframe=:pifr,Presentation=:Presentation,lien_resultats_complet=:lrc,CategorieageID=:CategorieageID,CategorieID=:CategorieID,Visible=:Visible,Valider=:Valider,Contact=:Contact,Mail=:Mail,Web=:Web,insta=:insta,facebook=:facebook,youtube=:youtube,marathon_id=:mar_id,video_teaser=:vit,Telephone=:Telephone,".$reqDoc." PaysID=:PaysID WHERE ID=:event_id");
+                                    $req4 = $bdd->prepare("UPDATE ".$table." SET Nom=:Nom,prefixe=:prefixe,Sexe=:Sexe,DateDebut=:DateDebut,parcours_iframe=:pifr,Presentation=:Presentation,lien_resultats_complet=:lrc,CategorieageID=:CategorieageID,CategorieID=:CategorieID,Visible=:Visible,a_l_affiche=:a_l_affiche,Valider=:Valider,Contact=:Contact,Mail=:Mail,Web=:Web,insta=:insta,facebook=:facebook,youtube=:youtube,marathon_id=:mar_id,video_teaser=:vit,Telephone=:Telephone,".$reqDoc." PaysID=:PaysID WHERE ID=:event_id");
 
                                 }
                                 $fileName = $_FILES['affiche']['name'];
@@ -177,7 +177,7 @@ if(isset($_GET['evenementID']) or isset($_GET['evenement_filsID'])){
                                 $req4->bindValue('CategorieID',$_POST['CategorieID'], PDO::PARAM_STR);
 
                                 $req4->bindValue('Visible',$_POST['Visible'], PDO::PARAM_INT);
-
+                                $req4->bindValue('a_l_affiche',$_POST['a_l_affiche'], PDO::PARAM_INT);
                                 $req4->bindValue('Valider',$_POST['Valider'], PDO::PARAM_INT);
 
 
@@ -497,6 +497,7 @@ if(isset($_GET['evenementID']) or isset($_GET['evenement_filsID'])){
     <table>
 
         <tr><td><label for="Visible">Visible : </label></td><td><input  type="radio" name="Visible" id="visible_oui" value="1" <?php if($event['Visible']=='1') echo 'checked="checked"';?>/><label for="visible_oui">Oui</label>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="Visible" id="visible_non" value="0" <?php if($event['Visible']=='0') echo 'checked="checked"';?> /><label for="visible_non">non</label></td></tr>
+        <tr><td><label for="a_l_affiche">À l'affiche : </label></td><td><input  type="radio" name="a_l_affiche" id="a_l_affiche_oui" value="1" <?php if($event['a_l_affiche']=='1') echo 'checked="checked"';?>/><label for="a_l_affiche_oui">Oui</label>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="a_l_affiche" id="a_l_affiche_non" value="0" <?php if($event['a_l_affiche']=='0') echo 'checked="checked"';?> /><label for="a_l_affiche_non">non</label></td></tr>
 
         <tr><td><label for="Valider">Valider : </label></td><td><input  type="radio" name="Valider" id="valider_oui" value="1" <?php if($event['Valider']=='1') echo 'checked="checked"';?>/><label for="valider_oui">Oui</label>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="Valider" id="valider_non" value="0" <?php if($event['Valider']=='0') echo 'checked="checked"';?> /><label for="valider_non">non</label></td></tr>
         

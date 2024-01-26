@@ -56,6 +56,18 @@ li.menu-item-categories{
   .header--logo img {
     width: 195px !important;
 }
+.marathon-sub-menu-grid {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.marathon-sub-menu-grid .home-link {
+  width: 100% !important;
+}
+.total-marathons{
+  font-size: 14px;
+}
 .mx-auto-mobile{
   margin-left: auto;
   margin-right: auto;
@@ -1135,7 +1147,7 @@ footer {
   min-height: 60px;
 }
 .marathon-liste-image {
-  height: 95px;
+  height: 121px;
   max-width: 100%;
 }
 #AtoZ , #ZtoA{

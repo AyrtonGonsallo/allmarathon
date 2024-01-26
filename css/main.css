@@ -833,10 +833,13 @@ li.menu-item-categories .hamburger-menu-button {
     font-family: 'Poppins-regular';
     font-size: 20px;
 }
-
+.marathon-sub-menu-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr 3fr;
+}
 .marathons input{
-    font-family: 'Poppins-regular';
-    font-size: 20px;
+    font-family: 'Poppins-Bold';
+    font-size: 16px;
     background-color: #eeeff0;
     border: none !important;
 }
@@ -1603,11 +1606,21 @@ li.menu-item-categories  li{
 .left-side dd.offres-allmarathon a.navig.prev {
     left: 6px;
 }
-
+.marathon-to-come{
+    color: #00aeef !important;
+}
 .left-side dd.offres-allmarathon a.navig.next {
     right: 6px;
 }
-
+.mention-top{
+    background-color: #fbff0b;
+    padding: 0px 5px;
+    display: flex;
+    top: 5px;
+    left: 5px;
+    position: relative;
+    width: fit-content;
+}
 .left-side dd.offres-allmarathon ul li {
     background-color: #bd9f54;
 }
@@ -1977,6 +1990,7 @@ li.menu-item-categories .hamburger-menu-button {
     width: fit-content;
     font-family: 'Poppins-Bold';
     padding: 5px 15px;
+    display: block;
     font-size: 16px !important;
     font-weight: bold;
     border-radius: 3px;
@@ -3042,14 +3056,11 @@ margin-bottom: 10px;
     margin-bottom: 0px;
     padding: 0;
     letter-spacing: 0.5px;
-    max-width: 90%;
 }
 .marathon-liste-image{
-    
-    max-width: 90%;
     background-size: cover;
     width: auto;
-    height: 100px;
+    height: 116px;
     background-position-y: center;
     margin-bottom: 10px;
 }
@@ -3068,8 +3079,8 @@ margin-bottom: 10px;
     margin-top: 4px;
 }
 .marathon-grid{
-    margin: 0px;
-    padding:0;
+    margin: 0;
+    padding:7px;
     min-height: 240px;
 }
 .page-marathon-link{
@@ -4587,6 +4598,21 @@ a.btn-achat:hover {
 }
 .no-padding-right {
     padding-right: 0px;
+}
+.marathon-details-breadcumb{
+    float:right;
+    margin-top: 20px;
+    font-family: 'Poppins-Thin';
+    font-size: 17px;
+    margin-bottom: 10px;
+}
+.marathon-details-breadcumb .material-symbols-outlined{
+   font-size: 22px;
+   position: relative;
+    top: 5px;
+}
+.image-marathon-full-width{
+    width: 100%;
 }
 .sous-evenements dt:hover{
     color: #fbff0b;

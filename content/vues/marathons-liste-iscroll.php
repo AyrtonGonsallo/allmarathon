@@ -121,38 +121,15 @@ try{
                 //var_dump($row2);exit();  
                 //array_push($first_events, $row2);
                 $row['date_prochain_evenement']=$row2['DateDebut'];
-                $row['is_top_prochain_evenement']=$row2['a_l_affiche'];
-                $row['type_evenement']="prochain";
                 $row['date_prochain_evenement_nom']=$row2['Nom'];
                 $row['date_prochain_evenement_id']=$row2['ID'];
                 $row['last_linked_events_cat_id']=$row2['CategorieID'];
 
             }
         }else {
-            $req24 = $bdd->prepare("SELECT * FROM evenements where marathon_id=:mar_id and Valider=1  ORDER BY DateDebut limit 1");
-            $req24->bindValue('mar_id', $row["id"], PDO::PARAM_INT);
-            
-            $req24->execute();
-            if($req24->rowCount()>0){
-                while ( $row24  = $req24->fetch(PDO::FETCH_ASSOC)) {
-                    //var_dump($row2);exit();  
-                    //array_push($first_events, $row2);
-                    $row['date_prochain_evenement']='NULL';
-                    $row['last_linked_events_cat_id']=NULL;
-                    $row['type_evenement']="dernier";
-                    $row['date_dernier_evenement']=$row24['DateDebut'];
-                    $row['date_dernier_evenement_nom']=$row24['Nom'];
-                    $row['date_dernier_evenement_id']=$row24['ID'];
-    
-                }
-            }else{
-                $row['type_evenement']="aucun";
-                $row['date_prochain_evenement']='NULL';
-                    $row['last_linked_events_cat_id']=NULL;
-            }
             //array_push($first_events, NULL);
-            //$row['date_prochain_evenement']='NULL';
-            //$row['last_linked_events_cat_id']=NULL;
+            $row['date_prochain_evenement']='NULL';
+            $row['last_linked_events_cat_id']=NULL;
 
         }
 
@@ -166,7 +143,7 @@ try{
   {
       die('Erreur : ' . $e->getMessage());
   }
-  $results_sorted_by_next_event=array_slice(array_msort($results, array('type_evenement'=>SORT_DESC,'date_prochain_evenement'=>SORT_ASC,'nom'=>SORT_ASC)),0,500);
+  $results_sorted_by_next_event=array_slice(array_msort($results, array('date_prochain_evenement'=>SORT_ASC,'nom'=>SORT_ASC)),0,400);
   $req = $bdd->prepare("SELECT count(*) AS nbr FROM marathons");
   $req->execute();
   $nombre_de_marathons= $req->fetch(PDO::FETCH_ASSOC);
@@ -289,28 +266,28 @@ try{
 
 
 
-                    <div class="col-sm-12 no-padding-left no-padding-right">
+                    <div class="col-sm-12 no-padding-left">
 
 
-                        <h1 class="float-l">Calendrier des marathons en France et dans le monde</h1><span class="total-marathons bureau"><?php echo $nombre_de_marathons["nbr"]." résultats";?></span>
+                        <h1 class="float-l">Calendrier des marathons en France et dans le monde</h1><span class="total-marathons"><?php echo $nombre_de_marathons["nbr"]." résultats";?></span>
                         <h2  class="clear-b">Histoire, palmarès, résultats, agenda des marathons les plus célèbres : Boston, Chicago, New-York, Londres, Berlin, Tokyo...</h2>
                         
                        
 
                         <div>
-                        <div class="marathon-sub-menu-grid">
-                            <div class="">
+                        <div class="row">
+                            <div class="col-sm-3">
                                 <a href="/agenda-marathons-par-pays.html" class="home-link">Marathons par pays</a>
                             </div>
-                            <div class="">
+                            <div class="col-sm-3">
                                 <a href="/agenda-marathons-par-mois.html" class="home-link">Marathons par mois</a>
                             </div>
-                            <div class="">
+                            <div class="col-sm-6">
                                 <form action="" method="post" class="form-inline" role="form">
 
                                     <div class="form-group" style="width:100%; white-space: nowrap; margin-bottom: 5px;">
 
-                                        <input type="search" id="search_val_res" placeholder="Recherche par ville" class="form-control"
+                                        <input type="search" id="search_val_res" placeholder="Recherche" class="form-control"
 
                                             style="width:93%" />
 
@@ -342,68 +319,21 @@ try{
 
 
 
-                    <span class="total-marathons mobile"><?php echo $nombre_de_marathons["nbr"]." résultats";?></span>
-                    <ul class="col-sm-12 resultats">
-                <div class="row lazyblock" id="liste-marathons">
-                        <?php 
-                        $i=0;                             
-                        setlocale(LC_TIME, "fr_FR","French");
-                        $res="";
-                        foreach ($results_sorted_by_next_event as $resultat) {
-                
-                            $pays_flag=$pays->getFlagByAbreviation($resultat['PaysID'])['donnees']['Flag'];
-                           $nom_res= $resultat['nom'];
-                
-                            $res.= '<div class="col-sm-4 marathon-grid">
-                                <a class="page-marathon-link" href="/marathons-'.$resultat['id'].'-'.slugify($nom_res).'.html">
-                                    <h4 class="page-marathon-title">'.$nom_res.'<img class="marathon-title-flag" style="float:right" src="../../images/flags/'.$pays_flag.'" alt=""/></h4></a>';
-                                     
-                                    $img_src='/images/marathons/thumb_'.$resultat['image'];
-                                    $full_image_path="http://" . $_SERVER['HTTP_HOST'] .$img_src;
-                                    //$res.= $full_image_path;
 
-                                    if($resultat['is_top_prochain_evenement']){
-                                        $top='<span class="mention-top"><span class="material-symbols-outlined">kid_star</span>Top</span>';
-                                    }else{
-                                        $top="";
-                                    }
-                                    $res.='<a class="page-marathon-link" href="/marathons-'.$resultat['id'].'-'.slugify($nom_res).'.html">';
-                                    if ($img_src)
-                                        {
-                                            $res.= '<div class="marathon-liste-image" style="background-image:url('.$img_src.')">'.$top.'</div>';
-                                        }else{
-                                            $res.= '<div class="marathon-liste-image" style="background-color:#000"></div>';
-                                        }
-                            $res.='</a>';
-                                     if($resultat['last_linked_events_cat_id']){
-                                        $res.= '<div><b>'.$ev_cat_event->getEventCatEventByID($resultat['last_linked_events_cat_id'])['donnees']->getIntitule().'</b></div>';
-                
-                                     }else{
-                                        $res.= '<div><b>Marathon</b></div>';
-                
-                                     }
-                                    if($resultat["type_evenement"]=='prochain'){
-                                        $nom_premier_even= $resultat["date_prochain_evenement_nom"];
-                                        $id= $resultat["date_prochain_evenement_id"];
-                                        $date_premier_even=strftime("%A %d %B %Y",strtotime($resultat["date_prochain_evenement"]));
-                                                
-                                        $res.= '<div>'.utf8_encode($date_premier_even).'</div>';
-                                    }else if($resultat["type_evenement"]=='dernier'){
-                                        $nom_premier_even= $resultat["date_prochain_evenement_nom"];
-                                        $id= $resultat["date_prochain_evenement_id"];
-                                        $date_premier_even=strftime("%B %Y",strtotime($resultat["date_dernier_evenement"]));
-                                                
-                                        $res.= '<div>'.utf8_encode($date_premier_even).' - <span class="marathon-to-come">En attente de date</span></div>';
-                                    }else if($resultat["type_evenement"]=='aucun'){
-                                        $res.= '<div> Prochaine date À venir</div>';
-                                    }
-                
-                                
-                            $res.= '</div>';
-                            $i++;
-                        }
-                        echo $res;
+                    <ul class="col-sm-12 resultats">
+                <div class="row" id="liste-marathons">
+               
+                <div class="karya">
+                    <?php foreach ($results_sorted_by_next_event as $resultat) {
+                        $img_src='/images/marathons/thumb_'.$resultat['image'];
+                        $full_image_path="http://" . $_SERVER['HTTP_HOST'] .$img_src;
                         ?>
+                        <div class="test">
+                            <img src="<?php echo $full_image_path;?>" />
+                        </div>
+                    <?php }?>
+                    
+                </div>
                 </div>
                     </ul>
 
@@ -454,7 +384,99 @@ try{
 
     <?php include('footer.inc.php'); ?>
 
-
+<style>
+    body {
+    font-family: Open Sans, sans-serif;
+    color: coral;
+}
+h1 {
+    font-weight: 300;
+    font-size: 3em;
+}
+a {
+    text-decoration: none;
+    color: cornflowerblue;
+}
+a:hover {
+    text-decoration: none;
+    color: tomato;
+}
+img {
+    width: 100%;
+    height: auto;
+}
+.cerita {
+    text-align: center;
+    padding-top: 40px;
+}
+.karya {
+    margin:0px auto;
+    text-align:left;
+    padding:15px;
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    max-width:1000px;
+}
+.test {
+    padding-top: 40px;
+    margin: 20px;
+  
+}
+.menu {
+    position: fixed;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    margin: 25px;
+    opacity: 0.5;
+}
+.menu:hover {
+    opacity:1;
+}
+.menu::after {
+    content: attr(data-dia);
+    padding-left: 50px;
+    color: deepskyblue;
+}
+.menu span {
+    margin: 0 auto;
+    position: relative;
+    top: 12px;
+}
+.menu span:before, .menu span:after {
+    position: absolute;
+    content:'';
+}
+.menu span, .menu span:before, .menu span:after {
+    width: 40px;
+    height: 4px;
+    background-color: deepskyblue;
+    display: block;
+}
+.menu span:before {
+    margin-top: -12px;
+}
+.menu span:after {
+    margin-top: 12px;
+}
+.pusing span {
+    -webkit-transition: .2s ease 0;
+}
+.pusing span:before, .pusing span:after {
+    -webkit-transition-property: margin, opacity;
+    -webkit-transition-duration: .2s, 0;
+    -webkit-transition-delay: .2s;
+}
+.pusing:hover span {
+    -webkit-transform: rotate(90deg);
+    -webkit-transition-delay: .2s;
+}
+.pusing:hover span:before, .pusing:hover span:after {
+    margin-top: 0px;
+    opacity: 0;
+    -webkit-transition-delay: 0, .2s;
+}
+</style>
 
     <link href=
 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css'
@@ -496,44 +518,24 @@ try{
     
 
     $(document).ready(function() {
-        if(window.outerWidth < 740) {
-            $(".lazyblock div").slice(12).hide();
+        $(".karya div").slice(5).hide();
 
-            var mincount = 12;
-            var maxcount = 24;
-          
+            var mincount = 5;
+            var maxcount = 10;
+            
+
             $(window).scroll(function () {
-                //console.log("gauche: ",$(window).scrollTop() + $(window).height())
-                //console.log("droite: ",$(document).height() - 50)
+                if ($(window).scrollTop() + $(window).height() >= $(document).height() - 50) {
+                    $(".karya div").slice(mincount, maxcount).slideDown(50);
 
-                if ($(window).scrollTop() + $(window).height() >= $(document).height() - 868) {
-                    $(".lazyblock div").slice(mincount, maxcount).slideDown(200);
-
-                    mincount = mincount + 24;
-                    maxcount = maxcount + 24
+                    mincount = mincount + 5;
+                    maxcount = maxcount + 5
 
                 }
             });
-        }else{
-            $(".lazyblock div").slice(12).hide();
-
-            var mincount = 12;
-            var maxcount = 24;
 
 
-            $(window).scroll(function () {
-                if ($(window).scrollTop() + $(window).height() >= $(document).height() - 500) {
-                    $(".lazyblock div").slice(mincount, maxcount).slideDown(200);
 
-                    mincount = mincount + 24;
-                    maxcount = maxcount + 24
-
-                }
-            });
-        }
-                
-        
-        
     var type_req_courrante="getMarathonsbyNextEventDate";
     var ordre_courrant="ASC";
     var par_pages=<?php echo $par_pages;?>;

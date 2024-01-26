@@ -108,35 +108,47 @@ function array_msort($array, $cols)
 		
 					$res.= '<div class="col-sm-4 marathon-grid">
 						<a class="page-marathon-link" href="/marathons-'.$resultat['id'].'-'.slugify($nom_res).'.html">
-							<h4 class="page-marathon-title">'.$nom_res.'<img class="marathon-title-flag" style="float:right" src="../../images/flags/'.$pays_flag.'" alt=""/></h4></a> ';
+							<h4 class="page-marathon-title">'.$nom_res.'<img class="marathon-title-flag" style="float:right" src="../../images/flags/'.$pays_flag.'" alt=""/></h4</a>';
 							 
 							$img_src='/images/marathons/thumb_'.$resultat['image'];
 							$full_image_path="http://" . $_SERVER['HTTP_HOST'] .$img_src;
 							//$res.= $full_image_path;
 							
+							if($resultat['is_top_prochain_evenement']){
+								$top='<span class="mention-top"><span class="material-symbols-outlined">kid_star</span>Top</span>';
+							}else{
+								$top="";
+							}
+							$res.='<a class="page-marathon-link" href="/marathons-'.$resultat['id'].'-'.slugify($nom_res).'.html">';
 							if ($img_src)
 								{
-									$res.= '<div class="marathon-liste-image" style="background-image:url('.$img_src.')"></div>';
+									$res.= '<div class="marathon-liste-image" style="background-image:url('.$img_src.')">'.$top.'</div>';
 								}else{
 									$res.= '<div class="marathon-liste-image" style="background-color:#000"></div>';
 								}
+					$res.= '</a>';
 							 if($resultat['last_linked_events_cat_id']){
 								$res.= '<div><b>'.$ev_cat_event->getEventCatEventByID($resultat['last_linked_events_cat_id'])['donnees']->getIntitule().'</b></div>';
 		
 							 }else{
-								$res.= '<div><b>Pas d\'évenement</b></div>';
+								$res.= '<div><b>Marathon</b></div>';
 		
 							 }
-							if($resultat["date_prochain_evenement"]!='NULL'){
+							 if($resultat["type_evenement"]=='prochain'){
 								$nom_premier_even= $resultat["date_prochain_evenement_nom"];
-                                $id= $resultat["date_prochain_evenement_id"];
-                                $date_premier_even=strftime("%A %d %B %Y",strtotime($resultat["date_prochain_evenement"]));
-                                        
+								$id= $resultat["date_prochain_evenement_id"];
+								$date_premier_even=strftime("%A %d %B %Y",strtotime($resultat["date_prochain_evenement"]));
+										
 								$res.= '<div>'.utf8_encode($date_premier_even).'</div>';
-							}else{
-								$res.= '<div>Prochaine date à venir</div>';
+							}else if($resultat["type_evenement"]=='dernier'){
+								$nom_premier_even= $resultat["date_prochain_evenement_nom"];
+								$id= $resultat["date_prochain_evenement_id"];
+								$date_premier_even=strftime("%B %Y",strtotime($resultat["date_dernier_evenement"]));
+										
+								$res.= '<div>'.utf8_encode($date_premier_even).' - <span class="marathon-to-come">En attente de date</span></div>';
+							}else if($resultat["type_evenement"]=='aucun'){
+								$res.= '<div> Prochaine date À venir</div>';
 							}
-							$res.= '<span class="tt-les-infos"><a class="page-marathon-link" href="/marathons-'.$resultat['id'].'-'.slugify($nom_res).'.html">Toutes les infos</a></span>';
 		
 						
 					$res.= '</div>';
@@ -378,6 +390,7 @@ function array_msort($array, $cols)
 								$row['date_prochain_evenement_nom']=$row2['Nom'];
 								$row['date_prochain_evenement_id']=$row2['ID'];
 								$row['last_linked_events_cat_id']=$row2['CategorieID'];
+								$row['is_top_prochain_evenement']=$row2['a_l_affiche'];
 
 							}
 						}else {
@@ -408,7 +421,7 @@ function array_msort($array, $cols)
 		try {
 				  include("../database/connexion.php");
 				  
-					$req = $bdd->prepare("SELECT * FROM marathons where PaysID like :pays_id and nom like :search ORDER BY nom asc");
+					$req = $bdd->prepare("SELECT * FROM marathons where PaysID like :pays_id and nom like :search or lieu like :search ORDER BY nom asc");
 					$req->bindValue('pays_id', '%'.$pays_id.'%', PDO::PARAM_STR);
 					$req->bindValue('search', '%'.$search.'%', PDO::PARAM_STR);
 				
@@ -417,33 +430,49 @@ function array_msort($array, $cols)
 					$first_events= array();
 					$last_linked_events= array();
 					while ( $row  = $req->fetch(PDO::FETCH_ASSOC)) {  
-						$req2 = $bdd->prepare("SELECT * FROM evenements where marathon_id=:mar_id and Valider=1  AND (DateDebut > :debut) AND (DateDebut < :fin) ORDER BY DateDebut limit 1");
+						$req2 = $bdd->prepare("SELECT * FROM evenements where marathon_id=:mar_id and Valider=1  AND (DateDebut > :today) ORDER BY DateDebut limit 1");
 						$req2->bindValue('mar_id', $row["id"], PDO::PARAM_INT);
 						
-						if($debut){
-							$req2->bindValue('debut', date($debut), PDO::PARAM_STR); 
-						}else{
-							$req2->bindValue('debut', date('Y-m-d'), PDO::PARAM_STR); 
-						}
-						if($fin){
-							$req2->bindValue('fin', date($fin), PDO::PARAM_STR); 
-						}else{
-							$req2->bindValue('fin', date('9999-12-31'), PDO::PARAM_STR); 
-						}
+						$req2->bindValue('today', date('Y-m-d'), PDO::PARAM_STR); 
 						$req2->execute();
 						if($req2->rowCount()>0){
 							while ( $row2  = $req2->fetch(PDO::FETCH_ASSOC)) {
 								//var_dump($row2);exit();  
-								array_push($first_events, $row2);
+								//array_push($first_events, $row2);
 								$row['date_prochain_evenement']=$row2['DateDebut'];
+								$row['is_top_prochain_evenement']=$row2['a_l_affiche'];
+								$row['type_evenement']="prochain";
 								$row['date_prochain_evenement_nom']=$row2['Nom'];
 								$row['date_prochain_evenement_id']=$row2['ID'];
 								$row['last_linked_events_cat_id']=$row2['CategorieID'];
 
 							}
 						}else {
-							$row['date_prochain_evenement']='NULL';
-							$row['last_linked_events_cat_id']=NULL;
+							$req24 = $bdd->prepare("SELECT * FROM evenements where marathon_id=:mar_id and Valider=1  ORDER BY DateDebut limit 1");
+							$req24->bindValue('mar_id', $row["id"], PDO::PARAM_INT);
+							
+							$req24->execute();
+							if($req24->rowCount()>0){
+								while ( $row24  = $req24->fetch(PDO::FETCH_ASSOC)) {
+									//var_dump($row2);exit();  
+									//array_push($first_events, $row2);
+									$row['date_prochain_evenement']='NULL';
+									$row['last_linked_events_cat_id']=NULL;
+									$row['type_evenement']="dernier";
+									$row['date_dernier_evenement']=$row24['DateDebut'];
+									$row['date_dernier_evenement_nom']=$row24['Nom'];
+									$row['date_dernier_evenement_id']=$row24['ID'];
+					
+								}
+							}else{
+								$row['type_evenement']="aucun";
+								$row['date_prochain_evenement']='NULL';
+									$row['last_linked_events_cat_id']=NULL;
+							}
+							//array_push($first_events, NULL);
+							//$row['date_prochain_evenement']='NULL';
+							//$row['last_linked_events_cat_id']=NULL;
+
 						}
 
 						
@@ -489,7 +518,7 @@ function array_msort($array, $cols)
 						$row['date_prochain_evenement_nom']=$row2['Nom'];
 						$row['date_prochain_evenement_id']=$row2['ID'];
 						$row['last_linked_events_cat_id']=$row2['CategorieID'];
-
+						$row['is_top_prochain_evenement']=$row2['a_l_affiche'];
 					}
 				}else {
 					//array_push($first_events, NULL);
