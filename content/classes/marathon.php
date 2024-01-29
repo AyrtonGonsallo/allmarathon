@@ -107,8 +107,7 @@ function array_msort($array, $cols)
 				   $nom_res= $resultat['nom'];
 		
 					$res.= '<div class="col-sm-4 marathon-grid">
-						<a class="page-marathon-link" href="/marathons-'.$resultat['id'].'-'.slugify($nom_res).'.html">
-							<h4 class="page-marathon-title">'.$nom_res.'<img class="marathon-title-flag" style="float:right" src="../../images/flags/'.$pays_flag.'" alt=""/></h4</a>';
+						';
 							 
 							$img_src='/images/marathons/thumb_'.$resultat['image'];
 							$full_image_path="http://" . $_SERVER['HTTP_HOST'] .$img_src;
@@ -128,7 +127,10 @@ function array_msort($array, $cols)
 								}
 					$res.= '</a>';
 							 if($resultat['last_linked_events_cat_id']){
-								$res.= '<div><b>'.$ev_cat_event->getEventCatEventByID($resultat['last_linked_events_cat_id'])['donnees']->getIntitule().'</b></div>';
+								$res.= '<a class="page-marathon-link" href="/marathons-'.$resultat['id'].'-'.slugify($nom_res).'.html">
+                                        <h4 class="page-marathon-title">'.$ev_cat_event->getEventCatEventByID($resultat['last_linked_events_cat_id'])['donnees']->getIntitule().' '.$resultat['prefixe'].' '.$nom_res.'<img class="marathon-title-flag" style="float:right" src="../../images/flags/'.$pays_flag.'" alt=""/></h4></a>';
+                                        
+								//$res.= '<div><b>'.$ev_cat_event->getEventCatEventByID($resultat['last_linked_events_cat_id'])['donnees']->getIntitule().'</b></div>';
 		
 							 }else{
 								$res.= '<div><b>Marathon</b></div>';
@@ -139,13 +141,13 @@ function array_msort($array, $cols)
 								$id= $resultat["date_prochain_evenement_id"];
 								$date_premier_even=strftime("%A %d %B %Y",strtotime($resultat["date_prochain_evenement"]));
 										
-								$res.= '<div>'.utf8_encode($date_premier_even).'</div>';
+								$res.= '<div class="date-marathon">'.utf8_encode($date_premier_even).'</div>';
 							}else if($resultat["type_evenement"]=='dernier'){
 								$nom_premier_even= $resultat["date_prochain_evenement_nom"];
 								$id= $resultat["date_prochain_evenement_id"];
-								$date_premier_even=strftime("%B %Y",strtotime($resultat["date_dernier_evenement"]));
+								$date_premier_even=strftime("%B",strtotime($resultat["date_dernier_evenement"]));
 										
-								$res.= '<div>'.utf8_encode($date_premier_even).' - <span class="marathon-to-come">En attente de date</span></div>';
+								$res.= '<div class="date-marathon">'.utf8_encode($date_premier_even).' - <span class="marathon-to-come">En attente de date</span></div>';
 							}else if($resultat["type_evenement"]=='aucun'){
 								$res.= '<div> Prochaine date À venir</div>';
 							}

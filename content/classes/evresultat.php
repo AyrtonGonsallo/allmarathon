@@ -220,7 +220,7 @@ class evresultat{
 	{
 		try {
 				  include("../database/connexion.php");
-				 $req = $bdd->prepare("SELECT C.Nom,R.Temps,C.PaysID,C.NvPaysID,E.DateDebut,R.ChampionID FROM evresultats R,evenements E,champions C where R.ChampionID=C.ID and E.ID=R.EvenementID and C.Sexe=:sexe AND E.marathon_id=:mar_id ORDER BY R.Temps ASC limit :limi;");
+				 $req = $bdd->prepare("SELECT YEAR(E.DateDebut) as annee,C.Nom,R.Temps,R.Rang,C.PaysID,C.NvPaysID,E.DateDebut,C.DateChangementNat,R.ChampionID FROM evresultats R,evenements E,champions C where R.ChampionID=C.ID and E.ID=R.EvenementID and C.Sexe=:sexe AND E.marathon_id=:mar_id ORDER BY R.Temps ASC limit :limi;");
 	             $req->bindValue('mar_id',$marathon_id, PDO::PARAM_INT);
 				 $req->bindValue('limi',$limit, PDO::PARAM_INT);
 	             $req->bindValue('sexe',$sexe, PDO::PARAM_STR);
@@ -250,7 +250,7 @@ class evresultat{
 				  $req0->execute();
 				  
 				  while ( $row0  = $req0->fetch(PDO::FETCH_ASSOC)) {    
-					  $req = $bdd->prepare("SELECT C.Nom,R.Temps,C.PaysID,C.NvPaysID,R.ChampionID,E.DateDebut,E.PaysID as payscomp  FROM evresultats R,evenements E,champions C where R.ChampionID=C.ID and E.ID=R.EvenementID and C.Sexe=:sexe AND E.marathon_id=:mar_id and YEAR(E.DateDebut) like :annee order by R.Temps asc limit 1;");
+					  $req = $bdd->prepare("SELECT C.Nom, YEAR(E.DateDebut) as annee,R.Temps,R.Rang,C.PaysID,C.NvPaysID,R.ChampionID,E.DateDebut,E.PaysID as payscomp,C.DateChangementNat  FROM evresultats R,evenements E,champions C where R.ChampionID=C.ID and E.ID=R.EvenementID and C.Sexe=:sexe AND E.marathon_id=:mar_id and YEAR(E.DateDebut) like :annee order by R.Temps asc limit 1;");
 					  $req->bindValue('mar_id',$marathon_id, PDO::PARAM_INT);
 					  $req->bindValue('annee','%'.$row0['d'].'%', PDO::PARAM_STR);
 					  $req->bindValue('sexe',$sexe, PDO::PARAM_STR);

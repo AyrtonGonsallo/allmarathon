@@ -186,12 +186,12 @@ try{
 
     <?php require_once("../scripts/header_script.php") ?>
 
-    <title>Agenda - Calendrier des marathons en France et dans le monde | allmarathon.fr</title>
+    <title>Agenda - Calendrier des marathons dans le monde | allmarathon.fr</title>
 
-    <meta name="Description" content="Retrouvez tous les marathons en France et dans le monde : agenda, dates, résultats, records, infos." lang="fr" xml:lang="fr">
+    <meta name="Description" content="Retrouvez tous les marathons dans le monde : agenda, dates, résultats, records, infos." lang="fr" xml:lang="fr">
 
-    <meta property="og:title" content="Agenda - Calendrier des marathons en France et dans le monde." />
-    <meta property="og:description" content="Retrouvez tous les marathons en France et dans le monde : agenda, dates, résultats, records, infos." />
+    <meta property="og:title" content="Agenda - Calendrier des marathons dans le monde." />
+    <meta property="og:description" content="Retrouvez tous les marathons dans le monde : agenda, dates, résultats, records, infos." />
     <meta property="og:locale" content="fr_FR" />
     <meta property="og:type" content="siteweb" />
     <meta property="og:image" content="https://allmarathon.fr/images/allmarathon.png" />
@@ -292,20 +292,20 @@ try{
                     <div class="col-sm-12 no-padding-left no-padding-right">
 
 
-                        <h1 class="float-l">Calendrier des marathons en France et dans le monde</h1><span class="total-marathons bureau"><?php echo $nombre_de_marathons["nbr"]." résultats";?></span>
+                        <h1 class="float-l">Calendrier des marathons dans le monde</h1><span class="total-marathons bureau"><?php echo $nombre_de_marathons["nbr"]." résultats";?></span>
                         <h2  class="clear-b">Histoire, palmarès, résultats, agenda des marathons les plus célèbres : Boston, Chicago, New-York, Londres, Berlin, Tokyo...</h2>
                         
                        
 
                         <div>
                         <div class="marathon-sub-menu-grid">
-                            <div class="">
+                            <div class="button-agenda">
                                 <a href="/agenda-marathons-par-pays.html" class="home-link">Marathons par pays</a>
                             </div>
-                            <div class="">
+                            <div class="button-agenda">
                                 <a href="/agenda-marathons-par-mois.html" class="home-link">Marathons par mois</a>
                             </div>
-                            <div class="">
+                            <div class="search-bar">
                                 <form action="" method="post" class="form-inline" role="form">
 
                                     <div class="form-group" style="width:100%; white-space: nowrap; margin-bottom: 5px;">
@@ -342,7 +342,6 @@ try{
 
 
 
-                    <span class="total-marathons mobile"><?php echo $nombre_de_marathons["nbr"]." résultats";?></span>
                     <ul class="col-sm-12 resultats">
                 <div class="row lazyblock" id="liste-marathons">
                         <?php 
@@ -355,8 +354,7 @@ try{
                            $nom_res= $resultat['nom'];
                 
                             $res.= '<div class="col-sm-4 marathon-grid">
-                                <a class="page-marathon-link" href="/marathons-'.$resultat['id'].'-'.slugify($nom_res).'.html">
-                                    <h4 class="page-marathon-title">'.$nom_res.'<img class="marathon-title-flag" style="float:right" src="../../images/flags/'.$pays_flag.'" alt=""/></h4></a>';
+                               ';
                                      
                                     $img_src='/images/marathons/thumb_'.$resultat['image'];
                                     $full_image_path="http://" . $_SERVER['HTTP_HOST'] .$img_src;
@@ -376,7 +374,9 @@ try{
                                         }
                             $res.='</a>';
                                      if($resultat['last_linked_events_cat_id']){
-                                        $res.= '<div><b>'.$ev_cat_event->getEventCatEventByID($resultat['last_linked_events_cat_id'])['donnees']->getIntitule().'</b></div>';
+                                        $res.= '<a class="page-marathon-link" href="/marathons-'.$resultat['id'].'-'.slugify($nom_res).'.html">
+                                        <h4 class="page-marathon-title">'.$ev_cat_event->getEventCatEventByID($resultat['last_linked_events_cat_id'])['donnees']->getIntitule().' '.$resultat['prefixe'].' '.$nom_res.'<img class="marathon-title-flag" style="float:right" src="../../images/flags/'.$pays_flag.'" alt=""/></h4></a>';
+                                        //$res.= '<div><b>'.$ev_cat_event->getEventCatEventByID($resultat['last_linked_events_cat_id'])['donnees']->getIntitule().'</b></div>';
                 
                                      }else{
                                         $res.= '<div><b>Marathon</b></div>';
@@ -387,13 +387,13 @@ try{
                                         $id= $resultat["date_prochain_evenement_id"];
                                         $date_premier_even=strftime("%A %d %B %Y",strtotime($resultat["date_prochain_evenement"]));
                                                 
-                                        $res.= '<div>'.utf8_encode($date_premier_even).'</div>';
+                                        $res.= '<div class="date-marathon">'.utf8_encode($date_premier_even).'</div>';
                                     }else if($resultat["type_evenement"]=='dernier'){
                                         $nom_premier_even= $resultat["date_prochain_evenement_nom"];
                                         $id= $resultat["date_prochain_evenement_id"];
-                                        $date_premier_even=strftime("%B %Y",strtotime($resultat["date_dernier_evenement"]));
+                                        $date_premier_even=strftime("%B",strtotime($resultat["date_dernier_evenement"]));
                                                 
-                                        $res.= '<div>'.utf8_encode($date_premier_even).' - <span class="marathon-to-come">En attente de date</span></div>';
+                                        $res.= '<div class="date-marathon">'.utf8_encode($date_premier_even).' - <span class="marathon-to-come">En attente de date</span></div>';
                                     }else if($resultat["type_evenement"]=='aucun'){
                                         $res.= '<div> Prochaine date À venir</div>';
                                     }
@@ -497,10 +497,10 @@ try{
 
     $(document).ready(function() {
         if(window.outerWidth < 740) {
-            $(".lazyblock div").slice(12).hide();
+            $(".lazyblock div").slice(36).hide();
 
-            var mincount = 12;
-            var maxcount = 24;
+            var mincount = 9;
+            var maxcount = 27;
           
             $(window).scroll(function () {
                 //console.log("gauche: ",$(window).scrollTop() + $(window).height())
@@ -509,24 +509,24 @@ try{
                 if ($(window).scrollTop() + $(window).height() >= $(document).height() - 868) {
                     $(".lazyblock div").slice(mincount, maxcount).slideDown(200);
 
-                    mincount = mincount + 24;
-                    maxcount = maxcount + 24
+                    mincount = mincount + 9;
+                    maxcount = maxcount + 9
 
                 }
             });
         }else{
-            $(".lazyblock div").slice(12).hide();
+            $(".lazyblock div").slice(36).hide();
 
-            var mincount = 12;
-            var maxcount = 24;
+            var mincount = 9;
+            var maxcount = 27;
 
 
             $(window).scroll(function () {
                 if ($(window).scrollTop() + $(window).height() >= $(document).height() - 500) {
                     $(".lazyblock div").slice(mincount, maxcount).slideDown(200);
 
-                    mincount = mincount + 24;
-                    maxcount = maxcount + 24
+                    mincount = mincount + 9;
+                    maxcount = maxcount + 9;
 
                 }
             });

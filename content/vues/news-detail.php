@@ -170,8 +170,10 @@ $tab = explode('-',$news_details->getDate());
             $source=($news_details->getSource()) ? "source : ".$news_details->getSource() : "";
             echo'<h1 class="news-detail">'.$news_details->getTitre().'</h1>'; ?>
 
-        <h2 class="mini_h2"><?php echo '<span class="news-details-subtitle" >'."Par : ".$news_details->getAuteur()." - "; ?>
+        <h2 class="mini_h2"><?php echo '<span class="news-details-subtitle bureau" >'."Par : ".$news_details->getAuteur()." - "; ?>
             <?php echo changeDate($news_details->getDate()).' - '.$source.'</span>' ; ?>
+            <?php echo '<span class="news-details-subtitle mobile" >'."Par : ".$news_details->getAuteur()." - "; ?>
+            <?php echo changeDate($news_details->getDate()).' <br>'.$source.'</span>' ; ?>
             <script>
             setTimeout(() => {
                 (function() { // DON'T EDIT BELOW THIS LINE
@@ -312,7 +314,7 @@ $tab = explode('-',$news_details->getDate());
                             echo "<a href='video-de-marathon-".$vid->getId().".html'  class='icon-link mr-5  mx-auto-mobile'><span class='material-symbols-outlined'>link</span> Vidéo : ". $vid->getTitre()."</a>";
                         }?>
                         <br />
-                        <div class="row mobile" style="margin: 10px 0;">
+                        <div class="row" style="margin: 10px 0;">
 
                         <?php include_once("shareButtons.php"); ?>
                         </div>
