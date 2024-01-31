@@ -80,10 +80,73 @@ strong{
     border: none;
     color: #9ddaff;
 }
+.marathon-detail .sub-menu-link{
+    font-size: 17px;
+    font-family: "Poppins-Thin";
+}
 #description-marathon{
     font-size: 16px; 
     margin-top: 10px;
 }
+.parcours-modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+}
+
+.parcours-modal-content { 
+    animation-name: zoom;
+    animation-duration: 0.6s;
+    margin-top: 48px;
+    transform: scale(1.5);
+}
+
+@keyframes zoom {
+    from {transform:scale(0)} 
+    to {transform:scale(1.6)}
+}
+
+#parcours-img-viewer {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    padding-top: 100px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+}
+
+#parcours-img-viewer .close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+    opacity: 1;
+}
+
+#parcours-img-viewer .close:hover{
+    cursor: pointer;
+    color: #fbff0b;
+}
+
+@media only screen and (max-width: 700px){
+    .parcours-modal-content {
+        width: 100%;
+    }
+}
+
+.parcours-img-container{
+    position:relative;
+    width:300px;
+}
+
+
 .alpine-hide-box-gradient{
     background-image: linear-gradient(#ffffff00,33%,#ffffff);
     height: 56px;
@@ -94,6 +157,8 @@ strong{
 }
 .alpine-hide-box{
    position: relative;
+   margin-bottom: 20px;
+   font-size: 15px;
 }
 #hide-text a,#hide-palmares-h a,#hide-palmares-f a{
     color:#00aeef !important;
@@ -885,9 +950,48 @@ li.menu-item-categories .hamburger-menu-button {
     font-size: 17px;
     margin-bottom: 50px;
 }
+.mpp-pays-box{
+    margin: 30px 50px;
+    padding: 30px 50px;
+    background-color: #ffffff;
+}
+.mpp{
+    min-height: 0 !important;
+}
+.mpp-grid{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+}
+.mpp-pays-box a:hover{
+   text-decoration: none !important;
+}
+.mpp-bg-gray{
+    background-color: #ebeeef;
+}
+.mpp-title-pays{
+    font-weight: bolder;
+    font-size: 22px;
+    text-align: center;
+}
+.mpp-nbr-mar{
+    background-color: #9ddaff;
+    padding: 5px;
+    font-size: 20px;
+    text-align: center;
+    font-family: 'Poppins-Bold';
+}
+.align-with-grid-mpp{
+    margin-left: 35px;
+}
 .marathon-sub-menu-grid{
     display: grid;
     grid-template-columns: 1fr 1fr 3fr;
+}
+.marathon-par-pays-sub-menu-grid{
+    display: grid;
+    width: fit-content;
+    gap: 10px;
+    grid-template-columns: 1fr 1fr;
 }
 .marathons input{
     font-family: 'Poppins-Bold';
@@ -2634,7 +2738,9 @@ h2.mini_h2 {
     text-align: center;
     padding: 10px;
 }
-
+.marathon-detail .nav-tabs>li>a {
+    text-transform: none !important;
+}
 .nav-tabs>li.active>a,
 .nav-tabs>li.active>a:focus,
 .nav-tabs>li.active>a:hover {

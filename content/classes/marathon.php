@@ -743,9 +743,12 @@ function array_msort($array, $cols)
             }
             $bdd=null;
             $len = (int) count($liste);
+			/*
             $firsthalf = array_slice($liste, 0, $len / 2);
             $secondhalf = array_slice($liste, $len / 2);
             return array('validation'=>true,'donnees_1'=>$firsthalf ,'donnees_2'=>$secondhalf,'message'=>'');
+			*/
+			return array('validation'=>true,'donnees'=>$liste,'message'=>'');
 	    }
 	       
 	    catch(Exception $e){
@@ -753,6 +756,34 @@ function array_msort($array, $cols)
 	    }
 	}
 
+	function gettotalMarathonsByPays($pays_ab1,$pays_ab2,$pays_ab3,$pays_ab4){
+		try {
+			include("../database/connexion.php");
+            $liste= array();
+            $req0 = $bdd->prepare("select count(*) as total from marathons where  PaysID=:pays_ab1 or PaysID=:pays_ab2 or PaysID=:pays_ab3 or PaysID=:pays_ab4;");
+            $req0->bindValue('pays_ab1',$pays_ab1, PDO::PARAM_STR);
+			$req0->bindValue('pays_ab2',$pays_ab2, PDO::PARAM_STR);
+			$req0->bindValue('pays_ab3',$pays_ab3, PDO::PARAM_STR);
+			$req0->bindValue('pays_ab4',$pays_ab4, PDO::PARAM_STR);
+            $req0->execute();
+            
+            while ( $row0  = $req0->fetch(PDO::FETCH_ASSOC)) {    
+                array_push($liste, $row0); 
+            }
+            $bdd=null;
+           
+			/*
+            $firsthalf = array_slice($liste, 0, $len / 2);
+            $secondhalf = array_slice($liste, $len / 2);
+            return array('validation'=>true,'donnees_1'=>$firsthalf ,'donnees_2'=>$secondhalf,'message'=>'');
+			*/
+			return array('validation'=>true,'donnees'=>$liste,'message'=>'');
+	    }
+	       
+	    catch(Exception $e){
+	        die('Erreur : ' . $e->getMessage());
+	    }
+	}
 	
 
 	function getMarathonsAgendaByPaysflitered($pays_ab1,$pays_ab2,$pays_ab3,$pays_ab4){
@@ -815,9 +846,8 @@ function array_msort($array, $cols)
             }
             $bdd=null;
             $len = (int) count($liste);
-            $firsthalf = array_slice($liste, 0, $len / 2);
-            $secondhalf = array_slice($liste, $len / 2);
-            return array('validation'=>true,'donnees_1'=>$firsthalf ,'donnees_2'=>$secondhalf,'message'=>'');
+            
+            return array('validation'=>true,'donnees'=>$liste,'message'=>'');
 	    }
 	       
 	    catch(Exception $e){
@@ -841,6 +871,32 @@ function array_msort($array, $cols)
             $firsthalf = array_slice($liste, 0, $len / 2);
             $secondhalf = array_slice($liste, $len / 2);
             return array('validation'=>true,'donnees_1'=>$firsthalf ,'donnees_2'=>$secondhalf,'message'=>'');
+	    }
+	       
+	    catch(Exception $e){
+	        die('Erreur : ' . $e->getMessage());
+	    }
+	}
+	function gettotalMarathonsByMois($mois,$annee){
+		try {
+			include("../database/connexion.php");
+            $liste= array();
+            $req0 = $bdd->prepare("select count(*) as total, m.nom as Nom,m.id,e.DateDebut,e.PaysID from marathons m,evenements e where e.marathon_id=m.id and DateDebut like :datedeb and DateDebut>DATE(NOW()) ORDER BY DateDebut asc;");
+            
+			$req0->bindValue('datedeb','%'.$annee.'-'.$mois.'%', PDO::PARAM_STR);
+            $req0->execute();
+            
+            while ( $row0  = $req0->fetch(PDO::FETCH_ASSOC)) {    
+                array_push($liste, $row0); 
+            }
+            $bdd=null;
+           
+			/*
+            $firsthalf = array_slice($liste, 0, $len / 2);
+            $secondhalf = array_slice($liste, $len / 2);
+            return array('validation'=>true,'donnees_1'=>$firsthalf ,'donnees_2'=>$secondhalf,'message'=>'');
+			*/
+			return array('validation'=>true,'donnees'=>$liste,'message'=>'');
 	    }
 	       
 	    catch(Exception $e){

@@ -195,7 +195,10 @@ if($pays_datas){
 
 
     <?php include_once('nv_header-integrer.php'); ?>
-
+    <div id="parcours-img-viewer">
+        <span class="close" onclick="close_model()">&times;</span>
+        <img class="parcours-modal-content" id="parcours-full-image" >
+    </div>
     <div class="container page-content athlete-detail marathon-detail">
         <div class="row banniere1">
             <div  class="col-sm-12">
@@ -212,18 +215,18 @@ if($pays_datas){
         </div>
 
         <div class="row">
-            <div class="col-sm-12">
+            <div class="col-sm-12 no-padding-left">
                         <?php 
                             
                            
-                            $lien_youtube=($marathon['youtube'])?'<div class="marathon-medias col-sm-3"><img src="../../images/pictos/youtube.svg" alt=""/><a href="'.$marathon['youtube'].'" target="_blank">Youtube</a><br></div>':'';
-                            $lien_facebook=($marathon['facebook'])?'<div class="marathon-medias col-sm-3"><img src="../../images/pictos/facebook.svg" alt=""/><a href="'.$marathon['facebook'].'" target="_blank">Facebook</a><br></div>':'';
-                            $lien_insta=($marathon['Instagram'])?'<div class="marathon-medias col-sm-3"><img src="../../images/pictos/instagram.svg" alt=""/><a href="'.$marathon['Instagram'].'" target="_blank">Instagram</a><br></div>':'';
+                            $lien_youtube=($marathon['youtube'])?'<div class="marathon-medias col-xs-3"><img src="../../images/pictos/youtube.svg" alt=""/><a href="'.$marathon['youtube'].'" target="_blank">Youtube</a><br></div>':'';
+                            $lien_facebook=($marathon['facebook'])?'<div class="marathon-medias col-xs-3"><img src="../../images/pictos/facebook.svg" alt=""/><a href="'.$marathon['facebook'].'" target="_blank">Facebook</a><br></div>':'';
+                            $lien_insta=($marathon['Instagram'])?'<div class="marathon-medias col-xs-3"><img src="../../images/pictos/instagram.svg" alt=""/><a href="'.$marathon['Instagram'].'" target="_blank">Instagram</a><br></div>':'';
                             $lien_site=($marathon['site_web'])?'<div class="marathon-site"><span class="material-symbols-outlined">public</span><a href="'.$marathon['site_web'].'" target="_blank">Visitez le site officiel</a><br></div>':'';
                             $lieu=($marathon['lieu'])?'<span class="material-symbols-outlined">location_on</span>'.$marathon['lieu'].' ('.$pays_datas['NomPays'].')<br>':'';
-                            $proch_date=($next_date)?'<div class="next-edition"> Prochaine édition<br>'.strftime("%A %d %B %Y",strtotime($next_date['DateDebut'])).'<br></div>':'';
+                            $proch_date=($next_date)?'<div class="next-edition"> Prochaine édition<br>'.utf8_encode(strftime("%A %d %B %Y",strtotime($next_date['DateDebut']))).'<br></div>':'';
 
-                            echo '<h1 style="text-transform:uppercase" class="float-l">Marathon '.$marathon['prefixe'].' '.strtoupper($marathon['nom']).'</h1>'; ?>
+                            echo '<h1 style="text-transform:uppercase" class="float-l">'.strtoupper($marathon['nom']).'</h1>'; ?>
                             <span class="marathon-details-breadcumb">
                                 <a href="/calendrier-agenda-marathons.html"><span class="material-symbols-outlined">location_on</span><? echo $pays_datas['continent'];?></a> > <a href="calendrier-marathons-<?php echo slugify($pays_datas['NomPays']); ?>-<?php echo $pays_datas['ID']; ?>.html"><?php echo $pays_datas['NomPays'];?></a> <?php if($next_date){echo "> <span class='material-symbols-outlined'>event_available</span>".utf8_encode(strftime("%B",strtotime($next_date['DateDebut'])));}?>
                             </span>
@@ -235,10 +238,18 @@ if($pays_datas){
                             
                             if ($img_src)
                                 {
-                                    echo '<img class="sp-image image-marathon-full-width" '.$alt.' style="max-width: 100%;"src="'.$img_src.'"/>';
+                                    echo '<img class="sp-image image-marathon-full-width bureau" '.$alt.' style="max-width: 100%;"src="'.$img_src.'"/>';
                                 }
                             ?>
-                    
+                            <div class="box-next-edition mobile">
+                                <?php echo $proch_date; ?>
+                                <?php echo $lien_site; ?>
+                                <div class="row no-margin-left">
+                                    <?php echo $lien_facebook;?>
+                                    <?php echo $lien_insta;?>
+                                    <?php echo $lien_youtube;?>
+                                </div>
+                            </div>
                 </div>
             </div>
             <div class="col-sm-8 left-side resultat-detail no-padding-left ">
@@ -249,11 +260,11 @@ if($pays_datas){
 
                             <!-- menu header -->
                             <ul class="nav-category sub-menu">
-                                <li> <a data-category="Header_Links" data-action="Sub Menu Click" data-label="Apropos" href="#Apropos" class="sub-menu-link header--nav--link pull-right1 active" id="Apropos-link">A propos</a></li>
-                                <li> <a data-category="Header_Links" data-action="Sub Menu Click" data-label="Parcours" href="#Parcours" class="sub-menu-link header--nav--link pull-left1" id="Parcours-link">Parcours</a></li>
-                                <li> <a data-category="Header_Links" data-action="Sub Menu Click" data-label="Résultats" href="#Résultats" class="sub-menu-link header--nav--link pull-left1" id="Résultats-link">Résultats</a></li>
-                                <li> <a data-category="Header_Links" data-action="Sub Menu Click" data-label="Chronos" href="#Chronos" class="sub-menu-link header--nav--link pull-left1" id="Chronos-link">Chronos</a></li>
-                                <li> <a data-category="Header_Links" data-action="Sub Menu Click" data-label="Palmarès" href="#Palmarès" class="sub-menu-link header--nav--link pull-right1" id="Palmarès-link">Palmarès</a></li>
+                                <li> <a data-category="Header_Links" data-action="Sub Menu Click" data-label="Apropos" href="#Apropos" class="sub-menu-link header--nav--link  active" id="Apropos-link">A propos</a></li>
+                                <li> <a data-category="Header_Links" data-action="Sub Menu Click" data-label="Parcours" href="#Parcours" class="sub-menu-link header--nav--link " id="Parcours-link">Parcours</a></li>
+                                <li> <a data-category="Header_Links" data-action="Sub Menu Click" data-label="Résultats" href="#Résultats" class="sub-menu-link header--nav--link " id="Résultats-link">Résultats</a></li>
+                                <li> <a data-category="Header_Links" data-action="Sub Menu Click" data-label="Chronos" href="#Chronos" class="sub-menu-link header--nav--link " id="Chronos-link">Chronos</a></li>
+                                <li> <a data-category="Header_Links" data-action="Sub Menu Click" data-label="Palmarès" href="#Palmarès" class="sub-menu-link header--nav--link " id="Palmarès-link">Palmarès</a></li>
                             </ul>
 
 
@@ -277,17 +288,18 @@ if($pays_datas){
                          <!-- TAB parcours -->
                          <?php if($parcours_marathon){ ?>
                             <ul class="nav nav-tabs" style="margin-top: 10px;">
-                                <?php echo '<li class="active" ><a id="Parcours" >Le parcours du Marathon '.$marathon['prefixe'].' '.strtoupper($marathon['nom']).' '.strftime("%Y",strtotime($parcours_marathon[0]['DateDebut'])).'</li></a>'; ?>
+                                <?php echo '<li class="active" ><a id="Parcours" >Le parcours du marathon '.$marathon['prefixe'].' '.strtoupper($marathon['nom']).' '.strftime("%Y",strtotime($parcours_marathon[0]['DateDebut'])).'</li></a>'; ?>
                             </ul>
                             <?php if($parcours_marathon[0]["parcours_iframe"]){ 
                                     echo $parcours_marathon[0]["parcours_iframe"];?>
 
                                 <?php }else{
                                     $img_src='/images/events/'.$parcours_marathon[0]["parcours_image"];
-                                    echo '<img class="sp-image" '.$alt.' style="max-width: 100%;"src="'.$img_src.'"/>';
+                                    echo '<img class="sp-image parcours-img-source" '.$alt.' style="max-width: 100%;"src="'.$img_src.'"/>';
+                                    echo '<button class="read-more-button" onclick="full_view(this);">+Voir le parcours en plein écran</button>';
                                 }?>
                          <?php }?>
-                       
+                         
                         <!--ffffffffff-->
                         <div class="mb-40"></div>
                         <!-- TAB resultats -->
@@ -325,7 +337,7 @@ if($pays_datas){
                         <?php if($best_res_mens || $best_res_womens){ ?>
                             <!-- TAB meilleurs chronos -->
                             <ul class="nav nav-tabs" role="tablist">
-                                <?php echo '<li class="'.$active_tab3.'"><a href="#tab3" id="Chronos" role="tab" data-toggle="tab" >Les 10 Meilleurs chronos du Marathon '.$marathon['prefixe'].' '.strtoupper($marathon['nom']).'</a></li>'; ?>
+                                <?php echo '<li class="'.$active_tab3.'"><a href="#tab3" id="Chronos" role="tab" data-toggle="tab" >Les 10 meilleurs chronos du marathon '.$marathon['prefixe'].' '.strtoupper($marathon['nom']).'</a></li>'; ?>
                             </ul>
                             <div id="tabs-mc">
                                 <ul>
@@ -636,7 +648,7 @@ if($pays_datas){
                         <div class="mb-40"></div>
                         <!-- TAB palmares -->
                         <ul class="nav nav-tabs" role="tablist">
-                                <?php echo '<li class="'.$active_tab4.'"><a href="#tab4" id="Palmarès"  role="tab" data-toggle="tab">Palmares</a></li>'; ?>
+                                <?php echo '<li class="'.$active_tab4.'"><a href="#tab4" id="Palmarès"  role="tab" data-toggle="tab">Palmarès</a></li>'; ?>
                             </ul>
                             <div id="tabs-pal">
                                 <ul>
@@ -748,7 +760,7 @@ if($pays_datas){
                 </div> <!-- End container page-content -->
             </div>
             <aside class="col-sm-4 no-padding-right">
-                <div class="box-next-edition">
+                <div class="box-next-edition bureau">
                     <?php echo $proch_date; ?>
                     <?php echo $lien_site; ?>
                     <div class="row no-margin-left">
@@ -801,9 +813,19 @@ if($pays_datas){
     <script type="text/javascript" data-type="lazy" ddata-src="/js/jquery.fancybox-thumbs.js?v=1.0.7"></script>
     
      <script type="text/javascript">
+        function full_view(ele){
+				let src=ele.parentElement.querySelector(".parcours-img-source").getAttribute("src");
+                console.log("srs lightbox",src)
+				document.querySelector("#parcours-img-viewer").querySelector("img").setAttribute("src",src);
+				document.querySelector("#parcours-img-viewer").style.display="block";
+			}
+			
+			function close_model(){
+				document.querySelector("#parcours-img-viewer").style.display="none";
+			}
     $(document).ready(function() {
        
-
+            
        
         
        
