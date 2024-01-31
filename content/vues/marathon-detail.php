@@ -261,7 +261,14 @@ if($pays_datas){
                             <ul class="nav nav-tabs" style="margin-top: 10px;">
                                 <?php echo '<li class="active" ><a id="Apropos" >Présentation</li></a>'; ?>
                             </ul>
-                            <p style="font-size: 16px; margin-top: 10px;"><?php echo $marathon['description']; ?></p>
+                            <div class="alpine-hide-box" x-data="{ expanded: false }">
+                                <div  x-show="expanded" x-collapse.min.150px>
+                                 <?php echo $marathon['description']; ?>
+                                </div>
+                                <div class="alpine-hide-box-gradient"></div>
+                                <button class="read-more-button" @click="expanded = ! expanded">+Lire la suite</button>
+                            </div>
+                            
                             <?php }
                             if($next_date_video && $next_date_video['video_teaser']){
                                 echo $next_date_video['video_teaser'];
@@ -327,6 +334,7 @@ if($pays_datas){
                                 </ul>
                                 <div id="mc-h">
                                     <div class="col-sm-12 top-chronos top-chronos-left-div">
+                                        
                                         <table id="tableauHommes-mc" data-page-length='10' class="display">
                                             <thead>
                                                 <tr>
@@ -353,13 +361,13 @@ if($pays_datas){
                                                     if($pays_datas){
                                                         $flag=$pays_datas['Flag'];  
                                                     }
-                                                    ($flag!='NULL') ? $pays_flag='<span><img src="../../images/flags/'.$flag.'" alt=""/></span><br>':$pays_flag="";
+                                                    ($flag!='NULL') ? $pays_flag='<span><img src="../../images/flags/'.$flag.'" alt=""/></span>':$pays_flag="";
                                                     echo '<tr>';
                                                         echo '<td>'.$i.'</td>';
                                                         echo '<td><a href="athlete-'.$value['ChampionID'].'-'.slugify($value['Nom']).'.html">'.$value['Nom'].'</a></td>';
-                                                        echo '<td>'.$pays_flag.' '.$pays_datas['NomPays'].'</td>';
-                                                        echo '<td>'.$value['Temps'].'</td>';
+                                                        echo '<td>'.$pays_flag.' '.$pays_datas['Abreviation'].'</td>';
                                                         echo '<td>'.$value['annee'].'</td>';
+                                                        echo '<td>'.$value['Temps'].'</td>';
                                                     echo '</tr>';
                                                     $i++;
                                                 }
@@ -396,13 +404,13 @@ if($pays_datas){
                                                     if($pays_datas){
                                                         $flag=$pays_datas['Flag'];  
                                                     }
-                                                    ($flag!='NULL') ? $pays_flag='<span><img src="../../images/flags/'.$flag.'" alt=""/></span><br>':$pays_flag="";
+                                                    ($flag!='NULL') ? $pays_flag='<span><img src="../../images/flags/'.$flag.'" alt=""/></span>':$pays_flag="";
                                                     echo '<tr>';
                                                         echo '<td>'.$i.'</td>';
                                                         echo '<td><a href="athlete-'.$value['ChampionID'].'-'.slugify($value['Nom']).'.html">'.$value['Nom'].'</a></td>';
-                                                        echo '<td>'.$pays_flag.' '.$pays_datas['NomPays'].'</td>';
-                                                        echo '<td>'.$value['Temps'].'</td>';
+                                                        echo '<td>'.$pays_flag.' '.$pays_datas['Abreviation'].'</td>';
                                                         echo '<td>'.$value['annee'].'</td>';
+                                                        echo '<td>'.$value['Temps'].'</td>';
                                                     echo '</tr>';
                                                     $i++;
                                                 }
@@ -637,87 +645,99 @@ if($pays_datas){
                                 </ul>
                                 <div id="pal-h">
                                     <div class="col-sm-12 top-chronos top-chronos-left-div">
-                                        <table id="tableauHommes-pal" data-page-length='10' class="display">
-                                            <thead>
-                                                <tr>
-                                                    <th style="text-transform: capitalize;">année</th>
-                                                    <th style="text-transform: capitalize;">athlète</th>
-                                                    <th style="text-transform: capitalize;">Pays</th>
-                                                    <th style="text-transform: capitalize;">temps</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php
-                                                $i=1;
-                                                foreach ($best_res_mens_byyear as $key => $value) {
-                                                    $pays_datas=NULL;
-                                                    $pays_display='';
-                                                    if($value['DateDebut']>$value['DateChangementNat']){
-                                                        $pays_datas=$pays->getFlagByAbreviation($value['NvPaysID'])['donnees'];
-                                                        $pays_display=$value['NvPaysID'];
-                                                    }else{
-                                                        $pays_datas=$pays->getFlagByAbreviation($value['PaysID'])['donnees'];
-                                                        $pays_display=$value['PaysID'];
-                                                    }
-                                                    if($pays_datas){
-                                                        $flag=$pays_datas['Flag'];  
-                                                    }
-                                                    ($flag!='NULL') ? $pays_flag='<span><img src="../../images/flags/'.$flag.'" alt=""/></span><br>':$pays_flag="";
-                                                    echo '<tr>';
-                                                        echo '<td>'.$value['annee'].'</td>';
-                                                        echo '<td><a href="athlete-'.$value['ChampionID'].'-'.slugify($value['Nom']).'.html">'.$value['Nom'].'</a></td>';
-                                                        echo '<td>'.$pays_flag.' '.$pays_datas['NomPays'].'</td>';
-                                                        echo '<td>'.$value['Temps'].'</td>';
-                                                        
-                                                    echo '</tr>';
-                                                    $i++;
-                                                }
-                                                ?>
-                                            </tbody>
-                                        </table>
+                                        <div class="alpine-hide-box" x-data="{ expanded: false }">
+                                            <div x-show="expanded" x-collapse.min.450px>
+                                                <table id="tableauHommes-pal" data-page-length='10' class="display">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="text-transform: capitalize;">année</th>
+                                                            <th style="text-transform: capitalize;">athlète</th>
+                                                            <th style="text-transform: capitalize;">Pays</th>
+                                                            <th style="text-transform: capitalize;">temps</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php
+                                                        $i=1;
+                                                        foreach ($best_res_mens_byyear as $key => $value) {
+                                                            $pays_datas=NULL;
+                                                            $pays_display='';
+                                                            if($value['DateDebut']>$value['DateChangementNat']){
+                                                                $pays_datas=$pays->getFlagByAbreviation($value['NvPaysID'])['donnees'];
+                                                                $pays_display=$value['NvPaysID'];
+                                                            }else{
+                                                                $pays_datas=$pays->getFlagByAbreviation($value['PaysID'])['donnees'];
+                                                                $pays_display=$value['PaysID'];
+                                                            }
+                                                            if($pays_datas){
+                                                                $flag=$pays_datas['Flag'];  
+                                                            }
+                                                            ($flag!='NULL') ? $pays_flag='<span><img src="../../images/flags/'.$flag.'" alt=""/></span><br>':$pays_flag="";
+                                                            echo '<tr>';
+                                                                echo '<td>'.$value['annee'].'</td>';
+                                                                echo '<td><a href="athlete-'.$value['ChampionID'].'-'.slugify($value['Nom']).'.html">'.$value['Nom'].'</a></td>';
+                                                                echo '<td>'.$pays_datas['Abreviation'].'</td>';
+                                                                echo '<td>'.$value['Temps'].'</td>';
+                                                                
+                                                            echo '</tr>';
+                                                            $i++;
+                                                        }
+                                                        ?>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="alpine-hide-box-gradient"></div>
+                                            <button class="read-more-button" @click="expanded = ! expanded">+Lire la suite</button>
+                                        </div>
                                     </div>
                                 </div>
                                 <div id="pal-f">
-                                <div class="col-sm-12 top-chronos top-chronos-left-div">
-                                        <table id="tableauFemmes-pal" data-page-length='10' class="display">
-                                            <thead>
-                                                <tr>
-                                                    <th style="text-transform: capitalize;">année</th>
-                                                    <th style="text-transform: capitalize;">athlète</th>
-                                                    <th style="text-transform: capitalize;">Pays</th>
-                                                   
-                                                    <th style="text-transform: capitalize;">temps</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php
-                                                $i=1;
-                                                foreach ($best_res_womens_byyear as $key => $value) {
-                                                    $pays_datas=NULL;
-                                                    $pays_display='';
-                                                    if($value['DateDebut']>$value['DateChangementNat']){
-                                                        $pays_datas=$pays->getFlagByAbreviation($value['NvPaysID'])['donnees'];
-                                                        $pays_display=$value['NvPaysID'];
-                                                    }else{
-                                                        $pays_datas=$pays->getFlagByAbreviation($value['PaysID'])['donnees'];
-                                                        $pays_display=$value['PaysID'];
-                                                    }
-                                                    if($pays_datas){
-                                                        $flag=$pays_datas['Flag'];  
-                                                    }
-                                                    ($flag!='NULL') ? $pays_flag='<span><img src="../../images/flags/'.$flag.'" alt=""/></span><br>':$pays_flag="";
-                                                    echo '<tr>';
-                                                        echo '<td>'.$value['annee'].'</td>';
-                                                        echo '<td><a href="athlete-'.$value['ChampionID'].'-'.slugify($value['Nom']).'.html">'.$value['Nom'].'</a></td>';
-                                                        echo '<td>'.$pays_flag.' '.$pays_datas['NomPays'].'</td>';
-                                                        echo '<td>'.$value['Temps'].'</td>';
+                                    <div class="col-sm-12 top-chronos top-chronos-left-div">
+                                        <div class="alpine-hide-box" x-data="{ expanded: false }">
+                                            <div x-show="expanded" x-collapse.min.450px>
+                                                <table id="tableauFemmes-pal" data-page-length='10' class="display">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="text-transform: capitalize;">année</th>
+                                                            <th style="text-transform: capitalize;">athlète</th>
+                                                            <th style="text-transform: capitalize;">Pays</th>
                                                         
-                                                    echo '</tr>';
-                                                    $i++;
-                                                }
-                                                ?>
-                                            </tbody>
-                                        </table>
+                                                            <th style="text-transform: capitalize;">temps</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php
+                                                        $i=1;
+                                                        foreach ($best_res_womens_byyear as $key => $value) {
+                                                            $pays_datas=NULL;
+                                                            $pays_display='';
+                                                            if($value['DateDebut']>$value['DateChangementNat']){
+                                                                $pays_datas=$pays->getFlagByAbreviation($value['NvPaysID'])['donnees'];
+                                                                $pays_display=$value['NvPaysID'];
+                                                            }else{
+                                                                $pays_datas=$pays->getFlagByAbreviation($value['PaysID'])['donnees'];
+                                                                $pays_display=$value['PaysID'];
+                                                            }
+                                                            if($pays_datas){
+                                                                $flag=$pays_datas['Flag'];  
+                                                            }
+                                                            ($flag!='NULL') ? $pays_flag='<span><img src="../../images/flags/'.$flag.'" alt=""/></span><br>':$pays_flag="";
+                                                            echo '<tr>';
+                                                                echo '<td>'.$value['annee'].'</td>';
+                                                                echo '<td><a href="athlete-'.$value['ChampionID'].'-'.slugify($value['Nom']).'.html">'.$value['Nom'].'</a></td>';
+                                                                echo '<td>'.$pays_datas['Abreviation'].'</td>';
+                                                                echo '<td>'.$value['Temps'].'</td>';
+                                                                
+                                                            echo '</tr>';
+                                                            $i++;
+                                                        }
+                                                        ?>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="alpine-hide-box-gradient"></div>
+                                            <button class="read-more-button" @click="expanded = ! expanded">+Lire la suite</button>
+                                        </div> 
                                     </div>
                                 </div>
                             </div>
@@ -731,7 +751,7 @@ if($pays_datas){
                 <div class="box-next-edition">
                     <?php echo $proch_date; ?>
                     <?php echo $lien_site; ?>
-                    <div class="row">
+                    <div class="row no-margin-left">
                         <?php echo $lien_facebook;?>
                         <?php echo $lien_insta;?>
                         <?php echo $lien_youtube;?>
@@ -763,7 +783,11 @@ if($pays_datas){
 
    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     
-
+  <!-- Alpine Plugins -->
+  <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+ 
+ <!-- Alpine Core -->
+ <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <!-- Add mousewheel plugin (this is optional) -->
     <script type="text/javascript" data-type="lazy" ddata-src="/js/jquery.mousewheel-3.0.6.pack.js"></script>
 
@@ -778,121 +802,39 @@ if($pays_datas){
     
      <script type="text/javascript">
     $(document).ready(function() {
+       
+
+       
+        
+       
+
             $('#tableauHommes-mc').DataTable( {
-                language: {
-                    processing:     "Traitement en cours...",
-                    search:         "",
-                    lengthMenu: '<select>'+
-                    '<option value="10">10 lignes</option>'+
-                    '<option value="25" >25 lignes</option>'+
-                    '<option value="50">50 lignes</option>'+
-                    '<option value="100">100 lignes</option>'+
-                    '</select>',
-                    info:           "Affichage des &eacute;lements _START_ &agrave; _END_",
-                    infoEmpty:      "Affichage de l'&eacute;lement 0 &agrave; 0 sur 0 lignes",
-                    infoFiltered:   "(filtr&eacute; de _MAX_ lignes au total)",
-                    infoPostFix:    "",
-                    loadingRecords: "Chargement en cours...",
-                    zeroRecords:    "Aucun &eacute;l&eacute;ment &agrave; afficher",
-                    emptyTable:     "Aucune donnée disponible dans le tableau",
-                    paginate: {
-                        first:      "Premier",
-                        previous:   "Pr&eacute;c&eacute;dent",
-                        next:       "Suivant",
-                        last:       "Dernier"
-                    },
-                    aria: {
-                        sortAscending:  ": activer pour trier la colonne par ordre croissant",
-                        sortDescending: ": activer pour trier la colonne par ordre décroissant"
-                    }
-                }
+                paging: false,
+                bFilter: false,
+                
+                searching: true,
+                dom: 't'   
         } );   
         $('#tableauFemmes-mc').DataTable( {
-            language: {
-                processing:     "Traitement en cours...",
-                search:         "",
-                lengthMenu: '<select>'+
-                '<option value="10">10 lignes</option>'+
-                '<option value="25">25 lignes</option>'+
-                '<option value="50">50 lignes</option>'+
-                '<option value="100">100 lignes</option>'+
-                '</select>',
-                info:           "Affichage des &eacute;lements _START_ &agrave; _END_",
-                infoEmpty:      "Affichage de l'&eacute;lement 0 &agrave; 0 sur 0 lignes",
-                infoFiltered:   "(filtr&eacute; de _MAX_ lignes au total)",
-                infoPostFix:    "",
-                loadingRecords: "Chargement en cours...",
-                zeroRecords:    "Aucun &eacute;l&eacute;ment &agrave; afficher",
-                emptyTable:     "Aucune donnée disponible dans le tableau",
-                paginate: {
-                    first:      "Premier",
-                    previous:   "Pr&eacute;c&eacute;dent",
-                    next:       "Suivant",
-                    last:       "Dernier"
-                },
-                aria: {
-                    sortAscending:  ": activer pour trier la colonne par ordre croissant",
-                    sortDescending: ": activer pour trier la colonne par ordre décroissant"
-                }
-            }
+            paging: false,
+            bFilter: false,
+            
+            searching: true,
+            dom: 't'   
         } );
         $('#tableauHommes-pal').DataTable( {
-                language: {
-                    processing:     "Traitement en cours...",
-                    search:         "",
-                    lengthMenu: '<select>'+
-                    '<option value="10">10 lignes</option>'+
-                    '<option value="25" >25 lignes</option>'+
-                    '<option value="50">50 lignes</option>'+
-                    '<option value="100">100 lignes</option>'+
-                    '</select>',
-                    info:           "Affichage des &eacute;lements _START_ &agrave; _END_",
-                    infoEmpty:      "Affichage de l'&eacute;lement 0 &agrave; 0 sur 0 lignes",
-                    infoFiltered:   "(filtr&eacute; de _MAX_ lignes au total)",
-                    infoPostFix:    "",
-                    loadingRecords: "Chargement en cours...",
-                    zeroRecords:    "Aucun &eacute;l&eacute;ment &agrave; afficher",
-                    emptyTable:     "Aucune donnée disponible dans le tableau",
-                    paginate: {
-                        first:      "Premier",
-                        previous:   "Pr&eacute;c&eacute;dent",
-                        next:       "Suivant",
-                        last:       "Dernier"
-                    },
-                    aria: {
-                        sortAscending:  ": activer pour trier la colonne par ordre croissant",
-                        sortDescending: ": activer pour trier la colonne par ordre décroissant"
-                    }
-                }
+            paging: false,
+            bFilter: false,
+            order: [[0, 'desc']],
+            searching: true,
+            dom: 't'   
         } );   
         $('#tableauFemmes-pal').DataTable( {
-            language: {
-                processing:     "Traitement en cours...",
-                search:         "",
-                lengthMenu: '<select>'+
-                '<option value="10">10 lignes</option>'+
-                '<option value="25">25 lignes</option>'+
-                '<option value="50">50 lignes</option>'+
-                '<option value="100">100 lignes</option>'+
-                '</select>',
-                info:           "Affichage des &eacute;lements _START_ &agrave; _END_",
-                infoEmpty:      "Affichage de l'&eacute;lement 0 &agrave; 0 sur 0 lignes",
-                infoFiltered:   "(filtr&eacute; de _MAX_ lignes au total)",
-                infoPostFix:    "",
-                loadingRecords: "Chargement en cours...",
-                zeroRecords:    "Aucun &eacute;l&eacute;ment &agrave; afficher",
-                emptyTable:     "Aucune donnée disponible dans le tableau",
-                paginate: {
-                    first:      "Premier",
-                    previous:   "Pr&eacute;c&eacute;dent",
-                    next:       "Suivant",
-                    last:       "Dernier"
-                },
-                aria: {
-                    sortAscending:  ": activer pour trier la colonne par ordre croissant",
-                    sortDescending: ": activer pour trier la colonne par ordre décroissant"
-                }
-            }
+            paging: false,
+            bFilter: false,
+            order: [[0, 'desc']],
+            searching: true,
+            dom: 't'   
         } );
         $("a.sub-menu-link").click(function() {
             var id = $(this).attr('id');
