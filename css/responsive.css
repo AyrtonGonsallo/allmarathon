@@ -950,11 +950,16 @@ padding-left: 0px !important;
 margin-bottom: 0px !important;
 }
 .athlete-detail .nav-tabs>li>a {
-  font-size: 18px;
+  font-size: 16px;
   padding-left: 10px;
   padding-right: 10px;
 }
-
+.athlete-detail .video-grid-tab ,.videos-liste .video-grid-tab{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  margin-bottom: 20px;
+}
 .athlete-detail .tab-content .col-sm-6 {
   padding-left: 0px;
   padding-right: 0px;
@@ -1801,11 +1806,6 @@ li.menu-item-categories .nav-category {
 
 
 
-}
-.video-details .left-side .video_title {
-  font-size: 18px;
-  margin-bottom: 0px;
-  text-transform: none;
 }
 
 @media all and (min-width: 768px) {

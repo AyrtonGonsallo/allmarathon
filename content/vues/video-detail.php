@@ -53,7 +53,7 @@ if($video->getChampion_id()!=0){
     $champ_name=''; 
 
 }
-
+$last_videos=$vd->getLastNVideos(5);
 $ev_cat_event=new evCategorieEvenement();
 
 $evenement=new evenement();
@@ -143,7 +143,7 @@ $getMobileAds=$pub->getMobileAds("accueil")['donnees'];
 
 <?php include_once('nv_header-integrer.php'); ?>
 
-<div class="container page-content athlete-detail video-details">
+<div class="container page-content athlete-detail video-details mt-77">
     
     <div class="row banniere1">
         <div  class="col-sm-12"><?php
@@ -165,13 +165,42 @@ $getMobileAds=$pub->getMobileAds("accueil")['donnees'];
                 <div class="col-sm-12">
                 <?php
                 setlocale(LC_TIME, "fr_FR","French");
+                if($video->getEvenement_id()){
+                    $evenement=$event->getEvenementByID($video->getEvenement_id())["donnees"];
+                    $cat_event=$ev_cat_event->getEventCatEventByID($evenement->getCategorieId())['donnees']->getIntitule();
+
+                    $nom_res='<strong>'.$cat_event.' - '.$evenement->getNom().'</strong> - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
+                    $nom_res_lien=$cat_event.' - '.$evenement->getNom().' - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
+
+                    $res_event= "<a href='/resultats-marathon-".$evenement->getId()."-".slugify($nom_res_lien).".html' class='home-link mr-5 float-l'><span class='material-symbols-outlined'>trophy</span> Résultats </a>";
+                }
                 $nom_res='<strong>'.$ev_cat_ev.' - '.$event_name.'</strong> - '.utf8_encode(strftime("%A %d %B %Y",strtotime($date)));
                 $nom_res_lien=$ev_cat_ev.' - '.$event_name.' - '.utf8_encode(strftime("%A %d %B %Y",strtotime($date)));
 
-                     echo '<h1 class="video_title">'.$video->getTitre().' - vidéo </h1>';
-                     echo '<h2 style="font-size: 15px;"><a href="/resultats-marathon-'.$id.'-'.slugify($nom_res_lien).'.html">Voir les résultats du '.$ev_cat_ev.' '.$event_name.' '.$annee.'</a></h2>';
-                     echo $video->getObjet();
-                     echo $video->getDescription();?>
+                     echo '<h1 class="video_title">Vidéo : '.$video->getTitre().'</h1>';
+                     echo  $res_event;?>
+                     <span class="comment-count-container">
+                        <a style="font-weight: bold;" href="<?php echo 'https://allmarathon.fr/video-de-marathon-'.$video->getId().'.html';?>#disqus_thread"># </a>
+                        <span class="material-symbols-outlined">chat_bubble</span>
+                    </span>
+                    <script>
+                            setTimeout(() => {
+                                (function() { // DON'T EDIT BELOW THIS LINE
+                                    var d = document, s = d.createElement('script');
+                                    s.src = '//allmarathon.disqus.com/count.js';
+                                    s.setAttribute('data-timestamp', +new Date());
+                                    s.setAttribute('id', "dsq-count-scr");
+                                    (d.head || d.body).appendChild(s);
+                                    })();
+                            }, "10000");
+                            
+                        </script>
+                    <?
+                     //echo '<h2 style="font-size: 15px;"><a href="/resultats-marathon-'.$id.'-'.slugify($nom_res_lien).'.html">Voir les résultats du '.$ev_cat_ev.' '.$event_name.' '.$annee.'</a></h2>';
+                     echo $video->getObjet();?>
+                     <div id="video-desc">
+                         <? echo $video->getDescription();?>
+                    </div>
                      <!--<div class="row" style="margin: 10px 0;">
 
                             <?php //include_once("shareButtons.php"); ?>
@@ -205,59 +234,50 @@ $getMobileAds=$pub->getMobileAds("accueil")['donnees'];
 
         </div> <!-- End left-side -->
 
-        <aside class="col-sm-4">
+        <aside class="col-sm-4 bureau">
+            <h3><span class="material-symbols-outlined">play_circle</span>Les dernières vidéos</h3>
+        <?php
+                            foreach ($last_videos['donnees'] as $vd) {
+                                $event_intitule="";
+	                                if($vd->getEvenement_id()!=0){
+	                                $annee_event=substr($event->getEvenementByID($vd->getEvenement_id())['donnees']->getDateDebut(),0,4);
+                                    $video_intitule=$event->getEvenementByID($vd->getEvenement_id())['donnees']->getNom()." ".$annee_event;
+	                                $event_intitule="<li><a href='/resultats-marathon-".$vd->getEvenement_id()."-".slugify($video_intitule).".html' class='video_event'>".$video_intitule."</a></li>";
+	                                }
+                            		$duree="<li style='list-style-type: none;'></li>";
+	                                
+                                    if($vd->getEvenement_id()){
+                                        $evenement=$event->getEvenementByID($vd->getEvenement_id())["donnees"];
+                                        $cat_event=$ev_cat_event->getEventCatEventByID($evenement->getCategorieId())['donnees']->getIntitule();
+                
+                                        $nom_res='<strong>'.$cat_event.' - '.$evenement->getNom().'</strong> - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
+                                        $nom_res_lien=$cat_event.' - '.$evenement->getNom().' - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
+                
+                                    }
+                            		echo '
+                                    <ul class="video-align-top video-grid-tab">
+                                        
+                                        <li class="mr-5"><a href="video-de-marathon-'.$vd->getId().'.html"><img src="'.$vd->getVignette().'"  alt="" class="video-liste-image img-responsive"/></a></li>
+                                        <li class="video-t-d-res">
+                                            <ul>
+                                                <li><a href="video-de-marathon-'.$vd->getId().'.html" class="last_video_titre">'.$vd->getTitre().'</a></li>
+                                            </ul>
+                                            
+                                        </li>
+                                    </ul>
+                                ';
+                            	}
+                        ?>
+            <p class="ban">
+                <?php
+                            /*
+                if($pub300x250 !="") {
+                echo $pub300x250["code"] ? $pub300x250["code"] :  "<a href=". $pub300x250['url'] ." target='_blank'><img src=".'../images/pubs/'.$pub300x250['image'] . " alt='' style=\"width: 100%;\" />";
+                }*/
+                ?>
+            </p>
 
-            <p class="ban"><?php
-            /*
-if($pub300x250 !="") {
-echo $pub300x250["code"] ? $pub300x250["code"] :  "<a href=". $pub300x250['url'] ." target='_blank'><img src=".'../images/pubs/'.$pub300x250['image'] . " alt='' style=\"width: 100%;\" />";
-}*/
-?></a></p>
-
-            <div class="marg_bot"></div>
-            <?php if($video->getChampion_id()!=0){ ?>
-            <dt class="suggestions">Vidéos de <?php echo $champ_name; ?></dt>
-            <dd class="suggestions">
-                <ul class="clearfix">
-                    <?php
-                    foreach ($videos_champ as $key => $value) {
-                    echo '<li><a href="video-de-marathon-'.$value->getId().'.html"><span style="min-width: 90px;"><img src="'.$value->getVignette().'" class="img-responsive" alt="" style="height: 50px;width: 70px;border: 1px solid #666666;"></span> <strong>'.$value->getTitre().'</strong></a></li>';
-                    }
-                     ?>
-                     <li></li>
-                </ul>
-            </dd>
-            <div class="marg_bot"></div>
-            <?php } ?>
-            <?php if($tech1!=''){
-                echo '<dt class="suggestions">'.substr($tech1,0,strlen($tech1)-3).' en vidéos</dt>
-            <dd class="suggestions">
-                <ul class="clearfix">';
-                foreach ($videos_tech1 as $key => $value) {
-                    echo '<li><a href="video-de-marathon-'.$value->getId().'.html"><span style="min-width: 90px;"><img src="'.$value->getVignette().'" class="img-responsive" alt="" style="height: 50px;width: 70px;border: 1px solid #666666;"></span> <strong>'.$value->getTitre().'</strong></a></li>';
-                }
-                echo '<li></li></ul>
-            </dd> 
-            <div class="marg_bot"></div>';
-            }?>
-            
-            <?php if($tech2!=''){
-                echo '<dt class="suggestions">'.substr($tech2,0,strlen($tech2)-3).' en vidéos</dt>
-            <dd class="suggestions">
-                <ul class="clearfix">';
-                foreach ($videos_tech2 as $key => $value) {
-                    echo '<li><a href="video-de-marathon-'.$value->getId().'.html"><span style="min-width: 90px;"><img src="'.$value->getVignette().'" class="img-responsive" alt="" style="height: 50px;width: 70px;border: 1px solid #666666;"></span> <strong>'.$value->getTitre().'</strong></a></li>';
-                    
-                }
-                    echo '<li></li></ul>
-            </dd>
-            <div class="marg_bot"></div>';
-            }?>
-
-            <!-- <p class="ban"><a href=""><?php //echo $pub160x600; ?></a></p> -->
-            
-            <div class="dailymotion-widget" data-placement="58dcd1d2a716ff001755f5f9"></div><script>(function(w,d,s,u,n,e,c){w.PXLObject = n; w[n] = w[n] || function(){(w[n].q = w[n].q || []).push(arguments);};w[n].l = 1 * new Date();e = d.createElement(s); e.async = 1; e.src = u;c = d.getElementsByTagName(s)[0]; c.parentNode.insertBefore(e,c);})(window, document, "script", "//api.dmcdn.net/pxl/client.js", "pxl");</script>
-            <div class="marg_bot"></div>
+             <div class="marg_bot"></div>
         </aside>
     </div>
 

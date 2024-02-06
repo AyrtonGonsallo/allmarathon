@@ -236,6 +236,36 @@ class video{
 	        }
 	}
 
+	public function getAllVideos($condition)
+	{
+		try {
+				  include("../database/connexion.php");
+				 if($condition!='')
+				 {
+				 	$req = $bdd->prepare("SELECT * FROM videos WHERE Categorie=:condition  ORDER BY date DESC");
+				 	$req->bindValue('condition', $condition, PDO::PARAM_STR);
+				 }
+				 else{
+				 	$req = $bdd->prepare("SELECT * FROM videos ORDER BY date DESC");
+				 }
+	             
+	             
+	             $req->execute();
+	             $videos= array();
+	             while ( $row  = $req->fetch(PDO::FETCH_ASSOC)) {    
+					  // $vd = self::constructWithArray($row);
+					  array_push($videos, $row);
+	             }
+	             $bdd=null;
+	                return array('validation'=>true,'donnees'=>$videos,'message'=>'');
+	        }
+	       
+	        catch(Exception $e)
+	        {
+	            die('Erreur : ' . $e->getMessage());
+	        }
+	}
+
 	public function getVideosForNewsletter()
 	{
 		try {

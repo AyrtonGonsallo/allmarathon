@@ -235,7 +235,7 @@ search
 
                     <li> <a data-category="Header_Links" data-action="Top Menu Click" data-label="VIDEOS"
 
-                            href="/videos-de-marathon.html" class="header--nav--link pull-right1">Vidéos</a></li>
+                            href="/videos-de-marathon.html" class="header--nav--link pull-right1" id="videos">Vidéos</a></li>
                     <li> <a data-category="Header_Links" data-action="Top Menu Click" data-label="RECORDS"
 
                     href="/records-marathon-masculins.html" class="header--nav--link pull-right1">Records</a></li>
@@ -642,6 +642,7 @@ $(document).ready(function() {
     const regex_url_marathons = new RegExp(/(.|-)*marathons(.|-)*.html/);
     const regex_url_resultats = new RegExp(/(.|-)*resultats-marathon(.|-)*.html/);
     const regex_url_athletes = new RegExp(/(.|-)*athlete(.|-)*.html/);
+    const regex_url_videos = new RegExp(/(.|-)*video(.|-)*.html/);
     urlparts = getCurrentURL()
     console.log("url parts",urlparts)
     url_actuelle=urlparts[3]
@@ -660,6 +661,10 @@ $(document).ready(function() {
     }else if( regex_url_athletes.test(url_actuelle)){
         console.log("athletes page")
         $('#athletes').addClass("active-menu-link");
+    }
+    else if( regex_url_videos.test(url_actuelle)){
+        console.log("videos page")
+        $('#videos').addClass("active-menu-link");
     }
     
     if (window.matchMedia("(min-width: 1121px)").matches) {

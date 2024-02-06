@@ -2248,6 +2248,13 @@ li.menu-item-categories .hamburger-menu-button {
     color: #000;
 
 }
+.video-details .left-side .video_title {
+    font-size: 34px;
+    font-family: 'Poppins-Black';
+    margin-bottom: 0px;
+    text-transform: none;
+  }
+  
 .home-link{
     background-color: #fbff0b;
     color: #000;
@@ -3222,9 +3229,7 @@ h2.mini_h2 {
     color: #333;
 }
 
-.athlete-detail ul.comments {}
 
-.athlete-detail ul.comments>li form.add-comment {}
 
 .athlete-detail ul.comments>li form.add-comment label {
     width: 120px;
@@ -3234,9 +3239,12 @@ h2.mini_h2 {
 
 .athlete-detail .tab-pane ul.videos-tab>li {
     padding: 10px 0;
-    border-bottom: 1px solid #cccccc;
 }
-
+.athlete-detail .video-grid-tab,.videos-liste .video-grid-tab{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    margin-bottom: 20px;
+}
 .athlete-detail .tab-pane ul.videos-tab>li>ul>li>ul {
     list-style-type: disc;
     margin-left: 15px;
@@ -3479,7 +3487,7 @@ margin-bottom: 10px;
 .athlete-detail .nav.nav-tabs{
     margin-top: 20px;
 }
-.videos-tab .material-symbols-outlined{
+.videos-tab .material-symbols-outlined,.videos-liste .material-symbols-outlined{
     top: 5px;
     position: relative;
 }
@@ -3532,7 +3540,12 @@ margin-bottom: 10px;
     padding: 3px 5px;
     color: #ffffff;
 }
-
+.athlete-detail .video-t-d-res,.videos-liste .video-t-d-res{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: self-start;
+}
 .athlete-detail a.view-all:hover {
     text-decoration: none;
 }
@@ -4301,9 +4314,28 @@ ul.videos-tab li {
 
 .video_titre {
     font-size: 18px !important;
-    font-size: "Poppins-Bold";
+    font-family: "Poppins-Bold";
 }
-
+.video-details iframe{
+    margin: 20px 0px;
+}
+.video-details h3 .material-symbols-outlined{
+    top: 5px;
+    position: relative;
+    margin-right: 10px;
+}
+.video-details #video-desc{
+    font-family: "Poppins-Medium";
+    font-size: 20px;
+}
+.last_video_titre {
+    font-size: 18px !important;
+    font-family: "Poppins-Medium";
+}
+.video-details .float-l .material-symbols-outlined{
+    top: 5px;
+    position: relative;
+}
 dt.anchor {
     padding-top: 100px !important;
     margin-top: -100px !important;

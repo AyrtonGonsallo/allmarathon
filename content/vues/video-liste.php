@@ -51,7 +51,7 @@ if($key_word!=""){
     
 }
 else{
-    $videos=$vd->getVideoPerPage($page,$sort);
+    $videos=$vd->getAllVideos($sort);
     
 }
 
@@ -122,7 +122,7 @@ function slugify($text)
 
 
 
-<div class="container page-content athlètes">
+<div class="container page-content athlètes mt-77 videos-liste">
     <div class="row banniere1">
             <div  class="col-sm-12"><?php
                 if($pub728x90 !="") {
@@ -142,65 +142,59 @@ function slugify($text)
                 <div class="col-sm-12">
 
                     <h1>Vidéos de marathon. Jeux olympiques, championnats du monde, championnats d'Europe, World Majors Marathon.</h1>
-                    <h2>Résumé des courses, conseils entrainement marathon, interviews de marathoniens</h2>
+                    <h2>Retransmissions des courses en streaming, résumés, conseils d’entrainement pour le marathon en vidéo, interviews de marathoniens.</h2>
 
                     
-                    <input type="search" placeholder="Recherche" class="form-control" style="width: 93%; margin-bottom: 5px; display: inline-block;" id="search_val"></input>
-                    <button type="submit" class="btn btn-primary" style="margin-bottom: 1px; display: inline-block;" onclick="goToSearch();"><i class="fa fa-search"></i></button>
-                     
+                    
                 </div>
 
                 <div class="col-sm-12">
-                    <ul class="videos-marathon">
+                    <ul class="videos-marathon lazyblock">
                         <?php
                             foreach ($videos['donnees'] as $video) {
                                 $event_intitule="";
                                 if($video['Evenement_id']!=0){
+                                    /*
                                     $annee_event=substr($event->getEvenementByID($video['Evenement_id'])['donnees']->getDateDebut(),0,4);
                                     $ev_vd=$event->getEvenementByID($video['Evenement_id'])['donnees'];
                                     $ev_cat_ev=$ev_cat_event->getEventCatEventByID($ev_vd->getCategorieId())['donnees']->getIntitule();
                                     $video_intitule=$ev_cat_ev." ".$ev_vd->getNom()." ".$annee_event;
-                                $event_intitule="<li><a class='video_event' href='/resultats-marathon-".$ev_vd->getId()."-".slugify($video_intitule).".html'>".$video_intitule."</a></li>";
+                                    $event_intitule="<li><a class='video_event' href='/resultats-marathon-".$ev_vd->getId()."-".slugify($video_intitule).".html'>".$video_intitule."</a></li>";
+                                    */
+
+                                    $evenement=$event->getEvenementByID($video['Evenement_id'])["donnees"];
+                                    $cat_event=$ev_cat_event->getEventCatEventByID($evenement->getCategorieId())['donnees']->getIntitule();
+            
+                                    $nom_res='<strong>'.$cat_event.' - '.$evenement->getNom().'</strong> - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
+                                    $nom_res_lien=$cat_event.' - '.$evenement->getNom().' - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
+                                    $res_event="";
+                                    $res_event= "<a href='/resultats-marathon-".$evenement->getId()."-".slugify($nom_res_lien).".html' class='home-link mr-5 '><span class='material-symbols-outlined'>trophy</span> Résultats </a>";
+                                
                                 }
                                 $duree="<li style='list-style-type: none;'></li>";
-                                if($video['Duree']!='')
-                                $duree="<li>durée : ".$video['Duree']."</li>";
+                                if($video['Duree']!=''){
+                                    //$duree="<li>durée : ".$video['Duree']."</li>";
+                                    $duree="<li><span class='material-symbols-outlined'>timer</span>Durée de la vidéo : ".$video['Duree']."</li>";
+                                }
+                                
                                 $img_top ='';
-                                echo '<li class="row">
-                            <ul class="video-align-top">
-                                <li class="col-sm-8">
-                                    <ul>
-                                        <li><a href="video-de-marathon-'.$video['ID'].'.html" class="video_titre">'.$video['Titre'].'</a></li>'.$event_intitule.$duree.'
-                                    </ul>
-                                </li> 
-                                <li class="col-sm-4"><a href="video-de-marathon-'.$video['ID'].'.html"><img src="'.$video['Vignette'].'" width="120" heigh="90" alt="" class="pull-right img-responsive"/>';
-                                if($video['top_ippon']) $img_top ='<img src="../../images/pictos/badge.png" alt=""/>';
-                                    echo $img_top.'</a></li>
-                            </ul>
-                        </li>';
+                                echo '<div class="video-align-top video-grid-tab">
+                                        
+                                        <div class="mr-5"><a href="video-de-marathon-'.$video['ID'].'.html"><img src="'.$video['Vignette'].'"  alt="" class="video-liste-image img-responsive"/></a></div>
+                                        <div class="video-t-d-res">
+                                            <ul>
+                                                <li><a href="video-de-marathon-'.$video['ID'].'.html" class="video_titre">'.$video['Titre'].'</a></li>'.$duree.'
+                                            </ul>
+                                            '.$res_event.'
+                                        </div>
+                                    </div>';
                             }
                         ?>
                     </ul>
 
                     <div class="clearfix"></div>
 
-                    <ul class="pager">
-                        <?php 
-                            if($next==$vid_par_page) $style_suivant='style="pointer-events: none;cursor: default;"';
-                            else $style_suivant='';
-                            if(intval($next)<2) $style_precedent='style="pointer-events: none;cursor: default;"';
-                            else $style_precedent='';
-                            if($sort!='') { 
-                        ?>
-                        <li><?php echo '<a href="/videos-de-marathon-'.$sort.'-'.$key_word.'-'.$previous.'.html"'.$style_precedent.'> Précédent</a>'; ?></li>
-                        <li><?php echo $next; ?> / <?php echo $vid_par_page; ?></li>
-                        <li><?php echo '<a href="/videos-de-marathon-'.$sort.'-'.$key_word.'-'.$next.'.html"'.$style_suivant.'> Suivant</a>'; ?> </li>
-                    <?php } else {
-                         echo '<li><a href="/videos-de-marathon--'.$key_word.'-'.$previous.'.html"'.$style_precedent.'> Précédent</a></li>
-                          <li>'.$next.' / '.$vid_par_page.'</li>
-                        <li><a href="/videos-de-marathon--'.$key_word.'-'.$next.'.html"'.$style_suivant.'> Suivant</a> </li>';
-                     }?>
-                    </ul>
+                  
                 </div>
             </div>
         </div> <!-- End left-side -->
@@ -270,6 +264,49 @@ if($pub160x600 !="") {
 
 
 <script type="text/javascript" >
+     $(document).ready(function() {
+
+        if(window.outerWidth < 740) {
+            $(".lazyblock div").slice(12).hide();
+           // $(".lazyblock article").slice(6).hide();
+
+                var mincount = 2;
+                var maxcount = 12;
+                
+
+                $(window).scroll(function () {
+                    //console.log("left: ",$(window).scrollTop() + $(window).height())
+                    //console.log("right: ",$(document).height() - 20)
+                    if ($(window).scrollTop() + $(window).height() >= 2000) {
+                        $(".lazyblock div").slice(mincount, maxcount).slideDown(100);
+                      //  $(".lazyblock article").slice(mincount, maxcount).slideDown(100);
+                        mincount = mincount + 2;
+                        maxcount = maxcount + 2
+
+                    }
+                });
+        }else{
+            $(".lazyblock div").slice(12).hide();
+            //$(".lazyblock article").slice(6).hide();
+
+                var mincount = 2;
+                var maxcount = 12;
+                
+
+                $(window).scroll(function () {
+                    //console.log("left: ",$(window).scrollTop() + $(window).height())
+                    //console.log("right: ",$(document).height() - 20)
+                    if ($(window).scrollTop() + $(window).height() >= $(document).height() - 500) {
+                        $(".lazyblock div").slice(mincount, maxcount).slideDown(100);
+                        //$(".lazyblock article").slice(mincount, maxcount).slideDown(100);
+                        mincount = mincount + 2;
+                        maxcount = maxcount + 2
+
+                    }
+                });
+        }
+
+        })
     function sortVideo(){
         selected = document.getElementById('reroutage').selectedIndex;
         sort = document.getElementById('reroutage')[selected].value;
