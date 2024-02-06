@@ -56,6 +56,12 @@ strong{
 .mt-77{
     margin-top: 77px;
 }
+.mb-80{
+    margin-bottom: 80px;
+}
+.mt-30{
+    margin-bottom: 30px;
+}
 .pr-0{
     padding-right: 0 !important;
 }
@@ -82,7 +88,7 @@ strong{
 }
 .marathon-detail .sub-menu-link{
     font-size: 17px;
-    font-family: "Poppins-Thin";
+    font-family: "Poppins-light";
 }
 #description-marathon{
     font-size: 16px; 
@@ -288,17 +294,22 @@ table.dataTable.no-footer {
     border-bottom: none !important;
 }
 .athlete-detail table.dataTable thead th {
-    border-bottom: 1px solid #000000 !important;
-    border-top: 1px solid #000000 !important;
-
-    background-color: #fbff0b;
+    border-bottom: 1px solid #ffffff00 !important;
+    border-top: 1px solid #ffffff00 !important;
+    background-color: #ffffff00;
+}
+.athlete-detail table.dataTable tr.odd{
+    background: #eeeff0;
+}
+#tab1 tr.odd{
+    background: #eeeff0;
 }
 .resultat-detail .dataTables_wrapper{
     margin-top: 30px;
     margin-bottom: 15px;
 }
 .athlete-detail .table>tbody>tr>td{
-    border-bottom: 1px solid #000000 !important;
+    border-bottom: 1px solid #00000000 !important;
 }
 .marathons-home .bottom-border{
     margin-bottom: 23px;
@@ -949,9 +960,11 @@ li.menu-item-categories .hamburger-menu-button {
     font-family: 'Poppins-regular';
     font-size: 17px;
     margin-bottom: 50px;
+    padding-right: 300px;
+    line-height: 25px;
 }
 .mpp-pays-box{
-    margin: 30px 50px;
+    margin: 20px 50px;
     padding: 30px 50px;
     background-color: #ffffff;
 }
@@ -969,16 +982,109 @@ li.menu-item-categories .hamburger-menu-button {
     background-color: #ebeeef;
 }
 .mpp-title-pays{
-    font-weight: bolder;
-    font-size: 22px;
+    font-family: 'Poppins-Black';
+    font-size: 19px;
     text-align: center;
+}
+.resultats-liste .mw-600,.athletes-liste .mw-600{
+    max-width: 640px;
+}
+.resultats-liste .input-zone-box,.athletes-liste .input-zone-box{
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    gap: 5px;
+    width: fit-content;
+}
+.resultats-liste #select-pays,.athletes-liste #select-pays{
+    background-color: #eeeff0;
+    font-family: "Poppins-Bold";
+    color: #000;
+    border: none  !important;
+}
+.athletes-liste .athletes-liste-grid{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+}
+.athletes-liste #resultats-recherche-athletes{
+    min-height: 200px;
+    padding-top: 30px;
+}
+.athletes-liste .athletes-grid-element{
+    padding: 15px 8px 15px 20px;
+    border: 1Px solid #e5e5e5;
+    margin: 10px;
+    box-shadow: 0 3px 3px #e5e5e5;
+}
+.rl-suiv{
+    float: right;
+}
+.rl-prec{
+    float: left;
+}
+.resultats-liste .pager li>a , .resultats-liste .pager li>span {
+    color: #2caffe ;
+    background-color: #ff000000 !important;
+    border: none !important;
+    text-decoration: underline !important;
+}
+
+.resultats-liste .pager li>a:focus,.resultats-liste  .pager li>a:hover {
+    background-color: #ff000000 !important;
+}
+.athletes-liste .pager li>a , .athletes-liste .pager li>span {
+    color: #2caffe ;
+    background-color: #ff000000 !important;
+    text-decoration: underline !important;
+    border: none !important;
+}
+.athletes-liste .pager li>a:focus,.athletes-liste  .pager li>a:hover {
+    background-color: #ff000000 !important;
+}
+.resultats-liste .resultats-grid{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+}
+.resultats-liste .resultats-grid-element span{
+    text-transform: capitalize !important;
+}
+.resultats-liste .resultats-grid-element{
+    padding: 15px 8px 15px 20px;
+    border: 1Px solid #e5e5e5;
+    margin: 10px;
+    box-shadow: 0 3px 3px #e5e5e5;
+    }
+.resultats-liste input{
+    background-color: #eeeff0;
+    font-family: "Poppins-Bold";
+    color: #000;
+    border: none  !important;
+}
+.resultats-liste button{
+    background-color: #eeeff0 !important;
+    margin-left: -4px !important;
+    border: none  !important;
+    height: 34px !important;
+}
+.athletes-liste input{
+    background-color: #eeeff0;
+    font-family: "Poppins-Bold";
+    color: #000;
+    border: none  !important;
+}
+.athletes-liste button{
+    background-color: #eeeff0 !important;
+    margin-left: -4px !important;
+    border: none  !important;
+    height: 34px !important;
 }
 .mpp-nbr-mar{
     background-color: #9ddaff;
     padding: 5px;
-    font-size: 20px;
+    font-size: 18px;
     text-align: center;
-    font-family: 'Poppins-Bold';
+    font-family: 'Poppins-Regular';
+    margin-top: 10px;
+    border-radius: 2px;
 }
 .align-with-grid-mpp{
     margin-left: 35px;
@@ -2306,15 +2412,14 @@ img.media.picto-video {
     font-size: 15px;
     margin-right: 6px;
     margin-top: 10px;
-    font-family: 'Poppins-Thin';
-
+    font-family: 'Poppins-Light';
 }
 .marathon-site{
     line-height: 32px;
     font-size: 15px;
     margin-right: 20px;
     margin-top: 10px;
-    font-family: 'Poppins-Thin';
+    font-family: 'Poppins-Light';
 }
 .marathon-medias img {
     color: #000;
@@ -2731,7 +2836,7 @@ h2.mini_h2 {
     border-top: none;
     border-right: none;
     border-left: none;
-    border-bottom: 2px solid #fbff0b;
+    border-bottom: 1px solid #60614500;
     color: #000000;
     font-size: 20px;
     text-transform: uppercase;
@@ -2749,7 +2854,8 @@ h2.mini_h2 {
     border-left: none;
     border-bottom: 2px solid #fbff0b00;
     color: #000000;
-    background-color:#fbff0b00 ;
+    font-weight: bold;
+    background-color:#fbff0b;
 }
 
 .results-buttons{
@@ -3100,11 +3206,11 @@ h2.mini_h2 {
 }
 
 .athlete-detail .nav-tabs>li>a {
-    font-family: 'Poppins-Black';
-    font-size: 30px;
+    font-family: 'Poppins-Light';
+    font-size: 18px;
     text-align: start;
-    padding-left: 0px;
-    padding-right: 0px;
+    background: yellow;
+    padding: 0 20px;
 }
 
 .athlete-detail #tab1 table tr>th:not(:first-child),
@@ -3262,6 +3368,11 @@ height: fit-content !important;
 .marathon-detail-res-link{
     background-color: #fbff0b;
     margin: 5px;
+    padding: 5px 15px;
+}
+.marathon-detail .ui-widget {
+    font-family: 'Poppins-regular';
+    font-size: 1em;
 }
 .marathon-detail-resultats{
 margin-top: 10px;
@@ -3274,7 +3385,7 @@ margin-bottom: 10px;
 }
 .page-marathon-title{
     color: #000 !important;
-    font-size: 14px;
+    font-size: 17px;
     font-weight: 900;
     line-height: 18px;
     margin-left: 0;
@@ -3363,9 +3474,18 @@ margin-bottom: 10px;
     padding: 10px 0;
 }
 .athlete-detail .tab-pane ul.videos-tab>li>ul>li>ul>li:last-child {
-    font-size: 12px;
+    font-size: 16px;
 }
-
+.athlete-detail .nav.nav-tabs{
+    margin-top: 20px;
+}
+.videos-tab .material-symbols-outlined{
+    top: 5px;
+    position: relative;
+}
+.video-liste-image{
+    width: 100%;
+}
 .athlete-detail .tab-pane ul.photos-tab {}
 
 .athlete-detail .tab-pane ul.photos-tab>li {
@@ -4181,6 +4301,7 @@ ul.videos-tab li {
 
 .video_titre {
     font-size: 18px !important;
+    font-size: "Poppins-Bold";
 }
 
 dt.anchor {
@@ -4279,10 +4400,6 @@ dt.anchor {
 .content_class {
     padding-top: 5px;
     padding-left: 0;
-}
-
-.capitalize {
-    text-transform: capitalize;
 }
 
 .news_suggestion {
@@ -4841,12 +4958,16 @@ a.btn-achat:hover {
 .no-padding-right {
     padding-right: 0px;
 }
-.marathon-details-breadcumb{
-    float:right;
+.athlete-details-breadcumb{
     margin-top: 20px;
-    font-family: 'Poppins-Thin';
+    font-family: 'Poppins-light';
     font-size: 17px;
-    margin-bottom: 10px;
+}
+.marathon-details-breadcumb{
+    float: right;
+    margin-top: 20px;
+    font-family: 'Poppins-light';
+    font-size: 17px;
 }
 .marathon-detail h1{
     font-size: 30px;

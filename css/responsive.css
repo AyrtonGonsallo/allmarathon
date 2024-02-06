@@ -23,8 +23,27 @@
   margin-top: 0px !important;
   clear: both;
 }
+.resultats-liste .input-zone-box ,.athletes-liste .input-zone-box{
+  grid-template-columns: 1fr !important;
+}
 .ui-tabs .ui-tabs-panel {
   padding: 0px !important;
+}
+.mpp-grid,.marathon-par-pays-sub-menu-grid{
+  grid-template-columns: 1fr !important;
+}
+.mpp-title-pays {
+  font-size: 22px !important;
+}
+.mpp-nbr-mar {
+  font-size: 17px !important;
+}
+.mpp-pays-box {
+  margin: 13px 0px !important;
+  padding: 30px 70px !important;
+}
+.align-with-grid-mpp{
+  margin-left: 0px !important;
 }
 .box-next-edition {
   clear: both;
@@ -38,7 +57,7 @@
 .sub-menu{
   display: grid !important;
   grid-template-columns: repeat(3,1fr);
-  width: 74% !important;
+  width: 77% !important;
   grid-auto-rows: 41px;
 }
 .dernieres-video-image {
@@ -474,14 +493,16 @@ span.tag_name_m {
 
 /*.page-content {display: none;}*/
 .page-content .banniere1 {
-  margin: 70px 0 20px !important;
+  margin: 20px 0 20px !important;
 }
 
 .page-content {
   margin-top: 1.5em;
 }
 
-
+.mt-77{
+  margin-top: 77px !important;
+}
 
 
 
@@ -868,9 +889,11 @@ margin-bottom: 10px;
 
 /*********************Resultats page*******************/
 .left-side h1 {
-  font-size: 13px;
-  padding-top: 0%;
-   padding-bottom: 0%;
+  font-size: 22px;
+    padding-top: 0%;
+    padding-bottom: 0%;
+    line-height: 32px;
+text-align: center;
 }
 
 .athlètes .form-inline {
@@ -891,10 +914,21 @@ margin-bottom: 10px;
   margin-bottom: 20px;
 }
 .athlètes .left-side .btn.btn-primary {
-  width: 100%;
-  margin-top: 5px;
+  width: 40px !important;
+  margin-top: 0px !important;
 }
-
+.athletes-liste .athletes-liste-grid{
+  grid-template-columns: 1fr !important;
+}
+.resultats-liste .input-zone-box,.athletes-liste .input-zone-box{
+  width: 100% !important;
+}
+.resultats-liste .resultats-grid {
+  grid-template-columns: 1fr !important;
+}
+.resultats-liste #select-pays {
+  height: 34px !important;
+}
 .athlètes .form-inline .form-group select {
   margin-top: 5px;
   width: 100% !important;
@@ -1172,8 +1206,8 @@ float:left;
 }
 
 .marathon-title-flag{
-width: 25px;
-height: auto;
+  width: 30px;
+  height: auto;
 }
 .marathon-grid{
 margin-bottom: 30px;
@@ -1295,10 +1329,17 @@ h1.news-detail {
     line-height: 31px;
 }
 .athlètes .left-side h2{
-font-size: 13px;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center;
+}
+.marathons h2 {
+  padding-right: 0px !important;
 }
 .athlètes .left-side h1{
-font-size: 18px;
+  font-size: 25px;
+  line-height: 29px;
+  text-align: center;
 }
 h2#commentaires {
   font-size: 20px;
@@ -1942,7 +1983,7 @@ p.ban.ban_160-600 {
   text-transform: none;
 }
 .home-link{
-  font-size: 12.4px !important;
+  /*font-size: 12.4px !important;*/
   position: relative !important;
 }
 .all_videos .single_video .img-video {

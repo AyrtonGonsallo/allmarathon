@@ -48,7 +48,7 @@ if(isset($_GET['page']) && is_numeric($_GET['page'])) $page = intval($_GET['page
 $nb_pages=intval($champion->getNumberPage($order)['donnees']['COUNT(*)']/80)+1;
 $next=$page+1;
 $previous=$page-1;
-
+$olympiques = $champion->getListChampionsOlympics()['donnees'];
 function slugify($text)
 {
 // Swap out Non "Letters" with a -
@@ -60,7 +60,7 @@ $text = trim($text, '-');
    $text = strtolower($text);
    return $text;
 }
-
+$liste_pays= $pays->getAll()["donnees"];
 include("../database/connexion.php");
 $req = $bdd->prepare('SELECT COUNT(*) as total FROM champions');
 $req->execute();
@@ -87,9 +87,9 @@ $nb_champs=$req->fetch(PDO::FETCH_ASSOC)['total'];
     <meta property="og:locale" content="fr_FR" />
     <meta property="og:type" content="siteweb" />
     <meta property="og:image" content="https://allmarathon.fr/images/allmarathon.png" />
-    <meta property="og:url" content="https://allmarathon.fr/cv-champions-de-marathon.html" />
+    <meta property="og:url" content="https://allmarathon.fr/liste-des-athletes.html" />
 
-    <link rel="canonical" href="https://allmarathon.fr/cv-champions-de-marathon.html" />
+    <link rel="canonical" href="https://allmarathon.fr/liste-des-athletes.html" />
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/font-awesome.min.css">
     <link rel="stylesheet" href="../../css/fonts.css">
@@ -126,7 +126,7 @@ $nb_champs=$req->fetch(PDO::FETCH_ASSOC)['total'];
     <?php include_once('nv_header-integrer.php'); ?>
 
 
-    <div class="container page-content athlètes">
+    <div class="container page-content athlètes athletes-liste mt-77">
       <div class="row banniere1">
             <div  class="col-sm-12"><?php
                 if($pub728x90 !="") {
@@ -139,113 +139,91 @@ $nb_champs=$req->fetch(PDO::FETCH_ASSOC)['total'];
                 ?></div>
         </div>
         <div class="row">
-            <div class="col-sm-8 left-side">
+            <div class="col-sm-12 left-side">
 
                 <div class="row">
 
                     <div class="col-sm-12">
 
-                        <h1>Champions de marathon, athlètes français célèbres : palmarès, photos et vidéos</h1>
+                        <h1 class="float-l">Athlètes, marathoniens célèbres</h1>
+                        <span class="total-marathons bureau"><?php echo $nb_champs." athlètes";?></span>
+                        <h2 class="clear-b mw-600">Trouvez et parcourez les palmarès des meilleurs coureurs de marathon.</h2>
+                        <div class="input-zone-box mw-600">
+                            <select name="PaysID" id="select-pays">
+                                <option value="all">Nationalité</option>
+                                <?php 
+                                    foreach ($liste_pays as $pays) {
+                                        echo '<option value="'.$pays->getAbreviation().'">'.$pays->getNomPays().'</option>';
+                                    } ?>
+                            </select>
+                            <form action="" method="post" class="form-inline" role="form">
 
-                        <form action="" method="post" class="form-inline" role="form">
-                            <div class="form-group" style="width:100%;">
-                                <input type="search" id="search_athlètes" placeholder="Recherche" class="form-control"
-                                    style="width: 93%" />
-                                <button type="button" onclick="goSearch_athlètes();" id="button_search_athlètet"
-                                    class="btn btn-primary"><i class="fa fa-search"></i></button>
-                            </div>
-                        </form>
+                                <div class="form-group" style="width:100%; white-space: nowrap;">
+
+                                    <input type="search" id="search_val_res" placeholder="Recherche" class="form-control"
+
+                                        style="width: 93%" />
+
+                                    <button id="goToSearch_Result" type="button"  class="btn btn-primary"><i
+
+                                            class="fa fa-search"></i></button>
+
+                                </div>
+
+                            </form>
+                        </div>
+                        
+                    </div>
+                    <div class="col-sm-12">
+                        <div  id="resultats-recherche-athletes">
+                            Résultats de votre recherche
+                        </div>
+                        <ul class="pager">
+                            <li class="rl-prec" ><a href="#" id="back-link" style="color: #000;pointer-events: none;cursor: default;">Résultats précédent</a></li>
+                            <li class="rl-suiv"><a href="#" id="next-link">Résultats suivant</a></li>
+                        </ul>
                     </div>
 
                     <div class="col-sm-12">
-                        <ul class="search-alpha list-inline list-unstyled well clearfix">
-                            <li class="title">Recherche alphabétique :</li>
-                            <li class="list-alpha">
-                                <ul>
+                       <?php
+                            //var_dump($olympiques);
+                        ?>
+                        <h2>Les champions et championnes  olympiques du marathon</h2>
+                        <ul class="athletes-liste-grid">
 
-                                    <?php for($i='A';$i!='AA';$i++)
-                                    echo ($i==strtoupper($order))?'<li class="active"><a href="cv-champions-de-marathon-'.strtolower($i).'.html">'.$i.'</a></li>':'<li><a href="cv-champions-de-marathon-'.strtolower($i).'.html">'.$i.'</a></li>';
-                                ?>
-                                </ul>
-                            </li>
-                        </ul>
+                            <?php
+
+                            foreach ($olympiques as $key => $resultat) {
+
+                                
+                                $pays_flag=$pays->getFlagByAbreviation($resultat['PaysID'])['donnees']['Flag'];
+                                $pays_nom=$pays->getFlagByAbreviation($resultat['PaysID'])['donnees']['NomPays'];
+                                $champion_name=slugify($resultat['Nom']);
+
+                                echo '<div class="athletes-grid-element"><a href="athlete-'.$resultat['ID'].'-'.$champion_name.'.html">'.$resultat['Nom'].'</a>
+                                <img src="../../images/flags/'.$pays_flag.'" class="float-r" alt=""/><br>
+                                    '.$pays_nom.
+                                '<br>
+                                <span>courses('.$resultat['t_res'].')</span>
+                                <span>- photos('.$resultat['t_photos'].')</span>
+                                <span>- vidéos('.$resultat['t_videos'].')</span>
+                                </div>';
+
+                            }
+
+                            // die;
+
+                            ?>
+
+                            </ul>
                     </div>
 
                     <?php
-                foreach ($champion->getListChampionsByInitial($order,$page)['donnees'] as $key => $chmp) {
-                    if ($key % 2 == 0) {
-                        if($chmp->getPaysID()){
-                            if($pays->getFlagByAbreviation($chmp->getPaysID())['donnees']){
-                                $flag=$pays->getFlagByAbreviation($chmp->getPaysID())['donnees']['Flag'];  
-                              }
-                              ($flag!='') ? $pays_flag='<span><img src="../../images/flags/'.$flag.'" alt=""/></span>':$pays_flag="";
-                            
-                            $pays_ab=" (".$pays->getFlagByAbreviation($chmp->getPaysID())['donnees']['Abreviation'].")";
-                        }
-                        $nb_com=$champion->getNumberCom($chmp->getId())['donnees'];
-                        ($nb_com['COUNT(*)']!=0) ? $nombre_com='<span><img src="../../images/pictos/buble.png" alt=""/></span>' : $nombre_com='';
-                        
-                        $nb_videos=$champion->getNumberVideos($chmp->getId())['donnees'];
-                        ($nb_videos!=0) ? $nombre_videos='<span><img src="../../images/pictos/tv.png" alt=""/></span>' : $nombre_videos='';
-                        
-                        $nb_images=$champion->getNumberImages($chmp->getId())['donnees'];
-                        ($nb_images!=0) ? $nombre_images='<span style="margin-right: 6px;"><img src="../../images/pictos/cam.png" alt=""/></span>' : $nombre_images='';
-                        $champion_name=slugify($chmp->getNom());
-                        echo '<ul class="col-sm-6 list">
-                    <li><a href="athlete-'.$chmp->getId().'-'.$champion_name.'.html">'.$chmp->getNom().$pays_ab.'</a>
-                        <ul class="list-inline">'.
-                            $nombre_images.'    '.$nombre_videos.' '.$nombre_com.' '.$pays_flag.'
-                            
-                        </ul>
-                    </li>
-                </ul>';
-                    }
-                    else{
-                        if($chmp->getPaysID()){
-                           if($pays->getFlagByAbreviation($chmp->getPaysID())['donnees']){
-                            $flag=$pays->getFlagByAbreviation($chmp->getPaysID())['donnees']['Flag'];  
-                          }
-                          ($flag!='') ? $pays_flag='<span><img src="../../images/flags/'.$flag.'" alt=""/></span>':$pays_flag="";
-                        
-                          $pays_ab=" (".$pays->getFlagByAbreviation($chmp->getPaysID())['donnees']['Abreviation'].")";
-                        }
-                        $nb_com=$champion->getNumberCom($chmp->getId())['donnees'];
-                        ($nb_com['COUNT(*)']!=0) ? $nombre_com='<span><img src="../../images/pictos/buble.png" alt=""/></span>' : $nombre_com='';
-                        
-                        $nb_videos=$champion->getNumberVideos($chmp->getId())['donnees'];
-                        ($nb_videos!=0) ? $nombre_videos='<span><img src="../../images/pictos/tv.png" alt=""/></span>' : $nombre_videos='';
-                        
-                        $nb_images=$champion->getNumberImages($chmp->getId())['donnees'];
-                        ($nb_images!=0) ? $nombre_images='<span><img src="../../images/pictos/cam.png" alt=""/></span>' : $nombre_images='';
-                        $champion_name=slugify($chmp->getNom());
-                        echo '<ul class="col-sm-6 list">
-                    <li><a href="athlete-'.$chmp->getId().'-'.$champion_name.'.html">'.$chmp->getNom().$pays_ab.'</a>
-                        <ul class="list-inline">'.
-                            $nombre_images.$nombre_videos.$nombre_com.$pays_flag.'
-                            
-                        </ul>
-                    </li>
-                </ul>';
-                    }
-                }
+              
                 ?>
                 </div>
 
                 <div class="clearfix"></div>
-
-                <ul class="pager">
-                    <?php 
-                            if($next==$nb_pages) $style_suivant='style="pointer-events: none;cursor: default;"';
-                            else $style_suivant='';
-                            if(intval($next)<2) $style_precedent='style="pointer-events: none;cursor: default;"';
-                            else $style_precedent='';
-                            $sort='';
-                            echo '<li><a href="cv-champions-de-marathon-'.$previous.'-'.strtolower($order).'.html"'.$style_precedent.'> Précédent</a></li>
-                          <li>'.$next.' / '.$nb_pages.'</li>
-                        <li><a href="cv-champions-de-marathon-'.$next.'-'.strtolower($order).'.html"'.$style_suivant.'> Suivant</a> </li>';
-                     
-                     ?>
-                </ul>
 
             </div> <!-- End left-side -->
 
@@ -256,46 +234,14 @@ echo $pub300x60["code"] ? $pub300x60["code"] :  "<a href=". $pub300x250['url'] .
 }
 ?></a></p>
 
-                <dt class="anniversaires">ANNIVERSaires</dt>
-                <dd class="anniversaires">
-                    <ul class="clearfix">
-                        <?php
-                    foreach ($champion->getChampionBirthday()['donnees'] as $key => $ch) {
-                        $age=$ch->ageBirthday($ch->getDateNaissance());
-                        $flag=$pays->getFlagByAbreviation($ch->getPaysID())['donnees']['Flag'];
-                        ($flag!='') ? $pays_flag='<span><img src="../../images/flags/'.$flag.'" alt=""/></span>':$pays_flag="";
-                        $ch_name=slugify($ch->getNom());
-                        echo '<li><a href="athlete-'.$ch->getId().'-'.$ch_name.'.html">'.$ch->getNom().' ('.$age.' ans)</a></li>';
-                    }
-                    ?>
-
-                    </ul>
-                </dd>
-                <div class="marg_bot"></div>
+             
                 <p class="ban"><?php
 if($pub300x250 !="") {
 echo $pub300x250["code"] ? $pub300x250["code"] :  "<a href=". $pub300x250['url'] ." target='_blank'><img src=".'../images/pubs/'.$pub300x250['image'] . " alt='' style=\"width: 100%;\" />";
 }
 ?></a></p>
 
-                <div class="marg_bot"></div>
-                <dt class="anniversaires">Derniers athlètes référencés</dt>
-                <dd class="anniversaires">
-                    <ul class="clearfix">
-                        <?php
-                       foreach ($champion->getLastChampions()['donnees'] as $key => $ch) {
-                        
-                        if($pays->getFlagByAbreviation($ch->getPaysID())['donnees']){
-                          $flag=$pays->getFlagByAbreviation($ch->getPaysID())['donnees']['Flag'];  
-                        }
-                        ($flag!='') ? $pays_flag='<span><img src="../../images/flags/'.$flag.'" alt=""/></span>':$pays_flag="";
-                        $ch_name=slugify($ch->getNom());
-                        echo '<li><a href="athlete-'.$ch->getId().'-'.$ch_name.'.html">'.$ch->getNom().' ('.$ch->getPaysID().') '.$pays_flag.'</a></li>';
-                        }
-                    ?>
-                    </ul>
-                </dd>
-                <div class="marg_bot"></div>
+               
                 <p class="ban ban_160-600"><a href=""><?php
 if($pub160x600 !="") {
     //var_dump($pub160x600["url"]); exit;
@@ -308,8 +254,7 @@ if($pub160x600 !="") {
 /*echo $pub160x600["code"] ? $pub160x600["code"] :  "<img src=".'../images/pubs/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" />";*/
 }
 ?></a></p>
-                <div class="marg_bot"></div>
-                
+             
 
             </aside>
         </div>
@@ -350,35 +295,322 @@ if($pub160x600 !="") {
     ga('send', 'pageview');
     </script>
 
-    <script type="text/javascript">
-    function goSearch_athlètes() {
-        var key = (document.getElementById('search_athlètes').value).toLowerCase();
-        window.location = "cv-champions-de-marathon-" + key + ".html";
-    }
+<script type="text/javascript">
 
-    document.getElementById('search_athlètes').onkeypress = function(e) {
-        if (!e) e = window.event;
-        var keyCode = e.keyCode || e.which;
-        if (keyCode == '13') {
-            var key = (document.getElementById('search_athlètes').value).toLowerCase();
-            window.location = "cv-champions-de-marathon-" + key + ".html";
-            return false;
+var par_pages=39;
+    var nb_pages=0;
+    var page=0;
+    var next=page+1;
+    var previous=page-1;
+    function load_pager(){
+       // $("#back-link").css({'pointer-events': 'none' ,"color": "#000", 'cursor' : 'default'});
+
+       $(".pager").hide()
+        $("#next-link").click(function() {
+        page+=1; 
+        next=page+1;
+        if(page==(nb_pages-1)){
+            style_suivant={'pointer-events': 'none' ,"color": "#000",  'cursor' : 'default'}
+        } else{
+            style_suivant={'pointer-events': 'all' ,"color": "#2caffe",  'cursor' : 'pointer'}
         }
+        if(page==0){
+            style_precedent={'pointer-events': 'none' ,"color": "#000", 'cursor' : 'default'}
+        } else{
+        style_precedent={'pointer-events': 'all' ,"color": "#2caffe",  'cursor' : 'pointer'}
+        
+        }
+        $(this).css(style_suivant)
+        $("#back-link").css(style_precedent)
+        search_v=$("#search_val_res").val();
+        pays_v=$('#select-pays').val();
+        console.log("page: ",page)
+        console.log("de: ",page*par_pages," a ",(page+1)*par_pages)
+        if(search_v){
+            if(pays_v=="all"){
+                console.log("suivant par keyword")
+            }else{
+                console.log("suivant par keyword et par pays")
+            }
+        }else{
+            if(pays_v=="all"){
+                console.log("suivant sans filtre")
+            }else{
+                console.log("suivant par pays")
+                
+            }
+        }
+        $.ajax({
+        type: "POST",
+        url: "content/classes/athletes-liste-ajax.php",
+        data: {
+            function:"getNextChampions",
+            offset:page*par_pages,
+            par_pages:par_pages,
+            page:page,
+            search:search_v,
+            pays_id:pays_v,
+        },
+        success: function(html) {
+                $("#resultats-recherche-athletes").html(html).show();
+                $(".pager").show()
+                if(!html){
+                    $("#next-link").css({'pointer-events': 'none' ,"color": "#000", 'cursor' : 'default'});
+                    console.log("plus de suivants")
+                }
+                //load_pager()
+            //console.log("success",html)
+        },
+        error: function (jqXHR, exception) {
+                var msg = '';
+                if (jqXHR.status === 0) {
+                    msg = 'Not connect.\n Verify Network.';
+                } else if (jqXHR.status == 404) {
+                    msg = 'Requested page not found. [404]';
+                } else if (jqXHR.status == 500) {
+                    msg = 'Internal Server Error [500].';
+                } else if (exception === 'parsererror') {
+                    msg = 'Requested JSON parse failed.';
+                } else if (exception === 'timeout') {
+                    msg = 'Time out error.';
+                } else if (exception === 'abort') {
+                    msg = 'Ajax request aborted.';
+                } else {
+                    msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                }
+                console.log("error",msg)
+            },
+        });}
+        )
+
+
+        $("#back-link").click(function() {
+        page-=1; 
+        next=page-1;
+        if(page==0){
+            style_precedent={'pointer-events': 'none' ,"color": "#000", 'cursor' : 'default'}
+        } else{
+        style_precedent={'pointer-events': 'all' ,"color": "#2caffe",  'cursor' : 'pointer'}
+        
+        }
+        $(this).css(style_precedent)
+        style_suivant={'pointer-events': 'all' ,"color": "#2caffe",  'cursor' : 'pointer'}
+        
+        
+        //$(this).css(style_suivant)
+        $("#next-link").css(style_suivant)
+        search_v=$("#search_val_res").val();
+        pays_v=$('#select-pays').val();
+        console.log("page: ",page)
+        console.log("de: ",page*par_pages," a ",(page+1)*par_pages)
+        if(search_v){
+            if(pays_v=="all"){
+                console.log("suivant par keyword")
+            }else{
+                console.log("suivant par keyword et par pays")
+            }
+        }else{
+            if(pays_v=="all"){
+                console.log("suivant sans filtre")
+            }else{
+                console.log("suivant par pays")
+                
+            }
+        }
+        $.ajax({
+        type: "POST",
+        url: "content/classes/athletes-liste-ajax.php",
+        data: {
+            function:"getNextChampions",
+            offset:page*par_pages,
+            par_pages:par_pages,
+            page:page,
+            search:search_v,
+            pays_id:pays_v,
+        },
+        success: function(html) {
+                $("#resultats-recherche-athletes").html(html).show();
+                $(".pager").show()
+                //load_pager()
+            //console.log("success",html)
+        },
+        error: function (jqXHR, exception) {
+                var msg = '';
+                if (jqXHR.status === 0) {
+                    msg = 'Not connect.\n Verify Network.';
+                } else if (jqXHR.status == 404) {
+                    msg = 'Requested page not found. [404]';
+                } else if (jqXHR.status == 500) {
+                    msg = 'Internal Server Error [500].';
+                } else if (exception === 'parsererror') {
+                    msg = 'Requested JSON parse failed.';
+                } else if (exception === 'timeout') {
+                    msg = 'Time out error.';
+                } else if (exception === 'abort') {
+                    msg = 'Ajax request aborted.';
+                } else {
+                    msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                }
+                console.log("error",msg)
+            },
+        });}
+        )
     }
-    </script>
+    $(document).ready(function() {
 
 
-    <!--FaceBook-->
-    <script>
-    (function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s);
-        js.id = id;
-        js.src = "//connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v2.5";
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
+
+         //requette ajax
+         $('#select-pays').change( function() {
+            page=0
+            var next=page+1;
+            var previous=page-1;
+            //remise_a_zero()
+             type_req_courrante="getChampionsbyPays";
+
+            var sel_pays_id=$(this).val();
+            console.log("recherche sur ",sel_pays_id)
+            $.ajax({
+               type: "POST",
+               url: "content/classes/athletes-liste-ajax.php",
+               data: {
+                   function: "getChampionsbyPays",
+                   pays_id:sel_pays_id,
+                   offset:page*par_pages,
+                   par_pages:par_pages,
+                   page:page,
+               },
+               success: function(html) {
+                   $("#resultats-recherche-athletes").html(html).show();
+                   $(".pager").show()
+                   //load_pager()
+                  // console.log("success",html)
+               },
+               error: function (jqXHR, exception) {
+                    var msg = '';
+                    if (jqXHR.status === 0) {
+                        msg = 'Not connect.\n Verify Network.';
+                    } else if (jqXHR.status == 404) {
+                        msg = 'Requested page not found. [404]';
+                    } else if (jqXHR.status == 500) {
+                        msg = 'Internal Server Error [500].';
+                    } else if (exception === 'parsererror') {
+                        msg = 'Requested JSON parse failed.';
+                    } else if (exception === 'timeout') {
+                        msg = 'Time out error.';
+                    } else if (exception === 'abort') {
+                        msg = 'Ajax request aborted.';
+                    } else {
+                        msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                    }
+                    console.log("error",msg)
+                },
+           })
+        });
+
+        $("#goToSearch_Result").click(function() {
+            page=0
+            var next=page+1;
+            var previous=page-1;
+                search=$("#search_val_res").val()
+                console.log("recherche de ",search)
+                    
+                $.ajax({
+                    type: "POST",
+                    url: "content/classes/athletes-liste-ajax.php",
+                    data: {
+                        function:"getChampionsbySearch",
+                        
+                        search:search,
+                        offset:page*par_pages,
+                        par_pages:par_pages,
+                        page:page,
+                        
+                    },
+                    success: function(html) {
+                        $("#resultats-recherche-athletes").html(html).show();
+                        $(".pager").show()
+                        //load_pager()
+                        //console.log("success",html)
+                    },
+                    error: function (jqXHR, exception) {
+                            var msg = '';
+                            if (jqXHR.status === 0) {
+                                msg = 'Not connect.\n Verify Network.';
+                            } else if (jqXHR.status == 404) {
+                                msg = 'Requested page not found. [404]';
+                            } else if (jqXHR.status == 500) {
+                                msg = 'Internal Server Error [500].';
+                            } else if (exception === 'parsererror') {
+                                msg = 'Requested JSON parse failed.';
+                            } else if (exception === 'timeout') {
+                                msg = 'Time out error.';
+                            } else if (exception === 'abort') {
+                                msg = 'Ajax request aborted.';
+                            } else {
+                                msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                            }
+                            console.log("error",msg)
+                        },
+                });
+            })
+
+            $("#search_val_res").keydown(function(event){ 
+                page=0
+            var next=page+1;
+            var previous=page-1;
+                var keycode = (event.keyCode ? event.keyCode : event.which);
+                if (keycode == 13) {
+                    event.preventDefault();
+                    search=$("#search_val_res").val()
+                   
+                    $.ajax({
+                        type: "POST",
+                        url: "content/classes/athletes-liste-ajax.php",
+                        data: {
+                            function:"getChampionsbySearch",
+                           
+                            search:search,
+                            offset:page*par_pages,
+                            par_pages:par_pages,
+                            page:page,
+                           
+                        },
+                        success: function(html) {
+                            $("#resultats-recherche-athletes").html(html).show();
+                            $(".pager").show()
+                            //load_pager()
+                            //console.log("success",html)
+                        },
+                        error: function (jqXHR, exception) {
+                                var msg = '';
+                                if (jqXHR.status === 0) {
+                                    msg = 'Not connect.\n Verify Network.';
+                                } else if (jqXHR.status == 404) {
+                                    msg = 'Requested page not found. [404]';
+                                } else if (jqXHR.status == 500) {
+                                    msg = 'Internal Server Error [500].';
+                                } else if (exception === 'parsererror') {
+                                    msg = 'Requested JSON parse failed.';
+                                } else if (exception === 'timeout') {
+                                    msg = 'Time out error.';
+                                } else if (exception === 'abort') {
+                                    msg = 'Ajax request aborted.';
+                                } else {
+                                    msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                                }
+                                console.log("error",msg)
+                            },
+                    });
+                }
+            })
+
+            load_pager()
+            
+    })
+
     </script>
+
     <!--Google+-->
     <script src="https://apis.google.com/js/platform.js" async defer></script>
 </body>

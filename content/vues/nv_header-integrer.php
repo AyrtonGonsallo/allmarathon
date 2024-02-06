@@ -225,13 +225,13 @@ search
                             href="/calendrier-agenda-marathons.html" class="header--nav--link pull-left1" id="marathons">Marathons</a></li>
                     <li> <a data-category="Header_Links" data-action="Top Menu Click" data-label="RESULTATS"
 
-                            href="/resultats-marathon.html" class="header--nav--link pull-left1">Résultats</a></li>
+                            href="/resultats-marathon.html" class="header--nav--link pull-left1" id="resultats">Résultats</a></li>
 
                     
 
                     <li> <a data-category="Header_Links" data-action="Top Menu Click" data-label="Athlètes"
 
-                            href="/cv-champions-de-marathon.html" class="header--nav--link pull-left1">Athlètes</a></li>
+                            href="/liste-des-athletes.html" class="header--nav--link pull-left1" id="athletes">Athlètes</a></li>
 
                     <li> <a data-category="Header_Links" data-action="Top Menu Click" data-label="VIDEOS"
 
@@ -640,6 +640,8 @@ $('li.menu-item-categories .fa-bars, li.menu-item-categories .hamburger-menu-but
 $(document).ready(function() {
     const regex_url_actus = new RegExp(/actualite(.|-)*.html/);
     const regex_url_marathons = new RegExp(/(.|-)*marathons(.|-)*.html/);
+    const regex_url_resultats = new RegExp(/(.|-)*resultats-marathon(.|-)*.html/);
+    const regex_url_athletes = new RegExp(/(.|-)*athlete(.|-)*.html/);
     urlparts = getCurrentURL()
     console.log("url parts",urlparts)
     url_actuelle=urlparts[3]
@@ -652,6 +654,12 @@ $(document).ready(function() {
     }else if(regex_url_marathons.test(url_actuelle)){
         console.log("marathons page")
         $('#marathons').addClass("active-menu-link");
+    }else if( regex_url_resultats.test(url_actuelle)){
+        console.log("resultats page")
+        $('#resultats').addClass("active-menu-link");
+    }else if( regex_url_athletes.test(url_actuelle)){
+        console.log("athletes page")
+        $('#athletes').addClass("active-menu-link");
     }
     
     if (window.matchMedia("(min-width: 1121px)").matches) {

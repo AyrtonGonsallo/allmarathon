@@ -78,7 +78,7 @@ function slugify($text)
 
             echo "<url>
 
-            <loc>https://alljudo.net/cv-champions-de-marathon-".$i."-".$lettres[$j].".html</loc>
+            <loc>https://alljudo.net/liste-des-athletes-".$i."-".$lettres[$j].".html</loc>
 
 </url>\n\n";
 

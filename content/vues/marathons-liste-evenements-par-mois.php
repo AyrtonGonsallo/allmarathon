@@ -76,7 +76,7 @@ $nb_champs=$req->fetch(PDO::FETCH_ASSOC)['total'];
     <link rel="apple-touch-icon" href="apple-favicon.png">
     <link rel="icon" type="image/x-icon" href="../../images/favicon.ico" />
     
-    <link rel="canonical" href="https://allmarathon.fr/cv-champions-de-marathon.html" />
+    <link rel="canonical" href="https://allmarathon.fr/liste-des-athletes.html" />
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/font-awesome.min.css">
     <link rel="stylesheet" href="../../css/fonts.css">
@@ -113,7 +113,7 @@ $nb_champs=$req->fetch(PDO::FETCH_ASSOC)['total'];
     <?php include_once('nv_header-integrer.php');?>
 
 
-    <div class="container page-content athlètes">
+    <div class="container page-content athlètes mt-77">
       <div class="row banniere1">
             <div  class="col-sm-12"><?php
                 if($pub728x90 !="") {
@@ -126,13 +126,22 @@ $nb_champs=$req->fetch(PDO::FETCH_ASSOC)['total'];
                 ?></div>
         </div>
         <div class="row">
-            <div class="col-sm-8 left-side">
+            <div class="col-sm-12 left-side">
 
                 <div class="row">
 
                     <div class="col-sm-12">
-                        <a href="/calendrier-agenda-marathons.html">Marathons</a> > <a href="/agenda-marathons-par-mois.html">Marathons par mois</a> > <?php echo utf8_encode(strftime("%B %Y",strtotime($annee.'-'.$mois.'-12')));?>
-                        <h1>Calendrier des marathons <?php echo utf8_encode(strftime("%B %Y",strtotime($annee.'-'.$mois.'-12')));?></h1>
+                        <a href="/calendrier-agenda-marathons.html" class="float-l">Marathons</a> > <a href="/agenda-marathons-par-mois.html">Marathons par mois</a> > <?php echo utf8_encode(strftime("%B %Y",strtotime($annee.'-'.$mois.'-12')));?>
+                        <span class="total-marathons bureau"><?php 
+                        $total=gettotalMarathonsByMois($mois,$annee)['donnees'][0]["total"];
+                        if($total==1){
+                            $marathon_par_mois_total=$total.' marathon';
+                        }else{
+                            $marathon_par_mois_total=$total.' marathons';
+                        }
+                        echo $marathon_par_mois_total;?>
+                    </span>
+                        <h1 class="clear-b">Calendrier des marathons <?php echo utf8_encode(strftime("%B %Y",strtotime($annee.'-'.$mois.'-12')));?></h1>
                         <h2>Agenda : liste des marathons sur route de <?php echo utf8_encode(strftime("%B %Y",strtotime($annee.'-'.$mois.'-12')));?></h2>
 
                        
@@ -144,46 +153,70 @@ $nb_champs=$req->fetch(PDO::FETCH_ASSOC)['total'];
 
                     <?php
                     $prec_date = null;
-                    $part1=getMarathonsAgendaByMoisfiltered($mois,$annee)['donnees_1'];
-                    $part2=getMarathonsAgendaByMoisfiltered($mois,$annee)['donnees_2'];
-                    echo '<ul class="col-sm-12 resultats">';
+                    $i=0;
+                    $res="";
+                    $part1=getMarathonsAgendaByMoisfiltered($mois,$annee)['donnees'];
+                    echo '<ul class="col-sm-12 resultats"><div class="row" id="liste-marathons">';
                     if($part1){
                         
                         foreach ($part1 as $key => $resultat) {
-                            if($prec_date){
-                                if($prec_date!=$resultat['DateDebut']){
-                                    echo '<li class="date-regroupees">'.utf8_encode(strftime("%A %d %B %Y",strtotime($resultat['DateDebut']))).'</li>';
-                                }
-                            }else{
-                                echo '<li class="date-regroupees">'.utf8_encode(strftime("%A %d %B %Y",strtotime($resultat['DateDebut']))).'</li>';
-                            }
                             $pays_flag=$pays->getFlagByAbreviation($resultat['PaysID'])['donnees']['Flag'];
-
-                            $nom_res='<strong>'.$resultat['Nom'].'</strong>';
-                            echo '<li><a href="/marathons-'.$resultat['id'].'-'.slugify($resultat['Nom']).'.html">'.$nom_res.'</a><ul class="list-inline"><li><img src="../../images/flags/'.$pays_flag.'" alt=""/></li></ul></li>';
-                            
-                            $prec_date=$resultat['DateDebut'];
-                        }
+                            $nom_res= $resultat['nom'];
+                 
+                            $res.= '<div class="col-sm-4 marathon-grid">
+                            ';
+                                  
+                                 $img_src='/images/marathons/thumb_'.$resultat['image'];
+                                 $full_image_path="http://" . $_SERVER['HTTP_HOST'] .$img_src;
+                                 //$res.= $full_image_path;
+ 
+                                 if($resultat['is_top_prochain_evenement']){
+                                     $top='<span class="mention-top"><span class="material-symbols-outlined">kid_star</span>Top</span>';
+                                 }else{
+                                     $top="";
+                                 }
+                                 $res.='<a class="page-marathon-link" href="/marathons-'.$resultat['id'].'-'.slugify($nom_res).'.html">';
+                                 if ($img_src)
+                                     {
+                                         $res.= '<div class="marathon-liste-image" style="background-image:url('.$img_src.')">'.$top.'</div>';
+                                     }else{
+                                         $res.= '<div class="marathon-liste-image" style="background-color:#000"></div>';
+                                     }
+                         $res.='</a>';
+                                  if($resultat['last_linked_events_cat_id']){
+                                     $res.= '<a class="page-marathon-link" href="/marathons-'.$resultat['id'].'-'.slugify($nom_res).'.html">
+                                     <h4 class="page-marathon-title">'.$ev_cat_event->getEventCatEventByID($resultat['last_linked_events_cat_id'])['donnees']->getIntitule().' '.$resultat['prefixe'].' '.$nom_res.'<img class="marathon-title-flag" style="float:right" src="../../images/flags/'.$pays_flag.'" alt=""/></h4></a>';
+                                     //$res.= '<div><b>'.$ev_cat_event->getEventCatEventByID($resultat['last_linked_events_cat_id'])['donnees']->getIntitule().'</b></div>';
+             
+                                  }else{
+                                     $res.= '<div><b>Marathon</b></div>';
+             
+                                  }
+                                 if($resultat["type_evenement"]=='prochain'){
+                                     $nom_premier_even= $resultat["date_prochain_evenement_nom"];
+                                     $id= $resultat["date_prochain_evenement_id"];
+                                     $date_premier_even=strftime("%A %d %B %Y",strtotime($resultat["date_prochain_evenement"]));
+                                             
+                                     $res.= '<div class="date-marathon">'.utf8_encode($date_premier_even).'</div>';
+                                 }else if($resultat["type_evenement"]=='dernier'){
+                                     $nom_premier_even= $resultat["date_prochain_evenement_nom"];
+                                     $id= $resultat["date_prochain_evenement_id"];
+                                     $date_premier_even=strftime("%B",strtotime($resultat["date_dernier_evenement"]));
+                                             
+                                     $res.= '<div class="date-marathon">'.utf8_encode($date_premier_even).' - <span class="marathon-to-come">En attente de date</span></div>';
+                                 }else if($resultat["type_evenement"]=='aucun'){
+                                     $res.= '<div> Prochaine date À venir</div>';
+                                 }
+             
+                             
+                         $res.= '</div>';
+                         $i++;
+                     }
+                     echo $res;
+                        
                         
                     }
-                    if($part2){
-                        
-                        foreach ($part2 as $key => $resultat) {
-                            if($prec_date){
-                                if($prec_date!=$resultat['DateDebut']){
-                                    echo '<li class="date-regroupees">'.utf8_encode(strftime("%A %d %B %Y",strtotime($resultat['DateDebut']))).'</li>';
-                                }
-                            }else{
-                                echo '<li class="date-regroupees">'.utf8_encode(strftime("%A %d %B %Y",strtotime($resultat['DateDebut']))).'</li>';
-                            }
-                            $pays_flag=$pays->getFlagByAbreviation($resultat['PaysID'])['donnees']['Flag'];
-                            $nom_res='<strong>'.$resultat['Nom'].'</strong>';
-                            echo '<li><a href="/marathons-'.$resultat['id'].'-'.slugify($resultat['Nom']).'.html">'.$nom_res.'</a><ul class="list-inline"><li><img src="../../images/flags/'.$pays_flag.'" alt=""/></li></ul></li>';
-                            
-                            $prec_date=$resultat['DateDebut'];
-                        }
-                        
-                    }echo '</ul>';
+                   echo '</ul>';
                 ?>
                 </div>
 
@@ -239,7 +272,7 @@ $nb_champs=$req->fetch(PDO::FETCH_ASSOC)['total'];
     <script type="text/javascript">
     function goSearch_athlètes() {
         var key = (document.getElementById('search_athlètes').value).toLowerCase();
-        window.location = "cv-champions-de-marathon-" + key + ".html";
+        window.location = "liste-des-athletes-" + key + ".html";
     }
 
     document.getElementById('search_athlètes').onkeypress = function(e) {
@@ -247,7 +280,7 @@ $nb_champs=$req->fetch(PDO::FETCH_ASSOC)['total'];
         var keyCode = e.keyCode || e.which;
         if (keyCode == '13') {
             var key = (document.getElementById('search_athlètes').value).toLowerCase();
-            window.location = "cv-champions-de-marathon-" + key + ".html";
+            window.location = "liste-des-athletes-" + key + ".html";
             return false;
         }
     }

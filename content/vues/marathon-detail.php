@@ -199,7 +199,7 @@ if($pays_datas){
         <span class="close" onclick="close_model()">&times;</span>
         <img class="parcours-modal-content" id="parcours-full-image" >
     </div>
-    <div class="container page-content athlete-detail marathon-detail">
+    <div class="container page-content athlete-detail marathon-detail  mt-77">
         <div class="row banniere1">
             <div  class="col-sm-12">
                 <?php
@@ -228,7 +228,7 @@ if($pays_datas){
 
                             echo '<h1 style="text-transform:uppercase" class="float-l">'.strtoupper($marathon['nom']).'</h1>'; ?>
                             <span class="marathon-details-breadcumb">
-                                <a href="/calendrier-agenda-marathons.html"><span class="material-symbols-outlined">location_on</span><? echo $pays_datas['continent'];?></a> > <a href="calendrier-marathons-<?php echo slugify($pays_datas['NomPays']); ?>-<?php echo $pays_datas['ID']; ?>.html"><?php echo $pays_datas['NomPays'];?></a> <?php if($next_date){echo "> <span class='material-symbols-outlined'>event_available</span>".utf8_encode(strftime("%B",strtotime($next_date['DateDebut'])));}?>
+                               <span class="material-symbols-outlined">location_on</span><? echo $pays_datas['continent'];?> > <a href="calendrier-marathons-<?php echo slugify($pays_datas['NomPays']); ?>-<?php echo $pays_datas['ID']; ?>.html"><?php echo $pays_datas['NomPays'];?></a> <?php if($next_date){echo "> <span class='material-symbols-outlined'>event_available</span><span class='capitalize'> <a href='calendrier-marathons-".slugify(utf8_encode(strftime("%B",strtotime($next_date['DateDebut']))))."-".intval(strftime("%m",strtotime($next_date['DateDebut'])))."-".strftime("%Y",strtotime($next_date['DateDebut'])).".html' class='capitalize'>".utf8_encode(strftime("%B",strtotime($next_date['DateDebut'])))."</span>";}?>
                             </span>
                             <?php 
                             $img_src='/images/marathons/'.$marathon['image'];
@@ -488,7 +488,12 @@ if($pays_datas){
                                                                     gridLineWidth: 1,
                                                                     
                                                                 },
-
+                                                                chart: {
+                                                                    
+                                                                    style: {
+                                                                        fontFamily: 'Poppins-regular'
+                                                                    }
+                                                                },   
                                                                 yAxis: {
                                                                     title: {
                                                                         text: null
@@ -587,7 +592,12 @@ if($pays_datas){
                                                                     gridLineWidth: 1,
                                                                     
                                                                 },
-
+                                                                chart: {
+                                                                   
+                                                                    style: {
+                                                                        fontFamily: 'Poppins-regular'
+                                                                    }
+                                                                },  
                                                                 yAxis: {
                                                                     title: {
                                                                         text: null
@@ -833,20 +843,21 @@ if($pays_datas){
             $('#tableauHommes-mc').DataTable( {
                 paging: false,
                 bFilter: false,
-                
+                bSort: false,
                 searching: true,
                 dom: 't'   
         } );   
         $('#tableauFemmes-mc').DataTable( {
             paging: false,
             bFilter: false,
-            
+            bSort: false,
             searching: true,
             dom: 't'   
         } );
         $('#tableauHommes-pal').DataTable( {
             paging: false,
             bFilter: false,
+            bSort: false,
             order: [[0, 'desc']],
             searching: true,
             dom: 't'   
@@ -854,6 +865,7 @@ if($pays_datas){
         $('#tableauFemmes-pal').DataTable( {
             paging: false,
             bFilter: false,
+            bSort: false,
             order: [[0, 'desc']],
             searching: true,
             dom: 't'   

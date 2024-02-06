@@ -89,9 +89,11 @@ $videos=$video->getVideosByChamp($id)['donnees'];
 
 $pays=new pays();
 $pays_intitule=('9999-12-31'!=$champ->getDateChangementNat())?$pays->getFlagByAbreviation($champ->getNvPaysID())['donnees']['NomPays']:$pays->getFlagByAbreviation($champ->getPaysID())['donnees']['NomPays'];
+$pays_prefixe=$pays->getFlagByAbreviation($champ->getPaysID())['donnees']['prefixe'];
 
 if($champ->getSexe()=="F") {$sexe="Femme"; $ne="Née";} else{ $sexe="Homme"; $ne="Né";}
-
+if($champ->getSexe()=="F") {$il="elle";} else{ $sexe="Homme"; $il="il";}
+if($champ->getSexe()=="F") {$sponsorise="sponsorisée";} else{ $sexe="Homme"; $sponsorise="sponsorisé";}
 $pub=new pub();
 
 $pub728x90=$pub->getBanniere728_90("resultats")['donnees'];
@@ -223,7 +225,7 @@ $afficher_tab_medaille=false;
 
     <?php include_once('nv_header-integrer.php'); ?>
 
-    <div class="container page-content athlete-detail champion-detail">
+    <div class="container page-content athlete-detail champion-detail mt-77">
         <div class="row banniere1">
             <div  class="col-sm-12"><?php
                 if($pub728x90 !="") {
@@ -251,18 +253,13 @@ $afficher_tab_medaille=false;
                             
                             echo '<div class="row">
                                 <div class="col-sm-7 athlete-detail-no-padding-left">
-                                <h1>'.$champ->getNom()." ".$pays_flag.'</h1>
-                                </div>
-                                <div class="col-sm-5 athlete-detail-no-padding-left no-padding-right">'; ?> 
-                                <span class="cd-span athlete-boutons-droits" >
-                                    <?php //echo '<a class="btn-no-padd info-bulle" href="/formulaire-administration-athlète.php?championID='.$id.'"><img src="/images/pictos/admin.png" title="Devenir administrateur"  /></a>'; ?>
-                                    <?php if($user_id!=''){
-                                        echo (!$isAdmin) ? '<a class="btn-no-padd info-bulle" href="/formulaire-administration-athlète.html?championID='.$id.'"><img src="/images/pictos/admin.png" title="Devenir administrateur"  /></a>': '<a href="/champion-detail-admin-'.$id.'.html" id="fiche_admin" type="button"><i class="fa fa-edit"></i><span>Modifier la fiche</span></a>  <a class="btn-no-padd info-bulle" href="mailto:lmathieu@allmarathon.net?subject='.$user_auth->getUsername().' ne souhaite plus administrer la fiche de '.$champ->getNom().'"><img src="/images/pictos/admin_1.png" title="Ne plus administrer cette fiche."  /></a>';
-                                    }else{
-                                        echo '<a id="gerer-cette" class="btn-no-padd info-bulle" href="#">Gérer cette fiche</a>';
-                                    }?>
-                                    <?php echo '<a class="btn-no-padd info-bulle" href="#">Recevoir des alertes</a>'; ?>
+                                <h1>'.$champ->getNom().'</h1>';?>
+                                <span class="athlete-details-breadcumb">
+                                    <a href="liste-des-athletes.html">Athlètes</a> > <? echo $pays_datas["NomPays"];?> > <? echo $champ->getNom();?>
                                 </span>
+                            <? echo '</div>
+                                <div class="col-sm-5 athlete-detail-no-padding-left no-padding-right">'; ?> 
+                                
                                 </div>
                             </div>
                         <?php echo rtrim($liste_admin, ","); ?>
@@ -270,20 +267,21 @@ $afficher_tab_medaille=false;
                         <div>
                             <!-- TAB NAVIGATION -->
                             <ul class="nav nav-tabs" role="tablist">
-                                <li class="active"><a href="#tab1" role="tab" data-toggle="tab">CV</a></li>
-                                <li><a href="#tab2" role="tab"
-                                        data-toggle="tab">Résultats (<?php echo sizeof($resultats_champ)+sizeof($resultsPerso); ?>)</a>
+                               
+                                <li class="active"><a href="#tab2" role="tab"
+                                        data-toggle="tab">Résultats</a>
                                 </li>
-                                <li><a href="#tab3" role="tab"
-                                        data-toggle="tab">PHOTOS (<?php echo sizeof($photos); ?>)</a></li>
-                                <li><a href="#tab4" role="tab"
-                                        data-toggle="tab">VIDEOS (<?php echo sizeof($videos); ?>)</a></li>
                                 
+                                <li><a href="#tab4" role="tab"
+                                        data-toggle="tab">VIDEOS</a></li>
+                                <li><a href="#tab3" role="tab"
+                                        data-toggle="tab">PHOTOS</a></li>
+                                 <li><a href="#tab1" role="tab" data-toggle="tab">CV</a></li>
                             </ul>
-                        </div> <br /> <br />
+                        </div> <br /> 
                         <!-- TAB CONTENT -->
                         <div class="tab-content">
-                            <div class="active tab-pane fade in" id="tab1">
+                            <div class="tab-pane fade" id="tab1">
                                 <br />
                                 <?php ($champ->getTaille()!="" && $champ->getTaille()!=0 ) ? $taille="<li><strong>Taille : </strong>".$champ->getTaille()." cm</li>" : $taille="";
                             ($champ->getDateNaissance()!="0000-00-00" && $champ->getDateNaissance()!="" ) ? $date_naissance="<li><strong>".$ne." le : </strong>".$champ->getDateNaissance()."</li>" : $date_naissance="";
@@ -296,22 +294,36 @@ $afficher_tab_medaille=false;
                             $champ_poids=($champ->getPoids())?'<li><strong>Poids : </strong>'.$champ->getPoids().'</li>':'';
                             /*$champ_=($champ->get())?'':'';
                             $champ_=($champ->get())?'':'';*/
-                            echo '<ul>
-                                    <li><strong>Sexe : </strong>'.$sexe.'</li>
-                                    <li><strong>Pays : </strong>'.$pays_intitule.'</li>
-                                    '.$date_naissance.'
-                                    '.$champ_taille.'
-                                    '.$champ_poids.'
-                                    '.$champ_facebook.'
-                                    '.$champ_instagram.'
-                                    '.$champ_ee.'
-                                    '.$champ_lse.'
-                                    '.$champ_bio.'
-                                </ul>
-
-                            <br/>
-
-                            '; ?>
+                            $texte=$champ->getNom()." est ".$ne;
+                           
+                            if($pays_intitule){
+                                $texte.=" ".$pays_prefixe." ".$pays_intitule;
+                            }
+                            $texte.=" le ".utf8_encode(strftime("%A %d %B %Y",strtotime($champ->getDateNaissance()))).".<br>";
+                            if($champ->getTaille()){
+                                $texte.=$il." mesure ".$champ->getTaille()." cm ";
+                            }
+                            if($champ->getTaille() && $champ->getPoids()){
+                                $texte.=" et ";
+                            }
+                            if($champ->getPoids()){
+                                $texte.=$il." pèse ".$champ->getPoids()." kg";
+                            }
+                            $texte.=".<br>";
+                            if($champ->getEquipementier()){
+                                $texte.="Actuellement ".$il." est ".$sponsorise." par ".$champ->getEquipementier().".";
+                            }
+                           
+                            if($champ->getFacebook() || $champ->getInstagram()){
+                                $texte.="Pour en savoir plus sur ".$champ->getNom()." vous pouvez visiter :<br>";
+                            }
+                            if($champ->getFacebook()){
+                                $texte.="- sa page  <a href='".$champ->getFacebook()."' target='_blank'>Facebook</a><br>";
+                            }
+                            if($champ->getInstagram()){
+                                $texte.="- son compte <a href='".$champ->getInstagram()."' target='_blank'>Instagram</a><br>";
+                            }
+                            echo $texte; ?>
 
                                 <?php if($afficher_tab_medaille){  ?>
                                 <table class="table table-responsive">
@@ -330,24 +342,25 @@ $afficher_tab_medaille=false;
                                ?> <tr style="background: #eee">
                                             
                                         </tr>
-                                        <?php   
+                                        <?php    $i=1;
                                 foreach ($tab as $cat_age_ligne) {
                                      foreach($cat_age_ligne as $event_name=>$event_line){
                                         
                                          foreach ($event_line as $type => $rangs) {
                                             $type=($type=="Equipe") ? " par équipe " : "";
                                             ?>
-                                        <tr>
+                                        <tr <?php if($i%2!=0){echo 'class="odd"';}?>>
                                             <td><?php echo $event_name.$type?></td>
                                             <td><?php echo (empty ($rangs[1]))?0:' '.$rangs[1]; ?></td>
                                             <td><?php echo (empty ($rangs[2]))?0:' '.$rangs[2]; ?></td>
                                             <td><?php echo (empty ($rangs[3]))?0:' '.$rangs[3]; ?></td>
                                         </tr>
-                                        <?php }
+                                        <?php }$i++;
 
                                                 
                                     }
                                 }
+                                
                                 
                                  }
                                  ?>
@@ -355,14 +368,14 @@ $afficher_tab_medaille=false;
                                 </table>
                                 <?php }?>
                             </div>
-                            <div class="tab-pane fade" id="tab2">
+                            <div class="active tab-pane fade in" id="tab2">
 
                                 <table id="classement_resultats" class="table table-responsive">
                                     <thead>
                                         <tr>
                                             <th class=" headerSortDown">Année</th>
-                                            <th class="">Clt</th>
-                                            <th class="">Evenement</th>
+                                            <th class="">Rang</th>
+                                            <th class="">Course</th>
                                             <th class="">Temps</th>
                                         </tr>
                                     </thead>
@@ -431,16 +444,17 @@ $afficher_tab_medaille=false;
 	                                }
                             		$duree="<li style='list-style-type: none;'></li>";
 	                                if($vd->getDuree()!='')
-	                                $duree="<li>durée : ".$vd->getDuree()."</li>";
+	                                $duree="<li><span class='material-symbols-outlined'>timer</span>Durée de la vidéo : ".$vd->getDuree()."</li>";
 
                             		echo '<li class="row">
                                     <ul class="video-align-top">
-                                        <li class="col-sm-8">
+                                        
+                                        <li class="col-sm-5"><a href="video-de-marathon-'.$vd->getId().'.html"><img src="'.$vd->getVignette().'"  alt="" class="video-liste-image img-responsive"/></a></li>
+                                        <li class="col-sm-7">
                                             <ul>
-                                                <li><a href="video-de-marathon-'.$vd->getId().'.html" class="video_titre">'.$vd->getTitre().'</a></li>'.$event_intitule.$duree.'
+                                                <li><a href="video-de-marathon-'.$vd->getId().'.html" class="video_titre">'.$vd->getTitre().'</a></li>'.$duree.'
                                             </ul>
                                         </li>
-                                        <li class="col-sm-4"><a href="video-de-marathon-'.$vd->getId().'.html"><img src="'.$vd->getVignette().'" width="120" heigh="90" alt="" class="pull-right img-responsive"/></a></li>
                                     </ul>
                                 </li>';
                             	}
@@ -463,7 +477,16 @@ $afficher_tab_medaille=false;
             </div> <!-- End left-side -->
 
             <aside class="col-sm-4">
-                
+                <div class="box-next-edition bureau">
+                    <div class="mx-auto" style="width:80%">
+                       Vous êtes le coureur présenté sur cette page ?
+                    </div>
+                    <div class="next-edition">
+                        Revendiquer cette fiche
+                    </div>
+                   
+                    
+                </div>
                 <!-- <p class="ban"><a href=""><?php //echo $pub300x60; ?></a></p>
             <p class="ban"><a href=""><?php //echo $pub300x250; ?></a></p> -->
                 <p class="ban ban_160-600"><?php

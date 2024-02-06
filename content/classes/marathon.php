@@ -760,11 +760,12 @@ function array_msort($array, $cols)
 		try {
 			include("../database/connexion.php");
             $liste= array();
-            $req0 = $bdd->prepare("select count(*) as total from marathons where  PaysID=:pays_ab1 or PaysID=:pays_ab2 or PaysID=:pays_ab3 or PaysID=:pays_ab4;");
+            $req0 = $bdd->prepare("select count(*) as total from marathons m,evenements e where e.marathon_id=m.id and (e.DateDebut > :today) and m.PaysID=:pays_ab1 or m.PaysID=:pays_ab2 or m.PaysID=:pays_ab3 or m.PaysID=:pays_ab4;");
             $req0->bindValue('pays_ab1',$pays_ab1, PDO::PARAM_STR);
 			$req0->bindValue('pays_ab2',$pays_ab2, PDO::PARAM_STR);
 			$req0->bindValue('pays_ab3',$pays_ab3, PDO::PARAM_STR);
 			$req0->bindValue('pays_ab4',$pays_ab4, PDO::PARAM_STR);
+			$req0->bindValue('today', date('Y-m-d'), PDO::PARAM_STR);  
             $req0->execute();
             
             while ( $row0  = $req0->fetch(PDO::FETCH_ASSOC)) {    
@@ -790,7 +791,7 @@ function array_msort($array, $cols)
 		try {
 			include("../database/connexion.php");
             $results= array();
-            $req0 = $bdd->prepare("select m.nom as nom,m.image,m.id,e.DateDebut,e.PaysID from marathons m,evenements e where e.marathon_id=m.id and e.DateDebut>DATE(NOW()) and (e.PaysID=:pays_ab1 or e.PaysID=:pays_ab2 or e.PaysID=:pays_ab3 or e.PaysID=:pays_ab4) order by e.DateDebut asc;");
+            $req0 = $bdd->prepare("select m.nom as nom,m.prefixe,m.image,m.id,e.DateDebut,e.PaysID from marathons m,evenements e where e.marathon_id=m.id and e.DateDebut>DATE(NOW()) and (e.PaysID=:pays_ab1 or e.PaysID=:pays_ab2 or e.PaysID=:pays_ab3 or e.PaysID=:pays_ab4) order by e.DateDebut asc;");
             $req0->bindValue('pays_ab1',$pays_ab1, PDO::PARAM_STR);
 			$req0->bindValue('pays_ab2',$pays_ab2, PDO::PARAM_STR);
 			$req0->bindValue('pays_ab3',$pays_ab3, PDO::PARAM_STR);
@@ -810,6 +811,8 @@ function array_msort($array, $cols)
 						//array_push($first_events, $row2);
 						$row['date_prochain_evenement']=$row2['DateDebut'];
 						$row['date_prochain_evenement_nom']=$row2['Nom'];
+						$row['is_top_prochain_evenement']=$row2['a_l_affiche'];
+                		$row['type_evenement']="prochain";
 						$row['date_prochain_evenement_id']=$row2['ID'];
 						$row['last_linked_events_cat_id']=$row2['CategorieID'];
 
@@ -858,19 +861,20 @@ function array_msort($array, $cols)
 		try {
 			include("../database/connexion.php");
             $liste= array();
-            $req0 = $bdd->prepare("select m.nom as Nom,m.id,e.DateDebut,e.PaysID from marathons m,evenements e where e.marathon_id=m.id and DateDebut like :datedeb and DateDebut>DATE(NOW()) ORDER BY DateDebut asc;");
+            $req0 = $bdd->prepare("select m.nom as nom,m.image,m.prefixe,m.id,e.ID as date_prochain_evenement_id,e.CategorieID as last_linked_events_cat_id,e.DateDebut,e.PaysID,e.nom as date_prochain_evenement_nom,e.a_l_affiche as is_top_prochain_evenement from marathons m,evenements e where e.marathon_id=m.id and DateDebut like :datedeb and DateDebut>DATE(NOW()) ORDER BY DateDebut asc;");
             
 			$req0->bindValue('datedeb','%'.$annee.'-'.$mois.'%', PDO::PARAM_STR);
             $req0->execute();
             
             while ( $row0  = $req0->fetch(PDO::FETCH_ASSOC)) {    
+				$row0['date_prochain_evenement']=$row0['DateDebut'];
+						
+				$row0['type_evenement']="prochain";
                 array_push($liste, $row0); 
             }
             $bdd=null;
-            $len = (int) count($liste);
-            $firsthalf = array_slice($liste, 0, $len / 2);
-            $secondhalf = array_slice($liste, $len / 2);
-            return array('validation'=>true,'donnees_1'=>$firsthalf ,'donnees_2'=>$secondhalf,'message'=>'');
+            
+            return array('validation'=>true,'donnees'=>$liste ,'message'=>'');
 	    }
 	       
 	    catch(Exception $e){

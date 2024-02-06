@@ -110,7 +110,7 @@ try{
     <link rel="apple-touch-icon" href="apple-favicon.png">
     <link rel="icon" type="image/x-icon" href="../../images/favicon.ico" />
     
-    <link rel="canonical" href="https://allmarathon.fr/cv-champions-de-marathon.html" />
+    <link rel="canonical" href="https://allmarathon.fr/liste-des-athletes.html" />
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/font-awesome.min.css">
     <link rel="stylesheet" href="../../css/fonts.css">
@@ -147,7 +147,7 @@ try{
     <?php include_once('nv_header-integrer.php'); ?>
 
 
-    <div class="container page-content mpp">
+    <div class="container page-content mpp  mt-77">
         <div class="row banniere1">
             <div  class="col-sm-12"><?php
                 if($pub728x90 !="") {
@@ -203,7 +203,7 @@ try{
                             }
                             echo '<div class="mpp-pays-box">
                             <a href="calendrier-marathons-'.slugify($chmp['NomPays']).'-'.$chmp['pays_id'].'.html">
-                            <div class="mpp-title-pays"><img class="marathon-title-flag" style="float:left" src="../../images/flags/'.$pays_flag.'" alt=""/>'.$chmp['NomPays'].'</div>
+                            <div class="mpp-title-pays"><img class="marathon-title-flag bureau" style="float:left" src="../../images/flags/'.$pays_flag.'" alt=""/>'.$chmp['NomPays'].'</div>
                             <div class="mpp-nbr-mar">'.$marathon_par_pays_total.'</div>
                             </a>
                             </div>';
@@ -242,7 +242,7 @@ try{
                 ?></div>
         </div>
         <div class="row">
-            <div class="col-sm-12 left-side">
+            <div class="col-sm-12 left-side align-with-grid-mpp">
 
                 <div class="row">
 
@@ -355,7 +355,7 @@ try{
     <script type="text/javascript">
     function goSearch_athlètes() {
         var key = (document.getElementById('search_athlètes').value).toLowerCase();
-        window.location = "cv-champions-de-marathon-" + key + ".html";
+        window.location = "liste-des-athletes-" + key + ".html";
     }
 
     document.getElementById('search_athlètes').onkeypress = function(e) {
@@ -363,7 +363,7 @@ try{
         var keyCode = e.keyCode || e.which;
         if (keyCode == '13') {
             var key = (document.getElementById('search_athlètes').value).toLowerCase();
-            window.location = "cv-champions-de-marathon-" + key + ".html";
+            window.location = "liste-des-athletes-" + key + ".html";
             return false;
         }
     }

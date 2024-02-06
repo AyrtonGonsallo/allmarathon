@@ -18,7 +18,7 @@
                     <li> <a data-category="Header_Links" data-action="Top Menu Click" data-label="ACTUALITE" href="/actualites-marathon.html" class="header--nav--link">ACTUS</a></li>
                     <li> <a data-category="Header_Links" data-action="Top Menu Click" data-label="RESULTATS" href="/resultats-marathon.html" class="header--nav--link">RESULTATS</a></li>
                     <li> <a data-category="Header_Links" data-action="Top Menu Click" data-label="CALENDRIER" href="/calendrier-marathon.html" class="header--nav--link">CALENDRIER</a></li>
-                    <li> <a data-category="Header_Links" data-action="Top Menu Click" data-label="athlèteS" href="/cv-champions-de-marathon.html" class="header--nav--link">athlèteS</a></li>
+                    <li> <a data-category="Header_Links" data-action="Top Menu Click" data-label="athlèteS" href="/liste-des-athletes.html" class="header--nav--link">athlèteS</a></li>
                     <li> <a data-category="Header_Links" data-action="Top Menu Click" data-label="VIDEOS" href="/videos-de-marathon.html" class="header--nav--link">VIDEOS</a></li>
                     <!-- <li><a data-category="Header_Links" data-action="Top Menu Click" data-label="Marathon-Talk" href="#" class="header--nav--link">Marathon-Talk</a></li> -->
                 </ul>

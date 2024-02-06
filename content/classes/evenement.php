@@ -346,6 +346,35 @@ class evenement{
 	}
 
 
+	public function getEvenementsByCategorieID($cat_id,$order)
+	{
+		try {
+				  include("../database/connexion.php");
+				  $cat_events = array();
+				  if($order=="Desc"){
+					$req = $bdd->prepare("SELECT CategorieageID,CategorieID,Nom,DateDebut,PaysID,ID,Sexe FROM evenements WHERE Valider=1  and CategorieID=:cat_id ORDER BY DateDebut DESC LIMIT 9");
+
+				  }else{
+					$req = $bdd->prepare("SELECT CategorieageID,CategorieID,Nom,DateDebut,PaysID,ID,Sexe FROM evenements WHERE Valider=1  and CategorieID=:cat_id ORDER BY DateDebut ASC LIMIT 9");
+
+				  }
+	             $req->execute(array('cat_id'=>$cat_id));
+				 while ( $row  = $req->fetch(PDO::FETCH_ASSOC)) {    
+					
+					array_push($cat_events, $row);
+			   }
+			   $bdd=null;
+			   return array('validation'=>true,'donnees'=>$cat_events,'message'=>'');
+	         	
+	        }
+	       
+	        catch(Exception $e)
+	        {
+	            die('Erreur : ' . $e->getMessage());
+	        }
+	}
+
+
 	public function getHomeEvents()
 		{
 			try {
@@ -448,7 +477,7 @@ function search_array($tab_pack_a_afficher_fct,$tab_indice_fct)
         if ($age!='') {$condition.=' AND CategorieageID='.$age.' ';}
         try {
 					  include("../database/connexion.php");
-					 $req = $bdd->prepare("SELECT CategorieageID,CategorieID,Nom,DateDebut,PaysID,ID,Sexe  FROM evenements WHERE Visible='1' ".$condition." ORDER BY DateDebut DESC LIMIT :offset,40");
+					 $req = $bdd->prepare("SELECT CategorieageID,CategorieID,Nom,DateDebut,PaysID,ID,Sexe  FROM evenements WHERE Visible='1' ".$condition." ORDER BY DateDebut DESC LIMIT :offset,39");
 				 	 // $req->bindValue('condition', $condition, PDO::PARAM_STR);
 				 	 $req->bindValue('offset', $page*40, PDO::PARAM_INT);
 

@@ -264,7 +264,7 @@ try{
 
 
 
-    <div class="container page-content athlètes marathons">
+    <div class="container page-content athlètes marathons mt-77">
 
      
 
@@ -578,6 +578,11 @@ try{
         //fin remise a zero
     }
 
+    var search_val_res_input = $('#search_val_res');
+
+    search_val_res_input.focus(function () {
+        search_val_res_input.removeAttr('placeholder');
+});
     //données initiales
    /* $.ajax({
                type: "POST",

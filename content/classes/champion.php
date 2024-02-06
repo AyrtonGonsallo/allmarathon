@@ -493,6 +493,47 @@ class champion{
 	    }
 	}
 
+
+	public function getListChampionsOlympics()
+	{
+		try {
+				include("../database/connexion.php");
+				$req = $bdd->prepare('select c.*,e.ID as evenementid,e.CategorieID as categorieid,e.DateDebut,r.Rang from champions c,evresultats r,evenements e where r.ChampionID=c.ID and r.EvenementID=e.ID and e.CategorieID=1 and r.Rang=1 group by c.ID order by e.DateDebut desc;');
+				$req->execute();
+				$champions = array();
+				
+				while ( $row  = $req->fetch(PDO::FETCH_ASSOC)) {  
+					$champ_id =  $row["ID"];
+					$req1 = $bdd->prepare('SELECT COUNT(*) as total FROM `evresultats` WHERE ChampionID=:cid');
+					$req1->bindValue('cid',$champ_id, PDO::PARAM_INT);
+					$req1->execute();
+					$row1  = $req1->fetch(PDO::FETCH_ASSOC);
+
+					$req12 = $bdd->prepare('SELECT COUNT(*) as total FROM `images` WHERE Champion_id=:cid or Champion2_id=:cid');
+					$req12->bindValue('cid',$champ_id, PDO::PARAM_INT);
+					$req12->execute();
+					$row12  = $req12->fetch(PDO::FETCH_ASSOC);
+
+					$req13 = $bdd->prepare('SELECT COUNT(*) as total FROM `videos` WHERE Champion_id=:cid');
+					$req13->bindValue('cid',$champ_id, PDO::PARAM_INT);
+					$req13->execute();
+					$row13  = $req13->fetch(PDO::FETCH_ASSOC);
+
+					$row["t_videos"]=$row13["total"];
+					$row["t_photos"]=$row12["total"];
+					$row["t_res"]=$row1["total"];
+					array_push($champions, $row);
+				}
+				$bdd=null;
+				return array('validation'=>true,'donnees'=>$champions,'message'=>'');
+	        }
+	       
+	        catch(Exception $e)
+	        {
+	            die('Erreur : ' . $e->getMessage());
+	        }
+	}
+
 	public function getNumberPage($i)
 	{
 		try {

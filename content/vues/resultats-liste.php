@@ -126,7 +126,8 @@ if($key_word!=""){
 
 }
 
-
+$res_olympiques = $event->getEvenementsByCategorieID(1,"Desc");
+//var_dump($res_olympiques["donnees"]);exit(-1);
 $nb_pages=intval($event->getNumberPages($annee,$comp,$cat,$page,$key_word)['donnees']['COUNT(*)']/40)+1;
 
 
@@ -137,7 +138,7 @@ $nb_pages=intval($event->getNumberPages($annee,$comp,$cat,$page,$key_word)['donn
 $next=$page+1;
 
 $previous=$page-1;
-
+$pays_object=new pays();
 
 
 $ev_cat_event=new evCategorieEvenement();
@@ -167,10 +168,20 @@ function slugify($text)
 
 }
 
+$liste_pays= $pays_object->getAll()["donnees"];
 
 setlocale(LC_TIME, "fr_FR","French");
-
-
+    try{
+        include("../database/connexion.php");
+        $req = $bdd->prepare("SELECT count(*) AS nbr FROM evenements");
+        $req->execute();
+        $nombre_de_lignes_de_res= $req->fetch(PDO::FETCH_ASSOC);
+    }
+    catch(Exception $e)
+    {
+        die('Erreur : ' . $e->getMessage());
+    }
+    
 ?>
 
 <!doctype html>
@@ -267,7 +278,7 @@ setlocale(LC_TIME, "fr_FR","French");
 
 
 
-    <div class="container page-content athlètes">
+    <div class="container page-content athlètes mt-77">
 
      
 
@@ -295,9 +306,9 @@ setlocale(LC_TIME, "fr_FR","French");
 
 
 
-        <div class="row">
+        <div class="row resultats-liste">
 
-            <div class="col-sm-8 left-side">
+            <div class="col-sm-12 left-side">
 
 
 
@@ -308,24 +319,34 @@ setlocale(LC_TIME, "fr_FR","French");
                     <div class="col-sm-12">
 
 
-                        <h1>Résultats des marathons en France et dans le monde</h1>
-                        <h2>Jeux olympiques, championnats du monde, championnats d'Europe, championnats de France, World Majors Marathon</h2>
+                        <h1 class="float-l">Résultats des marathons en France et dans le monde</h1>
+                        <span class="total-marathons bureau"><?php echo $nombre_de_lignes_de_res["nbr"]." évenements";?></span>
+                        <h2 class="clear-b mw-600">allmarathon propose des résultats de marathons du monde entier et notamment les résultats de tous les marathons olympiques, championnats du monde, championnats d’Europe et championnats de France.</h2>
+                        <div class="input-zone-box mw-600">
+                            <select name="PaysID" id="select-pays">
+                                <option value="all">Pays</option>
+                                <?php 
+                                    foreach ($liste_pays as $pays) {
+                                        echo '<option value="'.$pays->getAbreviation().'">'.$pays->getNomPays().'</option>';
+                                    } ?>
+                            </select>
+                            <form action="" method="post" class="form-inline" role="form">
 
-                        <form action="" method="post" class="form-inline" role="form">
+                                <div class="form-group" style="width:100%; white-space: nowrap;">
 
-                            <div class="form-group" style="width:100%; white-space: nowrap; margin-bottom: 5px;">
+                                    <input type="search" id="search_val_res" placeholder="Recherche" class="form-control"
 
-                                <input type="search" id="search_val_res" placeholder="Recherche" class="form-control"
+                                        style="width: 93%" />
 
-                                    style="width: 93%" />
+                                    <button id="goToSearch_Result" type="button"  class="btn btn-primary"><i
 
-                                <button type="button" onclick="goToSearch_Result();" class="btn btn-primary"><i
+                                            class="fa fa-search"></i></button>
 
-                                        class="fa fa-search"></i></button>
+                                </div>
 
-                            </div>
-
-                        </form>
+                            </form>
+                        </div>
+                        
 
                         
 
@@ -337,7 +358,7 @@ setlocale(LC_TIME, "fr_FR","French");
 
 
 
-                    <ul class="col-sm-12 resultats">
+                    <ul class="col-sm-12 resultats resultats-grid">
 
                         <?php
 
@@ -358,25 +379,19 @@ setlocale(LC_TIME, "fr_FR","French");
                             ($event_video)? $video_src='<li><img src="../../images/pictos/tv.png" alt=""/></li>':$video_src="";
 
                             $pays_flag=$pays->getFlagByAbreviation($resultat['PaysID'])['donnees']['Flag'];
-
+                            $pays_nom=$pays->getFlagByAbreviation($resultat['PaysID'])['donnees']['NomPays'];
                             $cat_age=$ev_cat_age->getEventCatAgeByID($resultat['CategorieageID'])['donnees']->getIntitule();
+                            $date_res=utf8_encode(strftime("%A %d %B %Y",strtotime($resultat['DateDebut'])));
 
-                            $nom_res='<strong>'.$cat_event.' - '.$resultat['Nom'].'</strong> - '.utf8_encode(strftime("%A %d %B %Y",strtotime($resultat['DateDebut'])));
+                            $nom_res='<strong>'.$cat_event.' '.$resultat['prefixe'].' '.$resultat['Nom'].'</strong>';
                             $nom_res_lien=$cat_event.' - '.$resultat['Nom'].' - '.utf8_encode(strftime("%A %d %B %Y",strtotime($resultat['DateDebut'])));
 
-                            echo '<li><a href="/resultats-marathon-'.$resultat['ID'].'-'.slugify($nom_res_lien).'.html">'.$nom_res.'</a>
-
-                        <ul class="list-inline">
-
-                            '.$video_src.' '.$image_src.' '.'
-
-                            <li><img src="../../images/flags/'.$pays_flag.'" alt=""/></li>
-
-
-
-	                        </ul>
-
-	                    </li>';
+                            echo '<div class="resultats-grid-element"><a href="/resultats-marathon-'.$resultat['ID'].'-'.slugify($nom_res_lien).'.html">'.$nom_res.'</a>
+                            <img src="../../images/flags/'.$pays_flag.'" class="float-r" alt=""/><br>
+                                '.$pays_nom.
+                            '<br><span>'.
+                            $date_res.'</span>
+                            </div>';
 
                 		}
 
@@ -393,51 +408,43 @@ setlocale(LC_TIME, "fr_FR","French");
 
 
                     <ul class="pager">
-
-                        <?php 
-
-                            if($next==$nb_pages) $style_suivant='style="pointer-events: none;cursor: default;"';
-
-                            else $style_suivant='';
-
-                            if(intval($next)<2) $style_precedent='style="pointer-events: none;cursor: default;"';
-
-                            else $style_precedent='';
-
-                            $sort='';
-
-                            $sort.= ($annee!="") ? "_".$annee : "_";
-
-                            $sort.= ($cat!="") ? "_".$cat : "_";
-
-                            $sort.= ($comp!="") ? "_".$comp : "_";
-
-                            
-
-                            if($sort!='___') { 
-
-                        ?>
-
-                        <?php echo ' <li><a href="/resultats-marathon_'.$previous.$sort.'.html"'.$style_precedent.'> Précédent</a></li>
-
-                    <li>'.$next.' / '.$nb_pages.'</li>
-
-                    <li><a href="/resultats-marathon_'.$next.$sort.'.html"'.$style_suivant.'> Suivant</a></li>';
-
-                     } else {
-
-                         echo '<li><a href="/resultats-marathon_'.$previous.'_'.$key_word.'.html"'.$style_precedent.'> Précédent</a></li>
-
-                          <li>'.$next.' / '.$nb_pages.'</li>
-
-                        <li><a href="/resultats-marathon_'.$next.'_'.$key_word.'.html"'.$style_suivant.'> Suivant</a> </li>';
-
-                     }?>
-
+                        <li class="rl-prec"><a href="#" id="back-link"></a>Résultats suivants</li>
+                        <li class="rl-suiv"><a href="#" id="next-link">Résultats précédents</a></li>
                     </ul>
+                    
+                    
+                    <?php if($res_olympiques["donnees"]){?>
+                        
+                        <ul class="col-sm-12">
+                            <h2 class="mt-30">Résultats des marathons olympiques</h2>
+                            <div class="resultats resultats-grid mb-80">
+                                <?php
 
+                                foreach ($res_olympiques["donnees"] as $key => $resultat) {
 
+                                    $cat_event=$ev_cat_event->getEventCatEventByID($resultat['CategorieID'])['donnees']->getIntitule();
+                                    $pays_flag=$pays->getFlagByAbreviation($resultat['PaysID'])['donnees']['Flag'];
+                                    $pays_nom=$pays->getFlagByAbreviation($resultat['PaysID'])['donnees']['NomPays'];
+                                    $date_res=utf8_encode(strftime("%A %d %B %Y",strtotime($resultat['DateDebut'])));
 
+                                    $nom_res='<strong>'.$cat_event.' '.$resultat['prefixe'].' '.$resultat['Nom'].'</strong>';
+                                    $nom_res_lien=$cat_event.' - '.$resultat['Nom'].' - '.utf8_encode(strftime("%A %d %B %Y",strtotime($resultat['DateDebut'])));
+
+                                    echo '<div class="resultats-grid-element"><a href="/resultats-marathon-'.$resultat['ID'].'-'.slugify($nom_res_lien).'.html">'.$nom_res.'</a>
+                                    <br>
+                                        <img src="../../images/flags/'.$pays_flag.'" alt=""/>'.$pays_nom.
+                                    '<br><span>'.
+                                    $date_res.'</span>
+                                    </div>';
+
+                                }
+
+                                // die;
+
+                                ?>
+                            </div>
+                        </ul>
+                    <?php }?>
 
 
                 </div>
@@ -462,103 +469,7 @@ setlocale(LC_TIME, "fr_FR","French");
 
             <aside class="col-sm-4 pd-top">
 
-                 <p class="ban"><?php
-
-                    if($pub300x60 !="") {
-
-                    echo $pub300x60["code"] ? $pub300x60["code"] :  "<a href=". $pub300x60['url'] ." target='_blank'><img src=".'../images/pubs/'.$pub300x60['image'] . " alt='' style=\"width: 100%;\" />";
-
-                    }
-
-                    ?></a></p>
-
-
-
-                <dt class="anniversaires">Résultats anciens</dt>
-
-                <dd class="anniversaires">
-
-                    <ul class="clearfix">
-
-                        <?php
-
-                        foreach ($archives['donnees'] as $key => $ev_archive) {
-
-                            $cat_event=$ev_cat_event->getEventCatEventByID($ev_archive->getCategorieId())['donnees']->getIntitule();
-
-                            if($ev_archive->getType()=="Equipe"){
-
-                                $type_event= " par équipes";
-
-                            }
-
-                            else{
-
-                                $type_event=""; 
-
-                            }
-
-                            $nom_res_archive=$cat_event." ".$type_event." (".$ev_archive->getSexe().") ".$ev_archive->getNom()." ".substr($ev_archive->getDateDebut(),0,4);
-                            $nom_res_lien_archive=$cat_event.' - '.$ev_archive->getNom().' - '.strftime("%A %d %B %Y",strtotime($ev_archive->getDateDebut()));
-
-                            echo '<li><a href="/resultats-marathon-'.$ev_archive->getId().'-'.slugify($nom_res_lien_archive).'.html">'.$nom_res_archive.'</a></li>';
-
-                        }
-
-                    ?>
-
-                    </ul>
-
-                </dd>
-
-                <div class="marg_bot"></div>
-
-                 <p class="ban"><?php
-
-if($pub300x250 !="") {
-
-echo $pub300x250["code"] ? $pub300x250["code"] :  "<a href=". $pub300x250['url'] ." target='_blank'><img src=".'../images/pubs/'.$pub300x250['image'] . " alt='' style=\"width: 100%;\" />";
-
-}
-
-?></a></p>
-
-
-
-                
-
-                
-
-                <div class="marg_bot"></div>
-
-                 <p class="ban ban_160-600"><a href=""><?php
-
-if($pub160x600 !="") {
-
-    //var_dump($pub160x600["url"]); exit;
-
-    if($pub160x600["code"]==""){
-
-        echo "<a href=".'http://allmarathon.net/'.$pub160x600["url"]." target='_blank'><img src=".'../images/news/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" /></a>";
-
-    }
-
-    else{
-
-        echo $pub160x600["code"];
-
-    }
-
-/*echo $pub160x600["code"] ? $pub160x600["code"] :  "<img src=".'../images/pubs/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" />";*/
-
-}
-
-?></a></p>
-
-                <div class="marg_bot"></div>
-
-
-
+                 
 
 
             </aside>
@@ -609,155 +520,303 @@ if($pub160x600 !="") {
 
 
 
-   
-
-
-
     <script type="text/javascript">
 
-    function sortResult() {
+var par_pages=39;
+    var nb_pages=0;
+    var page=0;
+    var next=page+1;
+    var previous=page-1;
+
+    $(document).ready(function() {
+         //requette ajax
+         $('#select-pays').change( function() {
+            page=0
+            var next=page+1;
+            var previous=page-1;
+            //remise_a_zero()
+             type_req_courrante="getEvenementsbyPays";
+
+            var sel_pays_id=$(this).val();
+            console.log("recherche sur ",sel_pays_id)
+            $.ajax({
+               type: "POST",
+               url: "content/classes/resultats-liste-ajax.php",
+               data: {
+                   function: "getEvenementsbyPays",
+                   pays_id:sel_pays_id,
+                   offset:page*par_pages,
+                   par_pages:par_pages,
+                   page:page,
+               },
+               success: function(html) {
+                   $(".col-sm-12.resultats.resultats-grid").html(html).show();
+                  // console.log("success",html)
+               },
+               error: function (jqXHR, exception) {
+                    var msg = '';
+                    if (jqXHR.status === 0) {
+                        msg = 'Not connect.\n Verify Network.';
+                    } else if (jqXHR.status == 404) {
+                        msg = 'Requested page not found. [404]';
+                    } else if (jqXHR.status == 500) {
+                        msg = 'Internal Server Error [500].';
+                    } else if (exception === 'parsererror') {
+                        msg = 'Requested JSON parse failed.';
+                    } else if (exception === 'timeout') {
+                        msg = 'Time out error.';
+                    } else if (exception === 'abort') {
+                        msg = 'Ajax request aborted.';
+                    } else {
+                        msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                    }
+                    console.log("error",msg)
+                },
+           })
+        });
+
+        $("#goToSearch_Result").click(function() {
+            page=0
+            var next=page+1;
+            var previous=page-1;
+                search=$("#search_val_res").val()
+                console.log("recherche de ",search)
+                    
+                $.ajax({
+                    type: "POST",
+                    url: "content/classes/resultats-liste-ajax.php",
+                    data: {
+                        function:"getEvenementsbySearch",
+                        
+                        search:search,
+                        offset:page*par_pages,
+                        par_pages:par_pages,
+                        page:page,
+                        
+                    },
+                    success: function(html) {
+                        $(".col-sm-12.resultats.resultats-grid").html(html).show();
+                        //console.log("success",html)
+                    },
+                    error: function (jqXHR, exception) {
+                            var msg = '';
+                            if (jqXHR.status === 0) {
+                                msg = 'Not connect.\n Verify Network.';
+                            } else if (jqXHR.status == 404) {
+                                msg = 'Requested page not found. [404]';
+                            } else if (jqXHR.status == 500) {
+                                msg = 'Internal Server Error [500].';
+                            } else if (exception === 'parsererror') {
+                                msg = 'Requested JSON parse failed.';
+                            } else if (exception === 'timeout') {
+                                msg = 'Time out error.';
+                            } else if (exception === 'abort') {
+                                msg = 'Ajax request aborted.';
+                            } else {
+                                msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                            }
+                            console.log("error",msg)
+                        },
+                });
+            })
+
+            $("#search_val_res").keydown(function(event){ 
+                page=0
+            var next=page+1;
+            var previous=page-1;
+                var keycode = (event.keyCode ? event.keyCode : event.which);
+                if (keycode == 13) {
+                    event.preventDefault();
+                    search=$("#search_val_res").val()
+                   
+                    $.ajax({
+                        type: "POST",
+                        url: "content/classes/resultats-liste-ajax.php",
+                        data: {
+                            function:"getEvenementsbySearch",
+                           
+                            search:search,
+                            offset:page*par_pages,
+                            par_pages:par_pages,
+                            page:page,
+                           
+                        },
+                        success: function(html) {
+                            $(".col-sm-12.resultats.resultats-grid").html(html).show();
+                            //console.log("success",html)
+                        },
+                        error: function (jqXHR, exception) {
+                                var msg = '';
+                                if (jqXHR.status === 0) {
+                                    msg = 'Not connect.\n Verify Network.';
+                                } else if (jqXHR.status == 404) {
+                                    msg = 'Requested page not found. [404]';
+                                } else if (jqXHR.status == 500) {
+                                    msg = 'Internal Server Error [500].';
+                                } else if (exception === 'parsererror') {
+                                    msg = 'Requested JSON parse failed.';
+                                } else if (exception === 'timeout') {
+                                    msg = 'Time out error.';
+                                } else if (exception === 'abort') {
+                                    msg = 'Ajax request aborted.';
+                                } else {
+                                    msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                                }
+                                console.log("error",msg)
+                            },
+                    });
+                }
+            })
 
 
-
-        selected_annee = document.getElementById('annee').selectedIndex;
-
-        annee = document.getElementById('annee')[selected_annee].value;
+            $("#back-link").css({'pointer-events': 'none' ,"color": "#000", 'cursor' : 'default'});
 
 
-
-        selected_age = document.getElementById('age').selectedIndex;
-
-        age = document.getElementById('age')[selected_age].value;
-
-
-
-        selected_type = document.getElementById('type').selectedIndex;
-
-        type = document.getElementById('type')[selected_type].value;
-
-
-
-        condition = '';
-
-        if (annee != '') {
-
-            if (condition == '') {
-
-                condition += '?annee=' + annee;
-
-            } else {
-
-                condition += '&annee=' + annee;
-
+            $("#next-link").click(function() {
+            page+=1; 
+            next=page+1;
+            if(page==(nb_pages-1)){
+                style_suivant={'pointer-events': 'none' ,"color": "#000",  'cursor' : 'default'}
+            } else{
+                style_suivant={'pointer-events': 'all' ,"color": "#2caffe",  'cursor' : 'pointer'}
             }
-
-        }
-
-        if (type != '') {
-
-            if (condition == '') {
-
-                condition += '?type=' + type;
-
-            } else {
-
-                condition += '&type=' + type;
-
+            if(page==0){
+                style_precedent={'pointer-events': 'none' ,"color": "#000", 'cursor' : 'default'}
+            } else{
+               style_precedent={'pointer-events': 'all' ,"color": "#2caffe",  'cursor' : 'pointer'}
+               
             }
-
-        }
-
-        if (age != '') {
-
-            if (condition == '') {
-
-                condition += '?age=' + age;
-
-            } else {
-
-                condition += '&age=' + age;
-
+            $(this).css(style_suivant)
+            $("#back-link").css(style_precedent)
+            search_v=$("#search_val_res").val();
+            pays_v=$('#select-pays').val();
+            console.log("page: ",page)
+            console.log("de: ",page*par_pages," a ",(page+1)*par_pages)
+            if(search_v){
+                if(pays_v=="all"){
+                    console.log("suivant par keyword")
+                }else{
+                    console.log("suivant par keyword et par pays")
+                }
+            }else{
+                if(pays_v=="all"){
+                    console.log("suivant sans filtre")
+                }else{
+                    console.log("suivant par pays")
+                    
+                }
             }
+           $.ajax({
+               type: "POST",
+               url: "content/classes/resultats-liste-ajax.php",
+               data: {
+                   function:"getNextEvenements",
+                   offset:page*par_pages,
+                   par_pages:par_pages,
+                   page:page,
+                   search:search_v,
+                   pays_id:pays_v,
+               },
+               success: function(html) {
+                    $(".col-sm-12.resultats.resultats-grid").html(html).show();
+                   //console.log("success",html)
+               },
+               error: function (jqXHR, exception) {
+                    var msg = '';
+                    if (jqXHR.status === 0) {
+                        msg = 'Not connect.\n Verify Network.';
+                    } else if (jqXHR.status == 404) {
+                        msg = 'Requested page not found. [404]';
+                    } else if (jqXHR.status == 500) {
+                        msg = 'Internal Server Error [500].';
+                    } else if (exception === 'parsererror') {
+                        msg = 'Requested JSON parse failed.';
+                    } else if (exception === 'timeout') {
+                        msg = 'Time out error.';
+                    } else if (exception === 'abort') {
+                        msg = 'Ajax request aborted.';
+                    } else {
+                        msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                    }
+                    console.log("error",msg)
+                },
+           });}
+           )
 
-        }
 
-        condition = "__" + annee + "_" + age + "_" + type + ".html";
-
-        if (condition != '') {
-
-            // alert("condition : "+condition);
-
-            window.location.href = '/resultats-marathon' + condition;
-
-        } else {
-
-            // alert("rien");
-
-            window.location.href = '/resultats-marathon.html';
-
-        }
-
-    }
+           $("#back-link").click(function() {
+            page-=1; 
+            next=page-1;
+            if(page==(nb_pages-1)){
+                style_suivant={'pointer-events': 'none' ,"color": "#000",  'cursor' : 'default'}
+            } else{
+                style_suivant={'pointer-events': 'all' ,"color": "#2caffe",  'cursor' : 'pointer'}
+            }
+            if(page==0){
+                style_precedent={'pointer-events': 'none' ,"color": "#000", 'cursor' : 'default'}
+            } else{
+               style_precedent={'pointer-events': 'all' ,"color": "#2caffe",  'cursor' : 'pointer'}
+               
+            }
+            $(this).css(style_suivant)
+            $("#back-link").css(style_precedent)
+            search_v=$("#search_val_res").val();
+            pays_v=$('#select-pays').val();
+            console.log("page: ",page)
+            console.log("de: ",page*par_pages," a ",(page+1)*par_pages)
+            if(search_v){
+                if(pays_v=="all"){
+                    console.log("suivant par keyword")
+                }else{
+                    console.log("suivant par keyword et par pays")
+                }
+            }else{
+                if(pays_v=="all"){
+                    console.log("suivant sans filtre")
+                }else{
+                    console.log("suivant par pays")
+                    
+                }
+            }
+           $.ajax({
+               type: "POST",
+               url: "content/classes/resultats-liste-ajax.php",
+               data: {
+                   function:"getNextEvenements",
+                   offset:page*par_pages,
+                   par_pages:par_pages,
+                   page:page,
+                   search:search_v,
+                   pays_id:pays_v,
+               },
+               success: function(html) {
+                    $(".col-sm-12.resultats.resultats-grid").html(html).show();
+                   //console.log("success",html)
+               },
+               error: function (jqXHR, exception) {
+                    var msg = '';
+                    if (jqXHR.status === 0) {
+                        msg = 'Not connect.\n Verify Network.';
+                    } else if (jqXHR.status == 404) {
+                        msg = 'Requested page not found. [404]';
+                    } else if (jqXHR.status == 500) {
+                        msg = 'Internal Server Error [500].';
+                    } else if (exception === 'parsererror') {
+                        msg = 'Requested JSON parse failed.';
+                    } else if (exception === 'timeout') {
+                        msg = 'Time out error.';
+                    } else if (exception === 'abort') {
+                        msg = 'Ajax request aborted.';
+                    } else {
+                        msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                    }
+                    console.log("error",msg)
+                },
+           });}
+           )
+    })
 
     </script>
-
-
-
-    <script type="text/javascript">
-
-    function goToSearch_Result() {
-
-        var key = document.getElementById('search_val_res').value;
-
-        window.location = "resultats-marathon__" + key + ".html";
-
-    }
-
-    document.getElementById('search_val_res').onkeypress = function(e) {
-
-        if (!e) e = window.event;
-
-        var keyCode = e.keyCode || e.which;
-
-        if (keyCode == '13') {
-
-            var key = document.getElementById('search_val_res').value;
-
-            window.location = "resultats-marathon__" + key + ".html";
-
-            return false;
-
-        }
-
-    }
-
-    </script>
-
-
-
-    <!--FaceBook-->
-
-    <script>
-
-    (function(d, s, id) {
-
-        var js, fjs = d.getElementsByTagName(s)[0];
-
-        if (d.getElementById(id)) return;
-
-        js = d.createElement(s);
-
-        js.id = id;
-
-        js.src = "//connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v2.5";
-
-        fjs.parentNode.insertBefore(js, fjs);
-
-    }(document, 'script', 'facebook-jssdk'));
-
-    </script>
-
-    <!--Google+-->
 
     <script src="https://apis.google.com/js/platform.js" async defer></script>
 
