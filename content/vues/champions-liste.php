@@ -66,6 +66,44 @@ $req = $bdd->prepare('SELECT COUNT(*) as total FROM champions');
 $req->execute();
 $nb_champs=$req->fetch(PDO::FETCH_ASSOC)['total'];
 
+
+try {
+    include("../database/connexion.php");
+    $req = $bdd->prepare("select c.* from champions c where not c.Nom like '' order by UPPER(c.Nom) asc LIMIT 39;");
+
+   
+    $req->execute();
+    $results_initial= array();
+    while ( $row  = $req->fetch(PDO::FETCH_ASSOC)) {  
+          $champ_id =  $row["ID"];
+          $req1 = $bdd->prepare('SELECT COUNT(*) as total FROM `evresultats` WHERE ChampionID=:cid');
+          $req1->bindValue('cid',$champ_id, PDO::PARAM_INT);
+          $req1->execute();
+          $row1  = $req1->fetch(PDO::FETCH_ASSOC);
+
+          $req12 = $bdd->prepare('SELECT COUNT(*) as total FROM `images` WHERE Champion_id=:cid or Champion2_id=:cid');
+          $req12->bindValue('cid',$champ_id, PDO::PARAM_INT);
+          $req12->execute();
+          $row12  = $req12->fetch(PDO::FETCH_ASSOC);
+
+          $req13 = $bdd->prepare('SELECT COUNT(*) as total FROM `videos` WHERE Champion_id=:cid');
+          $req13->bindValue('cid',$champ_id, PDO::PARAM_INT);
+          $req13->execute();
+          $row13  = $req13->fetch(PDO::FETCH_ASSOC);
+
+          $row["t_videos"]=$row13["total"];
+          $row["t_photos"]=$row12["total"];
+          $row["t_res"]=$row1["total"];
+          array_push( $results_initial, $row);
+    }
+     $bdd=null;
+     
+}
+
+catch(Exception $e)
+{
+  die('Erreur : ' . $e->getMessage());
+}
 ?>
 
 
@@ -147,7 +185,7 @@ $nb_champs=$req->fetch(PDO::FETCH_ASSOC)['total'];
 
                         <h1 class="float-l">Athlètes, marathoniens célèbres</h1>
                         <span class="total-marathons bureau"><?php echo $nb_champs." athlètes";?></span>
-                        <h2 class="clear-b mw-600">Trouvez et parcourez les palmarès des meilleurs coureurs de marathon.</h2>
+                        <h2 class="clear-b">Trouvez et parcourez les palmarès des meilleurs coureurs de marathon.</h2>
                         <div class="input-zone-box mw-600">
                             <select name="PaysID" id="select-pays">
                                 <option value="all">Nationalité</option>
@@ -176,19 +214,40 @@ $nb_champs=$req->fetch(PDO::FETCH_ASSOC)['total'];
                     </div>
                     <div class="col-sm-12">
                         <div  id="resultats-recherche-athletes">
-                            Résultats de votre recherche
+                            <?php
+                                $res="<ul class='athletes-liste-grid'>";
+                                foreach ($results_initial as $resultat) {
+                                    
+                                    
+                                    $pays_flag=$pays->getFlagByAbreviation($resultat['PaysID'])['donnees']['Flag'];
+                                    $pays_nom=$pays->getFlagByAbreviation($resultat['PaysID'])['donnees']['NomPays'];
+                                    $champion_name=slugify($resultat['Nom']);
+
+                                    $res.= '<div class="athletes-grid-element"><a href="athlete-'.$resultat['ID'].'-'.$champion_name.'.html"><strong>'.$resultat['Nom'].'</strong></a>
+                                    <img src="../../images/flags/'.$pays_flag.'" class="float-r" alt=""/><br>
+                                        '.$pays_nom.
+                                    '<br>
+                                    <span>courses('.$resultat['t_res'].')</span>
+                                    <span>- photos('.$resultat['t_photos'].')</span>
+                                    <span>- vidéos('.$resultat['t_videos'].')</span>
+                                    </div>';
+
+                                }
+                                $res.= '</ul>';
+                                echo $res;
+                            ?>
                         </div>
                         <ul class="pager">
-                            <li class="rl-prec" ><a href="#" id="back-link" style="color: #000;pointer-events: none;cursor: default;">Résultats précédent</a></li>
-                            <li class="rl-suiv"><a href="#" id="next-link">Résultats suivant</a></li>
+                            <li class="rl-prec" ><a href="#" id="back-link" style="color: #000;pointer-events: none;cursor: default;">Athlètes précédents</a></li>
+                            <li class="rl-suiv"><a href="#" id="next-link">Athlètes suivants</a></li>
                         </ul>
                     </div>
-
-                    <div class="col-sm-12">
+                    <div class="section-divider"></div>
+                    <div class="col-sm-12 mb-80">
                        <?php
                             //var_dump($olympiques);
                         ?>
-                        <h2>Les champions et championnes  olympiques du marathon</h2>
+                        <h3>Les champions et championnes  olympiques du marathon</h3>
                         <ul class="athletes-liste-grid">
 
                             <?php
@@ -200,7 +259,7 @@ $nb_champs=$req->fetch(PDO::FETCH_ASSOC)['total'];
                                 $pays_nom=$pays->getFlagByAbreviation($resultat['PaysID'])['donnees']['NomPays'];
                                 $champion_name=slugify($resultat['Nom']);
 
-                                echo '<div class="athletes-grid-element"><a href="athlete-'.$resultat['ID'].'-'.$champion_name.'.html">'.$resultat['Nom'].'</a>
+                                echo '<div class="athletes-grid-element"><a href="athlete-'.$resultat['ID'].'-'.$champion_name.'.html"><strong>'.$resultat['Nom'].'</strong></a>
                                 <img src="../../images/flags/'.$pays_flag.'" class="float-r" alt=""/><br>
                                     '.$pays_nom.
                                 '<br>
@@ -296,8 +355,8 @@ if($pub160x600 !="") {
     </script>
 
 <script type="text/javascript">
-
-var par_pages=39;
+   
+    var par_pages=39;
     var nb_pages=0;
     var page=0;
     var next=page+1;
@@ -305,7 +364,7 @@ var par_pages=39;
     function load_pager(){
        // $("#back-link").css({'pointer-events': 'none' ,"color": "#000", 'cursor' : 'default'});
 
-       $(".pager").hide()
+       
         $("#next-link").click(function() {
         page+=1; 
         next=page+1;
@@ -353,7 +412,7 @@ var par_pages=39;
         },
         success: function(html) {
                 $("#resultats-recherche-athletes").html(html).show();
-                $(".pager").show()
+                
                 if(!html){
                     $("#next-link").css({'pointer-events': 'none' ,"color": "#000", 'cursor' : 'default'});
                     console.log("plus de suivants")
@@ -430,7 +489,7 @@ var par_pages=39;
         },
         success: function(html) {
                 $("#resultats-recherche-athletes").html(html).show();
-                $(".pager").show()
+                
                 //load_pager()
             //console.log("success",html)
         },
@@ -482,7 +541,7 @@ var par_pages=39;
                },
                success: function(html) {
                    $("#resultats-recherche-athletes").html(html).show();
-                   $(".pager").show()
+                  
                    //load_pager()
                   // console.log("success",html)
                },
@@ -529,7 +588,7 @@ var par_pages=39;
                     },
                     success: function(html) {
                         $("#resultats-recherche-athletes").html(html).show();
-                        $(".pager").show()
+                        
                         //load_pager()
                         //console.log("success",html)
                     },
@@ -578,7 +637,7 @@ var par_pages=39;
                         },
                         success: function(html) {
                             $("#resultats-recherche-athletes").html(html).show();
-                            $(".pager").show()
+                           
                             //load_pager()
                             //console.log("success",html)
                         },

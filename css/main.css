@@ -86,7 +86,7 @@ strong{
     border: none;
     color: #9ddaff;
 }
-.marathon-detail .sub-menu-link{
+.marathon-detail .sub-menu-link,.athlete-detail .sub-menu-link{
     font-size: 17px;
     font-family: "Poppins-light";
 }
@@ -388,11 +388,11 @@ table.dataTable.no-footer {
     padding:0;
 }
 .resultat-detail table.dataTable thead th {
-    border-bottom: 1px solid #000000 !important;
-    background-color: #fbff0b;
+    border-bottom: none !important;
+    background-color: #fbff0b00;
 }
 .resultat-detail table.dataTable.row-border tbody th,.resultat-detail table.dataTable.row-border tbody td,.resultat-detail  table.dataTable.display tbody th,.resultat-detail  table.dataTable.display tbody td {
-    border-bottom: 1px solid #000000 !important;
+    border: none !important;
 }
 /*
  * Remove text-shadow in selection highlight:
@@ -956,11 +956,17 @@ li.menu-item-categories .hamburger-menu-button {
     font-size: 20px;
     font-family: 'Poppins-Bold';
 }
-.marathons h2{
+.marathons h2,.resultats-liste h2,.athletes-liste h2 {
     font-family: 'Poppins-regular';
     font-size: 17px;
     margin-bottom: 50px;
     padding-right: 300px;
+    line-height: 25px;
+}
+.videos-liste h2 {
+    font-family: 'Poppins-regular';
+    font-size: 17px;
+    margin-bottom: 50px;
     line-height: 25px;
 }
 .mpp-pays-box{
@@ -1012,9 +1018,10 @@ li.menu-item-categories .hamburger-menu-button {
 .athletes-liste .athletes-grid-element{
     padding: 15px 8px 15px 20px;
     border: 1Px solid #e5e5e5;
-    margin: 10px;
+    margin: 10px 20px 10px 0px;
     box-shadow: 0 3px 3px #e5e5e5;
 }
+
 .rl-suiv{
     float: right;
 }
@@ -1050,7 +1057,7 @@ li.menu-item-categories .hamburger-menu-button {
 .resultats-liste .resultats-grid-element{
     padding: 15px 8px 15px 20px;
     border: 1Px solid #e5e5e5;
-    margin: 10px;
+    margin: 10px 20px 10px 0px;
     box-shadow: 0 3px 3px #e5e5e5;
     }
 .resultats-liste input{
@@ -2838,17 +2845,62 @@ h2.mini_h2 {
 .nav-tabs {
     border-bottom: none;
 }
-
+.athletes-liste h3,.resultats-liste h3{
+    font-family: "Poppins-Bold";
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+.section-divider{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 40px;
+    clear: both;
+    margin-bottom: 40px;
+    border:  solid 1px #e5e5e5;
+    width: 200px;
+}
 .nav-tabs>li>a {
     border-top: none;
     border-right: none;
     border-left: none;
+    background-color:#fbff0b;
     border-bottom: 1px solid #60614500;
     color: #000000;
-    font-size: 20px;
-    text-transform: uppercase;
+    font-family: "Poppins-Light";
+    font-size: 17px;
     text-align: center;
-    padding: 10px;
+    border-radius: 2px;
+    padding: 6px;
+}
+.video-thumbnail{
+    height: 134px;
+    background-size: cover;
+    background-position: center;
+}
+.dernieres-videos-bureau{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 30px;
+    max-width: 1060px;
+}
+.res-by-gender{
+    background-color:#fbff0b;
+    border-radius: 2px;
+    padding: 6px;
+    font-family: "Poppins-Light";
+    border: none;
+}
+.res-by-gender .material-symbols-outlined{
+    position: relative;
+    font-size: 19px;
+    top: 4px;
+    margin-right: 5px;
+}
+.res-by-gender.active{
+    font-family: "Poppins-Bold";
+}
+.resultat-detail .nav-tabs>li{
+    margin:0 10px 0 0;
 }
 .marathon-detail .nav-tabs>li>a {
     text-transform: none !important;
@@ -2864,7 +2916,11 @@ h2.mini_h2 {
     font-weight: bold;
     background-color:#fbff0b;
 }
-
+.athlete-detail .nav-tabs>li.active>a,
+.athlete-detail .nav-tabs>li.active>a:focus,
+.athlete-detail .nav-tabs>li.active>a:hover {
+font-family: "Poppins-Bold";
+}
 .results-buttons{
     color: #000000;
     background-color: #fbff0b;
@@ -3212,13 +3268,7 @@ h2.mini_h2 {
     margin-bottom: -2px;
 }
 
-.athlete-detail .nav-tabs>li>a {
-    font-family: 'Poppins-Light';
-    font-size: 18px;
-    text-align: start;
-    background: yellow;
-    padding: 0 20px;
-}
+
 
 .athlete-detail #tab1 table tr>th:not(:first-child),
 .athlete-detail #tab1 table tr>td:not(:first-child) {
@@ -3243,7 +3293,7 @@ h2.mini_h2 {
 .athlete-detail .video-grid-tab,.videos-liste .video-grid-tab{
     display: grid;
     grid-template-columns: 1fr 2fr;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 .athlete-detail .tab-pane ul.videos-tab>li>ul>li>ul {
     list-style-type: disc;
@@ -3545,26 +3595,38 @@ margin-bottom: 10px;
     flex-direction: column;
     justify-content: space-between;
     align-items: self-start;
+    margin-left: 20px;
+}
+.video-res-link{
+    background-color: #fbff0b;
+    color: #000;
+    width: fit-content;
+    font-family: 'Poppins-Light';
+    padding: 2px 14px 5px 10px;
+    display: block;
+    font-size: 16px !important;
+    font-weight: bold;
+    border-radius: 3px;
 }
 .athlete-detail a.view-all:hover {
     text-decoration: none;
 }
-.marathon-detail .sub-menu{
+.marathon-detail .sub-menu,.athlete-detail .sub-menu{
     display: flex;
 }
-.marathon-detail .sub-menu li{
+.marathon-detail .sub-menu li,.athlete-detail .sub-menu li{
     margin: 0 10px 0 0 ;
 }
-.marathon-detail .sub-menu li a{ 
+.marathon-detail .sub-menu li a,.athlete-detail .sub-menu li a{ 
     background-color: #fbff0b;
     padding: 6px;
     border-radius: 5px;
 }
-.marathon-detail .sub-menu li a:hover {
+.marathon-detail .sub-menu li a:hover ,.athlete-detail .sub-menu li a:hover {
     color: #000000 !important;
     text-decoration: underline;
 }
-.marathon-detail .sub-menu li a.active{ 
+.marathon-detail .sub-menu li a.active,.athlete-detail .sub-menu li a.active{ 
     font-family: "Poppins-Bold";
 }
 .pager li>a,
@@ -3958,6 +4020,7 @@ ul.partenaires-actuels {
         bottom: 29px !important;
         width: 40px !important;
     }
+    
 }
 
 /*Ipad Portrait*/
@@ -4323,6 +4386,10 @@ ul.videos-tab li {
     top: 5px;
     position: relative;
     margin-right: 10px;
+}
+.marathon-details-section-title{
+    font-family: "Poppins-Black";
+    font-size: 30px;
 }
 .video-details #video-desc{
     font-family: "Poppins-Medium";

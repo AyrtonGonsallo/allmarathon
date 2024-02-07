@@ -85,6 +85,9 @@ $ev_cat_event_int_titre=$ev_cat_event->getEventCatEventByID($evById->getCategori
 $ev_cat_age_int_titre=$ev_cat_age->getEventCatAgeByID($evById->getCategorieageID())['donnees']->getIntitule();
 $annee_titre=substr($evById->getDateDebut(), 0, 4);
 
+
+
+
 function slugify($text)
 {
     $text = str_replace('é', 'e', $text); 
@@ -126,6 +129,7 @@ function switch_cat($cat)
 
 }
 $next_date= $event->getMarathon($evById->getmarathon_id())['donnees'];
+$results_all_years=$event->getOthersMarathonEvents($next_date['id'],$id)['donnees'];
 $news=new news();
 $event_news=$news->getNewsByEventId($id)['donnees'];
 setlocale(LC_TIME, "fr_FR","French");
@@ -162,7 +166,11 @@ setlocale(LC_TIME, "fr_FR","French");
     <link rel="stylesheet" href="../../css/jquery.fancybox-buttons.css?v=1.0.5" type="text/css" media="screen" />
     <link rel="stylesheet" href="../../css/jquery.fancybox-thumbs.css?v=1.0.7" type="text/css" media="screen" />
     
-
+ <!-- Alpine Plugins -->
+ <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+ 
+ <!-- Alpine Core -->
+ <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
     <link rel="stylesheet" href="../../css/responsive.css">
 
@@ -174,7 +182,7 @@ setlocale(LC_TIME, "fr_FR","French");
 
     <?php include_once('nv_header-integrer.php'); ?>
 
-    <div class="container page-content athlete-detail">
+    <div class="container page-content athlete-detail mt-77 mb-80">
         <div class="row banniere1">
             <div  class="col-sm-12"><?php
                 if($pub728x90 !="") {
@@ -205,27 +213,38 @@ setlocale(LC_TIME, "fr_FR","French");
                             }
                             ($flag!='NULL') ? $pays_flag='<img src="../../images/flags/'.$flag.'" alt=""/>':$pays_flag="";
                             
-                            echo '<h1>RÉSULTATS DU '.strtoupper($ev_cat_event_int).' '.mb_strtoupper($evById->getNom()).' '.$annee.' ('.strtoupper($pays_intitule).') <span class="date">'.$date_debut.'</span></h1>';
-                            if($next_date){
-                                echo '<a class="page-event-marathon-link" href="/marathons-'.$next_date['id'].'-'.slugify($next_date["nom"]).'.html"> Toutes les informations : prochaine édition, palmarès, record du Marathon '.$next_date["nom"].'</a>';
-                            }
+                            echo '<h1>Résultats du '.$ev_cat_event_int.' '.$next_date["prefixe"].' '.$evById->getNom().' '.$annee.'</h1>';
+                            
                             ?>
+                            <span class="athlete-details-breadcumb">
+                                <a href="resultats-marathon.html">Résultats</a>
+                                &gt;
+                                <?php echo '<a href="/marathons-'.$next_date['id'].'-'.slugify($next_date["nom"]).'.html">Marathon '.$next_date["prefixe"].' '.$next_date["nom"].'</a>';?>
+                                &gt; 
+                                <?php echo $annee;?>                               
+                            </span>
                     <div class="mb-50"></div>
 
 
                         <!-- TAB NAVIGATION -->
                         <ul class="nav nav-tabs" role="tablist">
                             <?php echo '<li class="'.$active_tab1.'"><a href="#tab1" role="tab" data-toggle="tab">Résultats</a></li>'; ?>
-                            <?php if($event_news){?>
-                                <li><a href="#tab4" role="tab" data-toggle="tab">ACTUS
-                                        (<?php echo sizeof($event_news) ; ?>)</a></li>
-                            <?php }
+                            
+                            <?php
                              if(!($evById->getType()=="Parent")){?>
-                                <li><a href="#tab2" role="tab" data-toggle="tab">VIDEOS
-                                        (<?php echo sizeof($videos) ; ?>)</a></li>
-                                <li><a href="#tab3" role="tab" data-toggle="tab">PHOTOS
-                                        (<?php echo sizeof($photos) ; ?>)</a></li>
+                                <li><a href="#tab2" role="tab" data-toggle="tab">Vidéos
+                                       </a></li>
+                                <li><a href="#tab3" role="tab" data-toggle="tab">Photos
+                                       </a></li>
                                 
+                            <?php }?>
+                            <? if($event_news){?>
+                                <li><a href="#tab4" role="tab" data-toggle="tab">Actus
+                                       </a></li>
+                            <?php }?>
+                            <? if($evById->getParcours_iframe() || $evById->getParcours_image() ){?>
+                                <li><a href="#tab6" role="tab" data-toggle="tab">Parcours
+                                       </a></li>
                             <?php }?>
                             
                         </ul>
@@ -244,103 +263,104 @@ setlocale(LC_TIME, "fr_FR","French");
                                 
                                 <li class="col-sm-12"><?php echo '<div id="genre">'.$type.'</div>';?>
                                     <br />
-                                    <?php if($type=="MF"){ ?>
-                                        <select id="categorie" style="height:34px">
-                                            <option value="-h-">Hommes</option>
-                                            <option value="-f-">Femmes</option>
-                                        </select>
-                                    <?php } ?>
+                                    
+                                    <button id="res-hommes" class="res-by-gender"><span class="material-symbols-outlined">male</span>Hommes</button>
+                                    <button id="res-femmes" class="res-by-gender"><span class="material-symbols-outlined">female</span>Femmes</button>
                                     
                                     <?php if($evById->getDocument1()!='') echo '<a class="btn results-buttons" href="PDF_frame-'.rawurlencode($evById->getDocument1()).'" target="_blank" class="btn btn-default"><i class="fa-file-pdf-o fa"></i>&nbspPDF</a>';  ?>
                                     <?php if($evById->getlien_resultats_complet()) echo '<a class="btn results-buttons" href="'.$evById->getlien_resultats_complet().'" target="_blank" class="btn btn-default"><img width="16px" src="../../images/redirect.png" alt="tout voir">&nbspRésultats complets</a>';  ?>
                                     <?php if($isAdmin) echo '<a class="btn results-buttons" href="evenement-detail-admin-'.$id.'.html" ><img width="13px" src="../../images/pictos/finisher.png" alt="finisher"> Je suis finisher</a>';  ?>
                                     <?php if(!$isAdmin) echo '<a class="btn results-buttons" href="#" id="finisher"><img width="13px" src="../../images/pictos/finisher.png" alt="finisher"> Je suis finisher</a>';  ?>
 
-                                   
-                                    <?php if(($type=="MF") || ($type=="M")){ ?>
-                                        <table id="tableauHommes" data-page-length='25' class="display">
-                                            <thead>
-                                                <tr>
-                                                    <th style="text-transform: capitalize;">clt</th>
-                                                    <th style="text-transform: capitalize;">pays</th>
-                                                    <th style="text-transform: capitalize;">coureur</th>
-                                                    <th style="text-transform: capitalize;">temps</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            <?php
-                                                $ev_res_sexe=$evresultat->getResultBySexe($id,"M")['donnees'];
-                                                
-                                                
-                                                foreach ($ev_res_sexe as $key => $value) {
-                                                    $pays_datas=NULL;
-                                                    $pays_display='';
-                                                    if($evById->getDateDebut()>$value['DateChangementNat']){
-                                                        $pays_datas=$pays->getFlagByAbreviation($value['NvPaysID'])['donnees'];
-                                                        $pays_display=$value['NvPaysID'];
-                                                    }else{
-                                                        $pays_datas=$pays->getFlagByAbreviation($value['PaysID'])['donnees'];
-                                                        $pays_display=$value['PaysID'];
-                                                    }
-                                                    if($pays_datas){
-                                                        $flag=$pays_datas['Flag'];  
-                                                    }
-                                                    ($flag!='NULL') ? $pays_flag='<span><img src="../../images/flags/'.$flag.'" alt=""/></span><br>':$pays_flag="";
-                                                    echo '<tr>';
-                                                        echo '<td>'.$value['Rang'].'</td>';
-                                                        echo '<td>'.$pays_flag.' '.$pays_datas['NomPays'].'</td>';
-                                                        echo '<td><a href="athlete-'.$value['ChampionID'].'-'.slugify($value['Nom']).'.html">'.$value['Nom'].'</a></td>';
-                                                        echo '<td>'.$value['Temps'].'</td>';
-                                                    echo '</tr>';
-                                                }
-                                                    
-                                            ?>
-                                                
-                                            </tbody>
-                                        </table>
-                                    <?php } ?>
-                                    <?php if(($type=="MF") || ($type=="F")){ ?>
-                                        <table id="tableauFemmes" data-page-length='25' class="display">
-                                            <thead>
-                                                <tr>
-                                                    <th style="text-transform: capitalize;">clt</th>
-                                                    <th style="text-transform: capitalize;">pays</th>
-                                                    <th style="text-transform: capitalize;">coureur</th>
-                                                    <th style="text-transform: capitalize;">temps</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            <?php
-                                                $ev_res_sexe=$evresultat->getResultBySexe($id,"F")['donnees'];
-                                                
-                                                
-                                                foreach ($ev_res_sexe as $key => $value) {
-                                                    $pays_datas=NULL;
-                                                    $pays_display='';
-                                                    if($evById->getDateDebut()>$value['DateChangementNat']){
-                                                        $pays_datas=$pays->getFlagByAbreviation($value['NvPaysID'])['donnees'];
-                                                        $pays_display=$value['NvPaysID'];
-                                                    }else{
-                                                        $pays_datas=$pays->getFlagByAbreviation($value['PaysID'])['donnees'];
-                                                        $pays_display=$value['PaysID'];
-                                                    }
-                                                    if($pays_datas){
-                                                        $flag=$pays_datas['Flag'];  
-                                                    }
-                                                    ($flag!='NULL') ? $pays_flag='<span><img src="../../images/flags/'.$flag.'" alt=""/></span>':$pays_flag="";
-                                                    echo '<tr>';
-                                                        echo '<td>'.$value['Rang'].'</td>';
-                                                        echo '<td>'.$pays_flag.' '.$pays_datas['NomPays'].'</td>';
-                                                        echo '<td><a href="athlete-'.$value['ChampionID'].'-'.slugify($value['Nom']).'.html">'.$value['Nom'].'</a></td>';
-                                                        echo '<td>'.$value['Temps'].'</td>';
-                                                    echo '</tr>';
-                                                }
-                                                    
-                                            ?>
-                                                
-                                            </tbody>
-                                        </table>
-                                    <?php } ?>
+                                    <div x-data="{ expanded: false }">
+                                        <div x-show="expanded" x-collapse.min.600px>
+                                            <?php if(($type=="MF") || ($type=="M")){ ?>
+                                                <table id="tableauHommes" data-page-length='25' class="display">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="text-transform: capitalize;">Rang</th>
+                                                            <th style="text-transform: capitalize;">Athlète</th>
+                                                            <th style="text-transform: capitalize;">Pays</th>
+                                                            <th style="text-transform: capitalize;">Temps</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <?php
+                                                        $ev_res_sexe=$evresultat->getResultBySexe($id,"M")['donnees'];
+                                                        
+                                                        
+                                                        foreach ($ev_res_sexe as $key => $value) {
+                                                            $pays_datas=NULL;
+                                                            $pays_display='';
+                                                            if($evById->getDateDebut()>$value['DateChangementNat']){
+                                                                $pays_datas=$pays->getFlagByAbreviation($value['NvPaysID'])['donnees'];
+                                                                $pays_display=$value['NvPaysID'];
+                                                            }else{
+                                                                $pays_datas=$pays->getFlagByAbreviation($value['PaysID'])['donnees'];
+                                                                $pays_display=$value['PaysID'];
+                                                            }
+                                                            if($pays_datas){
+                                                                $flag=$pays_datas['Flag'];  
+                                                            }
+                                                            ($flag!='NULL') ? $pays_flag='<span><img src="../../images/flags/'.$flag.'" alt=""/></span><br>':$pays_flag="";
+                                                            echo '<tr>';
+                                                                echo '<td>'.$value['Rang'].'</td>';
+                                                                echo '<td><a href="athlete-'.$value['ChampionID'].'-'.slugify($value['Nom']).'.html">'.$value['Nom'].'</a></td>';
+                                                                echo '<td>'.$pays_datas['Abreviation'].' '.$pays_flag.'</td>';
+                                                                echo '<td>'.$value['Temps'].'</td>';
+                                                            echo '</tr>';
+                                                        }
+                                                            
+                                                    ?>
+                                                        
+                                                    </tbody>
+                                                </table>
+                                            <?php } ?>
+                                            <?php if(($type=="MF") || ($type=="F")){ ?>
+                                                <table id="tableauFemmes" data-page-length='25' class="display">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="text-transform: capitalize;">Rang</th>
+                                                            <th style="text-transform: capitalize;">Athlète</th>
+                                                            <th style="text-transform: capitalize;">Pays</th>
+                                                            <th style="text-transform: capitalize;">Temps</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <?php
+                                                        $ev_res_sexe=$evresultat->getResultBySexe($id,"F")['donnees'];
+                                                        
+                                                        
+                                                        foreach ($ev_res_sexe as $key => $value) {
+                                                            $pays_datas=NULL;
+                                                            $pays_display='';
+                                                            if($evById->getDateDebut()>$value['DateChangementNat']){
+                                                                $pays_datas=$pays->getFlagByAbreviation($value['NvPaysID'])['donnees'];
+                                                                $pays_display=$value['NvPaysID'];
+                                                            }else{
+                                                                $pays_datas=$pays->getFlagByAbreviation($value['PaysID'])['donnees'];
+                                                                $pays_display=$value['PaysID'];
+                                                            }
+                                                            if($pays_datas){
+                                                                $flag=$pays_datas['Flag'];  
+                                                            }
+                                                            ($flag!='NULL') ? $pays_flag='<span><img src="../../images/flags/'.$flag.'" alt=""/></span>':$pays_flag="";
+                                                            echo '<tr>';
+                                                                echo '<td>'.$value['Rang'].'</td>';
+                                                                echo '<td><a href="athlete-'.$value['ChampionID'].'-'.slugify($value['Nom']).'.html">'.$value['Nom'].'</a></td>';
+                                                                echo '<td>'.$pays_datas['Abreviation'].' '.$pays_flag.'</td>';
+                                                                echo '<td>'.$value['Temps'].'</td>';
+                                                            echo '</tr>';
+                                                        }
+                                                            
+                                                    ?>
+                                                        
+                                                    </tbody>
+                                                </table>
+                                            <?php } ?>
+                                        </div>
+                                        <button class="read-more-button float-r" @click="expanded = ! expanded">+Voir plus de résultats</button>
+                                    </div>
                                 </li>
                                 
                             </ul>
@@ -482,6 +502,10 @@ setlocale(LC_TIME, "fr_FR","French");
                                 ?>
                             </div>
                             
+                            <div class="tab-pane fade" id="tab6">
+                                parcours
+                            </div>
+                            
                     
                 </div>
             </div>
@@ -489,48 +513,44 @@ setlocale(LC_TIME, "fr_FR","French");
 
     </div> <!-- End left-side -->
 
-    <aside class="col-sm-4">
-        <p class="ban"><?php
-if($pub300x60 !="") {
-echo $pub300x60["code"] ? $pub300x60["code"] :  "<a href=". $pub300x60['url'] ." target='_blank'><img src=".'../images/pubs/'.$pub300x60['image'] . " alt='' style=\"width: 100%;\" />";
-}
-?></a></p>
-        <dt class="archive" style="background-color: #fbff0b;">Derniers résultats enregistrés</dt>
-        <dd class="archive">
-            <ul class="clearfix">
-                <?php
-                        foreach ($archives['donnees'] as $key => $ev_archive) {
-                            $cat_event=$ev_cat_event->getEventCatEventByID($ev_archive->getCategorieId())['donnees']->getIntitule();
-                            if($ev_archive->getType()=="Equipe"){
-                                $type_event= " par équipes";
-                            }
-                            else{
-                                $type_event=""; 
-                            }
-                            $nom_res=$cat_event." ".$type_event." (".$ev_archive->getSexe().") ".$ev_archive->getNom()." ".substr($ev_archive->getDateDebut(),0,4);
-                            $nom_res_lien_archive=$cat_event.' - '.$ev_archive->getNom().' - '.strftime("%A %d %B %Y",strtotime($ev_archive->getDateDebut()));
+    <aside class="col-sm-4 no-padding-right">
+        <div class="box-next-edition bureau">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            
+        </div>
 
-                            echo '<li><a href="/resultats-marathon-'.$ev_archive->getId().'-'.slugify($nom_res_lien_archive).'.html">'.$nom_res.'</a></li>';
-                        }
-                    ?>
-            </ul>
-        </dd>
-        <div class="marg_bot"></div>
-        <p class="ban"><?php
-if($pub300x250 !="") {
-echo $pub300x250["code"] ? $pub300x250["code"] :  "<a href=". $pub300x250['url'] ." target='_blank'><img src=".'../images/pubs/'.$pub300x250['image'] . " alt='' style=\"width: 100%;\" />";
-}
-?></a></p>
-        <div class="marg_bot"></div>
-        <p class="ban ban_160-600"><?php
-if($pub160x600 !="") {
-echo $pub160x600["code"] ? $pub160x600["code"] :  "<a href=". $pub160x600['url'] ." target='_blank'><img src=".'../images/pubs/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" />";
-}
-?></a></p>
-        <div class="marg_bot"></div>
+        <div class="box-next-edition bureau">
+        <div></div>
+        <div></div>
+        </div>
+        <?php if($results_all_years){?>
+            <div class="box-next-edition bureau">
+                <div>Résultats des autres éditions du marathon de Paris</div>
+                <div>
+                <div  class="row marathon-detail-resultats">
+                                        <?php
+                                            foreach ($results as $key => $resultat) {
+
+                                                $cat_event=$ev_cat_event->getEventCatEventByID($resultat->getCategorieID())['donnees']->getIntitule();
+                                                $nb_photos=sizeof($res_image->getPhotos($resultat->getID())['donnees']);
+                                                ($nb_photos!=0) ? $image_src='<li style="margin-right: 6px;"><img src="../../images/pictos/cam.png" alt=""/></li>':$image_src="";
+                                                $event_video=$video->getEventVideoById($resultat->getCategorieID())['donnees'];
+                                                ($event_video)? $video_src='<li><img src="../../images/pictos/tv.png" alt=""/></li>':$video_src="";
+                                                $pays_flag=$pays->getFlagByAbreviation($resultat->getPaysId())['donnees']['Flag'];
+                                                $cat_age=$ev_cat_age->getEventCatAgeByID($resultat->getCategorieageID())['donnees']->getIntitule();
+                                                $nom_res=$cat_event.' - '.$resultat->getNom().' - '.utf8_encode(strftime("%A %d %B %Y",strtotime($resultat->getDateDebut())));
+                                                echo '<div class="col-sm-1 marathon-detail-res-link"><a href="/resultats-marathon-'.$resultat->getID().'-'.slugify($nom_res).'.html">'.substr($resultat->getDateDebut(),0,4).'</a></div>';
+                                            }
+                                        ?>
+                                    </div>
+                </div>
+                
+            </div>
+        <?}?>
         
-
-
     </aside>
     </div>
 
@@ -592,62 +612,18 @@ echo $pub160x600["code"] ? $pub160x600["code"] :  "<a href=". $pub160x600['url']
     $(document).ready(function() {
         
             $('#tableauHommes').DataTable( {
-                language: {
-                    processing:     "Traitement en cours...",
-                    search:         "",
-                    lengthMenu: '<select>'+
-                    '<option value="10">10 lignes</option>'+
-                    '<option value="25" >25 lignes</option>'+
-                    '<option value="50">50 lignes</option>'+
-                    '<option value="100">100 lignes</option>'+
-                    '</select>',
-                    info:           "Affichage des &eacute;lements _START_ &agrave; _END_",
-                    infoEmpty:      "Affichage de l'&eacute;lement 0 &agrave; 0 sur 0 lignes",
-                    infoFiltered:   "(filtr&eacute; de _MAX_ lignes au total)",
-                    infoPostFix:    "",
-                    loadingRecords: "Chargement en cours...",
-                    zeroRecords:    "Aucun &eacute;l&eacute;ment &agrave; afficher",
-                    emptyTable:     "Aucune donnée disponible dans le tableau",
-                    paginate: {
-                        first:      "Premier",
-                        previous:   "Pr&eacute;c&eacute;dent",
-                        next:       "Suivant",
-                        last:       "Dernier"
-                    },
-                    aria: {
-                        sortAscending:  ": activer pour trier la colonne par ordre croissant",
-                        sortDescending: ": activer pour trier la colonne par ordre décroissant"
-                    }
-                }
+                paging: false,
+                bFilter: false,
+                bSort: false,
+                searching: true,
+                dom: 't'   
         } );
         $('#tableauFemmes').DataTable( {
-            language: {
-                processing:     "Traitement en cours...",
-                search:         "",
-                lengthMenu: '<select>'+
-                '<option value="10">10 lignes</option>'+
-                '<option value="25">25 lignes</option>'+
-                '<option value="50">50 lignes</option>'+
-                '<option value="100">100 lignes</option>'+
-                '</select>',
-                info:           "Affichage des &eacute;lements _START_ &agrave; _END_",
-                infoEmpty:      "Affichage de l'&eacute;lement 0 &agrave; 0 sur 0 lignes",
-                infoFiltered:   "(filtr&eacute; de _MAX_ lignes au total)",
-                infoPostFix:    "",
-                loadingRecords: "Chargement en cours...",
-                zeroRecords:    "Aucun &eacute;l&eacute;ment &agrave; afficher",
-                emptyTable:     "Aucune donnée disponible dans le tableau",
-                paginate: {
-                    first:      "Premier",
-                    previous:   "Pr&eacute;c&eacute;dent",
-                    next:       "Suivant",
-                    last:       "Dernier"
-                },
-                aria: {
-                    sortAscending:  ": activer pour trier la colonne par ordre croissant",
-                    sortDescending: ": activer pour trier la colonne par ordre décroissant"
-                }
-            }
+            paging: false,
+                bFilter: false,
+                bSort: false,
+                searching: true,
+                dom: 't'   
         } );
         
         $('#genre').hide()
@@ -656,18 +632,24 @@ echo $pub160x600["code"] ? $pub160x600["code"] :  "<a href=". $pub160x600['url']
             $('#tableauFemmes_wrapper').hide();
             $('#tableauHommes_wrapper').show();
         }
-        $('#categorie').change( function() {
-            console.log($(this).val())
+        $('#res-hommes').addClass("active");
+        $('#res-hommes').click( function() {
+           // console.log($(this).val())
             //location.href = window.location.pathname.replace('-mf-',$(this).val());
-            if($(this).val()=="-m-"){
-                $('#tableauFemmes_wrapper').toggle();
-                $('#tableauHommes_wrapper').toggle();
-            }else{
                 $('#tableauHommes_wrapper').toggle();
                 $('#tableauFemmes_wrapper').toggle();
-            }
+                $(this).addClass("active");
+                $('#res-femmes').removeClass("active")
         });
-        $('.dataTables_filter input[type="search"]').attr('placeholder', 'Trouver un coureur');
+        $('#res-femmes').click( function() {
+            //console.log($(this).val())
+            //location.href = window.location.pathname.replace('-mf-',$(this).val());
+                $('#tableauHommes_wrapper').toggle();
+                $('#tableauFemmes_wrapper').toggle();
+                $(this).addClass("active");
+                $('#res-hommes').removeClass("active")
+        });
+        $('.dataTables_filter input[type="search"]').attr('placeholder', 'Trouver un Athlète');
         /*$('#tableauHommes').DataTable({
         lengthMenu: [
             [10, 25, 50, 100],

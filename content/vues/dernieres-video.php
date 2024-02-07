@@ -7,11 +7,11 @@ $videos=$vd->getLastNVideos(4);
         <h2 class="h2-aside">Les dernières Vidéos</h2>
     -->
     <div >
-        <div class="row">
+        <div class="dernieres-videos-bureau">
             <?php 
             foreach($videos['donnees'] as $video ){
                 $image=str_replace("/default","/mqdefault",$video->getVignette());
-                echo '<div class="col-md-3 col-lg-3 col-xs-12 col-sm-6" >
+                echo '<div class="dernieres-videos-bureau-element" >
                     <div class="row m-h-300">
                         <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12" style="margin-top:20px;margin-bottom:10px">
                             <a style="cursor:pointer" aria-label="Voir la video: '.$video->getTitre().'" href="video-de-marathon-'.$video->getId().'.html">

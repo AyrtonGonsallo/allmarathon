@@ -485,7 +485,7 @@ function switch_cat($cat)
 
 
 
-    <div class="container page-content2 homepage">
+    <div class="container page-content2 homepage mb-80">
         <div class="row banniere1 bureau">
         </div>
         <div class="row">

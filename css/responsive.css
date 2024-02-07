@@ -199,6 +199,9 @@ width: 66px;
   align-items: start;
   display: flex;
 }
+.marathon-details-section-title{
+  font-size: 18px !important;
+}
 
 
 .cd-span{
@@ -1338,7 +1341,7 @@ h1.news-detail {
   line-height: 24px;
   text-align: center;
 }
-.marathons h2 {
+.marathons h2,.videos-liste h2,.athletes-liste h2, .resultats-liste h2 {
   padding-right: 0px !important;
 }
 .athlètes .left-side h1{
@@ -1802,7 +1805,6 @@ li.menu-item-categories .nav-category {
 .video-details .left-side iframe {
   width: 100% !important;
 }
-
 
 
 

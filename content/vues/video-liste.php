@@ -148,11 +148,12 @@ function slugify($text)
                     
                 </div>
 
-                <div class="col-sm-12">
+                <div class="col-sm-12 mb-80">
                     <ul class="videos-marathon lazyblock">
                         <?php
                             foreach ($videos['donnees'] as $video) {
                                 $event_intitule="";
+                                $res_event="";
                                 if($video['Evenement_id']!=0){
                                     /*
                                     $annee_event=substr($event->getEvenementByID($video['Evenement_id'])['donnees']->getDateDebut(),0,4);
@@ -167,9 +168,11 @@ function slugify($text)
             
                                     $nom_res='<strong>'.$cat_event.' - '.$evenement->getNom().'</strong> - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
                                     $nom_res_lien=$cat_event.' - '.$evenement->getNom().' - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
-                                    $res_event="";
-                                    $res_event= "<a href='/resultats-marathon-".$evenement->getId()."-".slugify($nom_res_lien).".html' class='home-link mr-5 '><span class='material-symbols-outlined'>trophy</span> Résultats </a>";
+                                    
+                                    $res_event= "<a href='/resultats-marathon-".$evenement->getId()."-".slugify($nom_res_lien).".html' class='video-res-link mr-5 '><span class='material-symbols-outlined'>trophy</span> Résultats </a>";
                                 
+                                }else{
+                                    $res_event="";
                                 }
                                 $duree="<li style='list-style-type: none;'></li>";
                                 if($video['Duree']!=''){
@@ -178,17 +181,19 @@ function slugify($text)
                                 }
                                 
                                 $img_top ='';
-                                echo '<div class="video-align-top video-grid-tab">
+                                $url_img1=str_replace("hqdefault","0",$video['Vignette']);
+                                $url_img=str_replace("default","0",$url_img1);?>
+                                <div class="video-align-top video-grid-tab">
                                         
-                                        <div class="mr-5"><a href="video-de-marathon-'.$video['ID'].'.html"><img src="'.$video['Vignette'].'"  alt="" class="video-liste-image img-responsive"/></a></div>
+                                        <div class="mr-5"><a href="video-de-marathon-'.$video['ID'].'.html"><div class="video-thumbnail" style="background-image: url(<?php echo $url_img;?>)"></div></a></div>
                                         <div class="video-t-d-res">
                                             <ul>
-                                                <li><a href="video-de-marathon-'.$video['ID'].'.html" class="video_titre">'.$video['Titre'].'</a></li>'.$duree.'
+                                                <li><a href="video-de-marathon-'.$video['ID'].'.html" class="video_titre"> <? echo $video['Titre'];?></a></li><? echo $duree;?>
                                             </ul>
-                                            '.$res_event.'
+                                            <? echo $res_event;?>
                                         </div>
-                                    </div>';
-                            }
+                                    </div>
+                            <?php }
                         ?>
                     </ul>
 
@@ -200,6 +205,7 @@ function slugify($text)
         </div> <!-- End left-side -->
 
         <aside class="col-sm-4 pd-top">
+        <span class="total-marathons bureau"><?php echo count($videos["donnees"])." vidéos";?></span>
             <p class="ban"><?php
 if($pub300x60 !="") {
 echo $pub300x60["code"] ? $pub300x60["code"] :  "<a href=". $pub300x60['url'] ." target='_blank'><img src=".'../images/pubs/'.$pub300x60['image'] . " alt='' style=\"width: 100%;\" />";
@@ -270,19 +276,26 @@ if($pub160x600 !="") {
             $(".lazyblock div").slice(12).hide();
            // $(".lazyblock article").slice(6).hide();
 
-                var mincount = 2;
-                var maxcount = 12;
-                
+                var mincount = 3;
+                var maxcount = 15;
+                var percentage=60;
 
                 $(window).scroll(function () {
-                    //console.log("left: ",$(window).scrollTop() + $(window).height())
+                    console.log("left: ",$(window).scrollTop()*100/$(document).height())
+                    
+                    console.log($(window).scrollTop()*100/$(document).height() >=percentage)
                     //console.log("right: ",$(document).height() - 20)
-                    if ($(window).scrollTop() + $(window).height() >= 2000) {
-                        $(".lazyblock div").slice(mincount, maxcount).slideDown(100);
+                    if ($(window).scrollTop()*100/$(document).height() >=percentage) {
+                       
+                        $(".lazyblock div").slice(mincount, maxcount).slideDown(12);
                       //  $(".lazyblock article").slice(mincount, maxcount).slideDown(100);
-                        mincount = mincount + 2;
-                        maxcount = maxcount + 2
-
+                        mincount = mincount + 3;
+                        maxcount = maxcount + 27
+                        if(percentage<94){
+                            percentage+=2
+                        }
+                        
+                        $(window).scrollTop(500)
                     }
                 });
         }else{

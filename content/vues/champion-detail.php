@@ -267,17 +267,17 @@ $afficher_tab_medaille=false;
                         <?php echo ($liste_admin!='') ? '<hr>' : ''; ?>
                         <div>
                             <!-- TAB NAVIGATION -->
-                            <ul class="nav nav-tabs" role="tablist">
+                            <ul class="nav nav-tabs sub-menu" role="tablist">
                                
-                                <li class="active"><a href="#tab2" role="tab"
+                                <li class="active"><a href="#tab2" role="tab" class="sub-menu-link"
                                         data-toggle="tab">Résultats</a>
                                 </li>
                                 
-                                <li><a href="#tab4" role="tab"
-                                        data-toggle="tab">VIDEOS</a></li>
-                                <li><a href="#tab3" role="tab"
-                                        data-toggle="tab">PHOTOS</a></li>
-                                 <li><a href="#tab1" role="tab" data-toggle="tab">CV</a></li>
+                                <li><a href="#tab4" role="tab" class="sub-menu-link"
+                                        data-toggle="tab">Vidéos</a></li>
+                                <li><a href="#tab3" role="tab" class="sub-menu-link"
+                                        data-toggle="tab">Photos</a></li>
+                                 <li><a href="#tab1" role="tab" class="sub-menu-link" data-toggle="tab">CV</a></li>
                             </ul>
                         </div> <br /> 
                         <!-- TAB CONTENT -->

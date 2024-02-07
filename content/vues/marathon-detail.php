@@ -269,9 +269,9 @@ if($pays_datas){
 
 
                             <?php if($marathon['description']){ ?>
-                            <ul class="nav nav-tabs" style="margin-top: 10px;">
-                                <?php echo '<li class="active" ><a id="Apropos" >Présentation</li></a>'; ?>
-                            </ul>
+                            
+                                <?php echo '<h3 id="Apropos" class="marathon-details-section-title">Présentation</h3>'; ?>
+                            
                             <div class="alpine-hide-box" x-data="{ expanded: false }">
                                 <div  x-show="expanded" x-collapse.min.150px>
                                  <?php echo $marathon['description']; ?>
@@ -287,9 +287,9 @@ if($pays_datas){
                         <div class="mb-40"></div>
                          <!-- TAB parcours -->
                          <?php if($parcours_marathon){ ?>
-                            <ul class="nav nav-tabs" style="margin-top: 10px;">
-                                <?php echo '<li class="active" ><a id="Parcours" >Le parcours du marathon '.$marathon['prefixe'].' '.strtoupper($marathon['nom']).' '.strftime("%Y",strtotime($parcours_marathon[0]['DateDebut'])).'</li></a>'; ?>
-                            </ul>
+                            
+                                <?php echo '<h3 id="Parcours" class="marathon-details-section-title">Le parcours du marathon '.$marathon['prefixe'].' '.strtoupper($marathon['nom']).' '.strftime("%Y",strtotime($parcours_marathon[0]['DateDebut'])).'</h3>'; ?>
+                           
                             <?php if($parcours_marathon[0]["parcours_iframe"]){ 
                                     echo $parcours_marathon[0]["parcours_iframe"];?>
 
@@ -304,9 +304,9 @@ if($pays_datas){
                         <div class="mb-40"></div>
                         <!-- TAB resultats -->
                         <?php if($results){ ?>
-                            <ul class="nav nav-tabs" role="tablist">
-                                <?php echo '<li class="'.$active_tab2.'"><a href="#tab2" role="tab" data-toggle="tab" id="Résultats" >Résultats par année</a></li>'; ?>
-                            </ul>
+                            
+                                <?php echo '<h3 href="#tab2" role="tab" data-toggle="tab" id="Résultats" class="marathon-details-section-title">Résultats par année</h3>'; ?>
+                            
                             <!-- TAB CONTENT -->
                             <div class="tab-content">
 
@@ -336,9 +336,9 @@ if($pays_datas){
                         <div class="mb-40"></div>
                         <?php if($best_res_mens || $best_res_womens){ ?>
                             <!-- TAB meilleurs chronos -->
-                            <ul class="nav nav-tabs" role="tablist">
-                                <?php echo '<li class="'.$active_tab3.'"><a href="#tab3" id="Chronos" role="tab" data-toggle="tab" >Les 10 meilleurs chronos du marathon '.$marathon['prefixe'].' '.strtoupper($marathon['nom']).'</a></li>'; ?>
-                            </ul>
+                           
+                                <?php echo '<h3 href="#tab3" id="Chronos" role="tab" data-toggle="tab" class="marathon-details-section-title">Les 10 meilleurs chronos du marathon '.$marathon['prefixe'].' '.strtoupper($marathon['nom']).'</h3>'; ?>
+                            
                             <div id="tabs-mc">
                                 <ul>
                                     <li><a href="#mc-h">Hommes</a></li>
@@ -657,9 +657,9 @@ if($pays_datas){
                         
                         <div class="mb-40"></div>
                         <!-- TAB palmares -->
-                        <ul class="nav nav-tabs" role="tablist">
-                                <?php echo '<li class="'.$active_tab4.'"><a href="#tab4" id="Palmarès"  role="tab" data-toggle="tab">Palmarès</a></li>'; ?>
-                            </ul>
+                        
+                                <?php echo '<h3 href="#tab4" id="Palmarès"  role="tab" data-toggle="tab" class="marathon-details-section-title">Palmarès</h3>'; ?>
+                            
                             <div id="tabs-pal">
                                 <ul>
                                     <li><a href="#pal-h">Hommes</a></li>

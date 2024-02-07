@@ -321,7 +321,7 @@ setlocale(LC_TIME, "fr_FR","French");
 
                         <h1 class="float-l">Résultats des marathons en France et dans le monde</h1>
                         <span class="total-marathons bureau"><?php echo $nombre_de_lignes_de_res["nbr"]." évenements";?></span>
-                        <h2 class="clear-b mw-600">allmarathon propose des résultats de marathons du monde entier et notamment les résultats de tous les marathons olympiques, championnats du monde, championnats d’Europe et championnats de France.</h2>
+                        <h2 class="clear-b">allmarathon propose des résultats de marathons du monde entier et notamment les résultats de tous les marathons olympiques, championnats du monde, championnats d’Europe et championnats de France.</h2>
                         <div class="input-zone-box mw-600">
                             <select name="PaysID" id="select-pays">
                                 <option value="all">Pays</option>
@@ -408,15 +408,15 @@ setlocale(LC_TIME, "fr_FR","French");
 
 
                     <ul class="pager">
-                        <li class="rl-prec"><a href="#" id="back-link"></a>Résultats suivants</li>
+                        <li class="rl-prec"><a href="#" id="back-link">Résultats suivants</a></li>
                         <li class="rl-suiv"><a href="#" id="next-link">Résultats précédents</a></li>
                     </ul>
                     
-                    
+                    <div class="section-divider"></div>
                     <?php if($res_olympiques["donnees"]){?>
                         
                         <ul class="col-sm-12">
-                            <h2 class="mt-30">Résultats des marathons olympiques</h2>
+                            <h3 class="mt-30">Résultats des marathons olympiques</h3>
                             <div class="resultats resultats-grid mb-80">
                                 <?php
 
@@ -680,12 +680,8 @@ var par_pages=39;
             } else{
                 style_suivant={'pointer-events': 'all' ,"color": "#2caffe",  'cursor' : 'pointer'}
             }
-            if(page==0){
-                style_precedent={'pointer-events': 'none' ,"color": "#000", 'cursor' : 'default'}
-            } else{
-               style_precedent={'pointer-events': 'all' ,"color": "#2caffe",  'cursor' : 'pointer'}
-               
-            }
+            
+            style_precedent={'pointer-events': 'all' ,"color": "#2caffe",  'cursor' : 'pointer'}
             $(this).css(style_suivant)
             $("#back-link").css(style_precedent)
             search_v=$("#search_val_res").val();
@@ -747,11 +743,9 @@ var par_pages=39;
            $("#back-link").click(function() {
             page-=1; 
             next=page-1;
-            if(page==(nb_pages-1)){
-                style_suivant={'pointer-events': 'none' ,"color": "#000",  'cursor' : 'default'}
-            } else{
+           
                 style_suivant={'pointer-events': 'all' ,"color": "#2caffe",  'cursor' : 'pointer'}
-            }
+            
             if(page==0){
                 style_precedent={'pointer-events': 'none' ,"color": "#000", 'cursor' : 'default'}
             } else{

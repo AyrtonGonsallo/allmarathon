@@ -17,6 +17,8 @@ class evenement{
 	private $document3;
 	private $document4;
 	private $affiche;
+	private $parcours_iframe;	
+	private $parcours_image;
 	private $telephone;
 	private $mail;
 	private $contact;
@@ -90,6 +92,22 @@ class evenement{
 
 	public function setPrefixe($prefixe){
 		$this->prefixe = $prefixe;
+	}
+
+	public function getParcours_image(){
+		return $this->parcours_image;
+	}
+
+	public function setParcours_image($parcours_image){
+		$this->parcours_image = $parcours_image;
+	}
+
+	public function getParcours_iframe(){
+		return $this->parcours_iframe;
+	}
+
+	public function setParcours_iframe($parcours_iframe){
+		$this->parcours_iframe = $parcours_iframe;
 	}
 
 	public function getSexe(){
@@ -712,6 +730,31 @@ function search_array($tab_pack_a_afficher_fct,$tab_indice_fct)
 		            die('Erreur : ' . $e->getMessage());
 		        }
 	}
+
+	public function getOthersMarathonEvents($mar_id,$even_id)
+	{
+		try {
+					  include("../database/connexion.php");
+
+    				 $req = $bdd->prepare("SELECT * FROM evenements  WHERE marathon_id=:mar_id and not id=:id Visible=1 order by DateDebut desc");
+					 $req->bindValue('mar_id', $mar_id, PDO::PARAM_INT);
+					 $req->bindValue('id', $even_id, PDO::PARAM_INT);
+		             $req->execute();
+		             $results= array();
+		             while ( $row  = $req->fetch(PDO::FETCH_ASSOC)) {    
+						  $art = self::constructWithArray($row);
+						  array_push($results, $art);
+		             }
+		             $bdd=null;
+		                return array('validation'=>true,'donnees'=>$results,'message'=>'');
+		        }
+		       
+		        catch(Exception $e)
+		        {
+		            die('Erreur : ' . $e->getMessage());
+		        }
+	}
+	
 	public function getMarathon($id)
 	{
 		try {
