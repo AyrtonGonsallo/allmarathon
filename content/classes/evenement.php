@@ -736,7 +736,7 @@ function search_array($tab_pack_a_afficher_fct,$tab_indice_fct)
 		try {
 					  include("../database/connexion.php");
 
-    				 $req = $bdd->prepare("SELECT * FROM evenements  WHERE marathon_id=:mar_id and not id=:id Visible=1 order by DateDebut desc");
+    				 $req = $bdd->prepare("SELECT * FROM evenements  WHERE marathon_id=:mar_id and not id=:id and Visible=1 order by DateDebut desc");
 					 $req->bindValue('mar_id', $mar_id, PDO::PARAM_INT);
 					 $req->bindValue('id', $even_id, PDO::PARAM_INT);
 		             $req->execute();

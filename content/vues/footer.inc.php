@@ -26,9 +26,11 @@
     font-family: "Poppins-regular", sans-serif;
     color: #ccc;
   }
-  .sib-form input:focus {
+  .sib-form input:focus,.sib-form input:focus-within {
     outline: none !important;
-    border:1px solid #ccc;
+  }
+  .sib-form .entry__field:focus-within{
+    box-shadow: none !important;
   }
 .sib-form input{
   background-attachment: fixed;

@@ -185,10 +185,10 @@ function slugify($text)
                                 $url_img=str_replace("default","0",$url_img1);?>
                                 <div class="video-align-top video-grid-tab">
                                         
-                                        <div class="mr-5"><a href="video-de-marathon-'.$video['ID'].'.html"><div class="video-thumbnail" style="background-image: url(<?php echo $url_img;?>)"></div></a></div>
+                                        <div class="mr-5"><a href="video-de-marathon-<? echo $video['ID'];?>.html"><div class="video-thumbnail" style="background-image: url(<?php echo $url_img;?>)"></div></a></div>
                                         <div class="video-t-d-res">
                                             <ul>
-                                                <li><a href="video-de-marathon-'.$video['ID'].'.html" class="video_titre"> <? echo $video['Titre'];?></a></li><? echo $duree;?>
+                                                <li><a href="video-de-marathon-<? echo $video['ID'];?>.html" class="video_titre"> <? echo $video['Titre'];?></a></li><? echo $duree;?>
                                             </ul>
                                             <? echo $res_event;?>
                                         </div>

@@ -239,6 +239,30 @@ strong{
     margin-top: 10px;
     font-size: 19px;
 }
+.resultat-detail .box-next-edition{
+    font-size: 19px;
+}
+.call-to-action{
+    background-color: #95d7fe;
+    font-family: 'Poppins-Bold';
+    font-size: 17px;
+    border: none;
+    display: block;
+    padding: 15px 10px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+a.call-to-action{
+    width: fit-content;
+    color: inherit;
+}
+a.call-to-action:hover{
+    text-decoration: none;
+}
+.call-to-action .material-symbols-outlined{
+    position: relative;
+    top: 5px;
+}
 .marg_top {
     margin-top: 30px !important;
 }
@@ -2302,7 +2326,7 @@ li.menu-item-categories .hamburger-menu-button {
 /*SECOND BLOC*/
 
 section.last_articles_part1 article,
-section.last_articles_part2 article {
+section.last_articles_part2 article,.resultat-detail article {
     display: flex;
     padding: 15px;
 }
@@ -2315,7 +2339,7 @@ section.last_articles_part2 article {
     font-weight: bold;
 }
 section.last_articles_part1 .desc-img,
-section.last_articles_part2 .desc-img {
+section.last_articles_part2 .desc-img,.resultat-detail .desc-img {
     width: 80%;
     flex-direction: column;
     padding-left: 3%;
@@ -2840,6 +2864,7 @@ h2.mini_h2 {
 
 .left-side .form-control {
     border-radius: 0;
+    box-shadow: none !important;
 }
 
 .nav-tabs {
@@ -3290,7 +3315,7 @@ font-family: "Poppins-Bold";
 .athlete-detail .tab-pane ul.videos-tab>li {
     padding: 10px 0;
 }
-.athlete-detail .video-grid-tab,.videos-liste .video-grid-tab{
+.athlete-detail .video-grid-tab,.videos-liste .video-grid-tab,.resultat-detail .video-grid-tab{
     display: grid;
     grid-template-columns: 1fr 2fr;
     margin-bottom: 30px;
@@ -3432,11 +3457,23 @@ height: fit-content !important;
     font-family: 'Poppins-regular';
     font-size: 1em;
 }
-.marathon-detail-resultats{
+.resultat-detail h3{
+    font-family: "Poppins-Bold";
+    font-size: 19px;
+}
+.marathon-detail-others-results{
 margin-top: 10px;
 margin-left: 0;
 margin-right: 0;
 margin-bottom: 10px;
+grid-template-columns: repeat(4,1fr);
+display: grid;
+}
+.marathon-detail-others-results-link{
+    background-color: #95d7fe;
+    margin: 5px;
+    text-align: center;
+    padding: 5px 5px;
 }
 .date-marathon{
     text-transform: capitalize;
@@ -3546,7 +3583,7 @@ margin-bottom: 10px;
 }
 .athlete-detail .tab-pane ul.photos-tab {}
 
-.athlete-detail .tab-pane ul.photos-tab>li {
+.athlete-detail .tab-pane ul.photos-tab>li,.resultat-detail .tab-pane ul.photos-tab>li {
     float: left;
     margin: 10px 10px 0 0;
 }
@@ -3590,7 +3627,7 @@ margin-bottom: 10px;
     padding: 3px 5px;
     color: #ffffff;
 }
-.athlete-detail .video-t-d-res,.videos-liste .video-t-d-res{
+.athlete-detail .video-t-d-res,.videos-liste .video-t-d-res,.resultat-detail .video-t-d-res{
     display: flex;
     flex-direction: column;
     justify-content: space-between;

@@ -181,8 +181,11 @@ setlocale(LC_TIME, "fr_FR","French");
 
 
     <?php include_once('nv_header-integrer.php'); ?>
-
-    <div class="container page-content athlete-detail mt-77 mb-80">
+    <div id="parcours-img-viewer">
+        <span class="close" onclick="close_model()">&times;</span>
+        <img class="parcours-modal-content" id="parcours-full-image" >
+    </div>
+    <div class="container page-content resultat-detail mt-77 mb-80">
         <div class="row banniere1">
             <div  class="col-sm-12"><?php
                 if($pub728x90 !="") {
@@ -196,7 +199,7 @@ setlocale(LC_TIME, "fr_FR","French");
         </div>
 
         <div class="row">
-            <div class="col-sm-8 left-side resultat-detail">
+            <div class="col-sm-8 left-side">
 
 
                 <div class="row">
@@ -231,9 +234,10 @@ setlocale(LC_TIME, "fr_FR","French");
                             <?php echo '<li class="'.$active_tab1.'"><a href="#tab1" role="tab" data-toggle="tab">Résultats</a></li>'; ?>
                             
                             <?php
-                             if(!($evById->getType()=="Parent")){?>
+                             if(sizeof($videos)!=0){?>
                                 <li><a href="#tab2" role="tab" data-toggle="tab">Vidéos
                                        </a></li>
+                            <? }if(sizeof($photos)!=0){?>
                                 <li><a href="#tab3" role="tab" data-toggle="tab">Photos
                                        </a></li>
                                 
@@ -249,7 +253,7 @@ setlocale(LC_TIME, "fr_FR","French");
                             
                         </ul>
                         <!-- TAB CONTENT -->
-                        <div class="tab-content">
+                        <div class="tab-content marg_top">
 
                             <?php ($active_tab1!="") ? $cl_fd_tab1="active fade in" : $cl_fd_tab1="fade";
                         echo '<div class="'.$cl_fd_tab1.' tab-pane" id="tab1">';
@@ -261,16 +265,15 @@ setlocale(LC_TIME, "fr_FR","French");
                                 </div>-->
 
                                 
-                                <li class="col-sm-12"><?php echo '<div id="genre">'.$type.'</div>';?>
-                                    <br />
-                                    
+                                <li class="col-sm-12">
+                                <?php echo '<div id="genre">'.$type.'</div>';?>
                                     <button id="res-hommes" class="res-by-gender"><span class="material-symbols-outlined">male</span>Hommes</button>
                                     <button id="res-femmes" class="res-by-gender"><span class="material-symbols-outlined">female</span>Femmes</button>
                                     
                                     <?php if($evById->getDocument1()!='') echo '<a class="btn results-buttons" href="PDF_frame-'.rawurlencode($evById->getDocument1()).'" target="_blank" class="btn btn-default"><i class="fa-file-pdf-o fa"></i>&nbspPDF</a>';  ?>
                                     <?php if($evById->getlien_resultats_complet()) echo '<a class="btn results-buttons" href="'.$evById->getlien_resultats_complet().'" target="_blank" class="btn btn-default"><img width="16px" src="../../images/redirect.png" alt="tout voir">&nbspRésultats complets</a>';  ?>
-                                    <?php if($isAdmin) echo '<a class="btn results-buttons" href="evenement-detail-admin-'.$id.'.html" ><img width="13px" src="../../images/pictos/finisher.png" alt="finisher"> Je suis finisher</a>';  ?>
-                                    <?php if(!$isAdmin) echo '<a class="btn results-buttons" href="#" id="finisher"><img width="13px" src="../../images/pictos/finisher.png" alt="finisher"> Je suis finisher</a>';  ?>
+                                    <?php //if($isAdmin) echo '<a class="btn results-buttons" href="evenement-detail-admin-'.$id.'.html" ><img width="13px" src="../../images/pictos/finisher.png" alt="finisher"> Je suis finisher</a>';  ?>
+                                    <?php //if(!$isAdmin) echo '<a class="btn results-buttons" href="#" id="finisher"><img width="13px" src="../../images/pictos/finisher.png" alt="finisher"> Je suis finisher</a>';  ?>
 
                                     <div x-data="{ expanded: false }">
                                         <div x-show="expanded" x-collapse.min.600px>
@@ -301,12 +304,16 @@ setlocale(LC_TIME, "fr_FR","French");
                                                             }
                                                             if($pays_datas){
                                                                 $flag=$pays_datas['Flag'];  
+                                                                $abv=$pays_datas['Abreviation'];
+                                                            }else{
+                                                                $flag="";  
+                                                                $abv="";
                                                             }
                                                             ($flag!='NULL') ? $pays_flag='<span><img src="../../images/flags/'.$flag.'" alt=""/></span><br>':$pays_flag="";
                                                             echo '<tr>';
                                                                 echo '<td>'.$value['Rang'].'</td>';
                                                                 echo '<td><a href="athlete-'.$value['ChampionID'].'-'.slugify($value['Nom']).'.html">'.$value['Nom'].'</a></td>';
-                                                                echo '<td>'.$pays_datas['Abreviation'].' '.$pays_flag.'</td>';
+                                                                echo '<td>'.$abv.' '.$pays_flag.'</td>';
                                                                 echo '<td>'.$value['Temps'].'</td>';
                                                             echo '</tr>';
                                                         }
@@ -343,12 +350,16 @@ setlocale(LC_TIME, "fr_FR","French");
                                                             }
                                                             if($pays_datas){
                                                                 $flag=$pays_datas['Flag'];  
+                                                                $abv=$pays_datas['Abreviation'];
+                                                            }else{
+                                                                $flag="";  
+                                                                $abv="";
                                                             }
                                                             ($flag!='NULL') ? $pays_flag='<span><img src="../../images/flags/'.$flag.'" alt=""/></span>':$pays_flag="";
                                                             echo '<tr>';
                                                                 echo '<td>'.$value['Rang'].'</td>';
                                                                 echo '<td><a href="athlete-'.$value['ChampionID'].'-'.slugify($value['Nom']).'.html">'.$value['Nom'].'</a></td>';
-                                                                echo '<td>'.$pays_datas['Abreviation'].' '.$pays_flag.'</td>';
+                                                                echo '<td>'.$abv.' '.$pays_flag.'</td>';
                                                                 echo '<td>'.$value['Temps'].'</td>';
                                                             echo '</tr>';
                                                         }
@@ -372,22 +383,40 @@ setlocale(LC_TIME, "fr_FR","French");
 <ul class="videos-tab">
     <?php
         foreach ($videos as $key => $vd) {
-            ($vd->getDuree()!='') ?  $duree="<li>durée : ".$vd->getDuree()."</li>" : $duree="<li style='list-style-type: none;'></li>";
-        ($vd->getTop_ippon()) ? $img_top ='<img src="../../images/pictos/badge.png" style="right: 19px;top: 3px;position: absolute;"alt=""/>' : $img_top="";
-            echo '<li class="row">
-            <ul>
-                <li class="col-sm-6">
-                    <ul>
-                        <li><a href="video-de-marathon-'.$vd->getId().'.html">'.$vd->getTitre().'</a></li>
-                        '.$duree.'
-                        <li>publiée le '.date("d/m/y", strtotime($vd->getDate())).'</li>
-                    </ul>
-                </li>
-                <li class="col-sm-6"><a href="video-de-marathon-'.$vd->getId().'.html"><img src="'.$vd->getVignette().'" alt="" style="width: 173px;"class="pull-right img-responsive"/>'.$img_top.'</a></li>
-
-            </ul>
-        </li>';
+                            		
+            $event_intitule="";
+            if($vd->getEvenement_id()!=0){
+            $annee_event=substr($event->getEvenementByID($vd->getEvenement_id())['donnees']->getDateDebut(),0,4);
+            $video_intitule=$event->getEvenementByID($vd->getEvenement_id())['donnees']->getNom()." ".$annee_event;
+            $event_intitule="<li><a href='/resultats-marathon-".$vd->getEvenement_id()."-".slugify($video_intitule).".html' class='video_event'>".$video_intitule."</a></li>";
             }
+            $duree="<li style='list-style-type: none;'></li>";
+            if($vd->getDuree()!=''){
+                $duree="<li><span class='material-symbols-outlined'>timer</span>Durée de la vidéo : ".$vd->getDuree()."</li>";
+            }
+            $res_event="";
+            if($vd->getEvenement_id()){
+                $evenement=$event->getEvenementByID($vd->getEvenement_id())["donnees"];
+                $cat_event=$ev_cat_event->getEventCatEventByID($evenement->getCategorieId())['donnees']->getIntitule();
+
+                $nom_res='<strong>'.$cat_event.' - '.$evenement->getNom().'</strong> - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
+                $nom_res_lien=$cat_event.' - '.$evenement->getNom().' - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
+
+                $res_event= "<a href='/resultats-marathon-".$evenement->getId()."-".slugify($nom_res_lien).".html' class='home-link mr-5 '><span class='material-symbols-outlined'>trophy</span> Résultats </a>";
+            }
+            echo '
+            <ul class="video-align-top video-grid-tab">
+                
+                <li class="mr-5"><a href="video-de-marathon-'.$vd->getId().'.html"><img src="'.$vd->getVignette().'"  alt="" class="video-liste-image img-responsive"/></a></li>
+                <li class="video-t-d-res">
+                    <ul>
+                        <li><a href="video-de-marathon-'.$vd->getId().'.html" class="video_titre">'.$vd->getTitre().'</a></li>'.$duree.'
+                    </ul>
+                    '.$res_event.'
+                </li>
+            </ul>
+        ';
+        }
     ?>
 
 
@@ -410,100 +439,120 @@ setlocale(LC_TIME, "fr_FR","French");
                             </div>
                             <div class="tab-pane fade" id="tab4">
                             <?php
+                            foreach($event_news as $index => $article){
+                                $subheader="auteur : ".$article->getAuteur()." / ".utf8_encode(strftime("%A %d %B %Y",strtotime($article->getDate())))." / source : ".$article->getSource();
+                                    $cat="";
 
-                                foreach($event_news as $index => $article){
+                                    $lien_1="";
 
-                                        $cat="";
+                                    $text_lien_1="";
 
-                                        $lien_1="";
+                                    $lien_2="";
 
-                                        $text_lien_1="";
+                                    $text_lien_2="";
 
-                                        $lien_2="";
+                                    $lien_3="";
 
-                                        $text_lien_2="";
+                                    $text_lien_3="";
 
-                                        $lien_3="";
+                                    if($cat!="Videos" && $cat!="Photos" ) {$img_src="";}
 
-                                        $text_lien_3="";
+                                                if($cat=="Photos") $img_src="../../images/pictos/photo-icon.png";
 
-                                        if($cat!="Videos" && $cat!="Photos" ) {$img_src="";}
+                                                if($cat=="Videos") $img_src="../../images/pictos/video-icon.png";
 
-                                                    if($cat=="Photos") $img_src="../../images/pictos/photo-icon.png";
+                                                $cat=switch_cat($cat);
 
-                                                    if($cat=="Videos") $img_src="../../images/pictos/video-icon.png";
+                                                if($article->getLien1()!=""){
 
-                                                    $cat=switch_cat($cat);
+                                                    $lien_1=$article->getLien1();
 
-                                                    if($article->getLien1()!=""){
+                                                    $text_lien_1="> ".$article->getTextlien1();
 
-                                                        $lien_1=$article->getLien1();
+                                                }
 
-                                                        $text_lien_1="> ".$article->getTextlien1();
+                                                if($article->getLien2()!=""){
 
+                                                    $lien_2=$article->getLien2();
+
+                                                    $text_lien_2="> ".$article->getTextlien2();
+
+                                                }
+
+                                                if($article->getLien3()!=""){
+
+                                                    $lien_3=$article->getLien3();
+
+                                                    $text_lien_3="> ".$article->getTextlien3();
+
+                                                }
+
+                                                $url_text=slugify($article->getTitre());
+
+                                              
+                                            
+
+                                                    $image_src='/images/news/'.substr($article->getDate(), 0,4).'/thumb_'.strtolower($article->getPhoto());
+
+                                                    $src_a_afficher= ($image_src) ? $image_src : '/images/news/2015/thumb_defaut.jpg';
+
+                                                    $img_a_afficher= '<img class="img-responsive" alt="" src="'.$src_a_afficher.'"/>';
+
+                                                    echo '<article class="row">
+
+                                            
+
+                                                    <div class="article-img"><a href="/actualite-marathon-'.$article->getId().'-'.$url_text.'.html">'.$img_a_afficher.'<img class="media" src="'.$img_src.'" alt=""></a></div>
+
+                                            
+
+                                                <div class="desc-img">
+
+                                                    <h2><a href="/actualite-marathon-'.$article->getId().'-'.$url_text.'.html" style="color: #222;" >'.$article->getTitre().' </a></h2>';
+
+                                                    if($article->getChampionID()){
+                                                        $chmp=$champion->getChampionById($article->getChampionID())["donnees"];
+                                                        echo "<a href='athlete-".$chmp->getId()."-".$chmp->getNom().".html' class='home-link mr-5 '>Le palmarès de ". $chmp->getNom()."</a>";
                                                     }
-
-                                                    if($article->getLien2()!=""){
-
-                                                        $lien_2=$article->getLien2();
-
-                                                        $text_lien_2="> ".$article->getTextlien2();
-
+                                                    if($article->getEvenementID()){
+                                                        $evenement=$event->getEvenementByID($article->getEvenementID())["donnees"];
+                                                        $cat_event=$ev_cat_event->getEventCatEventByID($evenement->getCategorieId())['donnees']->getIntitule();
+                                
+                                                        $nom_res='<strong>'.$cat_event.' - '.$evenement->getNom().'</strong> - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
+                                                        $nom_res_lien=$cat_event.' - '.$evenement->getNom().' - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
+                                
+                                                        echo "<a href='/resultats-marathon-".$evenement->getId()."-".slugify($nom_res_lien).".html' class='home-link mr-5 '>Résultats complets</a>";
                                                     }
+                                                    echo '</div>
+                                                </article>';
 
-                                                    if($article->getLien3()!=""){
+                                }
 
-                                                        $lien_3=$article->getLien3();
 
-                                                        $text_lien_3="> ".$article->getTextlien3();
 
-                                                    }
 
-                                                    $url_text=slugify($article->getTitre());
 
-                                      
 
-                                                        $image_src='/images/news/'.substr($article->getDate(), 0,4).'/thumb_'.strtolower($article->getPhoto());
 
-                                                        $src_a_afficher= ($image_src) ? $image_src : '/images/news/2015/thumb_defaut.jpg';
-
-                                                        $img_a_afficher= '<img class="img-responsive" alt="" src="'.$src_a_afficher.'" width="173px"/>';
-
-                                                        echo '<article class="row event-news">
-                                                        <div class="col-sm-7 ">
-
-                                                            <a href="/actualite-marathon-'.$article->getId().'-'.$url_text.'.html" class="event-news-title">'.$article->getTitre().' </a>
-
-                                                            <p>'.$article->getChapo().'</p>
-
-                                                            <a href="'.$lien_1.'" class="link-all"> '.$text_lien_1.'</a><br>
-
-                                                            <a href="'.$lien_2.'" class="link-all"> '.$text_lien_2.'</a><br>
-
-                                                            <a href="'.$lien_3.'" class="link-all"> '.$text_lien_3.'</a>
-
-                                                        </div>
-                                                        <div class="col-sm-5">
-
-                                                            <div class="article-img" style="display: grid;justify-content: end;"><a href="/actualite-marathon-'.$article->getId().'-'.$url_text.'.html">'.$img_a_afficher.'<strong>'.$cat.'</strong></a></div>
-
-                                                        </div>
-
-                                                        
-
-                                                        </article>';
-
-                                                    
-
-                                                    
-
-                                    }
+                               
 
                                 ?>
                             </div>
                             
                             <div class="tab-pane fade" id="tab6">
-                                parcours
+                                
+                                <?php if($evById->getParcours_iframe() || $evById->getParcours_image()){ ?>
+                            
+                       
+                        <?php if($evById->getParcours_iframe()){ 
+                                echo $evById->getParcours_iframe();?>
+
+                            <?php }else{
+                                $img_src='/images/events/'.$evById->getParcours_image();
+                                echo '<img class="sp-image parcours-img-source"  style="max-width: 100%;"src="'.$img_src.'"/>';
+                                echo '<button class="read-more-button" onclick="full_view(this);">+Voir le parcours en plein écran</button>';
+                            }?>
+                     <?php }?>
                             </div>
                             
                     
@@ -515,34 +564,44 @@ setlocale(LC_TIME, "fr_FR","French");
 
     <aside class="col-sm-4 no-padding-right">
         <div class="box-next-edition bureau">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
+            <div class="center">Vous avez participé au <strong>marathon <? echo $next_date["prefixe"].' '.$evById->getNom().' '.$annee.'</strong> ?';?> </div>
+            <div class="center">..</div>
+            <div class="center">Vous êtes finisher ?</div>
+            <div><button class="call-to-action mx-auto">Enregistrez votre résultat !</button></div>
             
         </div>
 
         <div class="box-next-edition bureau">
-        <div></div>
-        <div></div>
+            <div class="center">
+                Vous souhaitez accéder à l’ensemble des informations concernant le 
+                <strong>
+                    marathon <? echo $next_date["prefixe"].' '.$evById->getNom();?> : 
+                    palmarès, record, histoire, 
+                    prochaine édition...
+                </strong>
+            </div>
+            <div>
+                <a class="call-to-action mx-auto" href="/marathons-<? echo $next_date['id'].'-'.slugify($next_date["nom"]).'.html';?>">
+                    <span class="material-symbols-outlined">
+                        arrow_circle_right
+                    </span>
+                    C'est par ici
+                </a>
+            </div>
         </div>
         <?php if($results_all_years){?>
             <div class="box-next-edition bureau">
-                <div>Résultats des autres éditions du marathon de Paris</div>
+                <div><h3 class="center">Résultats des autres éditions du marathon <? echo $next_date["prefixe"].' '.$evById->getNom();?></h3></div>
                 <div>
-                <div  class="row marathon-detail-resultats">
+                <div  class="marathon-detail-others-results">
                                         <?php
-                                            foreach ($results as $key => $resultat) {
+                                            foreach ($results_all_years as $key => $resultat) {
 
                                                 $cat_event=$ev_cat_event->getEventCatEventByID($resultat->getCategorieID())['donnees']->getIntitule();
-                                                $nb_photos=sizeof($res_image->getPhotos($resultat->getID())['donnees']);
-                                                ($nb_photos!=0) ? $image_src='<li style="margin-right: 6px;"><img src="../../images/pictos/cam.png" alt=""/></li>':$image_src="";
-                                                $event_video=$video->getEventVideoById($resultat->getCategorieID())['donnees'];
-                                                ($event_video)? $video_src='<li><img src="../../images/pictos/tv.png" alt=""/></li>':$video_src="";
+                                                
                                                 $pays_flag=$pays->getFlagByAbreviation($resultat->getPaysId())['donnees']['Flag'];
-                                                $cat_age=$ev_cat_age->getEventCatAgeByID($resultat->getCategorieageID())['donnees']->getIntitule();
                                                 $nom_res=$cat_event.' - '.$resultat->getNom().' - '.utf8_encode(strftime("%A %d %B %Y",strtotime($resultat->getDateDebut())));
-                                                echo '<div class="col-sm-1 marathon-detail-res-link"><a href="/resultats-marathon-'.$resultat->getID().'-'.slugify($nom_res).'.html">'.substr($resultat->getDateDebut(),0,4).'</a></div>';
+                                                echo '<div class="marathon-detail-others-results-link"><a href="/resultats-marathon-'.$resultat->getID().'-'.slugify($nom_res).'.html">'.substr($resultat->getDateDebut(),0,4).'</a></div>';
                                             }
                                         ?>
                                     </div>
@@ -591,6 +650,16 @@ setlocale(LC_TIME, "fr_FR","French");
 
     <script type="text/javascript" src="/js/jquery.fancybox-thumbs.js?v=1.0.7"></script>
     <script type="text/javascript">
+        function full_view(ele){
+				let src=ele.parentElement.querySelector(".parcours-img-source").getAttribute("src");
+                console.log("srs lightbox",src)
+				document.querySelector("#parcours-img-viewer").querySelector("img").setAttribute("src",src);
+				document.querySelector("#parcours-img-viewer").style.display="block";
+			}
+			
+			function close_model(){
+				document.querySelector("#parcours-img-viewer").style.display="none";
+			}
     $(document).ready(function() {
         $('#finisher').on('click',function(e){
                 $('#SigninModal').modal('show');});
