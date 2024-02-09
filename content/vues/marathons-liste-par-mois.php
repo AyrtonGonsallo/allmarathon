@@ -202,7 +202,7 @@ try{
                             echo '<div class="mpp-pays-box">
                             <a href="calendrier-marathons-'.slugify(utf8_encode(strftime("%B",strtotime($chmp['DateDebut'])))).'-'.$chmp['mois'].'-'.$chmp['annee'].'.html" class="capitalize">
                             <div class="mpp-title-pays">'.utf8_encode(strftime("%B %Y",strtotime($chmp['DateDebut']))).'</div>
-                            <div class="mpp-nbr-mar">'.$marathon_par_mois_total.'</div>
+                            <div class="mpp-nbr-mar mx-auto">'.$marathon_par_mois_total.'</div>
                             </a>
                             </div>';
                         }

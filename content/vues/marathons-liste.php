@@ -110,7 +110,7 @@ try{
     $results= array();
     //$first_events= array();
     $last_linked_events= array();
-    while ( $row  = $req->fetch(PDO::FETCH_ASSOC)) {  
+    while ( $row  = $req->fetch(PDO::FETCH_ASSOC)) {  //ceux qui sont a venir
         $req2 = $bdd->prepare("SELECT * FROM evenements where marathon_id=:mar_id and Valider=1  AND (DateDebut > :today) ORDER BY DateDebut limit 1");
         $req2->bindValue('mar_id', $row["id"], PDO::PARAM_INT);
         
@@ -128,27 +128,27 @@ try{
                 $row['last_linked_events_cat_id']=$row2['CategorieID'];
 
             }
-        }else {
+        }else {//ceux qui ont une date passée
             $req24 = $bdd->prepare("SELECT * FROM evenements where marathon_id=:mar_id and Valider=1  ORDER BY DateDebut limit 1");
             $req24->bindValue('mar_id', $row["id"], PDO::PARAM_INT);
             
             $req24->execute();
-            if($req24->rowCount()>0){
+            if($req24->rowCount()>0){//ceux qui ont une date passée
                 while ( $row24  = $req24->fetch(PDO::FETCH_ASSOC)) {
                     //var_dump($row2);exit();  
                     //array_push($first_events, $row2);
                     $row['date_prochain_evenement']='NULL';
-                    $row['last_linked_events_cat_id']=NULL;
+                    $row['last_linked_events_cat_id']=$row24['CategorieID'];
                     $row['type_evenement']="dernier";
                     $row['date_dernier_evenement']=$row24['DateDebut'];
                     $row['date_dernier_evenement_nom']=$row24['Nom'];
                     $row['date_dernier_evenement_id']=$row24['ID'];
     
                 }
-            }else{
+            }else{//ceux qui n'ont aucune date
                 $row['type_evenement']="aucun";
                 $row['date_prochain_evenement']='NULL';
-                    $row['last_linked_events_cat_id']=NULL;
+                $row['last_linked_events_cat_id']=7;
             }
             //array_push($first_events, NULL);
             //$row['date_prochain_evenement']='NULL';

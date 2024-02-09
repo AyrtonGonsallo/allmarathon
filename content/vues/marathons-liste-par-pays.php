@@ -203,8 +203,8 @@ try{
                             }
                             echo '<div class="mpp-pays-box">
                             <a href="calendrier-marathons-'.slugify($chmp['NomPays']).'-'.$chmp['pays_id'].'.html">
-                            <div class="mpp-title-pays"><img class="marathon-title-flag bureau" style="float:left" src="../../images/flags/'.$pays_flag.'" alt=""/>'.$chmp['NomPays'].'</div>
-                            <div class="mpp-nbr-mar">'.$marathon_par_pays_total.'</div>
+                            <div class="mpp-title-pays">'.$chmp['NomPays'].'</div>
+                            <div class="mpp-nbr-mar mx-auto">'.$marathon_par_pays_total.'</div>
                             </a>
                             </div>';
                         }

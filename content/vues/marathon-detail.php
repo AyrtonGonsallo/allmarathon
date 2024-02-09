@@ -254,7 +254,7 @@ if($pays_datas){
             </div>
             <div class="col-sm-8 left-side resultat-detail no-padding-left ">
                  <div class="row">
-                    <div class="col-sm-12">
+                    <div class="col-sm-12 no-padding-left ">
                             
                             <div class="mb-40"></div>
 
@@ -312,8 +312,8 @@ if($pays_datas){
 
                                 <?php ($active_tab2!="") ? $cl_fd_tab2="active fade in" : $cl_fd_tab2="fade";
                                 ?>
-                                <div class="<?php echo $cl_fd_tab2;?> tab-pane" id="tab2">
-                                    <div  class="row marathon-detail-resultats">
+                                
+                                    <div  class="row marathon-detail-resultats no-margin-left no-margin-right">
                                         <?php
                                             foreach ($results as $key => $resultat) {
 
@@ -330,7 +330,7 @@ if($pays_datas){
                                         ?>
                                     </div>
                                 </div>
-                            </div>
+                            
                             <!--ffffffffff-->
                         <?php }?>
                         <div class="mb-40"></div>

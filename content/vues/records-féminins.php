@@ -4,6 +4,8 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+setlocale(LC_TIME, "fr_FR","French");
+
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
@@ -166,7 +168,7 @@ function slugify($text)
         </div>
 
         <div class="row">
-            <div class="col-sm-8 left-side resultat-detail page-records">
+            <div class="col-sm-12 left-side resultat-detail page-records">
 
 
                 <div class="row">
@@ -175,9 +177,14 @@ function slugify($text)
                         <h2>Record du monde, record d’Europe, record olympique, records des grands 
                         championnats et records nationaux du marathon féminin.</h2>
                         <a href="/records-marathon-masculins.html" class="records-link">
-                        Records masculins du marathon
-                        </a><br><br>
-                        <div class="title-border"><h3 class="record-title">Record du monde</h3><h3 class="record-title-colored"><a href="10-meilleures-performances-mondiales-marathon.html" class="record-link">Meilleures performances - top 10</a></h3></div>
+                        Records masculins
+                        </a>
+                        <br>
+                        <br>
+                        <h1>Records internationaux</h1>
+                        <br>
+                        <br>
+                        <div class="title-border"><h3 class="record-title">Record du monde : <?php echo $world_best['Temps'];?></h3></div>
                                     <table class="table table-responsive lignes-données">
                                         <tr class="ligne-rec">
                                             <td>
@@ -188,16 +195,20 @@ function slugify($text)
                                                 }
                                                 ($flag!='NULL') ? $pays_flag='<img src="../../images/flags/'.$flag.'" alt=""/>':$pays_flag="";
                                                 
-                                                echo $pays_flag.'<a class="record-link" href="athlete-'.$world_best['champ_id'].'-'.slugify($world_best['champion']).'.html">'.$world_best['champion'].'</a>';?>
-                                            </td>
-                                            <td>
-                                                <?php echo $world_best['Temps'];?>
+                                                echo 'Détenteur : <a class="record-link" href="athlete-'.$world_best['champ_id'].'-'.slugify($world_best['champion']).'.html">'.$world_best['champion'].'</a>'.' ('.$nom.')';?>
+
+                                            
+                                            
                                                 <br>
-                                                <?php echo date_format(date_create($world_best['DateDebut']),"d/m/Y").' - '.$world_best['evenement'].' ('.$nom.')';?>
+                                                <?php echo 'Date : '.utf8_encode(strftime("%A %d %B %Y",strtotime($world_best['DateDebut']))).' - Lieu : '.$world_best['evenement'].' ('.$nom.')';?>
+                                                <br>
+                                                <div class="record-title-colored">
+                                                    <a href="10-meilleures-performances-mondiales-marathon.html" class="record-link">Les 10 meilleures performances</a>
+                                                </div>
                                             </td>
                                             </tr>
                                     </table>
-                                    <div class="title-border"><h3 class="record-title">Record de France</h3><h3 class="record-title-colored"><a href="10-meilleures-performances-françaises-marathon.html" class="record-link">Meilleures performances - top 10</a></h3></div>
+                                    <div class="title-border"><h3 class="record-title">Record de France : <?php echo $france_best['Temps'];?></h3></div>
                                     <table class="table table-responsive lignes-données">
                                         <tr class="ligne-rec">
                                             <td>
@@ -207,16 +218,18 @@ function slugify($text)
                                                     $nom=$pays->getFlagByAbreviation($france_best['lieu_evenement'])['donnees']['NomPays'];   
                                                 }
                                                 ($flag!='NULL') ? $pays_flag='<img src="../../images/flags/'.$flag.'" alt=""/>':$pays_flag="";
-                                                echo $pays_flag.'<a class="record-link" href="athlete-'.$france_best['champ_id'].'-'.slugify($france_best['champion']).'.html">'.$france_best['champion'].'</a>';?>
-                                            </td>
-                                            <td>
-                                                <?php echo $france_best['Temps'];?>
+                                                echo 'Détenteur : <a class="record-link" href="athlete-'.$france_best['champ_id'].'-'.slugify($france_best['champion']).'.html">'.$france_best['champion'].'</a>'.' ('.$nom.')';?>
+                                            
                                                 <br>
-                                                <?php echo date_format(date_create($france_best['DateDebut']),"d/m/Y").' - '.$france_best['evenement'].' ('.$nom.')';?>
+                                                <?php echo 'Date : '.utf8_encode(strftime("%A %d %B %Y",strtotime($france_best['DateDebut']))).' - Lieu : '.$france_best['evenement'].' ('.$nom.')';?>
+                                                <br>
+                                                <div class="record-title-colored">
+                                                    <a href="10-meilleures-performances-françaises-marathon.html" class="record-link">Les 10 meilleures performances</a>
+                                                </div>
                                             </td>
                                             </tr>
                                     </table>
-                                    <div class="title-border"><h3 class="record-title">Record des Jeux olympiques</h3><h3 class="record-title-colored"><a href="10-meilleures-performances-jeux-olympiques-marathon.html" class="record-link">Meilleures performances - top 10</a></h3></div>
+                                    <div class="title-border"><h3 class="record-title">Record des Jeux olympiques : <?php echo $jo_best['Temps'];?></h3></div>
                                     <table class="table table-responsive lignes-données">
                                         <tr class="ligne-rec">
                                             <td>
@@ -226,16 +239,18 @@ function slugify($text)
                                                     $nom=$pays->getFlagByAbreviation($jo_best['lieu_evenement'])['donnees']['NomPays'];  
                                                 }
                                                 ($flag!='NULL') ? $pays_flag='<img src="../../images/flags/'.$flag.'" alt=""/>':$pays_flag="";
-                                                echo $pays_flag.'<a class="record-link" href="athlete-'.$jo_best['champ_id'].'-'.slugify($jo_best['champion']).'.html">'.$jo_best['champion'].'</a>';?>
-                                            </td>
-                                            <td>
-                                                <?php echo $jo_best['Temps'];?>
+                                                echo 'Détenteur : <a class="record-link" href="athlete-'.$jo_best['champ_id'].'-'.slugify($jo_best['champion']).'.html">'.$jo_best['champion'].'</a>'.' ('.$nom.')';?>
+                                            
                                                 <br>
-                                                <?php echo date_format(date_create($jo_best['DateDebut']),"d/m/Y").' - '.$jo_best['evenement'].' ('.$nom.')';?>
+                                                <?php echo 'Date : '.utf8_encode(strftime("%A %d %B %Y",strtotime($jo_best['DateDebut']))).' - Lieu : '.$jo_best['evenement'].' ('.$nom.')';?>
+                                                <br>
+                                                <div class="record-title-colored">
+                                                    <a href="10-meilleures-performances-jeux-olympiques-marathon.html" class="record-link">Les 10 meilleures performances</a>
+                                                </div>
                                             </td>
                                             </tr>
                                     </table>
-                                    <div class="title-border"><h3 class="record-title">Record des championnats du monde</h3><h3 class="record-title-colored"><a href="10-meilleures-performances-championnats-du-monde-marathon.html" class="record-link">Meilleures performances - top 10</a></h3></div>
+                                    <div class="title-border"><h3 class="record-title">Record des championnats du monde : <?php echo $cm_best['Temps'];?></h3></div>
                                     <table class="table table-responsive lignes-données">
                                         <tr class="ligne-rec">
                                             <td>
@@ -245,16 +260,18 @@ function slugify($text)
                                                     $nom=$pays->getFlagByAbreviation($cm_best['lieu_evenement'])['donnees']['NomPays'];  
                                                 }
                                                 ($flag!='NULL') ? $pays_flag='<img src="../../images/flags/'.$flag.'" alt=""/>':$pays_flag="";
-                                                echo $pays_flag.'<a class="record-link" href="athlete-'.$cm_best['champ_id'].'-'.slugify($cm_best['champion']).'.html">'.$cm_best['champion'].'</a>';?>
-                                            </td>
-                                            <td>
-                                                <?php echo $cm_best['Temps'];?>
+                                                echo 'Détenteur : <a class="record-link" href="athlete-'.$cm_best['champ_id'].'-'.slugify($cm_best['champion']).'.html">'.$cm_best['champion'].'</a>'.' ('.$nom.')';?>
+                                            
                                                 <br>
-                                                <?php echo date_format(date_create($cm_best['DateDebut']),"d/m/Y").' - '.$cm_best['evenement'].' ('.$nom.')';?>
+                                                <?php echo 'Date : '.utf8_encode(strftime("%A %d %B %Y",strtotime($cm_best['DateDebut']))).' - Lieu : '.$cm_best['evenement'].' ('.$nom.')';?>
+                                                <br>
+                                                <div class="record-title-colored">
+                                                    <a href="10-meilleures-performances-championnats-du-monde-marathon.html" class="record-link">Les 10 meilleures performances</a>
+                                                </div>
                                             </td>
                                             </tr>
                                     </table>
-                                    <div class="title-border"><h3 class="record-title">Record des championnats d'Europe</h3><h3 class="record-title-colored"><a href="10-meilleures-performances-championnats-europe-marathon.html" class="record-link">Meilleures performances - top 10</a></h3></div>
+                                    <div class="title-border"><h3 class="record-title">Record des championnats d'Europe: <?php echo $ce_best['Temps'];?></h3></div>
                                     <table class="table table-responsive lignes-données">
                                         <tr class="ligne-rec">
                                             <td>
@@ -264,21 +281,28 @@ function slugify($text)
                                                     $nom=$pays->getFlagByAbreviation($ce_best['lieu_evenement'])['donnees']['NomPays'];  
                                                 }
                                                 ($flag!='NULL') ? $pays_flag='<img src="../../images/flags/'.$flag.'" alt=""/>':$pays_flag="";
-                                                echo $pays_flag.'<a class="record-link" href="athlete-'.$ce_best['champ_id'].'-'.slugify($ce_best['champion']).'.html">'.$ce_best['champion'].'</a>';?>
-                                            </td>
-                                            <td>
-                                                <?php echo $ce_best['Temps'];?>
+                                                echo 'Détenteur : <a class="record-link" href="athlete-'.$ce_best['champ_id'].'-'.slugify($ce_best['champion']).'.html">'.$ce_best['champion'].'</a>'.' ('.$nom.')';?>
+                                            
                                                 <br>
-                                                <?php echo date_format(date_create($ce_best['DateDebut']),"d/m/Y").' - '.$ce_best['evenement'].' ('.$nom.')';?>
+                                                <?php echo 'Date : '.utf8_encode(strftime("%A %d %B %Y",strtotime($ce_best['DateDebut']))).' - Lieu : '.$ce_best['evenement'].' ('.$nom.')';?>
+                                                <br>
+                                                <div class="record-title-colored">
+                                                    <a href="10-meilleures-performances-championnats-europe-marathon.html" class="record-link">Les 10 meilleures performances</a>
+                                                </div>
                                             </td>
                                             </tr>
                                     </table>                                
                             
                     </div>
                 </div>
+                <br>
+                        <br>
+                        <h1>Records nationaux</h1>
+                        <br>
+                        <br>
                 <div class="row records-nationaux">
                     <div class="col-sm-12">
-                    <div class="title-border" style="margin-bottom: 20px;"><h2 class="record-title">Records nationaux</h2></div>
+
 
                         <table class="table table-responsive lignes-données-nationales">
                             <?php $affichage="";
@@ -290,17 +314,14 @@ function slugify($text)
                                 }
                                 ($flag!='NULL') ? $pays_flag='<img src="../../images/flags/'.$flag.'" alt=""/>':$pays_flag="";
                                 
-                                $affichage.= '<tr class="ligne-rec intro-nat"><td style="font-weight: bolder;font-size: 16px !important;line-height: 20px;" >Record - '.$nom_pays_coureur.'</td><td style="text-align:right">'.$pays_flag.'</td></tr> ';
+                                $affichage.= '<tr class="ligne-rec intro-nat"><td style="font-weight: bolder;font-size: 20px !important;line-height: 20px;" >Record - '.$nom_pays_coureur.' : '.$record['Temps'].''.$pays_flag.'</tr> ';
                                 $affichage.='<tr class="ligne-rec">
                                             
                                             <td>
-                                                '.'<a class="record-link" href="athlete-'.$record['champ_id'].'-'.slugify($record['champion']).'.html">'.$record['champion'].'</a>'.'
+                                                Détenteur : '.'<a class="record-link" href="athlete-'.$record['champ_id'].'-'.slugify($record['champion']).'.html">'.$record['champion'].'</a>'.'
                                                 <br>
-                                            </td>
-                                            <td>
-                                                '.$record['Temps'].'
-                                                <br>
-                                                <small>'.date_format(date_create($record['DateDebut']),"d/m/Y").' - '.$record['evenement'].'</small>
+                                                Date : 
+                                                <small>'.utf8_encode(strftime("%A %d %B %Y",strtotime($record['DateDebut']))).' - Lieu : '.$record['evenement'].'</small>
                                             </td>
                                         </tr> '; 
                              } 

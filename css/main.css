@@ -980,7 +980,7 @@ li.menu-item-categories .hamburger-menu-button {
     font-size: 20px;
     font-family: 'Poppins-Bold';
 }
-.marathons h2,.resultats-liste h2,.athletes-liste h2 {
+.marathons h2,.resultats-liste h2,.athletes-liste h2,.page-records h2 {
     font-family: 'Poppins-regular';
     font-size: 17px;
     margin-bottom: 50px;
@@ -994,7 +994,7 @@ li.menu-item-categories .hamburger-menu-button {
     line-height: 25px;
 }
 .mpp-pays-box{
-    margin: 20px 50px;
+    margin: 20px 20px;
     padding: 30px 50px;
     background-color: #ffffff;
 }
@@ -1108,6 +1108,9 @@ li.menu-item-categories .hamburger-menu-button {
     border: none  !important;
     height: 34px !important;
 }
+.parcours-img-source{
+    filter: brightness(0.95);
+}
 .mpp-nbr-mar{
     background-color: #9ddaff;
     padding: 5px;
@@ -1116,6 +1119,7 @@ li.menu-item-categories .hamburger-menu-button {
     font-family: 'Poppins-Regular';
     margin-top: 10px;
     border-radius: 2px;
+    width: 136px;
 }
 .align-with-grid-mpp{
     margin-left: 35px;
@@ -1460,7 +1464,7 @@ li.menu-item-categories  li{
     font-weight: bolder;
     background-color: #fbff0b;
     width: fit-content;
-    font-size: 12px;
+    font-size: 16px;
     display: block;
     margin: 6px 2px 3px 2px;
     line-height: 20px;
@@ -3336,10 +3340,10 @@ font-family: "Poppins-Bold";
 }
 .title-border{
     height: 30px;
-    border-bottom: 1px solid rgb(0, 0, 0);
+    /*border-bottom: 1px solid rgb(0, 0, 0);*/
 }
 .records-nationaux{
-    margin-top: 50px;
+    margin-top: 0px;
 }
 .lignes-données{
     border: none;
@@ -3350,7 +3354,8 @@ font-family: "Poppins-Bold";
 }
 .lignes-données td{
     padding: 0 !important;
-    font-size: 13px !important;
+    font-size: 20px !important;
+    border-top: none !important;
 }
 .lignes-données td:nth-child(1){
 width: 50%;
@@ -3399,7 +3404,7 @@ text-align: left;
 }
 .lignes-données-nationales td{
     padding: 0 !important;
-    font-size: 13px !important;
+    font-size: 20px !important;
 }
 .lignes-données-nationales tr{
     height: 45px;
@@ -3411,15 +3416,12 @@ text-align: left;
     border-bottom: none ;
     border-top: none ;
 }
-.intro-nat td{
-    border-bottom: 1px solid #000000 !important;
-}
+
 .intro-nat{
 height: fit-content !important;
 }
 .lignes-données-nationales td:nth-child(1){
     width: 36%;
-    font-weight: 800;
 }
 .lignes-données-nationales td:nth-child(2){
     width: 64%;
@@ -3543,18 +3545,18 @@ display: grid;
 }
 .record-title-colored{
     color: #333;
-    float: right;
     font-weight: bolder;
     background-color: #fbff0b;
     width: fit-content;
     font-size: 12px;
     margin: 3px 2px;
     line-height: 20px;
-    padding: 0px 10px;
+    padding: 7px 10px;
 }
 .record-link{
     color: #333;
     font-weight: bolder;
+    font-size: 20px;
     
 }
 .record-link:hover{
