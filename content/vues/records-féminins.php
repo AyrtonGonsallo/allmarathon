@@ -160,7 +160,7 @@ function slugify($text)
 
     <?php include_once('nv_header-integrer.php'); ?>
 
-    <div class="container page-content">
+    <div class="container page-content mt-77">
         <div class="row banniere1">
             <div  class="col-sm-12">
 
@@ -179,11 +179,9 @@ function slugify($text)
                         <a href="/records-marathon-masculins.html" class="records-link">
                         Records masculins
                         </a>
-                        <br>
-                        <br>
-                        <h1>Records internationaux</h1>
-                        <br>
-                        <br>
+                       
+                        <h1 class="section-record-title">Records internationaux</h1>
+                        
                         <div class="title-border"><h3 class="record-title">Record du monde : <?php echo $world_best['Temps'];?></h3></div>
                                     <table class="table table-responsive lignes-données">
                                         <tr class="ligne-rec">
@@ -295,40 +293,34 @@ function slugify($text)
                             
                     </div>
                 </div>
-                <br>
-                        <br>
-                        <h1>Records nationaux</h1>
-                        <br>
-                        <br>
+                
+                        <h1  class="section-record-title">Records nationaux</h1>
+                        
                 <div class="row records-nationaux">
                     <div class="col-sm-12">
 
 
-                        <table class="table table-responsive lignes-données-nationales">
+                    <div class="table table-responsive lignes-données-nationales">
                             <?php $affichage="";
                             foreach ($result1 as $record) {
                                 $pays_datas=$pays->getFlagByName($record['Pays'])['donnees'];
                                 if($pays_datas){
                                     $flag=$pays_datas['Flag'];  
                                     $nom_pays_coureur=$pays->getFlagByName($record['Pays'])['donnees']['NomPays'];  
+                                    $nom_lieu=$pays->getFlagByAbreviation($record['lieu_evenement'])['donnees']['NomPays']; 
                                 }
                                 ($flag!='NULL') ? $pays_flag='<img src="../../images/flags/'.$flag.'" alt=""/>':$pays_flag="";
                                 
-                                $affichage.= '<tr class="ligne-rec intro-nat"><td style="font-weight: bolder;font-size: 20px !important;line-height: 20px;" >Record - '.$nom_pays_coureur.' : '.$record['Temps'].''.$pays_flag.'</tr> ';
-                                $affichage.='<tr class="ligne-rec">
-                                            
-                                            <td>
-                                                Détenteur : '.'<a class="record-link" href="athlete-'.$record['champ_id'].'-'.slugify($record['champion']).'.html">'.$record['champion'].'</a>'.'
+                                $affichage.= '<h3 class="record-title">Record - '.$nom_pays_coureur.' : '.$record['Temps'].''.$pays_flag.'</h3>';
+                                $affichage.='<div class="mb-30 national-rec">Détenteur : '.'<a class="record-link" href="athlete-'.$record['champ_id'].'-'.slugify($record['champion']).'.html">'.$record['champion'].'</a>'.'
                                                 <br>
                                                 Date : 
-                                                <small>'.utf8_encode(strftime("%A %d %B %Y",strtotime($record['DateDebut']))).' - Lieu : '.$record['evenement'].'</small>
-                                            </td>
-                                        </tr> '; 
+                                               '.utf8_encode(strftime("%d %B %Y",strtotime($record['DateDebut']))).' - Lieu : '.$record['evenement'].' ('.$nom_lieu.')</div>'; 
                              } 
                              echo $affichage;
                              ?>
-                            </tbody>
-                        </table>
+                           
+                        </div>
                     </div>
                 </div>
 

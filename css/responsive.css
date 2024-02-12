@@ -1341,8 +1341,12 @@ h1.news-detail {
   line-height: 24px;
   text-align: center;
 }
-.marathons h2,.videos-liste h2,.athletes-liste h2, .resultats-liste h2 {
+.marathons h2,.videos-liste h2,.athletes-liste h2, .resultats-liste h2,.page-records h2 {
   padding-right: 0px !important;
+}
+.resultat-detail h3 {
+  font-family: "Poppins-Bold";
+  font-size: 16px;
 }
 .athlètes .left-side h1{
   font-size: 25px;

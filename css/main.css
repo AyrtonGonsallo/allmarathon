@@ -1454,7 +1454,7 @@ li.menu-item-categories  li{
     margin-bottom: 0px !important;
 }
 .page-records h1{
-    margin-bottom: 5px !important;
+    margin-bottom: 5px;
 }
 .page-content aside dd.bref ul li:hover a {
     color: #fbff0b;
@@ -2606,6 +2606,12 @@ img.media.picto-video {
  .mb-40{
     margin-bottom: 40px;
  }
+ .mb-30{
+    margin-bottom: 30px;
+ }
+ .national-rec{
+    font-size: 16px;
+ }
  .mb-50{
     margin-bottom: 50px;
  }
@@ -3331,16 +3337,15 @@ font-family: "Poppins-Bold";
 .record-title{
     color: #333;
     font-weight: bolder;
-    float: left;
     width: fit-content;
     font-size: 16px;
     margin: 3px 0px;
     line-height: 20px;
     padding: 0px 0px;
 }
-.title-border{
-    height: 30px;
-    /*border-bottom: 1px solid rgb(0, 0, 0);*/
+.section-record-title{
+   margin-top: 50px !important;
+   margin-bottom: 20px !important;
 }
 .records-nationaux{
     margin-top: 0px;
@@ -3354,7 +3359,7 @@ font-family: "Poppins-Bold";
 }
 .lignes-données td{
     padding: 0 !important;
-    font-size: 20px !important;
+    font-size: 16px !important;
     border-top: none !important;
 }
 .lignes-données td:nth-child(1){
@@ -3555,8 +3560,7 @@ display: grid;
 }
 .record-link{
     color: #333;
-    font-weight: bolder;
-    font-size: 20px;
+    font-size: 16px;
     
 }
 .record-link:hover{
