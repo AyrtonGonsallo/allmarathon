@@ -300,10 +300,10 @@ try{
                         <div>
                         <div class="marathon-sub-menu-grid">
                             <div class="button-agenda">
-                                <a href="/agenda-marathons-par-pays.html" class="home-link">Marathons par pays</a>
+                                <a href="/agenda-marathons-par-pays.html" class="home-link disp-block">Marathons par pays</a>
                             </div>
                             <div class="button-agenda">
-                                <a href="/agenda-marathons-par-mois.html" class="home-link">Marathons par mois</a>
+                                <a href="/agenda-marathons-par-mois.html" class="home-link disp-block">Marathons par mois</a>
                             </div>
                             <div class="search-bar">
                                 <form action="" method="post" class="form-inline" role="form">

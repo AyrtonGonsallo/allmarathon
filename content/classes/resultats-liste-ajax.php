@@ -121,7 +121,12 @@ function array_msort($array, $cols)
 					  array_push($results, $row);
 				  }
 				   $bdd=null;
-				   echo display_results($results);
+				   if($results){
+					echo display_results($results);
+				   }else{
+						echo "Pas de résultats pour votre recherche '".$search."'";
+				   }
+				   
 		}
 	       
 	        catch(Exception $e)

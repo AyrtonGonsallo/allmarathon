@@ -261,7 +261,9 @@ if($pays_datas){
                             <!-- menu header -->
                             <ul class="nav-category sub-menu">
                                 <li> <a data-category="Header_Links" data-action="Sub Menu Click" data-label="Apropos" href="#Apropos" class="sub-menu-link header--nav--link  active" id="Apropos-link">A propos</a></li>
+                                <? if ($parcours_marathon){?>
                                 <li> <a data-category="Header_Links" data-action="Sub Menu Click" data-label="Parcours" href="#Parcours" class="sub-menu-link header--nav--link " id="Parcours-link">Parcours</a></li>
+                                <? }?>
                                 <li> <a data-category="Header_Links" data-action="Sub Menu Click" data-label="Résultats" href="#Résultats" class="sub-menu-link header--nav--link " id="Résultats-link">Résultats</a></li>
                                 <li> <a data-category="Header_Links" data-action="Sub Menu Click" data-label="Chronos" href="#Chronos" class="sub-menu-link header--nav--link " id="Chronos-link">Chronos</a></li>
                                 <li> <a data-category="Header_Links" data-action="Sub Menu Click" data-label="Palmarès" href="#Palmarès" class="sub-menu-link header--nav--link " id="Palmarès-link">Palmarès</a></li>
@@ -377,7 +379,7 @@ if($pays_datas){
                                                     echo '<tr>';
                                                         echo '<td>'.$i.'</td>';
                                                         echo '<td><a href="athlete-'.$value['ChampionID'].'-'.slugify($value['Nom']).'.html">'.$value['Nom'].'</a></td>';
-                                                        echo '<td>'.$pays_flag.' '.$pays_datas['Abreviation'].'</td>';
+                                                        echo '<td>'.$pays_datas['Abreviation'].'</td>';
                                                         echo '<td>'.$value['annee'].'</td>';
                                                         echo '<td>'.$value['Temps'].'</td>';
                                                     echo '</tr>';
@@ -389,7 +391,7 @@ if($pays_datas){
                                     </div>
                                 </div>
                                 <div id="mc-f">
-                                <div class="col-sm-12 top-chronos top-chronos-left-div">
+                                    <div class="col-sm-12 top-chronos top-chronos-left-div">
                                         <table id="tableauFemmes-mc" data-page-length='10' class="display">
                                             <thead>
                                                 <tr>
@@ -420,7 +422,7 @@ if($pays_datas){
                                                     echo '<tr>';
                                                         echo '<td>'.$i.'</td>';
                                                         echo '<td><a href="athlete-'.$value['ChampionID'].'-'.slugify($value['Nom']).'.html">'.$value['Nom'].'</a></td>';
-                                                        echo '<td>'.$pays_flag.' '.$pays_datas['Abreviation'].'</td>';
+                                                        echo '<td>'.$pays_datas['Abreviation'].'</td>';
                                                         echo '<td>'.$value['annee'].'</td>';
                                                         echo '<td>'.$value['Temps'].'</td>';
                                                     echo '</tr>';
@@ -435,7 +437,7 @@ if($pays_datas){
                             
                             
                         <?php } ?>
-                        <div class="mb-40"></div>
+                       
                         <?php if($best_res_mens_byyear || $best_res_womens_byyear){ ?>
                             
                             <div class="mb-40"></div>
@@ -835,12 +837,7 @@ if($pays_datas){
 			}
     $(document).ready(function() {
        
-            
-       
-        
-       
-
-            $('#tableauHommes-mc').DataTable( {
+        $('#tableauHommes-mc').DataTable( {
                 paging: false,
                 bFilter: false,
                 bSort: false,
@@ -875,6 +872,12 @@ if($pays_datas){
             $("a.sub-menu-link.active").removeClass("active")
             $(this).addClass("active")
             console.log(id)
+        });
+        $(".read-more-button").click(function() {
+           
+            $(".alpine-hide-box-gradient").hide()
+            $(this).hide()
+            
         });
        
     });

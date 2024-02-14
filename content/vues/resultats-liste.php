@@ -413,80 +413,52 @@ setlocale(LC_TIME, "fr_FR","French");
                     </ul>
                     
                     <div class="section-divider"></div>
-                    <?php if($res_olympiques["donnees"]){?>
-                        
-                        <ul class="col-sm-12">
-                            <h3 class="mt-30">Résultats des marathons olympiques</h3>
-                            <div class="resultats resultats-grid mb-80">
-                                <?php
-
-                                foreach ($res_olympiques["donnees"] as $key => $resultat) {
-
-                                    $cat_event=$ev_cat_event->getEventCatEventByID($resultat['CategorieID'])['donnees']->getIntitule();
-                                    $pays_flag=$pays->getFlagByAbreviation($resultat['PaysID'])['donnees']['Flag'];
-                                    $pays_nom=$pays->getFlagByAbreviation($resultat['PaysID'])['donnees']['NomPays'];
-                                    $date_res=utf8_encode(strftime("%A %d %B %Y",strtotime($resultat['DateDebut'])));
-
-                                    $nom_res='<strong>'.$cat_event.' '.$resultat['prefixe'].' '.$resultat['Nom'].'</strong>';
-                                    $nom_res_lien=$cat_event.' - '.$resultat['Nom'].' - '.utf8_encode(strftime("%A %d %B %Y",strtotime($resultat['DateDebut'])));
-
-                                    echo '<div class="resultats-grid-element"><a href="/resultats-marathon-'.$resultat['ID'].'-'.slugify($nom_res_lien).'.html">'.$nom_res.'</a>
-                                    <br>
-                                        <img src="../../images/flags/'.$pays_flag.'" alt=""/>'.$pays_nom.
-                                    '<br><span>'.
-                                    $date_res.'</span>
-                                    </div>';
-
-                                }
-
-                                // die;
-
-                                ?>
-                            </div>
-                        </ul>
-                    <?php }?>
-
-
                 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            </div> <!-- End left-side -->
-
-
-
-            <aside class="col-sm-4 pd-top">
-
-                 
-
-
-            </aside>
-
+            </div>
         </div>
+    </div>
+    <section id="olympics-marathons">
+        <div class="container">
+            <div class="row  resultats-liste">
+                <?php if($res_olympiques["donnees"]){?>
+                    
+                    <ul class="col-sm-12">
+                        <h3 class="mt-30">Résultats des marathons olympiques</h3>
+                        <div class="resultats resultats-grid mb-80">
+                            <?php
+
+                            foreach ($res_olympiques["donnees"] as $key => $resultat) {
+
+                                $cat_event=$ev_cat_event->getEventCatEventByID($resultat['CategorieID'])['donnees']->getIntitule();
+                                $pays_flag=$pays->getFlagByAbreviation($resultat['PaysID'])['donnees']['Flag'];
+                                $pays_nom=$pays->getFlagByAbreviation($resultat['PaysID'])['donnees']['NomPays'];
+                                $date_res=utf8_encode(strftime("%A %d %B %Y",strtotime($resultat['DateDebut'])));
+
+                                $nom_res='<strong>'.$cat_event.' '.$resultat['prefixe'].' '.$resultat['Nom'].' - '.$resultat['Sexe'].'</strong>';
+                                $nom_res_lien=$cat_event.' - '.$resultat['Nom'].' - '.utf8_encode(strftime("%A %d %B %Y",strtotime($resultat['DateDebut'])));
+
+                                echo '<div class="resultats-grid-element"><a href="/resultats-marathon-'.$resultat['ID'].'-'.slugify($nom_res_lien).'.html">'.$nom_res.'</a>
+                                <br>
+                                    <img src="../../images/flags/'.$pays_flag.'" alt=""/>'.$pays_nom.
+                                '<br><span>'.
+                                $date_res.'</span>
+                                </div>';
+
+                            }
+
+                            // die;
+
+                            ?>
+                        </div>
+                    </ul>
+                <?php }?>
+            </div>
+        </div>
+    </section> <!-- End left-side -->
 
 
 
-    </div> <!-- End container page-content -->
-
-<?php 
-
-            //echo $pub768x90; 
-
-            //include("produits_boutique.php");  
-
-            ?>
+            
 
     <?php include('footer.inc.php'); ?>
 
@@ -595,6 +567,11 @@ var par_pages=39;
                         
                     },
                     success: function(html) {
+                        if(html.includes("Pas de")){
+                            $(".pager").hide()
+                        }else{
+                            $(".pager").show()
+                        }
                         $(".col-sm-12.resultats.resultats-grid").html(html).show();
                         //console.log("success",html)
                     },
@@ -642,6 +619,11 @@ var par_pages=39;
                            
                         },
                         success: function(html) {
+                            if(html.includes("Pas de")){
+                                $(".pager").hide()
+                            }else{
+                                $(".pager").show()
+                            }
                             $(".col-sm-12.resultats.resultats-grid").html(html).show();
                             //console.log("success",html)
                         },

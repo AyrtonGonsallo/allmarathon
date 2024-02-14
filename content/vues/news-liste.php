@@ -351,7 +351,7 @@ include_once('nv_header-integrer.php'); ?>
 
                                
 
-                                    <div class="article-img"><a href="/actualite-marathon-'.$article->getId().'-'.$url_text.'.html">'.$img_a_afficher.'<img class="media" src="'.$img_src.'" alt=""></a></div>
+                                    <div class="article-img"><a href="/actualite-marathon-'.$article->getId().'-'.$url_text.'.html">'.$img_a_afficher.'</a></div>
 
                                
 
@@ -401,7 +401,7 @@ include_once('nv_header-integrer.php'); ?>
 
 
                 <?php
-
+            $i==0;
             foreach($articles['donnees'] as $index => $article){
                 $subheader="auteur : ".$article->getAuteur()." / ".utf8_encode(strftime("%A %d %B %Y",strtotime($article->getDate())))." / source : ".$article->getSource();
                     $cat="";
@@ -466,17 +466,18 @@ include_once('nv_header-integrer.php'); ?>
 
                                     $img_a_afficher= '<img class="img-responsive" alt="" src="'.$src_a_afficher.'"/>';
 
-                                    echo '<article class="row">
+                                    if($i==0){echo '<article class="row pt-10">';}else{echo '<article class="row">';}?>
+                                    <?
 
                                
 
-                                    <div class="article-img"><a href="/actualite-marathon-'.$article->getId().'-'.$url_text.'.html">'.$img_a_afficher.'<img class="media" src="'.$img_src.'" alt=""></a></div>
+                                    echo '<div class="article-img"><a href="/actualite-marathon-'.$article->getId().'-'.$url_text.'.html">'.$img_a_afficher.'</a></div>
 
                                
 
                                 <div class="desc-img">
 
-                                    <h2><a href="/actualite-marathon-'.$article->getId().'-'.$url_text.'.html" style="color: #222;" >'.$article->getTitre().' </a></h2>';
+                                    <h2><a href="/actualite-marathon-'.$article->getId().'-'.$url_text.'.html" style="color: #000;" >'.$article->getTitre().' </a></h2>';
 
                                     if($article->getChampionID()){
                                         $chmp=$champion->getChampionById($article->getChampionID())["donnees"];
@@ -494,7 +495,7 @@ include_once('nv_header-integrer.php'); ?>
                                     echo '</div>
                                 </article>';
 
-                                
+                                $i+=1;
 
                                 
 
@@ -579,7 +580,7 @@ include_once('nv_header-integrer.php'); ?>
 
                                 <div class="desc-img">
 
-                                    <h2><a href="/actualite-marathon-'.$article->getId().'-'.$url_text.'.html" style="color: #222;" >'.$article->getTitre().' </a></h2>';
+                                    <h2><a href="/actualite-marathon-'.$article->getId().'-'.$url_text.'.html" style="color: #000;" >'.$article->getTitre().' </a></h2>';
 
                                     if($article->getChampionID()){
                                         $chmp=$champion->getChampionById($article->getChampionID())["donnees"];
@@ -680,13 +681,13 @@ include_once('nv_header-integrer.php'); ?>
 
                             
 
-                                    <div class="article-img"><a href="/actualite-marathon-'.$article->getId().'-'.$url_text.'.html">'.$img_a_afficher.'<strong>'.$cat.'</strong><img class="media" src="'.$img_src.'" alt=""></a></div>
+                                    <div class="article-img"><a href="/actualite-marathon-'.$article->getId().'-'.$url_text.'.html">'.$img_a_afficher.'</a></div>
 
                             
 
                                 <div class="desc-img">
 
-                                    <h2><a href="/actualite-marathon-'.$article->getId().'-'.$url_text.'.html" style="color: #222;" >'.$article->getTitre().' </a></h2>';
+                                    <h2><a href="/actualite-marathon-'.$article->getId().'-'.$url_text.'.html" style="color: #000;" >'.$article->getTitre().' </a></h2>';
 
                                     if($article->getChampionID()){
                                         $chmp=$champion->getChampionById($article->getChampionID())["donnees"];
@@ -976,13 +977,13 @@ if($pub160x600 !="") {
 
                                
 
-                                    <div class="article-img"><a href="/actualite-marathon-'.$article->getId().'-'.$url_text.'.html">'.$img_a_afficher.'<img class="media" src="'.$img_src.'" alt=""></a></div>
+                                    <div class="article-img"><a href="/actualite-marathon-'.$article->getId().'-'.$url_text.'.html">'.$img_a_afficher.'</a></div>
 
                                
 
                                 <div class="desc-img">
 
-                                    <h2><a href="/actualite-marathon-'.$article->getId().'-'.$url_text.'.html" style="color: #222;" >'.$article->getTitre().' </a></h2>';
+                                    <h2><a href="/actualite-marathon-'.$article->getId().'-'.$url_text.'.html" style="color: #000;" >'.$article->getTitre().' </a></h2>';
 
                                     if($article->getChampionID()){
                                         $chmp=$champion->getChampionById($article->getChampionID())["donnees"];

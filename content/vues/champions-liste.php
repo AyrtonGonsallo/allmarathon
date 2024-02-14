@@ -587,6 +587,11 @@ if($pub160x600 !="") {
                         
                     },
                     success: function(html) {
+                        if(html.includes("Pas de")){
+                                $(".pager").hide()
+                            }else{
+                                $(".pager").show()
+                            }
                         $("#resultats-recherche-athletes").html(html).show();
                         
                         //load_pager()
@@ -636,6 +641,11 @@ if($pub160x600 !="") {
                            
                         },
                         success: function(html) {
+                            if(html.includes("Pas de")){
+                                $(".pager").hide()
+                            }else{
+                                $(".pager").show()
+                            }
                             $("#resultats-recherche-athletes").html(html).show();
                            
                             //load_pager()

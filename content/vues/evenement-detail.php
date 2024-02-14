@@ -129,7 +129,11 @@ function switch_cat($cat)
 
 }
 $next_date= $event->getMarathon($evById->getmarathon_id())['donnees'];
+if($next_date){
 $results_all_years=$event->getOthersMarathonEvents($next_date['id'],$id)['donnees'];
+}else{
+    $results_all_years=null;
+}
 $news=new news();
 $event_news=$news->getNewsByEventId($id)['donnees'];
 setlocale(LC_TIME, "fr_FR","French");
@@ -146,7 +150,9 @@ setlocale(LC_TIME, "fr_FR","French");
     <meta property="og:type" content="siteweb" />
     <meta property="og:title" content="Résultats du marathon<?php echo $evById->getPrefixe();?> <?php echo str_replace('\\','',$evById->getNom());?> - <?php echo $pays->getFlagByAbreviation($evById->getPaysId())['donnees']['NomPays'];?> - <?php echo $ev_cat_event_int_titre;?> <?php echo $annee_titre;?>" />
     <meta property="og:description" content="Le <?php echo $ev_cat_event_int_titre;?> <?php echo $annee_titre;?> de <?php echo $evById->getNom();?> (<?php echo $pays->getFlagByAbreviation($evById->getPaysId())['donnees']['NomPays'];?>) a eu lieu le <?php echo changeDate($evById->getDateDebut());?>. Les vainqueurs sont <?php echo  $evresultat->getResultBySexe($id,"M")['donnees'][0]['Nom'];?> (hommes) et <?php echo  $evresultat->getResultBySexe($id,"F")['donnees'][0]['Nom'];?> (femmes). Résultats complets, classements et temps." />
-    <meta property="og:image" content="<?php echo 'https://allmarathon.fr/images/marathons/'.$next_date['image'];?>" />
+    <? if($next_date){?>
+        <meta property="og:image" content="<?php echo 'https://allmarathon.fr/images/marathons/'.$next_date['image'];?>" />
+    <? }?>
     <meta property="og:url" content="<?php echo 'https://allmarathon.fr/resultats-marathon-'.$evById->getId().'-'.slugify($ev_cat_event->getEventCatEventByID($evById->getCategorieId())['donnees']->getIntitule()).'-'.slugify($evById->getNom()).'-'.slugify(changeDate($evById->getDateDebut())).'.html';?>" />
 
 
@@ -215,15 +221,21 @@ setlocale(LC_TIME, "fr_FR","French");
                                 $flag=$pays_datas['Flag'];  
                             }
                             ($flag!='NULL') ? $pays_flag='<img src="../../images/flags/'.$flag.'" alt=""/>':$pays_flag="";
+                            if($next_date){
+                                echo '<h1>Résultats du '.$ev_cat_event_int.' '.$next_date["prefixe"].' '.$evById->getNom().' '.$annee.'</h1>';
+                            }else{
+                                echo '<h1>Résultats du '.$ev_cat_event_int.' '.$evById->getNom().' '.$annee.'</h1>';
+                            }
                             
-                            echo '<h1>Résultats du '.$ev_cat_event_int.' '.$next_date["prefixe"].' '.$evById->getNom().' '.$annee.'</h1>';
                             
                             ?>
                             <span class="athlete-details-breadcumb">
                                 <a href="resultats-marathon.html">Résultats</a>
                                 &gt;
+                                <? if($next_date){?>
                                 <?php echo '<a href="/marathons-'.$next_date['id'].'-'.slugify($next_date["nom"]).'.html">Marathon '.$next_date["prefixe"].' '.$next_date["nom"].'</a>';?>
                                 &gt; 
+                                <?}?>
                                 <?php echo $annee;?>                               
                             </span>
                     <div class="mb-50"></div>
@@ -267,14 +279,15 @@ setlocale(LC_TIME, "fr_FR","French");
                                 
                                 <li class="col-sm-12">
                                 <?php echo '<div id="genre">'.$type.'</div>';?>
+                                <div class="results-sub-menu">
                                     <button id="res-hommes" class="res-by-gender"><span class="material-symbols-outlined">male</span>Hommes</button>
                                     <button id="res-femmes" class="res-by-gender"><span class="material-symbols-outlined">female</span>Femmes</button>
                                     
                                     <?php if($evById->getDocument1()!='') echo '<a class="btn results-buttons" href="PDF_frame-'.rawurlencode($evById->getDocument1()).'" target="_blank" class="btn btn-default"><i class="fa-file-pdf-o fa"></i>&nbspPDF</a>';  ?>
-                                    <?php if($evById->getlien_resultats_complet()) echo '<a class="btn results-buttons" href="'.$evById->getlien_resultats_complet().'" target="_blank" class="btn btn-default"><img width="16px" src="../../images/redirect.png" alt="tout voir">&nbspRésultats complets</a>';  ?>
+                                    <?php if($evById->getlien_resultats_complet()) echo '<a class=" results-buttons" href="'.$evById->getlien_resultats_complet().'" target="_blank" class="btn btn-default"><img width="16px" src="../../images/redirect.png" alt="tout voir">&nbspRésultats complets</a>';  ?>
                                     <?php //if($isAdmin) echo '<a class="btn results-buttons" href="evenement-detail-admin-'.$id.'.html" ><img width="13px" src="../../images/pictos/finisher.png" alt="finisher"> Je suis finisher</a>';  ?>
                                     <?php //if(!$isAdmin) echo '<a class="btn results-buttons" href="#" id="finisher"><img width="13px" src="../../images/pictos/finisher.png" alt="finisher"> Je suis finisher</a>';  ?>
-
+                                </div>
                                     <div x-data="{ expanded: false }">
                                         <div x-show="expanded" x-collapse.min.600px>
                                             <?php if(($type=="MF") || ($type=="M")){ ?>
@@ -313,7 +326,7 @@ setlocale(LC_TIME, "fr_FR","French");
                                                             echo '<tr>';
                                                                 echo '<td>'.$value['Rang'].'</td>';
                                                                 echo '<td><a href="athlete-'.$value['ChampionID'].'-'.slugify($value['Nom']).'.html">'.$value['Nom'].'</a></td>';
-                                                                echo '<td>'.$abv.' '.$pays_flag.'</td>';
+                                                                echo '<td>'.$abv.'</td>';
                                                                 echo '<td>'.$value['Temps'].'</td>';
                                                             echo '</tr>';
                                                         }
@@ -359,7 +372,7 @@ setlocale(LC_TIME, "fr_FR","French");
                                                             echo '<tr>';
                                                                 echo '<td>'.$value['Rang'].'</td>';
                                                                 echo '<td><a href="athlete-'.$value['ChampionID'].'-'.slugify($value['Nom']).'.html">'.$value['Nom'].'</a></td>';
-                                                                echo '<td>'.$abv.' '.$pays_flag.'</td>';
+                                                                echo '<td>'.$abv.'</td>';
                                                                 echo '<td>'.$value['Temps'].'</td>';
                                                             echo '</tr>';
                                                         }
@@ -402,20 +415,20 @@ setlocale(LC_TIME, "fr_FR","French");
                 $nom_res='<strong>'.$cat_event.' - '.$evenement->getNom().'</strong> - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
                 $nom_res_lien=$cat_event.' - '.$evenement->getNom().' - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
 
-                $res_event= "<a href='/resultats-marathon-".$evenement->getId()."-".slugify($nom_res_lien).".html' class='home-link mr-5 '><span class='material-symbols-outlined'>trophy</span> Résultats </a>";
+                $res_event= "<a href='/resultats-marathon-".$evenement->getId()."-".slugify($nom_res_lien).".html' class='disp-flex video-res-link mr-5 disp-flex'><span class='material-symbols-outlined'>trophy</span> Résultats </a>";
+                $url_img1=str_replace("hqdefault","0",$vd->getVignette());
+                $url_img=str_replace("default","0",$url_img1);
             }
-            echo '
-            <ul class="video-align-top video-grid-tab">
-                
-                <li class="mr-5"><a href="video-de-marathon-'.$vd->getId().'.html"><img src="'.$vd->getVignette().'"  alt="" class="video-liste-image img-responsive"/></a></li>
-                <li class="video-t-d-res">
-                    <ul>
-                        <li><a href="video-de-marathon-'.$vd->getId().'.html" class="video_titre">'.$vd->getTitre().'</a></li>'.$duree.'
-                    </ul>
-                    '.$res_event.'
-                </li>
-            </ul>
-        ';
+            
+        echo '<div class="video-align-top video-grid-tab">
+            <div class="mr-5"><a href="video-de-marathon-'.$vd->getId().'.html"><div class="video-thumbnail" style="background-image: url('.$url_img.'"></div></a></div>
+            <div class="video-t-d-res">
+                <ul>
+                    <li><a href="video-de-marathon-'.$vd->getId().'.html" class="video_titre">'.$vd->getTitre().'</a></li>'.$duree.'
+                </ul>
+                '.$res_event.'
+            </div>
+        </div>';
         }
     ?>
 
@@ -439,6 +452,7 @@ setlocale(LC_TIME, "fr_FR","French");
                             </div>
                             <div class="tab-pane fade" id="tab4">
                             <?php
+                            $i=0;
                             foreach($event_news as $index => $article){
                                 $subheader="auteur : ".$article->getAuteur()." / ".utf8_encode(strftime("%A %d %B %Y",strtotime($article->getDate())))." / source : ".$article->getSource();
                                     $cat="";
@@ -498,11 +512,11 @@ setlocale(LC_TIME, "fr_FR","French");
 
                                                     $img_a_afficher= '<img class="img-responsive" alt="" src="'.$src_a_afficher.'"/>';
 
-                                                    echo '<article class="row">
-
+                                                   
+                                                    if($i==0){echo '<article class="row pt-0">';}else{echo '<article class="row">';}
                                             
 
-                                                    <div class="article-img"><a href="/actualite-marathon-'.$article->getId().'-'.$url_text.'.html">'.$img_a_afficher.'<img class="media" src="'.$img_src.'" alt=""></a></div>
+                                                    echo '<div class="article-img"><a href="/actualite-marathon-'.$article->getId().'-'.$url_text.'.html">'.$img_a_afficher.'</a></div>
 
                                             
 
@@ -525,6 +539,7 @@ setlocale(LC_TIME, "fr_FR","French");
                                                     }
                                                     echo '</div>
                                                 </article>';
+                                                $i+=1;
 
                                 }
 
@@ -563,32 +578,39 @@ setlocale(LC_TIME, "fr_FR","French");
     </div> <!-- End left-side -->
 
     <aside class="col-sm-4 no-padding-right">
+    <? if($next_date){?>
         <div class="box-next-edition bureau">
-            <div class="center">Vous avez participé au <strong>marathon <? echo $next_date["prefixe"].' '.$evById->getNom().' '.$annee.'</strong> ?';?> </div>
+            
+                <div class="center">Vous avez participé au <strong>marathon <? echo $next_date["prefixe"].' '.$evById->getNom().' '.$annee.'</strong> ?';?> </div>
+           
             <div class="center">..</div>
             <div class="center">Vous êtes finisher ?</div>
             <div><button class="call-to-action mx-auto">Enregistrez votre résultat !</button></div>
             
         </div>
-
-        <div class="box-next-edition bureau">
-            <div class="center">
-                Vous souhaitez accéder à l’ensemble des informations concernant le 
-                <strong>
-                    marathon <? echo $next_date["prefixe"].' '.$evById->getNom();?> : 
-                    palmarès, record, histoire, 
-                    prochaine édition...
-                </strong>
+        <? }?>
+        <? if($next_date){?>
+            <div class="box-next-edition bureau">
+                <div class="center">
+                    Vous souhaitez accéder à l’ensemble des informations concernant le 
+                    <strong>
+                     
+                            marathon <? echo $next_date["prefixe"].' '.$evById->getNom();?> : 
+                       
+                        palmarès, record, histoire, 
+                        prochaine édition...
+                    </strong>
+                </div>
+                <div>
+                    <a class="call-to-action mx-auto" href="/marathons-<? echo $next_date['id'].'-'.slugify($next_date["nom"]).'.html';?>">
+                        <span class="material-symbols-outlined">
+                            arrow_circle_right
+                        </span>
+                        C'est par ici
+                    </a>
+                </div>
             </div>
-            <div>
-                <a class="call-to-action mx-auto" href="/marathons-<? echo $next_date['id'].'-'.slugify($next_date["nom"]).'.html';?>">
-                    <span class="material-symbols-outlined">
-                        arrow_circle_right
-                    </span>
-                    C'est par ici
-                </a>
-            </div>
-        </div>
+        <? }?>
         <?php if($results_all_years){?>
             <div class="box-next-edition bureau">
                 <div><h3 class="center">Résultats des autres éditions du marathon <? echo $next_date["prefixe"].' '.$evById->getNom();?></h3></div>

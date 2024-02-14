@@ -143,7 +143,7 @@ $getMobileAds=$pub->getMobileAds("accueil")['donnees'];
 
 <?php include_once('nv_header-integrer.php'); ?>
 
-<div class="container page-content athlete-detail video-details mt-77">
+<div class="container page-content video-details mt-77">
     
     <div class="row banniere1">
         <div  class="col-sm-12"><?php
@@ -172,7 +172,7 @@ $getMobileAds=$pub->getMobileAds("accueil")['donnees'];
                     $nom_res='<strong>'.$cat_event.' - '.$evenement->getNom().'</strong> - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
                     $nom_res_lien=$cat_event.' - '.$evenement->getNom().' - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
 
-                    $res_event= "<a href='/resultats-marathon-".$evenement->getId()."-".slugify($nom_res_lien).".html' class='home-link mr-5 float-l'><span class='material-symbols-outlined'>trophy</span> Résultats </a>";
+                    $res_event= "<a href='/resultats-marathon-".$evenement->getId()."-".slugify($nom_res_lien).".html' class='home-link mr-5 '><span class='material-symbols-outlined'>trophy</span> Résultats </a>";
                 }
                 $nom_res='<strong>'.$ev_cat_ev.' - '.$event_name.'</strong> - '.utf8_encode(strftime("%A %d %B %Y",strtotime($date)));
                 $nom_res_lien=$ev_cat_ev.' - '.$event_name.' - '.utf8_encode(strftime("%A %d %B %Y",strtotime($date)));
@@ -235,7 +235,7 @@ $getMobileAds=$pub->getMobileAds("accueil")['donnees'];
         </div> <!-- End left-side -->
 
         <aside class="col-sm-4 bureau">
-            <h3><span class="material-symbols-outlined">play_circle</span>Les dernières vidéos</h3>
+            <h3 class="h2-aside"><span class="material-symbols-outlined">play_circle</span>Les dernières vidéos</h3>
         <?php
                             foreach ($last_videos['donnees'] as $vd) {
                                 $event_intitule="";
@@ -252,15 +252,20 @@ $getMobileAds=$pub->getMobileAds("accueil")['donnees'];
                 
                                         $nom_res='<strong>'.$cat_event.' - '.$evenement->getNom().'</strong> - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
                                         $nom_res_lien=$cat_event.' - '.$evenement->getNom().' - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
-                
+                                        $url_img1=str_replace("hqdefault","0",$vd->getVignette());
+                                        $url_img=str_replace("default","0",$url_img1);
                                     }
                             		echo '
-                                    <ul class="video-align-top video-grid-tab">
+                                    <ul class="video-align-top last-video-grid-tab">
                                         
-                                        <li class="mr-5"><a href="video-de-marathon-'.$vd->getId().'.html"><img src="'.$vd->getVignette().'"  alt="" class="video-liste-image img-responsive"/></a></li>
+                                        <li class="mr-5">
+                                            <a href="video-de-marathon-'.$vd->getId().'.html">
+                                            <div class="last-video-thumbnail" style="background-image: url('.$url_img.')"></div>
+                                            </a>
+                                        </li>
                                         <li class="video-t-d-res">
                                             <ul>
-                                                <li><a href="video-de-marathon-'.$vd->getId().'.html" class="last_video_titre">'.$vd->getTitre().'</a></li>
+                                                <li><a href="video-de-marathon-'.$vd->getId().'.html" class="vite-lu-title">'.$vd->getTitre().'</a></li>
                                             </ul>
                                             
                                         </li>

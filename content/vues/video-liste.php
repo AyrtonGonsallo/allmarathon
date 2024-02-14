@@ -148,7 +148,7 @@ function slugify($text)
                     
                 </div>
 
-                <div class="col-sm-12 mb-80">
+                <div class="col-sm-12">
                     <ul class="videos-marathon lazyblock">
                         <?php
                             foreach ($videos['donnees'] as $video) {
@@ -169,7 +169,7 @@ function slugify($text)
                                     $nom_res='<strong>'.$cat_event.' - '.$evenement->getNom().'</strong> - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
                                     $nom_res_lien=$cat_event.' - '.$evenement->getNom().' - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
                                     
-                                    $res_event= "<a href='/resultats-marathon-".$evenement->getId()."-".slugify($nom_res_lien).".html' class='video-res-link mr-5 '><span class='material-symbols-outlined'>trophy</span> Résultats </a>";
+                                    $res_event= "<a href='/resultats-marathon-".$evenement->getId()."-".slugify($nom_res_lien).".html' class='video-res-link mr-5 disp-flex'><span class='material-symbols-outlined'>trophy</span> Résultats </a>";
                                 
                                 }else{
                                     $res_event="";

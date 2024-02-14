@@ -91,7 +91,7 @@ $pays=new pays();
 $pays_intitule=('9999-12-31'!=$champ->getDateChangementNat())?$pays->getFlagByAbreviation($champ->getNvPaysID())['donnees']['NomPays']:$pays->getFlagByAbreviation($champ->getPaysID())['donnees']['NomPays'];
 $pays_prefixe=$pays->getFlagByAbreviation($champ->getPaysID())['donnees']['prefixe'];
 
-if($champ->getSexe()=="F") {$sexe="Femme"; $ne="Née";} else{ $sexe="Homme"; $ne="Né";}
+if($champ->getSexe()=="F") {$sexe="Femme"; $ne="née";} else{ $sexe="Homme"; $ne="né";}
 if($champ->getSexe()=="F") {$il="elle";} else{ $sexe="Homme"; $il="il";}
 if($champ->getSexe()=="F") {$Il="Elle";} else{ $sexe="Homme"; $Il="Il";}
 if($champ->getSexe()=="F") {$sponsorise="sponsorisée";} else{ $sexe="Homme"; $sponsorise="sponsorisé";}
@@ -283,7 +283,6 @@ $afficher_tab_medaille=false;
                         <!-- TAB CONTENT -->
                         <div class="tab-content">
                             <div class="tab-pane fade" id="tab1">
-                                <br />
                                 <?php ($champ->getTaille()!="" && $champ->getTaille()!=0 ) ? $taille="<li><strong>Taille : </strong>".$champ->getTaille()." cm</li>" : $taille="";
                             ($champ->getDateNaissance()!="0000-00-00" && $champ->getDateNaissance()!="" ) ? $date_naissance="<li><strong>".$ne." le : </strong>".$champ->getDateNaissance()."</li>" : $date_naissance="";
                             $champ_facebook=($champ->getFacebook())?'<li><a href="'.$champ->getFacebook().'" target="_blank">Visitez le facebook de <strong>'.$champ->getNom().'</strong></a></li>':'';
@@ -300,7 +299,11 @@ $afficher_tab_medaille=false;
                             if($pays_intitule){
                                 $texte.=" ".$pays_prefixe." ".$pays_intitule;
                             }
-                            $texte.=" le ".utf8_encode(strftime("%A %d %B %Y",strtotime($champ->getDateNaissance()))).".<br>";
+                            if($champ->getDateNaissance()!="0000-00-00" && $champ->getDateNaissance()!="" ){
+                                $texte.=" le ".utf8_encode(strftime("%A %d %B %Y",strtotime($champ->getDateNaissance())));
+
+                            }
+                            $texte.=".<br>";
                             if($champ->getTaille()){
                                 $texte.=$Il." mesure ".$champ->getTaille()." cm ";
                             }
@@ -458,21 +461,21 @@ $afficher_tab_medaille=false;
                                         $nom_res='<strong>'.$cat_event.' - '.$evenement->getNom().'</strong> - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
                                         $nom_res_lien=$cat_event.' - '.$evenement->getNom().' - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
                 
-                                        $res_event= "<a href='/resultats-marathon-".$evenement->getId()."-".slugify($nom_res_lien).".html' class='home-link mr-5 '><span class='material-symbols-outlined'>trophy</span> Résultats </a>";
+                                        $res_event= "<a href='/resultats-marathon-".$evenement->getId()."-".slugify($nom_res_lien).".html' class='home-link mr-5 disp-flex'><span class='material-symbols-outlined'>trophy</span> Résultats </a>";
+                                        $url_img1=str_replace("hqdefault","0",$vd->getVignette());
+                                        $url_img=str_replace("default","0",$url_img1);
                                     }
-                            		echo '
-                                    <ul class="video-align-top video-grid-tab">
-                                        
-                                        <li class="mr-5"><a href="video-de-marathon-'.$vd->getId().'.html"><img src="'.$vd->getVignette().'"  alt="" class="video-liste-image img-responsive"/></a></li>
-                                        <li class="video-t-d-res">
-                                            <ul>
-                                                <li><a href="video-de-marathon-'.$vd->getId().'.html" class="video_titre">'.$vd->getTitre().'</a></li>'.$duree.'
-                                            </ul>
-                                            '.$res_event.'
-                                        </li>
-                                    </ul>
-                                ';
-                            	}
+                                    
+                                echo '<div class="video-align-top video-grid-tab">
+                                    <div class="mr-5"><a href="video-de-marathon-'.$vd->getId().'.html"><div class="video-thumbnail" style="background-image: url('.$url_img.'"></div></a></div>
+                                    <div class="video-t-d-res">
+                                        <ul>
+                                            <li><a href="video-de-marathon-'.$vd->getId().'.html" class="video_titre">'.$vd->getTitre().'</a></li>'.$duree.'
+                                        </ul>
+                                        '.$res_event.'
+                                    </div>
+                                </div>';
+                                }
                             	 ?>
                                 </ul>
                             </div>

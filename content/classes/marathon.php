@@ -133,7 +133,7 @@ function array_msort($array, $cols)
 								//$res.= '<div><b>'.$ev_cat_event->getEventCatEventByID($resultat['last_linked_events_cat_id'])['donnees']->getIntitule().'</b></div>';
 		
 							 }else{
-								$res.= '<div><b>Marathon</b></div>';
+								$res.= '<h4 class="page-marathon-title">Marathon'.' '.$resultat['prefixe'].' '.$nom_res.'<img class="marathon-title-flag" style="float:right" src="../../images/flags/'.$pays_flag.'" alt=""/></h4></a>';
 		
 							 }
 							 if($resultat["type_evenement"]=='prochain'){

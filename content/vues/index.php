@@ -216,7 +216,7 @@ function switch_cat($cat)
 
                         </div>            
 
-                        <div class="title_news">
+                        <div class="title_news <?php echo ($i==0)?'mb-70':'';?>  <?php echo ($i>0)?'mt-20':'';?>">
 
                             <?php echo '<a href="/actualite-marathon-'.$article->getId().'-'.slugify($article->getTitre()).'.html">'.$article->getTitre().'</a><br>'; 
 
@@ -296,7 +296,7 @@ function switch_cat($cat)
 
                                 <div class=" desc-img">
 
-                                    <h2> <a href="/actualite-marathon-'.$article_home->getId().'-'.slugify($article_home->getTitre()).'.html" style="color: #222;">'.$article_home->getTitre().'</a> </h2>';
+                                    <h2> <a href="/actualite-marathon-'.$article_home->getId().'-'.slugify($article_home->getTitre()).'.html" style="color: #000;">'.$article_home->getTitre().'</a> </h2>';
                                 if($article_home->getChampionID()){
                                     $chmp=$champion->getChampionById($article_home->getChampionID())["donnees"];
                                     echo "<a href='athlete-".$chmp->getId()."-".$chmp->getNom().".html' class='home-link mr-5 '>Le palmarès de ". $chmp->getNom()."</a>";
@@ -372,7 +372,7 @@ function switch_cat($cat)
 
                     <div class=" desc-img">
 
-                    <h2> <a href="/actualite-marathon-'.$article_home->getId().'-'.slugify($article_home->getTitre()).'.html" style="color: #222;">'.$article_home->getTitre().'</a> </h2>';
+                    <h2> <a href="/actualite-marathon-'.$article_home->getId().'-'.slugify($article_home->getTitre()).'.html" style="color: #000;">'.$article_home->getTitre().'</a> </h2>';
                     if($article_home->getChampionID()){
                         $chmp=$champion->getChampionById($article_home->getChampionID())["donnees"];
                         echo "<a href='athlete-".$chmp->getId()."-".$chmp->getNom().".html' class='home-link mr-5 '>Le palmarès de ". $chmp->getNom()."</a>";
@@ -393,7 +393,7 @@ function switch_cat($cat)
 
                 </section>
                
-                <a href="/actualites-marathon.html" class="mx-auto w-fc mobile bouton-mobile">Plus d'actus</a>
+                <a href="/actualites-marathon.html" class="mx-auto w-fc mobile bouton-mobile  blue-btn">Plus d'actus</a>
 
             </div> 
 
@@ -407,7 +407,7 @@ function switch_cat($cat)
                     </h2>
                 </dt>
          
-                <dd class="bref to_hide_mobile marg_bot">
+                <dd class="bref to_hide_mobile ">
 
                     <ul class="clearfix">
 
@@ -442,9 +442,9 @@ function switch_cat($cat)
                     </h2>
                 </dt>
 
-                <dd class="calendar to_hide_mobile marg_bot">
+                <dd class="calendar to_hide_mobile ">
 
-                    <ul class="clearfix marathons-home">
+                    <div class="clearfix marathons-home">
 
                         
 
@@ -458,9 +458,9 @@ function switch_cat($cat)
 
                     ?>
                         <?php $today = date("Y/m/d");?>
-                        <li class="last mx-auto"><a href="<?php echo 'calendrier-marathons-'.utf8_encode(strftime("%B",strtotime($today))).'-'.intval((date("m"))).'-'.strftime("%Y",strtotime($today)).'.html'; ?>" class="mx-auto w-fc">Tous les marathons de <?php echo utf8_encode(strftime("%B",strtotime($today)));?></a></li>
+                        <div class="mx-auto"><a href="<?php echo 'calendrier-marathons-'.utf8_encode(strftime("%B",strtotime($today))).'-'.intval((date("m"))).'-'.strftime("%Y",strtotime($today)).'.html'; ?>" class="mx-auto w-fc blue-btn blue-btn">Tous les marathons de <?php echo utf8_encode(strftime("%B",strtotime($today)));?></a></div>
 
-                    </ul>
+                    <div>
 
                 </dd>
 
@@ -550,7 +550,7 @@ function switch_cat($cat)
 
                                 <div class=" desc-img">
 
-                                <h2> <a href="/actualite-marathon-'.$article->getId().'-'.slugify($article->getTitre()).'.html" style="color: #222;">'.$article->getTitre().'</a> </h2>';
+                                <h2> <a href="/actualite-marathon-'.$article->getId().'-'.slugify($article->getTitre()).'.html" style="color: #000;">'.$article->getTitre().'</a> </h2>';
                                 if($article->getChampionID()){
                                     $chmp=$champion->getChampionById($article->getChampionID())["donnees"];
                                     echo "<a href='athlete-".$chmp->getId()."-".$chmp->getNom().".html' class='home-link mr-5 '>Le palmarès de ". $chmp->getNom()."</a>";
@@ -582,7 +582,7 @@ function switch_cat($cat)
                         </h2>
                     </dt>
 
-                    <dd class="result mobile marg_bot">
+                    <dd class="result mobile ">
 
                         <ul class="clearfix">
 
@@ -607,7 +607,7 @@ function switch_cat($cat)
 
                         ?>
 
-                            <li class="last mx-auto"><a href="/resultats-marathon.html" class="mx-auto w-fc">Voir tous les résultats</a></li>
+                            <li class="last mx-auto"><a href="/resultats-marathon.html" class="mx-auto w-fc  blue-btn">Voir tous les résultats</a></li>
 
                         </ul>
 
@@ -619,7 +619,7 @@ function switch_cat($cat)
                     </h2>
                 </dt>
 
-                <dd class="calendar mobile marg_bot">
+                <dd class="calendar mobile ">
 
                     <ul class="clearfix marathons-home">
 
@@ -635,7 +635,7 @@ function switch_cat($cat)
 
                     ?>
                         <?php $today = date("Y/m/d");?>
-                        <li class="last mx-auto"><a href="<?php echo 'calendrier-marathons-'.utf8_encode(strftime("%B",strtotime($today))).'-'.intval((date("m"))).'-'.strftime("%Y",strtotime($today)).'.html'; ?>" class="mx-auto w-fc bouton-mobile">Tous les marathons de <?php echo utf8_encode(strftime("%B",strtotime($today)));?></a></li>
+                        <li class="last mx-auto"><a href="<?php echo 'calendrier-marathons-'.utf8_encode(strftime("%B",strtotime($today))).'-'.intval((date("m"))).'-'.strftime("%Y",strtotime($today)).'.html'; ?>" class="mx-auto w-fc blue-btn bouton-mobile">Tous les marathons de <?php echo utf8_encode(strftime("%B",strtotime($today)));?></a></li>
 
                     </ul>
 
@@ -656,7 +656,7 @@ function switch_cat($cat)
                     </h2>
                 </dt>
 
-                <dd class="result to_hide_mobile marg_bot">
+                <dd class="result to_hide_mobile ">
 
                     <ul class="clearfix">
 
@@ -681,7 +681,7 @@ function switch_cat($cat)
 
                     ?>
 
-                        <li class="last mx-auto"><a href="/resultats-marathon.html" class="mx-auto w-fc">Voir tous les résultats</a></li>
+                        <li class="last mx-auto"><a href="/resultats-marathon.html" class="mx-auto w-fc mt-20 blue-btn">Voir tous les résultats</a></li>
 
                     </ul>
 
