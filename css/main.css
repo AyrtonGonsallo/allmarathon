@@ -722,7 +722,7 @@ div#copy-button {
     box-shadow: none !important;
 }
 .marathon-liste-image{
-    background-size: cover;.ui-widget.ui-widget-content
+    background-size: cover;
     width: auto;
     height: 116px;
     background-position-y: center;
@@ -1542,7 +1542,6 @@ footer .main dt {
     font-family: "Poppins-Black";
 }
 
-footer .main dd {}
 
 footer .main ul li {
     line-height: 22px;
@@ -1869,7 +1868,6 @@ div#copy-button:hover {
         color: #000;
         cursor: pointer;
         display: inline-block;
-        float: right;
         padding: 9px;
     }
 

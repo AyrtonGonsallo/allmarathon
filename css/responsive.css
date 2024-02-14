@@ -918,8 +918,7 @@ text-align: center;
   margin: 0 !important;
   width: 100% !important;
 }
-.results-sub-menu{
-}
+
 .marathon-detail .sub-menu li a, .nav-tabs>li>a,.res-by-gender, .results-buttons{
   font-size: 14px !important;
 }
@@ -958,7 +957,7 @@ text-align: center;
 .table-responsive {
   border: none !important;
 }
-.athlètes .resultats li>.list-inline {}
+
 
 .athlete-detail .nav-tabs>li {
   width: fit-content;
@@ -1636,6 +1635,7 @@ input[type="date"] {
   display: block;
   -webkit-appearance: textfield;
   -moz-appearance: textfield;
+  appearance: textfield;
   min-height: 1.2em;
   line-height: 25px !important;
 }
