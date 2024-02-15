@@ -14,6 +14,43 @@
     }
   }
 @media (max-width: 767px) {
+  .material-symbols-outlined {
+    font-family: 'Material Symbols Outlined';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 40px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    font-feature-settings: 'liga';
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+  }
+  li.logo {
+    margin: 10px 0px 0px 0px;
+}
+.hamburger-menu-button-open, .hamburger-menu-button-open::before, .hamburger-menu-button-open::after {
+  position: absolute;
+  width: 25px;
+  background: #95d7fe;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+  span.tag_name_m {
+    position: unset;
+    display: block;
+    /* margin-top: 10px; */
+    text-transform: lowercase;
+    font-weight: bold;
+}
+  header ul li>a>span {
+    bottom: 0px;
+    right: 3px;
+}
 .last a {
   display: block;
   padding: 8px 18px;
@@ -60,8 +97,8 @@
 .dernieres-video-image {
   padding-top: 21%;
   height: 200px;
-  margin-top: 60px;
-  margin-bottom: 60px;
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 .splide__arrow{
 top:40% !important;
@@ -124,7 +161,18 @@ margin-right: auto;
 margin-top: 0px !important;
 }
 h1.news-detail{
-padding: 20px 20px 0px 20px;
+  padding: 0px 20px 0px 20px;
+  margin-top: 119px !important;
+  font-size: 24px;
+    line-height: 31px;
+}
+.video-details .left-side .video_title{
+  padding: 0px 20px 0px 20px;
+  font-size: 24px;
+    line-height: 31px;
+}
+.text-act-marathon, #video-desc {
+  line-height: 26px;
 }
 h2.mini_h2{
 padding: 0px 20px 0px 20px;
@@ -328,10 +376,8 @@ li.menu-item-categories .nav-category li a {
   text-align: center;
   width: 100%;
   line-height: initial;
-  font-size: 15px;
-  color: #333 !important;
-  padding: 25px 10px;
-  font-weight: bold;
+  font-size: 22px;
+  padding: 15px 20px;
 }
 section.last_articles_part1 .desc-img,
 section.last_articles_part2 .desc-img {
@@ -354,12 +400,8 @@ section.last_articles_part1 article, section.last_articles_part2 article {
 .title_news a{
   display: block;
 }
-.left-side article .desc-img h2 {
-  line-height: 20px !important;
-}
-.title_news a, .video_title{
-line-height: 22px;
-}
+
+
 li.menu-item-categories .nav-category li a:hover {
   text-decoration: none;
 }
@@ -419,9 +461,7 @@ li.rs_header.formobile i {
   color: #000;
 }
 
-li.logo {
-  margin-left: 0px;
-}
+
 nav.header--nav>ul {
   display: flex;
   align-items: center;
@@ -448,13 +488,7 @@ div.formobile li i {
   line-height: 40px;
 }
 
-span.tag_name_m {
-  position: unset;
-  display: block;
-  margin-top: 10px;
-  text-transform: lowercase;
-  font-weight: bold;
-}
+
 
 /*********************Home page*******************/
 .page-content .banniere1 {
@@ -871,7 +905,7 @@ margin-bottom: 10px;
 .news .left-side h2 {
   font-size: 17px;
   margin-top: -15px;
-  margin-bottom: 10px;
+  margin-bottom: 0px;
 }
 .calendrier-marathon .left-side h1 {
   font-size: 18px;
@@ -885,8 +919,8 @@ margin-bottom: 10px;
 }
 
 .news .left-side article .desc-img h2 {
-  font-size: 18px;
-  margin-top: 20px;
+  font-size: 20px;
+    margin-top: 20px;
 }
 
 .news .left-side article .link-all~br {
@@ -973,7 +1007,7 @@ margin-bottom: 0px !important;
   padding-left: 10px;
   padding-right: 10px;
 }
-.athlete-detail .video-grid-tab ,.videos-liste .video-grid-tab{
+.athlete-detail .video-grid-tab, .videos-liste .video-grid-tab, .resultat-detail .video-grid-tab{
   display: grid;
   grid-template-columns: 1fr;
   gap: 10px;
@@ -1348,10 +1382,7 @@ float: left;
 }
 
 /*************Actualite-marathon page************************/
-h1.news-detail {
-  font-size: 24px;
-    line-height: 31px;
-}
+
 .athlètes .left-side h2{
   font-size: 16px;
   line-height: 24px;
@@ -1987,12 +2018,10 @@ p.ban.ban_160-600 {
   .title_news a:not(.home-link) {
   font-size: 18px !important;
   margin-top: 20px;
-  line-height: 23px !important;
 }
 
 .left-side p, .left-side article .desc-img {
   font-size: 14px;
-  line-height: 20px;
 }
 #parcours-img-viewer .close {
   top: 67px !important;

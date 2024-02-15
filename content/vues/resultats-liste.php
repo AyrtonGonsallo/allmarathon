@@ -392,7 +392,6 @@ setlocale(LC_TIME, "fr_FR","French");
                             '<br><span>'.
                             $date_res.'</span>
                             </div>';
-
                 		}
 
                         // die;
@@ -423,7 +422,7 @@ setlocale(LC_TIME, "fr_FR","French");
                 <?php if($res_olympiques["donnees"]){?>
                     
                     <ul class="col-sm-12">
-                        <h3 class="mt-30">Résultats des marathons olympiques</h3>
+                        <h3 class="mt-60">Résultats des marathons olympiques</h3>
                         <div class="resultats resultats-grid mb-80">
                             <?php
 
@@ -438,11 +437,11 @@ setlocale(LC_TIME, "fr_FR","French");
                                 $nom_res_lien=$cat_event.' - '.$resultat['Nom'].' - '.utf8_encode(strftime("%A %d %B %Y",strtotime($resultat['DateDebut'])));
 
                                 echo '<div class="resultats-grid-element"><a href="/resultats-marathon-'.$resultat['ID'].'-'.slugify($nom_res_lien).'.html">'.$nom_res.'</a>
-                                <br>
-                                    <img src="../../images/flags/'.$pays_flag.'" alt=""/>'.$pays_nom.
-                                '<br><span>'.
-                                $date_res.'</span>
-                                </div>';
+                                <img src="../../images/flags/'.$pays_flag.'" class="float-r" alt=""/><br>
+                                '.$pays_nom.
+                            '<br><span>'.
+                            $date_res.'</span>
+                            </div>';
 
                             }
 
@@ -657,14 +656,10 @@ var par_pages=39;
             $("#next-link").click(function() {
             page+=1; 
             next=page+1;
-            if(page==(nb_pages-1)){
-                style_suivant={'pointer-events': 'none' ,"color": "#000",  'cursor' : 'default'}
-            } else{
-                style_suivant={'pointer-events': 'all' ,"color": "#2caffe",  'cursor' : 'pointer'}
-            }
+            
             
             style_precedent={'pointer-events': 'all' ,"color": "#2caffe",  'cursor' : 'pointer'}
-            $(this).css(style_suivant)
+            
             $("#back-link").css(style_precedent)
             search_v=$("#search_val_res").val();
             pays_v=$('#select-pays').val();
@@ -696,6 +691,14 @@ var par_pages=39;
                    pays_id:pays_v,
                },
                success: function(html) {
+                //console.log("longueur page suivante",html.length)
+                    if(html.length<1){
+                        //console.log("pas de res")
+                        style_suivant={'pointer-events': 'none' ,"color": "#000",  'cursor' : 'default'}
+                    } else{
+                        style_suivant={'pointer-events': 'all' ,"color": "#2caffe",  'cursor' : 'pointer'}
+                    }
+                    $("#next-link").css(style_suivant)
                     $(".col-sm-12.resultats.resultats-grid").html(html).show();
                    //console.log("success",html)
                },
@@ -734,7 +737,7 @@ var par_pages=39;
                style_precedent={'pointer-events': 'all' ,"color": "#2caffe",  'cursor' : 'pointer'}
                
             }
-            $(this).css(style_suivant)
+            $("#next-link").css(style_suivant)
             $("#back-link").css(style_precedent)
             search_v=$("#search_val_res").val();
             pays_v=$('#select-pays').val();

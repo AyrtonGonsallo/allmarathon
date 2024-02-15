@@ -60,7 +60,7 @@ function array_msort($array, $cols)
 			$nom_res_lien=$cat_event.' - '.$resultat['Nom'].' - '.utf8_encode(strftime("%A %d %B %Y",strtotime($resultat['DateDebut'])));
 
 			$res.= '<div class="resultats-grid-element"><a href="/resultats-marathon-'.$resultat['ID'].'-'.slugify($nom_res_lien).'.html">'.$nom_res.'</a>
-			<img class="float-r" src="../../images/flags/'.$pays_flag.'" alt=""/><br>
+				<img src="../../images/flags/'.$pays_flag.'" class="float-r" alt=""/><br>
 				'.$pays_nom.
 			'<br><span>'.
 			$date_res.'</span>

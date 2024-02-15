@@ -513,7 +513,7 @@ setlocale(LC_TIME, "fr_FR","French");
                                                     $img_a_afficher= '<img class="img-responsive" alt="" src="'.$src_a_afficher.'"/>';
 
                                                    
-                                                    if($i==0){echo '<article class="row pt-0">';}else{echo '<article class="row">';}
+                                                    if($i==0){echo '<article class="row news-mobile-box pt-0">';}else{echo '<article class="news-mobile-box row">';}
                                             
 
                                                     echo '<div class="article-img"><a href="/actualite-marathon-'.$article->getId().'-'.$url_text.'.html">'.$img_a_afficher.'</a></div>

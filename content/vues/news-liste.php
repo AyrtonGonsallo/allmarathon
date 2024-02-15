@@ -574,13 +574,13 @@ include_once('nv_header-integrer.php'); ?>
 
                                     $img_a_afficher= '<img class="img-responsive" alt="" src="'.$src_a_afficher.'"/>';
 
-                                    echo '<article class="row news-mobile-box">
+                                    echo ' <div class="news_alune">
 
                                
 
-                                <div class="desc-img">
+                                <div class="title_news mb-70">
 
-                                    <h2><a href="/actualite-marathon-'.$article->getId().'-'.$url_text.'.html" style="color: #000;" >'.$article->getTitre().' </a></h2>';
+                                    <h2><a href="/actualite-marathon-'.$article->getId().'-'.$url_text.'.html" style="color: #000;" >'.$article->getTitre().' </a></h2><br>';
 
                                     if($article->getChampionID()){
                                         $chmp=$champion->getChampionById($article->getChampionID())["donnees"];
@@ -596,7 +596,7 @@ include_once('nv_header-integrer.php'); ?>
                                         echo "<a href='/resultats-marathon-".$evenement->getId()."-".slugify($nom_res_lien).".html' class='home-link mr-5 '>Résultats complets</a>";
                                     }
                                     echo '</div>
-                                </article>';
+                                </div>';
 
                                 
 

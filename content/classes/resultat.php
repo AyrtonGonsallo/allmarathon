@@ -126,7 +126,7 @@ class resultat{
 		 	
 		 	try {
 				  include("../database/connexion.php");
-				 $req = $bdd->prepare("SELECT e.CategorieageID,e.CategorieID,e.Nom,e.DateDebut,e.PaysID,e.ID,e.Sexe,e.marathon_id,c.Intitule AS Categorie,a.Intitule AS Age FROM evenements e LEFT JOIN evcategorieevenement c ON e.CategorieID = c.ID LEFT JOIN evcategorieage a ON e.CategorieageID = a.ID WHERE e.Visible=1 ORDER BY e.DateDebut DESC LIMIT 10");
+				 $req = $bdd->prepare("SELECT e.CategorieageID,e.CategorieID,e.Nom,e.DateDebut,e.PaysID,e.ID,e.Sexe,e.marathon_id,c.Intitule AS Categorie,a.Intitule AS Age FROM evenements e LEFT JOIN evcategorieevenement c ON e.CategorieID = c.ID LEFT JOIN evcategorieage a ON e.CategorieageID = a.ID WHERE e.Visible=1 and not marathon_id=0 ORDER BY e.DateDebut DESC LIMIT 10");
 	             $req->execute();
 	             $last_results = array();
 	             while ( $row  = $req->fetch(PDO::FETCH_ASSOC)) {    
