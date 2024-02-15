@@ -298,7 +298,7 @@ if($pays_datas){
                                 <?php }else{
                                     $img_src='/images/events/'.$parcours_marathon[0]["parcours_image"];
                                     echo '<img class="sp-image parcours-img-source" '.$alt.' style="max-width: 100%;"src="'.$img_src.'"/>';
-                                    echo '<button class="read-more-button" onclick="full_view(this);">+Voir le parcours en plein écran</button>';
+                                    echo '<button class="read-more-button parcours" onclick="full_view(this);">+Voir le parcours en plein écran</button>';
                                 }?>
                          <?php }?>
                          
@@ -873,7 +873,7 @@ if($pays_datas){
             $(this).addClass("active")
             console.log(id)
         });
-        $(".read-more-button").click(function() {
+        $(".read-more-button:not(.parcours)").click(function() {
            
             $(".alpine-hide-box-gradient").hide()
             $(this).hide()

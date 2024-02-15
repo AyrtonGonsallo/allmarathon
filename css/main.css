@@ -700,7 +700,7 @@ div#copy-button {
 .marathon-par-pays-sub-menu-grid{
     display: grid;
     width: fit-content;
-    gap: 10px;
+    gap: 16px;
     grid-template-columns: 1fr 1fr;
 }
 .marathons input{

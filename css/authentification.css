@@ -23,7 +23,7 @@ input.form-control.search_header:active, input.form-control.search_header:focus 
     border: transparent;
 }
 input.form-control.search_header {
-    color: rgb(231 15 15) !important;
+    color: rgb(0, 0, 0) !important;
     border: 0;
     background-color: #eeeff0;
 }
