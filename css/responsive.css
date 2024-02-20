@@ -54,12 +54,18 @@
 .last a {
   display: block;
   padding: 8px 18px;
+  margin-top: 20px;
+  margin-bottom: 10px;
 }
 .marathon-details-breadcumb {
-  float: left !important;
-  margin-top: 0px !important;
-  clear: both;
+  float: left !important; margin-top: 0px !important; clear: both; font-size:15px;
 }
+
+.athlete-details-breadcumb {font-size:15px;}
+.input-zone-box #search_val_res{
+  width: 93% !important;
+  float: left;
+  }
 .resultats-liste .input-zone-box ,.athletes-liste .input-zone-box{
   grid-template-columns: 1fr !important;
 }
@@ -97,8 +103,8 @@
 .dernieres-video-image {
   padding-top: 21%;
   height: 200px;
-  margin-top: 30px;
-  margin-bottom: 30px;
+  margin-top: 0px;
+  margin-bottom: 0px;
 }
 .splide__arrow{
 top:40% !important;
@@ -142,6 +148,8 @@ gap: 10px;
 }
 .marathon-sub-menu-grid .button-agenda{
   width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
 }
 .marathon-sub-menu-grid .search-bar{
   width: 100%;
@@ -166,25 +174,20 @@ h1.news-detail{
   font-size: 24px;
     line-height: 31px;
 }
-.video-details .left-side .video_title{
-  padding: 0px 20px 0px 20px;
-  font-size: 24px;
-    line-height: 31px;
-}
-.text-act-marathon, #video-desc {
-  line-height: 26px;
-}
-h2.mini_h2{
-padding: 0px 20px 0px 20px;
-}
+
+.video-details .left-side .video_title{padding: 0px 0px 20px 0px; font-size: 24px; line-height: 31px;}
+
+.video-res-link {padding: 3px 10px; font-size: 14px !important; margin-top: 10px;}
+
+.text-act-marathon, #video-desc {line-height: 26px;}
+h2.mini_h2{padding: 0px 20px 0px 20px;}
+
 .header {
-
 box-shadow: 0 3px 3px #e5e5e5;
-
 border-bottom: white 1px solid !important;
-
 z-index: 999999999;
 }
+
 .res-recents{
 display: flex;
 }
@@ -194,9 +197,12 @@ font-size: 18px !important;
 #sib-form > div.row > div{
 padding: 0 !important;
 }
-#sib-form > div.row > div > div > div > div{
-margin: 0 !important;
+#sib-form > div.row > div > div > div > div.entry__choice{
+margin: 0 0 10px 0 !important;
 }
+#sib-form > div.row > div > div > div > div:not(.entry__choice){
+  margin: 0 !important;
+  }
 .sib-form .entry__field{
 background: none !important;
 border: none !important;
@@ -221,6 +227,7 @@ padding-bottom: 20px;
 .odd{
   background-color: white !important;
 }
+
 .resultat-detail  .dataTables_wrapper .dataTables_length, .resultat-detail  .dataTables_wrapper .dataTables_filter {
   float:left !important;
   text-align: center;
@@ -256,8 +263,7 @@ width: 66px;
   float: none !important;
 }
 .athlete-detail h1{
-  font-size: 18px !important;
-  text-transform: uppercase;
+  font-size: 20px !important;
 }
   .hide-on-mobile{
       display: none;
@@ -883,8 +889,7 @@ footer .main {
 }
 
 .news article.row {
-  
-  margin-bottom: 40px;
+  margin-bottom: 30px;
 }
 #tableauHommes_filter, #tableauFemmes_filter {
   WIDTH: 49%;
@@ -918,11 +923,18 @@ margin-bottom: 10px;
   margin-top: -10px !important;
 }
 
-.news .left-side article .desc-img h2 {
+.news .left-side article .desc-img h2{
   font-size: 20px;
-    margin-top: 20px;
+    margin-top: 10px;
 }
-
+.resultat-detail .desc-img h2{
+  font-size: 20px !important;
+    margin-top: 10px !important;
+}
+.resultat-detail .desc-img {
+  width: 100% !important;
+ 
+}
 .news .left-side article .link-all~br {
   display: none;
 }
@@ -941,7 +953,6 @@ margin-bottom: 10px;
     padding-top: 0%;
     padding-bottom: 0%;
     line-height: 32px;
-text-align: center;
 }
 
 .athlètes .form-inline {
@@ -956,27 +967,33 @@ text-align: center;
 .marathon-detail .sub-menu li a, .nav-tabs>li>a,.res-by-gender, .results-buttons{
   font-size: 14px !important;
 }
-.athlètes #search_val_res {
-  width: 89% !important;
-}
+
 .marathons h2 {
   margin-bottom: 20px;
 }
-.athlètes .left-side .btn.btn-primary {
-  width: 40px !important;
-  margin-top: 0px !important;
-}
+
 .athletes-liste .athletes-liste-grid{
   grid-template-columns: 1fr !important;
 }
 .resultats-liste .input-zone-box,.athletes-liste .input-zone-box{
-  width: 100% !important;
+  width: 94% !important;
 }
 .resultats-liste .resultats-grid {
   grid-template-columns: 1fr !important;
 }
 .resultats-liste #select-pays, .athletes-liste #select-pays {
   height: 34px !important;
+  padding: 0 10px 0 10px !important;
+}
+.marathons div.search-bar > form > div{
+  display: flex;
+}
+.marathon-detail .sub-menu li, .athlete-detail .sub-menu li {
+  height: 40px;
+}
+.input-zone-box .btn.btn-primary{
+  width: 27px !important;
+  margin-top: 0px !important;
 }
 .athlètes .form-inline .form-group select {
   margin-top: 5px;
@@ -1278,10 +1295,7 @@ max-width: 100%;
 #AtoZ , #ZtoA{
 display: none;
 }
-#search_val_res{
-width: 85% !important;
-float: left;
-}
+
 .btn_custom {
   width: 100%;
   margin-right: 0;
@@ -1375,12 +1389,6 @@ float: left;
   font-size: 13px;
 }
 
-
-
-.resultat-detail.left-side h1{
-  font-size: 18px !important;
-}
-
 /*************Actualite-marathon page************************/
 
 .athlètes .left-side h2{
@@ -1407,7 +1415,8 @@ h2#commentaires {
   border: none;
 }
 p.title-act-marathon {
-  font-size: 16px !important;
+  font-size: 18px !important;
+ line-height: 26px !important;
 }
 
 .for_mobile {
@@ -1870,7 +1879,7 @@ section.last_articles_part1.to_show_mobile {
   display: none !important;
 }
 .active-menu-link{
-    background-color: #fbff0b;
+    background-color: #a6ddfe;
     display: inline;
 }
 
@@ -1953,10 +1962,7 @@ p.ban.ban_160-600 {
   font-size: 15px;
 }
 
-.athlètes #search_val_res,
-.athlètes #search_athlètes {
-  width: 91% !important;
-}
+
 
 .athlètes .form-inline select#age {
   width: 28% !important;
@@ -2016,12 +2022,13 @@ p.ban.ban_160-600 {
 /****************Autres Mobiles******************************************/
 @media (max-width: 490px) {
   .title_news a:not(.home-link) {
-  font-size: 18px !important;
+  font-size: 20px !important;
+  line-height: normal !important;
   margin-top: 20px;
 }
 
 .left-side p, .left-side article .desc-img {
-  font-size: 14px;
+  font-size: 16px;
 }
 #parcours-img-viewer .close {
   top: 67px !important;

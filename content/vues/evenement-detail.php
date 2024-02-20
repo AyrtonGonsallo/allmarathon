@@ -289,7 +289,7 @@ setlocale(LC_TIME, "fr_FR","French");
                                     <?php //if(!$isAdmin) echo '<a class="btn results-buttons" href="#" id="finisher"><img width="13px" src="../../images/pictos/finisher.png" alt="finisher"> Je suis finisher</a>';  ?>
                                 </div>
                                     <div x-data="{ expanded: false }">
-                                        <div x-show="expanded" x-collapse.min.600px>
+                                        <div x-show="expanded" x-collapse.min.200px>
                                             <?php if(($type=="MF") || ($type=="M")){ ?>
                                                 <table id="tableauHommes" data-page-length='25' class="display">
                                                     <thead>
@@ -528,15 +528,7 @@ setlocale(LC_TIME, "fr_FR","French");
                                                         $chmp=$champion->getChampionById($article->getChampionID())["donnees"];
                                                         echo "<a href='athlete-".$chmp->getId()."-".$chmp->getNom().".html' class='home-link mr-5 '>Le palmarès de ". $chmp->getNom()."</a>";
                                                     }
-                                                    if($article->getEvenementID()){
-                                                        $evenement=$event->getEvenementByID($article->getEvenementID())["donnees"];
-                                                        $cat_event=$ev_cat_event->getEventCatEventByID($evenement->getCategorieId())['donnees']->getIntitule();
-                                
-                                                        $nom_res='<strong>'.$cat_event.' - '.$evenement->getNom().'</strong> - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
-                                                        $nom_res_lien=$cat_event.' - '.$evenement->getNom().' - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
-                                
-                                                        echo "<a href='/resultats-marathon-".$evenement->getId()."-".slugify($nom_res_lien).".html' class='home-link mr-5 '>Résultats complets</a>";
-                                                    }
+                                                    
                                                     echo '</div>
                                                 </article>';
                                                 $i+=1;

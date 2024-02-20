@@ -130,8 +130,8 @@ if($last_linked_events[0]!=NULL ){
 else{
     $categorie="";
 }
-$best_res_mens = $evresultat->getBestMarathonResultsBySexe($id,'M',8)['donnees'];
-$best_res_womens = $evresultat->getBestMarathonResultsBySexe($id,'F',8)['donnees'];
+$best_res_mens = $evresultat->getBestMarathonResultsBySexe($id,'M',10)['donnees'];
+$best_res_womens = $evresultat->getBestMarathonResultsBySexe($id,'F',10)['donnees'];
 $best_res_mens_byyear = $evresultat->getBestMarathonResultsByYear($id,'M',18)['donnees'];
 $best_res_womens_byyear = $evresultat->getBestMarathonResultsByYear($id,'F',18)['donnees'];
 $next_event = $event->getNextMarathonEvents($id)['donnees'];
@@ -224,9 +224,16 @@ if($pays_datas){
                             $lien_insta=($marathon['Instagram'])?'<div class="marathon-medias col-xs-3"><img src="../../images/pictos/instagram.svg" alt=""/><a href="'.$marathon['Instagram'].'" target="_blank">Instagram</a><br></div>':'';
                             $lien_site=($marathon['site_web'])?'<div class="marathon-site"><span class="material-symbols-outlined">public</span><a href="'.$marathon['site_web'].'" target="_blank">Visitez le site officiel</a><br></div>':'';
                             $lieu=($marathon['lieu'])?'<span class="material-symbols-outlined">location_on</span>'.$marathon['lieu'].' ('.$pays_datas['NomPays'].')<br>':'';
-                            $proch_date=($next_date)?'<div class="next-edition"> Prochaine édition<br>'.utf8_encode(strftime("%A %d %B %Y",strtotime($next_date['DateDebut']))).'<br></div>':'';
+                            $next_date_lien="";
+                            if($next_date){
+                                 $next_date_cat_event=$ev_cat_event->getEventCatEventByID($next_date['CategorieID'])['donnees']->getIntitule();
+                            $next_date_lien= $next_date_cat_event.' - '.$next_date['Nom'].' - '.utf8_encode(strftime("%A %d %B %Y",strtotime($next_date['DateDebut'])));
 
-                            echo '<h1 style="text-transform:uppercase" class="float-l">'.strtoupper($marathon['nom']).'</h1>'; ?>
+                            
+                            }
+                           $proch_date=($next_date)?'<div class="next-edition"><a href="/resultats-marathon-'.$next_date['ID'].'-'.slugify($next_date_lien).'.html"> Prochaine édition<br>'.utf8_encode(strftime("%A %d %B %Y",strtotime($next_date['DateDebut']))).'<br></a></div>':'';
+
+                            echo '<h1 class="float-l">Marathon '.$marathon['prefixe'].' '.mb_strtoupper($marathon['nom'],"UTF-8").'</h1>'; ?>
                             <span class="marathon-details-breadcumb">
                                <span class="material-symbols-outlined">location_on</span><? echo $pays_datas['continent'];?> > <a href="calendrier-marathons-<?php echo slugify($pays_datas['NomPays']); ?>-<?php echo $pays_datas['ID']; ?>.html"><?php echo $pays_datas['NomPays'];?></a> <?php if($next_date){echo "> <span class='material-symbols-outlined'>event_available</span><span class='capitalize'> <a href='calendrier-marathons-".slugify(utf8_encode(strftime("%B",strtotime($next_date['DateDebut']))))."-".intval(strftime("%m",strtotime($next_date['DateDebut'])))."-".strftime("%Y",strtotime($next_date['DateDebut'])).".html' class='capitalize'>".utf8_encode(strftime("%B",strtotime($next_date['DateDebut'])))."</span>";}?>
                             </span>

@@ -172,7 +172,7 @@ function slugify($text)
 
                 <div class="row">
                     <div class="col-sm-12">
-                        <h1> Tous les records du marathon hommes </h1>
+                        <h1>Records du marathon - hommes</h1>
                         <h2>Record du monde, record d’Europe, record olympique, records des grands 
                         championnats et records nationaux du marathon masculin.</h2>
                         <a href="/records-marathon-feminins.html" class="records-link">
@@ -305,11 +305,12 @@ function slugify($text)
                                 if($pays_datas){
                                     $flag=$pays_datas['Flag'];  
                                     $nom_pays_coureur=$pays->getFlagByName($record['Pays'])['donnees']['NomPays'];  
+                                    $prefixe_pays_coureur=$pays->getFlagByName($record['Pays'])['donnees']['prefixe'];  
                                     $nom_lieu=$pays->getFlagByAbreviation($record['lieu_evenement'])['donnees']['NomPays']; 
                                 }
                                 ($flag!='NULL') ? $pays_flag='<img src="../../images/flags/'.$flag.'" alt=""/>':$pays_flag="";
                                 
-                                $affichage.= '<h3 class="record-title">Record - '.$nom_pays_coureur.' : '.$record['Temps'].''.$pays_flag.'</h3>';
+                                $affichage.= '<h3 class="record-title">Record '.$prefixe_pays_coureur.' '.$nom_pays_coureur.' : '.$record['Temps'].''.$pays_flag.'</h3>';
                                 $affichage.='<div class="mb-30 national-rec">Détenteur : '.'<a href="athlete-'.$record['champ_id'].'-'.slugify($record['champion']).'.html">'.$record['champion'].'</a>'.'
                                                 <br>
                                                 Date : 

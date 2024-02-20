@@ -201,10 +201,10 @@ catch(Exception $e)
                         ($flag!='NULL') ? $pays_flag='<img src="../../images/flags/'.$flag.'" alt=""/>':$pays_flag="";
                         
                         echo '<h1>Championnats d\'Europe : Les 10 meilleures performances sur marathon de tous les temps.</h1>'; 
-                        echo '<h4>Retrouvez sur cette page les 10 meilleurs chronos réalisés sur marathon.
+                        echo '<p>Retrouvez sur cette page les 10 meilleurs chronos réalisés sur marathon.
                         Cette page n\'affiche que les résultats enregistrés sur allmarathon et il peut y avoir des manques.
                         Si vous constatez une erreur vous pouvez nous le signaler en utilisant ce <a href="contact.html" target="_blank">formulaire de contact</a>.
-                        </h4>'; ?>
+                        </p>'; ?>
 
 
 
@@ -237,8 +237,9 @@ catch(Exception $e)
                                         <thead>
                                             <tr>
                                                 <th style="text-transform: capitalize;">clt</th>
-                                                <th style="text-transform: capitalize;">pays</th>
                                                 <th style="text-transform: capitalize;">coureur</th>
+                                                <th style="text-transform: capitalize;">pays</th>
+                                                
                                                 <th style="text-transform: capitalize;">temps</th>
                                                 <th style="text-transform: capitalize;">course</th>
                                                 <th style="text-transform: capitalize;">année</th>
@@ -261,9 +262,9 @@ catch(Exception $e)
                                                 }
                                                 ($flag!='NULL') ? $pays_flag='<span><img src="../../images/flags/'.$flag.'" alt=""/></span>':$pays_flag="";
                                                 echo '<tr>';
-                                                    echo '<td>'.$i.'</td>';
-                                                    echo '<td>'.$pays_flag.' '.$pays_datas['NomPays'].'</td>';
-                                                    echo '<td><a href="athlete-'.$value['ChampionID'].'-'.slugify($value['champion']).'.html">'.$value['champion'].'</a></td>';
+                                                    echo '<td>'.$i.'</td>';                                                    echo '<td><a href="athlete-'.$value['ChampionID'].'-'.slugify($value['champion']).'.html">'.$value['champion'].'</a></td>';
+
+                                                    echo '<td>'.$pays_datas['NomPays'].'</td>';
                                                     echo '<td>'.$value['Temps'].'</td>';
                                                     echo '<td>'.$value['evenement'].'</td>';
                                                     echo '<td>'.substr($value['DateDebut'],0,4).'</td>';
@@ -280,9 +281,9 @@ catch(Exception $e)
                                     <table id="tableauFemmes" data-page-length='25' class="display">
                                         <thead>
                                             <tr>
-                                                <th style="text-transform: capitalize;">clt</th>
+                                                <th style="text-transform: capitalize;">clt</th><th style="text-transform: capitalize;">coureur</th>
                                                 <th style="text-transform: capitalize;">pays</th>
-                                                <th style="text-transform: capitalize;">coureur</th>
+                                                
                                                 <th style="text-transform: capitalize;">temps</th>
                                                 <th style="text-transform: capitalize;">course</th>
                                                 <th style="text-transform: capitalize;">année</th>
@@ -305,9 +306,9 @@ catch(Exception $e)
                                                 }
                                                 ($flag!='NULL') ? $pays_flag='<span><img src="../../images/flags/'.$flag.'" alt=""/></span>':$pays_flag="";
                                                 echo '<tr>';
-                                                    echo '<td>'.$i.'</td>';
-                                                    echo '<td>'.$pays_flag.' '.$pays_datas['NomPays'].'</td>';
-                                                    echo '<td><a href="athlete-'.$value['ChampionID'].'-'.slugify($value['champion']).'.html">'.$value['champion'].'</a></td>';
+                                                    echo '<td>'.$i.'</td>';                                                    echo '<td><a href="athlete-'.$value['ChampionID'].'-'.slugify($value['champion']).'.html">'.$value['champion'].'</a></td>';
+
+                                                    echo '<td>'.$pays_datas['NomPays'].'</td>';
                                                     echo '<td>'.$value['Temps'].'</td>';
                                                     echo '<td>'.$value['evenement'].'</td>';
                                                     echo '<td>'.substr($value['DateDebut'],0,4) .'</td>';

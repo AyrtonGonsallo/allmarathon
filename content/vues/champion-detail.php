@@ -253,7 +253,7 @@ $afficher_tab_medaille=false;
                             ($flag!='NULL') ? $pays_flag='<img src="../../images/flags/'.$flag.'" alt=""/>':$pays_flag="";
                             
                             echo '<div class="row">
-                                <div class="col-sm-7 athlete-detail-no-padding-left">
+                                <div class="col-sm-12 athlete-detail-no-padding-left">
                                 <h1>'.$champ->getNom().'</h1>';?>
                                 <span class="athlete-details-breadcumb">
                                     <a href="liste-des-athletes.html">Athlètes</a> > <? echo $pays_datas["NomPays"];?> > <? echo $champ->getNom();?>
@@ -268,21 +268,26 @@ $afficher_tab_medaille=false;
                         <div>
                             <!-- TAB NAVIGATION -->
                             <ul class="nav nav-tabs sub-menu" role="tablist">
-                               
-                                <li class="active"><a href="#tab2" role="tab" class="sub-menu-link"
+                                <li class="active"><a href="#tab1" role="tab" class="sub-menu-link" data-toggle="tab">CV</a></li>
+                                <li ><a href="#tab2" role="tab" class="sub-menu-link"
                                         data-toggle="tab">Résultats</a>
                                 </li>
-                                
-                                <li><a href="#tab4" role="tab" class="sub-menu-link"
-                                        data-toggle="tab">Vidéos</a></li>
-                                <li><a href="#tab3" role="tab" class="sub-menu-link"
-                                        data-toggle="tab">Photos</a></li>
-                                 <li><a href="#tab1" role="tab" class="sub-menu-link" data-toggle="tab">CV</a></li>
+                                <? if($videos){?>
+                                    <li>
+                                        <a href="#tab4" role="tab" class="sub-menu-link"  data-toggle="tab">Vidéos</a>
+                                    </li>
+                                <? }?>
+                                <? if($photos){?>
+                                    <li>
+                                        <a href="#tab3" role="tab" class="sub-menu-link" data-toggle="tab">Photos</a>
+                                    </li>
+                                <? }?>
+                               
                             </ul>
                         </div> <br /> 
                         <!-- TAB CONTENT -->
                         <div class="tab-content">
-                            <div class="tab-pane fade" id="tab1">
+                            <div class="active tab-pane fade in" id="tab1">
                                 <?php ($champ->getTaille()!="" && $champ->getTaille()!=0 ) ? $taille="<li><strong>Taille : </strong>".$champ->getTaille()." cm</li>" : $taille="";
                             ($champ->getDateNaissance()!="0000-00-00" && $champ->getDateNaissance()!="" ) ? $date_naissance="<li><strong>".$ne." le : </strong>".$champ->getDateNaissance()."</li>" : $date_naissance="";
                             $champ_facebook=($champ->getFacebook())?'<li><a href="'.$champ->getFacebook().'" target="_blank">Visitez le facebook de <strong>'.$champ->getNom().'</strong></a></li>':'';
@@ -375,7 +380,7 @@ $afficher_tab_medaille=false;
                                 </table>
                                 <?php }?>
                             </div>
-                            <div class="active tab-pane fade in" id="tab2">
+                            <div class="tab-pane fade" id="tab2">
 
                                 <table id="classement_resultats" class="table table-responsive">
                                     <thead>
@@ -462,9 +467,10 @@ $afficher_tab_medaille=false;
                                         $nom_res_lien=$cat_event.' - '.$evenement->getNom().' - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
                 
                                         $res_event= "<a href='/resultats-marathon-".$evenement->getId()."-".slugify($nom_res_lien).".html' class='home-link mr-5 disp-flex'><span class='material-symbols-outlined'>trophy</span> Résultats </a>";
-                                        $url_img1=str_replace("hqdefault","0",$vd->getVignette());
-                                        $url_img=str_replace("default","0",$url_img1);
+                                        
                                     }
+                                    $url_img1=str_replace("hqdefault","0",$vd->getVignette());
+                                        $url_img=str_replace("default","0",$url_img1);
                                     
                                 echo '<div class="video-align-top video-grid-tab">
                                     <div class="mr-5"><a href="video-de-marathon-'.$vd->getId().'.html"><div class="video-thumbnail" style="background-image: url('.$url_img.'"></div></a></div>

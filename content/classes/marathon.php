@@ -897,7 +897,7 @@ function array_msort($array, $cols)
             }
 
 			//passés
-            $req01 = $bdd->prepare("select m.nom as nom,m.image,m.prefixe,m.id,e.ID as date_prochain_evenement_id,e.CategorieID as last_linked_events_cat_id,e.DateDebut,e.PaysID,e.nom as date_prochain_evenement_nom,e.a_l_affiche as is_top_prochain_evenement from marathons m,evenements e where e.marathon_id=m.id and DateDebut<DATE(NOW()) and DateDebut like :datedeb group by id ORDER BY Nom asc;");
+            $req01 = $bdd->prepare("select m.nom as nom,m.image,m.prefixe,m.id,e.ID as date_prochain_evenement_id,e.CategorieID as last_linked_events_cat_id,e.DateDebut,e.PaysID,e.nom as date_prochain_evenement_nom,e.a_l_affiche as is_top_prochain_evenement from marathons m,evenements e where e.marathon_id=m.id and DateDebut<DATE(NOW()) and DateDebut>DATE((now() - interval 2 year)) and DateDebut like :datedeb group by id ORDER BY Nom asc;");
             
 			$req01->bindValue('datedeb','%-'.$mois.'-%', PDO::PARAM_STR);
             $req01->execute();
@@ -929,7 +929,7 @@ function array_msort($array, $cols)
 		try {
 			include("../database/connexion.php");
             $liste= array();
-            $req0 = $bdd->prepare("select count( DISTINCT m.id) as total, m.nom as Nom,m.id,e.DateDebut,e.PaysID from marathons m,evenements e where e.marathon_id=m.id and DateDebut like :datedeb   ORDER BY DateDebut asc;");
+            $req0 = $bdd->prepare("select count( DISTINCT m.id) as total, m.nom as Nom,m.id,e.DateDebut,e.PaysID from marathons m,evenements e where e.marathon_id=m.id and DateDebut like :datedeb and DateDebut>DATE((now() - interval 6 year))  ORDER BY DateDebut asc;");
             
 			$req0->bindValue('datedeb','%-'.$mois.'-%', PDO::PARAM_STR);
             $req0->execute();

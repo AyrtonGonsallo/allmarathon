@@ -159,9 +159,9 @@ try{
 
     <?php require_once("../scripts/header_script.php") ?>
 
-    <title>Agenda - Calendrier des marathons en France et dans le monde | allmarathon.fr</title>
+    <title>Agenda - Calendrier des marathons dans le monde | allmarathon.fr</title>
 
-    <meta name="Description" content="Retrouvez tous les marathons en France et dans le monde : agenda, dates, résultats, records, infos." lang="fr" xml:lang="fr">
+    <meta name="Description" content="Retrouvez tous les marathons dans le monde : agenda, dates, résultats, records, infos." lang="fr" xml:lang="fr">
 
     
 
@@ -260,7 +260,7 @@ try{
                     <div class="col-sm-12 no-padding-left">
 
 
-                        <h1>Calendrier des marathons en France et dans le monde</h1>
+                        <h1>Calendrier des marathons dans le monde</h1>
                         <h2>Histoire, palmarès, résultats, agenda des marathons les plus célèbres : Boston, Chicago, New-York, Londres, Berlin, Tokyo, Paris ...</h2>
 
                         <form action="" method="post" class="form-inline" role="form">

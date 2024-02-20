@@ -241,10 +241,10 @@ catch(Exception $e)
                             ($flag!='NULL') ? $pays_flag='<img src="../../images/flags/'.$flag.'" alt=""/>':$pays_flag="";
                             
                             echo '<h1>France : Les 10 meilleures performances sur marathon de tous les temps.</h1>'; 
-                            echo '<h4>Retrouvez sur cette page les 10 meilleurs chronos réalisés sur marathon pour la France.
+                            echo '<p>Retrouvez sur cette page les 10 meilleurs chronos réalisés sur marathon pour la France.
                             Cette page n\'affiche que les résultats enregistrés sur allmarathon et il peut y avoir des manques.
                             Si vous constatez une erreur vous pouvez nous le signaler en utilisant ce <a href="contact.html" target="_blank">formulaire de contact</a>.
-                            </h4>'; ?>
+                            </p>'; ?>
 
 
 

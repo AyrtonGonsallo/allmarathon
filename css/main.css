@@ -21,15 +21,11 @@ body {
     color: #000;
 }
 .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
-    font-family: "Poppins-Bold";
+    font-family: "Poppins-Black";
 }
-b{
+b, strong{
     font-family: "Poppins-ExtraBold";
 }
-strong{
-    font-family: "Poppins-ExtraBold";
-}
-
 
 
 input[type="text"],
@@ -216,16 +212,6 @@ a:hover{
 .d--none {
     display: none;
 }
-
-
-
-
-
-
-
-
-
-
 
    /* header*/
    .header {
@@ -420,7 +406,7 @@ li.menu-item-categories  li{
     margin-top: 0 !important;
 }
 .page-content aside dd ul li {
-    padding: 5px 3px;
+    padding: 6px 3px;
 }
 .marathons-home .marathon-image {
     background-size: cover;
@@ -456,7 +442,7 @@ li.menu-item-categories  li{
     font-size: 16px;
     text-align: center;
     color: #000000;
-    border-radius: 3px;
+    border-radius: 5px;
     border-width: 0px;
     display: block;
 }
@@ -486,7 +472,7 @@ li.menu-item-categories  li{
     font-family: 'Poppins-Bold';
     padding: 5px 10px;
     font-size: 14px !important;
-    border-radius: 3px;
+    border-radius: 5px;
 }
 .style-p{
     color: #000;
@@ -500,9 +486,8 @@ section.last_articles_part2 article,.resultat-detail article {
     display: flex;
     padding: 35px 15px;
 }
-.title_news {
-    margin: 25px 0 70px 0;
-}
+.title_news {margin: 25px 0 70px 0;line-height: 30px;}
+
 .news_alune .title_news {
     margin-top: 2%;
 }
@@ -586,6 +571,10 @@ h1.news-detail span {
 .news-detail a{
     color: #000;
     font-weight: bold;
+text-decoration : none !important;
+}
+.news-detail a:hover{
+text-decoration : underline!important;
 }
 .comment-count-container{
     display: flex;
@@ -611,14 +600,15 @@ h2.mini_h2 {
     margin-top: 10px;
 }
 .text-act-marathon a{
-    text-decoration: underline;
+    text-decoration: none;
+    font-weight: bold;
 }
 div#copy-button a {
     font-size: 12px;
     background: #d4d4d4;
     height: 32px;
     color: #000;
-    border-radius: 3px;
+    border-radius: 5px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -678,7 +668,7 @@ div#copy-button {
     font-family: 'Poppins-bold';
     font-size: 16px;
     float: right;
-    border-radius: 2px;
+    border-radius: 5px;
 }
 .marathons h2,.resultats-liste h2,.athletes-liste h2 {
     font-family: 'Poppins-regular';
@@ -695,7 +685,7 @@ div#copy-button {
 }
 .marathon-sub-menu-grid{
     display: grid;
-    grid-template-columns: 1fr 1fr 3fr;
+    grid-template-columns: 3fr 1fr 1fr;
 }
 .marathon-par-pays-sub-menu-grid{
     display: grid;
@@ -733,6 +723,7 @@ div#copy-button {
     background-color: #fbff0b;
     margin: 5px 10px 5px 0px;
     padding: 5px 15px;
+	text-align:center;
 }
 .marathon-detail .ui-widget {
     font-family: 'Poppins-regular';
@@ -800,6 +791,10 @@ ul.resultats {
 .mpp h1{
     margin-bottom: 20px;
 }
+h2{
+font-size: 20px;
+}
+
 .mpp-pays-box{
     margin: 20px 20px;
     padding: 30px 50px;
@@ -830,7 +825,7 @@ ul.resultats {
     text-align: center;
     font-family: 'Poppins-Regular';
     margin-top: 10px;
-    border-radius: 2px;
+    border-radius: 5px;
     width: 136px;
 }
 .align-with-grid-mpp{
@@ -913,13 +908,14 @@ a.call-to-action:hover{
 .marathon-detail .sub-menu,.athlete-detail .sub-menu{
     display: flex;
     flex-wrap: wrap;
+    margin-top: 30px;
 }
 .marathon-detail .sub-menu li,.athlete-detail .sub-menu li{
     margin: 0 10px 0 0 ;
 }
 .marathon-detail .sub-menu li a,.athlete-detail .sub-menu li a{ 
     background-color: #fbff0b;
-    padding: 6px;
+    padding: 5px 15px;
     border-radius: 5px;
 }
 .marathon-detail .sub-menu li a:hover ,.athlete-detail .sub-menu li a:hover {
@@ -1067,7 +1063,7 @@ a.call-to-action:hover{
     padding: 5px 15px;
     font-size: 16px !important;
     font-weight: bold;
-    border-radius: 3px;
+    border-radius: 5px;
 }
 .video-details iframe{
     margin: 20px 0px;
@@ -1265,7 +1261,7 @@ input[type=search]::placeholder {
     margin-left: auto;
     padding: 8px 18px;
     text-align: center;
-    border-radius: 3px;
+    border-radius: 5px;
     font-family: 'Poppins-Bold';
     margin-bottom: 10px;
     margin-right: auto;
@@ -1281,7 +1277,7 @@ input[type=search]::placeholder {
     border-bottom: 2px solid #fbff0b00;
     color: #000000;
     font-weight: bold;
-    background-color:#fbff0b;
+    background-color:#fbff0b !important;
 }
 .nav-tabs>li>a {
     font-family: "Poppins-Light";
@@ -1291,23 +1287,22 @@ input[type=search]::placeholder {
     width: fit-content;
     padding: 5px 15px;
     font-size: 16px !important;
-    border-radius: 3px;
+    border-radius: 5px;
 }
 .res-by-gender,.results-buttons{
     font-family: "Poppins-Light";
     border: none;
-    background-color: #fbff0b;
     color: #000;
+    background-color: #fbff0b;
     width: fit-content;
     padding: 5px 15px;
     font-size: 16px !important;
-    border-radius: 3px;
+    border-radius: 5px;
 }
 .res-by-gender .material-symbols-outlined{
     position: relative;
     font-size: 19px;
     top: 4px;
-    margin-right: 5px;
 }
 .res-by-gender.active{
     font-family: "Poppins-Bold";
@@ -1492,7 +1487,7 @@ width: 50%;
 text-align: left;
 }
 .record-title-colored{
-    margin-top: 5px;
+    margin-top: 15px;
 }
 .lignes-données td:nth-child(2){
     width: 50%;
@@ -1618,11 +1613,11 @@ footer .copyright p {
 }
 
 .hamburger-menu-button-open::before {
-    top: -1px;
+    top: 2px;
 }
 
 .hamburger-menu-button-open::after {
-    bottom: 6px;
+    bottom: 2px;
 }
 
 .hamburger-menu-button-close {
@@ -1688,8 +1683,6 @@ footer .copyright p {
     border-bottom-color: #fff;
 }
 .header--nav--link:hover {
-
-    color: #fbff0b !important;
     text-decoration: none;
 }
 .header--nav--link__subscribe {

@@ -236,43 +236,32 @@ $getMobileAds=$pub->getMobileAds("accueil")['donnees'];
 
         <aside class="col-sm-4 bureau">
             <h3 class="h2-aside"><span class="material-symbols-outlined">play_circle</span>Les dernières vidéos</h3>
-        <?php
-                            foreach ($last_videos['donnees'] as $vd) {
-                                $event_intitule="";
-	                                if($vd->getEvenement_id()!=0){
-	                                $annee_event=substr($event->getEvenementByID($vd->getEvenement_id())['donnees']->getDateDebut(),0,4);
-                                    $video_intitule=$event->getEvenementByID($vd->getEvenement_id())['donnees']->getNom()." ".$annee_event;
-	                                $event_intitule="<li><a href='/resultats-marathon-".$vd->getEvenement_id()."-".slugify($video_intitule).".html' class='video_event'>".$video_intitule."</a></li>";
-	                                }
-                            		$duree="<li style='list-style-type: none;'></li>";
-	                                
-                                    if($vd->getEvenement_id()){
-                                        $evenement=$event->getEvenementByID($vd->getEvenement_id())["donnees"];
-                                        $cat_event=$ev_cat_event->getEventCatEventByID($evenement->getCategorieId())['donnees']->getIntitule();
-                
-                                        $nom_res='<strong>'.$cat_event.' - '.$evenement->getNom().'</strong> - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
-                                        $nom_res_lien=$cat_event.' - '.$evenement->getNom().' - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
-                                        $url_img1=str_replace("hqdefault","0",$vd->getVignette());
-                                        $url_img=str_replace("default","0",$url_img1);
-                                    }
-                            		echo '
-                                    <ul class="video-align-top last-video-grid-tab">
-                                        
-                                        <li class="mr-5">
-                                            <a href="video-de-marathon-'.$vd->getId().'.html">
-                                            <div class="last-video-thumbnail" style="background-image: url('.$url_img.')"></div>
-                                            </a>
-                                        </li>
-                                        <li class="video-t-d-res">
-                                            <ul>
-                                                <li><a href="video-de-marathon-'.$vd->getId().'.html" class="vite-lu-title">'.$vd->getTitre().'</a></li>
-                                            </ul>
-                                            
-                                        </li>
+                <?php
+                    foreach ($last_videos['donnees'] as $vd) {
+                        $event_intitule="";
+                            
+                            //$duree="<li style='list-style-type: none;'></li>";
+                            
+                            
+                            $url_img1=str_replace("hqdefault","0",$vd->getVignette());
+                            $url_img=str_replace("default","0",$url_img1);
+                            
+                            echo '<ul class="video-align-top last-video-grid-tab">
+                                
+                                <li class="mr-5">
+                                    <a href="video-de-marathon-'.$vd->getId().'.html">
+                                    <div class="last-video-thumbnail" style="background-image: url('.$url_img.')"></div>
+                                    </a>
+                                </li>
+                                <li class="video-t-d-res">
+                                    <ul>
+                                        <li><a href="video-de-marathon-'.$vd->getId().'.html" class="vite-lu-title">'.$vd->getTitre().'</a></li>
                                     </ul>
-                                ';
-                            	}
-                        ?>
+                                    
+                                </li>
+                            </ul>';
+                    }
+                ?>
             <p class="ban">
                 <?php
                             /*

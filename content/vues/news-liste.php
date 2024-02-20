@@ -486,11 +486,10 @@ include_once('nv_header-integrer.php'); ?>
                                     if($article->getEvenementID()){
                                         $evenement=$event->getEvenementByID($article->getEvenementID())["donnees"];
                                         $cat_event=$ev_cat_event->getEventCatEventByID($evenement->getCategorieId())['donnees']->getIntitule();
-                
                                         $nom_res='<strong>'.$cat_event.' - '.$evenement->getNom().'</strong> - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
                                         $nom_res_lien=$cat_event.' - '.$evenement->getNom().' - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
-                
-                                        echo "<a href='/resultats-marathon-".$evenement->getId()."-".slugify($nom_res_lien).".html' class='home-link mr-5 '>Résultats complets</a>";
+                                        $marathon= $event->getMarathon($article->getEvenementID())['donnees'];
+                                        echo "<a href='/resultats-marathon-".$evenement->getId()."-".slugify($nom_res_lien).".html' class='home-link mr-5 '>Résultats du marathon ".$marathon["prefixe"]." ".$marathon["nom"]." ".strftime("%Y",strtotime($evenement->getDateDebut()))."</a>";
                                     }
                                     echo '</div>
                                 </article>';
@@ -592,9 +591,9 @@ include_once('nv_header-integrer.php'); ?>
                 
                                         $nom_res='<strong>'.$cat_event.' - '.$evenement->getNom().'</strong> - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
                                         $nom_res_lien=$cat_event.' - '.$evenement->getNom().' - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
-                
-                                        echo "<a href='/resultats-marathon-".$evenement->getId()."-".slugify($nom_res_lien).".html' class='home-link mr-5 '>Résultats complets</a>";
-                                    }
+                                        $marathon= $event->getMarathon($article->getEvenementID())['donnees'];
+                                        echo "<a href='/resultats-marathon-".$evenement->getId()."-".slugify($nom_res_lien).".html' class='home-link mr-5 '>Résultats du marathon ".$marathon["prefixe"]." ".$marathon["nom"]." ".strftime("%Y",strtotime($evenement->getDateDebut()))."</a>";
+                                   }
                                     echo '</div>
                                 </div>';
 
@@ -699,9 +698,9 @@ include_once('nv_header-integrer.php'); ?>
 
                                         $nom_res='<strong>'.$cat_event.' - '.$evenement->getNom().'</strong> - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
                                         $nom_res_lien=$cat_event.' - '.$evenement->getNom().' - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
-
-                                        echo "<a href='/resultats-marathon-".$evenement->getId()."-".slugify($nom_res_lien).".html' class='home-link mr-5 '>Résultats complets</a>";
-                                    }
+                                        $marathon= $event->getMarathon($article->getEvenementID())['donnees'];
+                                        echo "<a href='/resultats-marathon-".$evenement->getId()."-".slugify($nom_res_lien).".html' class='home-link mr-5 '>Résultats du marathon ".$marathon["prefixe"]." ".$marathon["nom"]." ".strftime("%Y",strtotime($evenement->getDateDebut()))."</a>";
+                                   }
                                     echo '</div>
                                 </article>';
 
@@ -995,9 +994,9 @@ if($pub160x600 !="") {
                 
                                         $nom_res='<strong>'.$cat_event.' - '.$evenement->getNom().'</strong> - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
                                         $nom_res_lien=$cat_event.' - '.$evenement->getNom().' - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
-                
-                                        echo "<a href='/resultats-marathon-".$evenement->getId()."-".slugify($nom_res_lien).".html' class='home-link mr-5 '>Résultats complets</a>";
-                                    }
+                                        $marathon= $event->getMarathon($article->getEvenementID())['donnees'];
+                                        echo "<a href='/resultats-marathon-".$evenement->getId()."-".slugify($nom_res_lien).".html' class='home-link mr-5 '>Résultats du marathon ".$marathon["prefixe"]." ".$marathon["nom"]." ".strftime("%Y",strtotime($evenement->getDateDebut()))."</a>";
+                                   }
                                     echo '</div>
                                 </article>';
 

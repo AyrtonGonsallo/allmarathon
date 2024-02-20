@@ -299,28 +299,18 @@ try{
 
                         <div>
                         <div class="marathon-sub-menu-grid">
+                            <div class="search-bar">
+                                <form action="" method="post" class="form-inline" role="form">
+                                    <div class="form-group" style="width:100%; white-space: nowrap; margin-bottom: 5px;">
+                                        <input type="search" id="search_val_res" placeholder="Recherche par ville" class="form-control" style="width:93%" /><button type="button" id="goToSearch_Result" class="btn results-search"><i class="fa fa-search"></i></button>
+                                    </div>
+                                </form>	
+                            </div>
                             <div class="button-agenda">
                                 <a href="/agenda-marathons-par-pays.html" class="home-link disp-block">Marathons par pays</a>
                             </div>
                             <div class="button-agenda">
                                 <a href="/agenda-marathons-par-mois.html" class="home-link disp-block">Marathons par mois</a>
-                            </div>
-                            <div class="search-bar">
-                                <form action="" method="post" class="form-inline" role="form">
-
-                                    <div class="form-group" style="width:100%; white-space: nowrap; margin-bottom: 5px;">
-
-                                        <input type="search" id="search_val_res" placeholder="Recherche par ville" class="form-control"
-
-                                            style="width:93%" />
-
-                                        <button type="button" id="goToSearch_Result" class="btn results-search"><i
-
-                                                class="fa fa-search"></i></button>
-
-                                    </div>
-
-                                </form>
                             </div>
                         </div>
                             

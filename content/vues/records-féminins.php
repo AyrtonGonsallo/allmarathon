@@ -173,7 +173,7 @@ function slugify($text)
 
                 <div class="row">
                     <div class="col-sm-12">
-                        <h1>Tous les records du marathon femmes</h1>
+                        <h1>Records du marathon - femmes</h1>
                         <h2>Record du monde, record d’Europe, record olympique, records des grands 
                         championnats et records nationaux du marathon féminin.</h2>
                         <a href="/records-marathon-masculins.html" class="records-link">
@@ -193,7 +193,7 @@ function slugify($text)
                                                 }
                                                 ($flag!='NULL') ? $pays_flag='<img src="../../images/flags/'.$flag.'" alt=""/>':$pays_flag="";
                                                 
-                                                echo 'Détenteur : <a href="athlete-'.$world_best['champ_id'].'-'.slugify($world_best['champion']).'.html">'.$world_best['champion'].'</a>'.' ('.$nom.')';?>
+                                                echo 'Détentrice : <a href="athlete-'.$world_best['champ_id'].'-'.slugify($world_best['champion']).'.html">'.$world_best['champion'].'</a>'.' ('.$nom.')';?>
 
                                             
                                             
@@ -216,7 +216,7 @@ function slugify($text)
                                                     $nom=$pays->getFlagByAbreviation($france_best['lieu_evenement'])['donnees']['NomPays'];   
                                                 }
                                                 ($flag!='NULL') ? $pays_flag='<img src="../../images/flags/'.$flag.'" alt=""/>':$pays_flag="";
-                                                echo 'Détenteur : <a href="athlete-'.$france_best['champ_id'].'-'.slugify($france_best['champion']).'.html">'.$france_best['champion'].'</a>'.' ('.$nom.')';?>
+                                                echo 'Détentrice : <a href="athlete-'.$france_best['champ_id'].'-'.slugify($france_best['champion']).'.html">'.$france_best['champion'].'</a>'.' ('.$nom.')';?>
                                             
                                                 <br>
                                                 <?php echo 'Date : '.utf8_encode(strftime("%A %d %B %Y",strtotime($france_best['DateDebut']))).' - Lieu : '.$france_best['evenement'].' ('.$nom.')';?>
@@ -237,7 +237,7 @@ function slugify($text)
                                                     $nom=$pays->getFlagByAbreviation($jo_best['lieu_evenement'])['donnees']['NomPays'];  
                                                 }
                                                 ($flag!='NULL') ? $pays_flag='<img src="../../images/flags/'.$flag.'" alt=""/>':$pays_flag="";
-                                                echo 'Détenteur : <a href="athlete-'.$jo_best['champ_id'].'-'.slugify($jo_best['champion']).'.html">'.$jo_best['champion'].'</a>'.' ('.$nom.')';?>
+                                                echo 'Détentrice : <a href="athlete-'.$jo_best['champ_id'].'-'.slugify($jo_best['champion']).'.html">'.$jo_best['champion'].'</a>'.' ('.$nom.')';?>
                                             
                                                 <br>
                                                 <?php echo 'Date : '.utf8_encode(strftime("%A %d %B %Y",strtotime($jo_best['DateDebut']))).' - Lieu : '.$jo_best['evenement'].' ('.$nom.')';?>
@@ -258,7 +258,7 @@ function slugify($text)
                                                     $nom=$pays->getFlagByAbreviation($cm_best['lieu_evenement'])['donnees']['NomPays'];  
                                                 }
                                                 ($flag!='NULL') ? $pays_flag='<img src="../../images/flags/'.$flag.'" alt=""/>':$pays_flag="";
-                                                echo 'Détenteur : <a href="athlete-'.$cm_best['champ_id'].'-'.slugify($cm_best['champion']).'.html">'.$cm_best['champion'].'</a>'.' ('.$nom.')';?>
+                                                echo 'Détentrice : <a href="athlete-'.$cm_best['champ_id'].'-'.slugify($cm_best['champion']).'.html">'.$cm_best['champion'].'</a>'.' ('.$nom.')';?>
                                             
                                                 <br>
                                                 <?php echo 'Date : '.utf8_encode(strftime("%A %d %B %Y",strtotime($cm_best['DateDebut']))).' - Lieu : '.$cm_best['evenement'].' ('.$nom.')';?>
@@ -279,7 +279,7 @@ function slugify($text)
                                                     $nom=$pays->getFlagByAbreviation($ce_best['lieu_evenement'])['donnees']['NomPays'];  
                                                 }
                                                 ($flag!='NULL') ? $pays_flag='<img src="../../images/flags/'.$flag.'" alt=""/>':$pays_flag="";
-                                                echo 'Détenteur : <a href="athlete-'.$ce_best['champ_id'].'-'.slugify($ce_best['champion']).'.html">'.$ce_best['champion'].'</a>'.' ('.$nom.')';?>
+                                                echo 'Détentrice : <a href="athlete-'.$ce_best['champ_id'].'-'.slugify($ce_best['champion']).'.html">'.$ce_best['champion'].'</a>'.' ('.$nom.')';?>
                                             
                                                 <br>
                                                 <?php echo 'Date : '.utf8_encode(strftime("%A %d %B %Y",strtotime($ce_best['DateDebut']))).' - Lieu : '.$ce_best['evenement'].' ('.$nom.')';?>
@@ -307,12 +307,13 @@ function slugify($text)
                                 if($pays_datas){
                                     $flag=$pays_datas['Flag'];  
                                     $nom_pays_coureur=$pays->getFlagByName($record['Pays'])['donnees']['NomPays'];  
+                                    $prefixe_pays_coureur=$pays->getFlagByName($record['Pays'])['donnees']['prefixe'];  
                                     $nom_lieu=$pays->getFlagByAbreviation($record['lieu_evenement'])['donnees']['NomPays']; 
                                 }
                                 ($flag!='NULL') ? $pays_flag='<img src="../../images/flags/'.$flag.'" alt=""/>':$pays_flag="";
                                 
-                                $affichage.= '<h3 class="record-title">Record - '.$nom_pays_coureur.' : '.$record['Temps'].''.$pays_flag.'</h3>';
-                                $affichage.='<div class="mb-30 national-rec">Détenteur : '.'<a href="athlete-'.$record['champ_id'].'-'.slugify($record['champion']).'.html">'.$record['champion'].'</a>'.'
+                                $affichage.= '<h3 class="record-title">Record '.$prefixe_pays_coureur.' '.$nom_pays_coureur.' : '.$record['Temps'].''.$pays_flag.'</h3>';
+                                $affichage.='<div class="mb-30 national-rec">Détentrice : '.'<a href="athlete-'.$record['champ_id'].'-'.slugify($record['champion']).'.html">'.$record['champion'].'</a>'.'
                                                 <br>
                                                 Date : 
                                                '.utf8_encode(strftime("%d %B %Y",strtotime($record['DateDebut']))).' - Lieu : '.$record['evenement'].' ('.$nom_lieu.')</div>'; 

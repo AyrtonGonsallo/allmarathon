@@ -82,7 +82,7 @@ function slugify($text)
     return $text;
 }
 
-$nombre_res=sizeof($videos)+sizeof($champions)+sizeof($results)+sizeof($articles);
+$nombre_res=sizeof($videos)+sizeof($champions)+sizeof($results)+sizeof($articles)+sizeof($marathons);
 setlocale(LC_TIME, "fr_FR","French");
 ?>
 <!doctype html>
@@ -128,9 +128,7 @@ echo $pub728x90["code"] ? $pub728x90["code"] :  "<img src=".'../images/pubs/'.$p
 
                 <div class="row">
                     <div class="col-sm-12">
-                        <h1>Nous avons trouvé <strong style="color:#fbff0b; "><?php echo $nombre_res; ?></strong>
-                            résultats sur votre recherche <strong style="color:#fbff0b; ">"<?php echo $key_search; ?>" :
-                            </strong><br> <?php echo $articles_txt.$results_txt.$vd_txt.$champions_txt.$marathons_txt ?></h1>
+                        <h2>Nous avons trouvé <?php echo $nombre_res; ?> résultats sur votre recherche "<?php echo $key_search; ?>"</h2>
                         <!-- TAB CONTENT -->
                         <div class="tab-content">
 

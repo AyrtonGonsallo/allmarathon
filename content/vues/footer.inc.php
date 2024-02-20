@@ -38,7 +38,7 @@
     font-family: "Poppins-Bold",Roboto,sans-serif;
     padding: 32px 12px 32px;
     margin: 100px 0 0 0;
-    border:solid 1px #ccc;
+    border:solid 1px #000;
 }
   #sib-container input::placeholder {
     text-align: left;
@@ -60,7 +60,7 @@
 
 <!-- START - We recommend to place the below code where you want the form in your website html  -->
 <div class="sib-form" style="text-align: center;
-         background-color: #f2f2f2;                                 ">
+         background-color: #eeeff0;                                 ">
   <div id="sib-form-container" class="sib-form-container">
     <div id="error-message" class="sib-form-message-panel" style="font-size:16px; text-align:left; font-family:&quot;Poppins-regular&quot;, sans-serif; color:#661d1d; background-color:#ffeded; border-radius:3px; border-color:#ff4949;max-width:1040px;">
       <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
@@ -135,7 +135,7 @@
             <div class="sib-input sib-form-block">
                 
                 <div class="form__label-row form__label-row--horizontal" style="margin:0">
-                    <div class="entry__choice" style="">
+                    <div class="entry__choice" >
                     <label>
                         <input type="checkbox" class="input_replaced" value="1" id="OPT_IN" name="OPT_IN" />
                         <span class="checkbox checkbox_tick_positive" style="margin-left:"></span>
