@@ -481,8 +481,8 @@ li.menu-item-categories  li{
     margin: 5px 0 15px 0;
     
 }
-section.last_articles_part1 article,
-section.last_articles_part2 article,.resultat-detail article {
+section.last_articles_part1 div,
+section.last_articles_part2 div,.resultat-detail div {
     display: flex;
     padding: 35px 15px;
 }
@@ -491,17 +491,18 @@ section.last_articles_part2 article,.resultat-detail article {
 .news_alune .title_news {
     margin-top: 2%;
 }
-.left-side article .article-img {
+.left-side div .article-img {
     width: 38%;
+    padding: 0;
 }
 .article-img img, .image_news img {
     object-fit: cover !important;
 }
-.left-side article .article-img a {
+.left-side div .article-img a {
     text-decoration: none;
     position: relative;
 }
-.left-side article .article-img a strong {
+.left-side div .article-img a strong {
     font-size: 18px;
     color: #ffffff;
     line-height: 14px;
@@ -513,15 +514,16 @@ section.last_articles_part1 .desc-img, section.last_articles_part2 .desc-img, .r
     width: 80%;
     flex-direction: column;
     padding-left: 3%;
+    padding: 0 0 0 3%;
     justify-content: space-between;
     display: flex;
 }
-.left-side article .desc-img h2 {
+.left-side div .desc-img h2 {
     font-family: 'Poppins-Black';
     font-size: 27px;
     margin: 0 0 5px 0;
 }
-.title_news a, .video_title, .left-side article .desc-img h2{
+.title_news a, .video_title, .left-side div .desc-img h2{
     text-transform: none;
 }
 .dernieres-videos-bureau{
@@ -1781,18 +1783,18 @@ div#copy-button:hover {
     }
 }
 @media only screen and (min-width: 800px){
-    .title_news a, .video_title, .left-side article .desc-img h2{
+    .title_news a, .video_title, .left-side div .desc-img h2{
         text-transform: none;
     }
 }
 @media (min-width: 768px) and (max-width: 1199px) and (orientation: landscape) {
-    .left-side article .article-img a .media_index {
+    .left-side div .article-img a .media_index {
         left: -40px;
         bottom: 5px;
         width: 35px;
     }
 
-    .left-side article .article-img a .media {
+    .left-side div .article-img a .media {
         /*left:200px; bottom:35px*/
         left: 150px;
         bottom: 29px;

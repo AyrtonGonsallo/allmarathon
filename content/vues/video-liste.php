@@ -281,9 +281,9 @@ if($pub160x600 !="") {
                 var percentage=60;
 
                 $(window).scroll(function () {
-                    console.log("left: ",$(window).scrollTop()*100/$(document).height())
+                   // console.log("left: ",$(window).scrollTop()*100/$(document).height())
                     
-                    console.log($(window).scrollTop()*100/$(document).height() >=percentage)
+                    //console.log($(window).scrollTop()*100/$(document).height() >=percentage)
                     //console.log("right: ",$(document).height() - 20)
                     if ($(window).scrollTop()*100/$(document).height() >=percentage) {
                        

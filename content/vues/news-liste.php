@@ -347,7 +347,7 @@ include_once('nv_header-integrer.php'); ?>
 
                                     $img_a_afficher= '<img class="img-responsive" alt="" src="'.$src_a_afficher.'"/>';
 
-                                    echo '<article class="row news-mobile-box mobile mt-77">
+                                    echo '<div class="row news-mobile-box mobile mt-77">
 
                                
 
@@ -356,7 +356,7 @@ include_once('nv_header-integrer.php'); ?>
                                
 
                                
-                                </article>';
+                                </div>';
 
                                 
 
@@ -466,7 +466,7 @@ include_once('nv_header-integrer.php'); ?>
 
                                     $img_a_afficher= '<img class="img-responsive" alt="" src="'.$src_a_afficher.'"/>';
 
-                                    if($i==0){echo '<article class="row pt-10">';}else{echo '<article class="row">';}?>
+                                    if($i==0){echo '<div class="row pt-10">';}else{echo '<div class="row">';}?>
                                     <?
 
                                
@@ -488,11 +488,11 @@ include_once('nv_header-integrer.php'); ?>
                                         $cat_event=$ev_cat_event->getEventCatEventByID($evenement->getCategorieId())['donnees']->getIntitule();
                                         $nom_res='<strong>'.$cat_event.' - '.$evenement->getNom().'</strong> - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
                                         $nom_res_lien=$cat_event.' - '.$evenement->getNom().' - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
-                                        $marathon= $event->getMarathon($article->getEvenementID())['donnees'];
+                                        $marathon= $event->getMarathon($evenement->getmarathon_id())['donnees'];
                                         echo "<a href='/resultats-marathon-".$evenement->getId()."-".slugify($nom_res_lien).".html' class='home-link mr-5 '>Résultats du marathon ".$marathon["prefixe"]." ".$marathon["nom"]." ".strftime("%Y",strtotime($evenement->getDateDebut()))."</a>";
                                     }
                                     echo '</div>
-                                </article>';
+                                </div>';
 
                                 $i+=1;
 
@@ -591,7 +591,7 @@ include_once('nv_header-integrer.php'); ?>
                 
                                         $nom_res='<strong>'.$cat_event.' - '.$evenement->getNom().'</strong> - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
                                         $nom_res_lien=$cat_event.' - '.$evenement->getNom().' - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
-                                        $marathon= $event->getMarathon($article->getEvenementID())['donnees'];
+                                        $marathon= $event->getMarathon($evenement->getmarathon_id())['donnees'];
                                         echo "<a href='/resultats-marathon-".$evenement->getId()."-".slugify($nom_res_lien).".html' class='home-link mr-5 '>Résultats du marathon ".$marathon["prefixe"]." ".$marathon["nom"]." ".strftime("%Y",strtotime($evenement->getDateDebut()))."</a>";
                                    }
                                     echo '</div>
@@ -676,7 +676,7 @@ include_once('nv_header-integrer.php'); ?>
 
                                     $img_a_afficher= '<img class="img-responsive" alt="" src="'.$src_a_afficher.'"/>';
 
-                                    echo '<article class="row news-mobile-box">
+                                    echo '<div class="row news-mobile-box">
 
                             
 
@@ -698,11 +698,11 @@ include_once('nv_header-integrer.php'); ?>
 
                                         $nom_res='<strong>'.$cat_event.' - '.$evenement->getNom().'</strong> - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
                                         $nom_res_lien=$cat_event.' - '.$evenement->getNom().' - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
-                                        $marathon= $event->getMarathon($article->getEvenementID())['donnees'];
+                                        $marathon= $event->getMarathon($evenement->getmarathon_id())['donnees'];
                                         echo "<a href='/resultats-marathon-".$evenement->getId()."-".slugify($nom_res_lien).".html' class='home-link mr-5 '>Résultats du marathon ".$marathon["prefixe"]." ".$marathon["nom"]." ".strftime("%Y",strtotime($evenement->getDateDebut()))."</a>";
                                    }
                                     echo '</div>
-                                </article>';
+                                </div>';
 
                                 
 
@@ -972,7 +972,7 @@ if($pub160x600 !="") {
 
                                     $img_a_afficher= '<img class="img-responsive" alt="" src="'.$src_a_afficher.'"/>';
 
-                                    echo '<article class="row news-mobile-box">
+                                    echo '<div class="row news-mobile-box">
 
                                
 
@@ -994,11 +994,11 @@ if($pub160x600 !="") {
                 
                                         $nom_res='<strong>'.$cat_event.' - '.$evenement->getNom().'</strong> - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
                                         $nom_res_lien=$cat_event.' - '.$evenement->getNom().' - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
-                                        $marathon= $event->getMarathon($article->getEvenementID())['donnees'];
+                                        $marathon= $event->getMarathon($evenement->getmarathon_id())['donnees'];
                                         echo "<a href='/resultats-marathon-".$evenement->getId()."-".slugify($nom_res_lien).".html' class='home-link mr-5 '>Résultats du marathon ".$marathon["prefixe"]." ".$marathon["nom"]." ".strftime("%Y",strtotime($evenement->getDateDebut()))."</a>";
                                    }
                                     echo '</div>
-                                </article>';
+                                </div>';
 
                                 
 
@@ -1120,28 +1120,28 @@ if($pub160x600 !="") {
 
         if(window.outerWidth < 740) {
             $(".lazyblock-mobile div").slice(12).hide();
-            $(".lazyblock-mobile article").slice(6).hide();
+            //$(".lazyblock-mobile article").slice(6).hide();
 
-                var mincount = 2;
+                var mincount = 3;
                 var maxcount = 12;
                 
 
                 $(window).scroll(function () {
                     //console.log("left: ",$(window).scrollTop() + $(window).height())
                     //console.log("right: ",$(document).height() - 20)
-                    if ($(window).scrollTop() + $(window).height() >= 7000) {
-                        $(".lazyblock-mobile div").slice(mincount, maxcount).slideDown(100);
-                        $(".lazyblock-mobile article").slice(mincount, maxcount).slideDown(100);
-                        mincount = mincount + 2;
-                        maxcount = maxcount + 2
+                    if ($(window).scrollTop() + $(window).height() >= 4500) {
+                        $(".lazyblock-mobile div").slice(mincount, maxcount).slideDown(10);
+                       // $(".lazyblock-mobile article").slice(mincount, maxcount).slideDown(100);
+                        mincount = mincount + 3;
+                        maxcount = maxcount + 3
 
                     }
                 });
         }else{
             $(".lazyblock div").slice(12).hide();
-            $(".lazyblock article").slice(6).hide();
+            //$(".lazyblock article").slice(6).hide();
 
-                var mincount = 2;
+                var mincount = 3;
                 var maxcount = 12;
                 
 
@@ -1150,9 +1150,9 @@ if($pub160x600 !="") {
                     //console.log("right: ",$(document).height() - 20)
                     if ($(window).scrollTop() + $(window).height() >= $(document).height() - 500) {
                         $(".lazyblock div").slice(mincount, maxcount).slideDown(100);
-                        $(".lazyblock article").slice(mincount, maxcount).slideDown(100);
-                        mincount = mincount + 2;
-                        maxcount = maxcount + 2
+                       // $(".lazyblock article").slice(mincount, maxcount).slideDown(100);
+                        mincount = mincount + 3;
+                        maxcount = maxcount + 3
 
                     }
                 });
