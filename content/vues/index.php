@@ -227,7 +227,24 @@ function switch_cat($cat)
                 ;
                 if($article->getVideoID()){
                     $vid=$vd->getVideoById($article->getVideoID())["donnees"];
-                    echo "<a href='video-de-marathon-".$vid->getId().".html'  class='home-link mr-5'>Vidéo : ". $vid->getTitre()."</a>";
+                    echo "<a href='video-de-marathon-".$vid->getId().".html'  class='home-link mb-5 mr-5'>Vidéo : ". $vid->getTitre()."</a>";
+                }
+                if($article->getChampionID()){
+                    $chmp=$champion->getChampionById($article->getChampionID())["donnees"];
+                    echo "<a href='athlete-".$chmp->getId()."-".$chmp->getNom().".html' class='home-link mb-5 mr-5 '>Le palmarès de ". $chmp->getNom()."</a>";
+                }
+                if($article->getLien1() || $article->getEvenementID()>0 ){
+                    if( $article->getEvenementID()>0 ){
+                        $evenement=$event->getEvenementByID($article->getEvenementID())["donnees"];
+                        $cat_event=$ev_cat_event->getEventCatEventByID($evenement->getCategorieId())['donnees']->getIntitule();
+                        $nom_res='<strong>'.$cat_event.' - '.$evenement->getNom().'</strong> - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
+                        $nom_res_lien=$cat_event.' - '.$evenement->getNom().' - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
+                        $marathon= $event->getMarathon($evenement->getmarathon_id())['donnees'];
+                    }
+                    $lien_perso=($article->getEvenementID()>0 )?("/resultats-marathon-".$evenement->getId()."-".slugify($nom_res_lien).".html"):$article->getLien1();
+                    $texte_perso=($article->getEvenementID()>0 )?("Résultats du marathon ".$marathon["prefixe"]." ".$marathon["nom"]." ".strftime("%Y",strtotime($evenement->getDateDebut()))):$article->getTextlien1();
+                    
+                    echo "<a href='".$lien_perso."' class='home-link mb-5 mr-5 '>".$texte_perso."</a>";
                 }
                             ?>
 
@@ -299,7 +316,7 @@ function switch_cat($cat)
                                     <h2> <a href="/actualite-marathon-'.$article_home->getId().'-'.slugify($article_home->getTitre()).'.html" style="color: #000;">'.$article_home->getTitre().'</a> </h2>';
                                 if($article_home->getChampionID()){
                                     $chmp=$champion->getChampionById($article_home->getChampionID())["donnees"];
-                                    echo "<a href='athlete-".$chmp->getId()."-".$chmp->getNom().".html' class='home-link mr-5 '>Le palmarès de ". $chmp->getNom()."</a>";
+                                    echo "<a href='athlete-".$chmp->getId()."-".$chmp->getNom().".html' class='home-link mb-5 mr-5 '>Le palmarès de ". $chmp->getNom()."</a>";
                                 }
                                 if($article_home->getEvenementID()){
                                     $evenement=$event->getEvenementByID($article_home->getEvenementID())["donnees"];
@@ -307,7 +324,7 @@ function switch_cat($cat)
                                     $nom_res='<strong>'.$cat_event.' - '.$evenement->getNom().'</strong> - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
                                     $nom_res_lien=$cat_event.' - '.$evenement->getNom().' - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
                                     $marathon= $event->getMarathon($evenement->getmarathon_id())['donnees'];
-                                    echo "<a href='/resultats-marathon-".$evenement->getId()."-".slugify($nom_res_lien).".html' class='home-link mr-5 '>Résultats du marathon ".$marathon["prefixe"]." ".$marathon["nom"]." ".strftime("%Y",strtotime($evenement->getDateDebut()))."</a>";
+                                    echo "<a href='/resultats-marathon-".$evenement->getId()."-".slugify($nom_res_lien).".html' class='home-link mb-5 mr-5 '>Résultats du marathon ".$marathon["prefixe"]." ".$marathon["nom"]." ".strftime("%Y",strtotime($evenement->getDateDebut()))."</a>";
                                 }
                                 echo '</div>
                             </article>';
@@ -374,7 +391,7 @@ function switch_cat($cat)
                     <h2> <a href="/actualite-marathon-'.$article_home->getId().'-'.slugify($article_home->getTitre()).'.html" style="color: #000;">'.$article_home->getTitre().'</a> </h2>';
                     if($article_home->getChampionID()){
                         $chmp=$champion->getChampionById($article_home->getChampionID())["donnees"];
-                        echo "<a href='athlete-".$chmp->getId()."-".$chmp->getNom().".html' class='home-link mr-5 '>Le palmarès de ". $chmp->getNom()."</a>";
+                        echo "<a href='athlete-".$chmp->getId()."-".$chmp->getNom().".html' class='home-link mb-5 mr-5 '>Le palmarès de ". $chmp->getNom()."</a>";
                     }
                     if($article_home->getEvenementID()){
                         $evenement=$event->getEvenementByID($article_home->getEvenementID())["donnees"];
@@ -382,7 +399,7 @@ function switch_cat($cat)
                         $nom_res='<strong>'.$cat_event.' - '.$evenement->getNom().'</strong> - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
                         $nom_res_lien=$cat_event.' - '.$evenement->getNom().' - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
                         $marathon= $event->getMarathon($evenement->getmarathon_id())['donnees'];
-                        echo "<a href='/resultats-marathon-".$evenement->getId()."-".slugify($nom_res_lien).".html' class='home-link mr-5 '>Résultats du marathon ".$marathon["prefixe"]." ".$marathon["nom"]." ".strftime("%Y",strtotime($evenement->getDateDebut()))."</a>";
+                        echo "<a href='/resultats-marathon-".$evenement->getId()."-".slugify($nom_res_lien).".html' class='home-link mb-5 mr-5 '>Résultats du marathon ".$marathon["prefixe"]." ".$marathon["nom"]." ".strftime("%Y",strtotime($evenement->getDateDebut()))."</a>";
                     }
                     echo '</div>
                 </article>';
@@ -551,15 +568,20 @@ function switch_cat($cat)
                                 <h2> <a href="/actualite-marathon-'.$article->getId().'-'.slugify($article->getTitre()).'.html" style="color: #000;">'.$article->getTitre().'</a> </h2>';
                                 if($article->getChampionID()){
                                     $chmp=$champion->getChampionById($article->getChampionID())["donnees"];
-                                    echo "<a href='athlete-".$chmp->getId()."-".$chmp->getNom().".html' class='home-link mr-5 '>Le palmarès de ". $chmp->getNom()."</a>";
+                                    echo "<a href='athlete-".$chmp->getId()."-".$chmp->getNom().".html' class='home-link mb-5 mr-5 '>Le palmarès de ". $chmp->getNom()."</a>";
                                 }
-                                if($article->getEvenementID()){
-                                    $evenement=$event->getEvenementByID($article->getEvenementID())["donnees"];
-                                    $cat_event=$ev_cat_event->getEventCatEventByID($evenement->getCategorieId())['donnees']->getIntitule();
-                                    $nom_res='<strong>'.$cat_event.' - '.$evenement->getNom().'</strong> - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
-                                    $nom_res_lien=$cat_event.' - '.$evenement->getNom().' - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
-                                    $marathon= $event->getMarathon($evenement->getmarathon_id())['donnees'];
-                                    echo "<a href='/resultats-marathon-".$evenement->getId()."-".slugify($nom_res_lien).".html' class='home-link mr-5 '>Résultats du marathon ".$marathon["prefixe"]." ".$marathon["nom"]." ".strftime("%Y",strtotime($evenement->getDateDebut()))."</a>";
+                                if($article->getLien1() || $article->getEvenementID() ){
+                                    if( $article->getEvenementID()>0 ){
+                                        $evenement=$event->getEvenementByID($article->getEvenementID())["donnees"];
+                                        $cat_event=$ev_cat_event->getEventCatEventByID($evenement->getCategorieId())['donnees']->getIntitule();
+                                        $nom_res='<strong>'.$cat_event.' - '.$evenement->getNom().'</strong> - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
+                                        $nom_res_lien=$cat_event.' - '.$evenement->getNom().' - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
+                                        $marathon= $event->getMarathon($evenement->getmarathon_id())['donnees'];
+                                    }
+                                    $lien_perso=($article->getEvenementID()>0 )?("/resultats-marathon-".$evenement->getId()."-".slugify($nom_res_lien).".html"):$article->getLien1();
+                                    $texte_perso=($article->getEvenementID()>0 )?("Résultats du marathon ".$marathon["prefixe"]." ".$marathon["nom"]." ".strftime("%Y",strtotime($evenement->getDateDebut()))):$article->getTextlien1();
+                                    
+                                    echo "<a href='".$lien_perso."' class='home-link mb-5 mr-5 '>".$texte_perso."</a>";
                                 }
                                 echo '</div>
                             </article>';

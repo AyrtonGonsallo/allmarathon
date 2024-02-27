@@ -145,6 +145,12 @@ function slugify($text)
     return $text;
 }
 
+function mb_ucfirst($string, $encoding = 'UTF-8'){
+    $strlen = mb_strlen($string, $encoding);
+    $firstChar = mb_substr($string, 0, 1, $encoding);
+    $then = mb_substr($string, 1, $strlen - 1, $encoding);
+    return mb_strtoupper($firstChar, $encoding) . $then;
+  }
 
 $pays_datas=$pays->getFlagByAbreviation($marathon['PaysID'])['donnees'];
 if($pays_datas){
@@ -231,9 +237,9 @@ if($pays_datas){
 
                             
                             }
-                           $proch_date=($next_date)?'<div class="next-edition"><a href="/resultats-marathon-'.$next_date['ID'].'-'.slugify($next_date_lien).'.html"> Prochaine édition<br>'.utf8_encode(strftime("%A %d %B %Y",strtotime($next_date['DateDebut']))).'<br></a></div>':'';
+                           $proch_date=($next_date)?'<div class="next-edition"><a href="/resultats-marathon-'.$next_date['ID'].'-'.slugify($next_date_lien).'.html"> Prochaine édition<br>'.utf8_encode(strftime("%A %d %B %Y",strtotime($next_date['DateDebut']))).'<br></a></div>':'<div class="next-edition">Prochaine édition<br>en attente de date</div>';
 
-                            echo '<h1 class="float-l">Marathon '.$marathon['prefixe'].' '.mb_strtoupper($marathon['nom'],"UTF-8").'</h1>'; ?>
+                            echo '<h1 class="float-l">Marathon '.$marathon['prefixe'].' '.mb_ucfirst($marathon['nom'],"UTF-8").'</h1>'; ?>
                             <span class="marathon-details-breadcumb">
                                <span class="material-symbols-outlined">location_on</span><? echo $pays_datas['continent'];?> > <a href="calendrier-marathons-<?php echo slugify($pays_datas['NomPays']); ?>-<?php echo $pays_datas['ID']; ?>.html"><?php echo $pays_datas['NomPays'];?></a> <?php if($next_date){echo "> <span class='material-symbols-outlined'>event_available</span><span class='capitalize'> <a href='calendrier-marathons-".slugify(utf8_encode(strftime("%B",strtotime($next_date['DateDebut']))))."-".intval(strftime("%m",strtotime($next_date['DateDebut'])))."-".strftime("%Y",strtotime($next_date['DateDebut'])).".html' class='capitalize'>".utf8_encode(strftime("%B",strtotime($next_date['DateDebut'])))."</span>";}?>
                             </span>
@@ -267,13 +273,21 @@ if($pays_datas){
 
                             <!-- menu header -->
                             <ul class="nav-category sub-menu">
-                                <li> <a data-category="Header_Links" data-action="Sub Menu Click" data-label="Apropos" href="#Apropos" class="sub-menu-link header--nav--link  active" id="Apropos-link">A propos</a></li>
-                                <? if ($parcours_marathon){?>
-                                <li> <a data-category="Header_Links" data-action="Sub Menu Click" data-label="Parcours" href="#Parcours" class="sub-menu-link header--nav--link " id="Parcours-link">Parcours</a></li>
+                                <? if ($marathon['description']){?>
+                                    <li> <a data-category="Header_Links" data-action="Sub Menu Click" data-label="Apropos" href="#Apropos" class="sub-menu-link header--nav--link  active" id="Apropos-link">A propos</a></li>
                                 <? }?>
-                                <li> <a data-category="Header_Links" data-action="Sub Menu Click" data-label="Résultats" href="#Résultats" class="sub-menu-link header--nav--link " id="Résultats-link">Résultats</a></li>
-                                <li> <a data-category="Header_Links" data-action="Sub Menu Click" data-label="Chronos" href="#Chronos" class="sub-menu-link header--nav--link " id="Chronos-link">Chronos</a></li>
-                                <li> <a data-category="Header_Links" data-action="Sub Menu Click" data-label="Palmarès" href="#Palmarès" class="sub-menu-link header--nav--link " id="Palmarès-link">Palmarès</a></li>
+                                <? if ($parcours_marathon){?>
+                                    <li> <a data-category="Header_Links" data-action="Sub Menu Click" data-label="Parcours" href="#Parcours" class="sub-menu-link header--nav--link <? if (!$marathon['description']){?>active <? }?>" id="Parcours-link">Parcours</a></li>
+                                <? }?>
+                                <? if ($results){?>
+                                    <li> <a data-category="Header_Links" data-action="Sub Menu Click" data-label="Résultats" href="#Résultats" class="sub-menu-link header--nav--link <? if (!$marathon['description'] && !$parcours_marathon){?>active <? }?>" id="Résultats-link">Résultats</a></li>
+                                <? }?>
+                                <? if ($best_res_mens || $best_res_womens){?>
+                                    <li> <a data-category="Header_Links" data-action="Sub Menu Click" data-label="Chronos" href="#Chronos" class="sub-menu-link header--nav--link <? if (!$marathon['description'] && !$parcours_marathon && !$results){?>active <? }?>" id="Chronos-link">Chronos</a></li>
+                                <? }?>
+                                <? if ($best_res_mens_byyear || $best_res_womens_byyear){?>
+                                    <li> <a data-category="Header_Links" data-action="Sub Menu Click" data-label="Palmarès" href="#Palmarès" class="sub-menu-link header--nav--link <? if (!$marathon['description'] && !$parcours_marathon && !$results && (!$best_res_mens || !$best_res_womens)){?>active <? }?>" id="Palmarès-link">Palmarès</a></li>
+                                <? }?>
                             </ul>
 
 
@@ -281,13 +295,11 @@ if($pays_datas){
                             
                                 <?php echo '<h3 id="Apropos" class="marathon-details-section-title">Présentation</h3>'; ?>
                             
-                            <div class="alpine-hide-box" x-data="{ expanded: false }">
-                                <div  x-show="expanded" x-collapse.min.150px>
+                           
+                              
                                  <?php echo $marathon['description']; ?>
-                                </div>
-                                <div class="alpine-hide-box-gradient"></div>
-                                <button class="read-more-button" @click="expanded = ! expanded">+Lire la suite</button>
-                            </div>
+                              
+                              
                             
                             <?php }
                             if($next_date_video && $next_date_video['video_teaser']){
@@ -297,7 +309,7 @@ if($pays_datas){
                          <!-- TAB parcours -->
                          <?php if($parcours_marathon){ ?>
                             
-                                <?php echo '<h3 id="Parcours" class="marathon-details-section-title">Le parcours du marathon '.$marathon['prefixe'].' '.strtoupper($marathon['nom']).' '.strftime("%Y",strtotime($parcours_marathon[0]['DateDebut'])).'</h3>'; ?>
+                                <?php echo '<h3 id="Parcours" class="marathon-details-section-title">Le parcours du marathon '.$marathon['prefixe'].' '.mb_ucfirst($marathon['nom']).' '.strftime("%Y",strtotime($parcours_marathon[0]['DateDebut'])).'</h3>'; ?>
                            
                             <?php if($parcours_marathon[0]["parcours_iframe"]){ 
                                     echo $parcours_marathon[0]["parcours_iframe"];?>
@@ -346,7 +358,7 @@ if($pays_datas){
                         <?php if($best_res_mens || $best_res_womens){ ?>
                             <!-- TAB meilleurs chronos -->
                            
-                                <?php echo '<h3 href="#tab3" id="Chronos" role="tab" data-toggle="tab" class="marathon-details-section-title">Les 10 meilleurs chronos du marathon '.$marathon['prefixe'].' '.strtoupper($marathon['nom']).'</h3>'; ?>
+                                <?php echo '<h3 href="#tab3" id="Chronos" role="tab" data-toggle="tab" class="marathon-details-section-title">Les 10 meilleurs chronos du marathon '.$marathon['prefixe'].' '.mb_ucfirst($marathon['nom']).'</h3>'; ?>
                             
                             <div id="tabs-mc">
                                 <ul>
@@ -666,7 +678,7 @@ if($pays_datas){
                         
                         <div class="mb-40"></div>
                         <!-- TAB palmares -->
-                        
+                        <? if ($best_res_mens_byyear || $best_res_womens_byyear){?>
                                 <?php echo '<h3 href="#tab4" id="Palmarès"  role="tab" data-toggle="tab" class="marathon-details-section-title">Palmarès</h3>'; ?>
                             
                             <div id="tabs-pal">
@@ -676,8 +688,7 @@ if($pays_datas){
                                 </ul>
                                 <div id="pal-h">
                                     <div class="col-sm-12 top-chronos top-chronos-left-div">
-                                        <div class="alpine-hide-box" x-data="{ expanded: false }">
-                                            <div x-show="expanded" x-collapse.min.450px>
+                                       
                                                 <table id="tableauHommes-pal" data-page-length='10' class="display">
                                                     <thead>
                                                         <tr>
@@ -716,16 +727,12 @@ if($pays_datas){
                                                         ?>
                                                     </tbody>
                                                 </table>
-                                            </div>
-                                            <div class="alpine-hide-box-gradient"></div>
-                                            <button class="read-more-button" @click="expanded = ! expanded">+Lire la suite</button>
-                                        </div>
+                                           
                                     </div>
                                 </div>
                                 <div id="pal-f">
                                     <div class="col-sm-12 top-chronos top-chronos-left-div">
-                                        <div class="alpine-hide-box" x-data="{ expanded: false }">
-                                            <div x-show="expanded" x-collapse.min.450px>
+                                       
                                                 <table id="tableauFemmes-pal" data-page-length='10' class="display">
                                                     <thead>
                                                         <tr>
@@ -765,16 +772,13 @@ if($pays_datas){
                                                         ?>
                                                     </tbody>
                                                 </table>
-                                            </div>
-                                            <div class="alpine-hide-box-gradient"></div>
-                                            <button class="read-more-button" @click="expanded = ! expanded">+Lire la suite</button>
-                                        </div> 
+                                           
                                     </div>
                                 </div>
                             </div>
                             <!-- TAB CONTENT -->
                             
-                        
+                        <? }?>
                     </div>
                 </div> <!-- End container page-content -->
             </div>
@@ -843,7 +847,7 @@ if($pays_datas){
 				document.querySelector("#parcours-img-viewer").style.display="none";
 			}
     $(document).ready(function() {
-       
+        
         $('#tableauHommes-mc').DataTable( {
                 paging: false,
                 bFilter: false,
@@ -878,6 +882,11 @@ if($pays_datas){
             var id = $(this).attr('id');
             $("a.sub-menu-link.active").removeClass("active")
             $(this).addClass("active")
+            setTimeout(function() { 
+                pos= $(window).scrollTop()
+                $(window).scrollTop(pos-100)
+            }, 100);
+            console.log("encre")
             console.log(id)
         });
         $(".read-more-button:not(.parcours)").click(function() {

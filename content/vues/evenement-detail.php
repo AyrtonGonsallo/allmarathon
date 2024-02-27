@@ -215,6 +215,7 @@ setlocale(LC_TIME, "fr_FR","French");
                             $ev_cat_event_int=$ev_cat_event->getEventCatEventByID($evById->getCategorieId())['donnees']->getIntitule();
                             $ev_cat_age_int=$ev_cat_age->getEventCatAgeByID($evById->getCategorieageID())['donnees']->getIntitule();
                             $annee=substr($evById->getDateDebut(), 0, 4);
+                            $full_text_date=utf8_encode(strftime("%A %d %B %Y",strtotime($evById->getDateDebut())));
                             $date_debut=changeDate($evById->getDateDebut());
                             $pays_datas=$pays->getFlagByAbreviation($evById->getPaysId())['donnees'];
                             if($pays_datas){
@@ -236,7 +237,7 @@ setlocale(LC_TIME, "fr_FR","French");
                                 <?php echo '<a href="/marathons-'.$next_date['id'].'-'.slugify($next_date["nom"]).'.html">Marathon '.$next_date["prefixe"].' '.$next_date["nom"].'</a>';?>
                                 &gt; 
                                 <?}?>
-                                <?php echo $annee;?>                               
+                                <?php echo $full_text_date;?>                               
                             </span>
                     <div class="mb-50"></div>
 
@@ -288,8 +289,7 @@ setlocale(LC_TIME, "fr_FR","French");
                                     <?php //if($isAdmin) echo '<a class="btn results-buttons" href="evenement-detail-admin-'.$id.'.html" ><img width="13px" src="../../images/pictos/finisher.png" alt="finisher"> Je suis finisher</a>';  ?>
                                     <?php //if(!$isAdmin) echo '<a class="btn results-buttons" href="#" id="finisher"><img width="13px" src="../../images/pictos/finisher.png" alt="finisher"> Je suis finisher</a>';  ?>
                                 </div>
-                                    <div x-data="{ expanded: false }">
-                                        <div x-show="expanded" x-collapse.min.200px>
+                                  
                                             <?php if(($type=="MF") || ($type=="M")){ ?>
                                                 <table id="tableauHommes" data-page-length='25' class="display">
                                                     <thead>
@@ -382,9 +382,7 @@ setlocale(LC_TIME, "fr_FR","French");
                                                     </tbody>
                                                 </table>
                                             <?php } ?>
-                                        </div>
-                                        <button class="read-more-button float-r" @click="expanded = ! expanded">+Voir plus de résultats</button>
-                                    </div>
+                                      
                                 </li>
                                 
                             </ul>
@@ -426,7 +424,7 @@ setlocale(LC_TIME, "fr_FR","French");
                 <ul>
                     <li><a href="video-de-marathon-'.$vd->getId().'.html" class="video_titre">'.$vd->getTitre().'</a></li>'.$duree.'
                 </ul>
-                '.$res_event.'
+               
             </div>
         </div>';
         }
@@ -525,7 +523,7 @@ setlocale(LC_TIME, "fr_FR","French");
                                                     <h2><a href="/actualite-marathon-'.$article->getId().'-'.$url_text.'.html" style="color: #222;" >'.$article->getTitre().' </a></h2>';
 
                                                     if($article->getChampionID()){
-                                                        $chmp=$champion->getChampionById($article->getChampionID())["donnees"];
+                                                        $chmp=$ch->getChampionById($article->getChampionID())["donnees"];
                                                         echo "<a href='athlete-".$chmp->getId()."-".$chmp->getNom().".html' class='home-link mr-5 '>Le palmarès de ". $chmp->getNom()."</a>";
                                                     }
                                                     

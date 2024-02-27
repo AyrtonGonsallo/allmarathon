@@ -54,6 +54,9 @@
     font-family: "Poppins-regular", sans-serif;
     color: #c0ccda;
   }
+  .sib-form .entry__field {
+    border: 1px solid #d3d3d3 !important;
+}
 </style>
 <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
 <!--  END - We recommend to place the above code in head tag of your website html -->
@@ -84,7 +87,7 @@
       </div>
     </div>
     <div></div>
-    <div id="sib-container" class="sib-container--large sib-container--horizontal" style="text-align:center; background-color:rgba(242,242,242,1); max-width:1040px; border-radius:3px; border-width:1px; border-color:#f2f2f2; border-style:solid; direction:ltr">
+    <div id="sib-container" class="sib-container--large sib-container--horizontal" style="text-align:center; background-color:#eeeff0; max-width:1040px; border-radius:3px; border-width:1px; border-color:#eeeff0; border-style:solid; direction:ltr">
       <form id="sib-form" method="POST" action="https://a7a299f6.sibforms.com/serve/MUIFAJrM3rzrdCMuGUntYoxy9SMgaJEXENagxzWTmFusWDNdRdZU44laVzETYW5fJnoPzmESRYDZb2NH6uq5wtfJV_6yUfdg9b_mz0ERSz8UKCBocNU7xeA-Xj6SnUX_38NPEyVxmWUZJOMs0JvpnLzsKu0l5J0aQB1rtLeoBsAjX-9ji42Iso0EuBBhvARjurk6B2o_O6g1Gkar" data-type="subscription">
         <div style="padding: 8px 0;">
           <div class="sib-form-block" style="font-size:36px; text-align:center; font-weight:700; font-family:&quot;Poppins-ExtraBold&quot;, sans-serif; color:#000000; background-color:transparent; text-align:center">

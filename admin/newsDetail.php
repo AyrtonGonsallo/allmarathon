@@ -336,7 +336,7 @@ $(document).ready(function() {
         </td></tr>
         <tr><td><label for="evenementID">évènement lié : </label></td><td><input id="evenementID" type="number" name="evenementID" value="<?php echo $news['evenementID'];?>" /></td></tr>
         <tr><td><label for="championID">coureur lié : </label></td><td><input id="championID" type="number" name="championID" value="<?php echo $news['championID'];?>" /></td></tr>
-        <tr><td><label for="videoID">video lié : </label></td><td><input id="videoID" type="number" name="videoID" value="<?php echo $news['videoID'];?>" /></td></tr>
+        <tr><td><label for="videoID">video liée : </label></td><td><input id="videoID" type="number" name="videoID" value="<?php echo $news['videoID'];?>" /></td></tr>
 
         
         

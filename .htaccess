@@ -47,6 +47,8 @@ RewriteRule ^calendrier-stages-competitions-tournois-de-marathon\.html$ /calendr
 #RewriteRule ^calendrier-marathon-([0-9]+)\.html$ /calendrier.php?trim=$1 [L]
 RewriteRule ^calendrier-marathon-([0-9]*)-([0-9]*)\.html$ /content/vues/calendrier.php?type=$1&age=$2 [L]
 
+RewriteRule ^athlète-([0-9]+)-(.*)\.html$ /athlete-$1-$2.html [L,R=301]
+RewriteRule ^athlète-([0-9]+)\.html$ /athlete-$1.html [L,R=301]
 RewriteRule ^athlete-([0-9]+)-(.*)\.html$ /content/vues/champion-detail.php?championID=$1 [L]
 RewriteRule ^athlete-([0-9]+)\.html$ /content/vues/champion-detail.php?championID=$1 [L]
 RewriteRule ^liste-des-athletes-([^-]*)\.html$ /content/vues/champions-liste.php?order=$1 [L]

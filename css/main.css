@@ -94,6 +94,9 @@ a:hover{
 .mb-80{
     margin-bottom: 80px;
 }
+.mb-5{
+    margin-bottom: 5px;
+}
 .mb-20{
     margin-bottom: 20px;
  }
@@ -481,8 +484,8 @@ li.menu-item-categories  li{
     margin: 5px 0 15px 0;
     
 }
-section.last_articles_part1 div,
-section.last_articles_part2 div,.resultat-detail div {
+section.last_articles_part1 article,
+section.last_articles_part2 article,.resultat-detail article {
     display: flex;
     padding: 35px 15px;
 }
@@ -491,18 +494,17 @@ section.last_articles_part2 div,.resultat-detail div {
 .news_alune .title_news {
     margin-top: 2%;
 }
-.left-side div .article-img {
+.left-side article .article-img {
     width: 38%;
-    padding: 0;
 }
 .article-img img, .image_news img {
     object-fit: cover !important;
 }
-.left-side div .article-img a {
+.left-side article .article-img a {
     text-decoration: none;
     position: relative;
 }
-.left-side div .article-img a strong {
+.left-side article .article-img a strong {
     font-size: 18px;
     color: #ffffff;
     line-height: 14px;
@@ -514,16 +516,15 @@ section.last_articles_part1 .desc-img, section.last_articles_part2 .desc-img, .r
     width: 80%;
     flex-direction: column;
     padding-left: 3%;
-    padding: 0 0 0 3%;
     justify-content: space-between;
     display: flex;
 }
-.left-side div .desc-img h2 {
+.left-side article .desc-img h2 {
     font-family: 'Poppins-Black';
     font-size: 27px;
     margin: 0 0 5px 0;
 }
-.title_news a, .video_title, .left-side div .desc-img h2{
+.title_news a, .video_title, .left-side article .desc-img h2{
     text-transform: none;
 }
 .dernieres-videos-bureau{
@@ -916,7 +917,7 @@ a.call-to-action:hover{
     margin: 0 10px 0 0 ;
 }
 .marathon-detail .sub-menu li a,.athlete-detail .sub-menu li a{ 
-    background-color: #fbff0b;
+    background-color: #e8e9ea;
     padding: 5px 15px;
     border-radius: 5px;
 }
@@ -926,6 +927,7 @@ a.call-to-action:hover{
 }
 .marathon-detail .sub-menu li a.active,.athlete-detail .sub-menu li a.active{ 
     font-family: "Poppins-Bold";
+    background-color: #fbff0b;
 }
 .marathon-details-section-title{
     font-family: "Poppins-Black";
@@ -950,10 +952,11 @@ a.call-to-action:hover{
     color: #000000 !important;
 }
 .ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited, a.ui-button, a:link.ui-button, a:visited.ui-button, .ui-button{
-    background: #fbff0b !important;
+    background: #e8e9ea !important;
 }
 .ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited {
     color: #000000 !important;
+    background-color: #fbff0b  !important;
 }
 .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:active {
     border: none !important;
@@ -1284,7 +1287,7 @@ input[type=search]::placeholder {
 .nav-tabs>li>a {
     font-family: "Poppins-Light";
     text-align: center;
-    background-color: #fbff0b;
+    background-color: #e8e9ea;
     color: #000;
     width: fit-content;
     padding: 5px 15px;
@@ -1295,7 +1298,7 @@ input[type=search]::placeholder {
     font-family: "Poppins-Light";
     border: none;
     color: #000;
-    background-color: #fbff0b;
+    background-color: #e8e9ea;
     width: fit-content;
     padding: 5px 15px;
     font-size: 16px !important;
@@ -1308,6 +1311,7 @@ input[type=search]::placeholder {
 }
 .res-by-gender.active{
     font-family: "Poppins-Bold";
+    background-color: #fbff0b !important;
 }
 .read-more-button{
     background: none;
@@ -1783,18 +1787,18 @@ div#copy-button:hover {
     }
 }
 @media only screen and (min-width: 800px){
-    .title_news a, .video_title, .left-side div .desc-img h2{
+    .title_news a, .video_title, .left-side article .desc-img h2{
         text-transform: none;
     }
 }
 @media (min-width: 768px) and (max-width: 1199px) and (orientation: landscape) {
-    .left-side div .article-img a .media_index {
+    .left-side article .article-img a .media_index {
         left: -40px;
         bottom: 5px;
         width: 35px;
     }
 
-    .left-side div .article-img a .media {
+    .left-side article .article-img a .media {
         /*left:200px; bottom:35px*/
         left: 150px;
         bottom: 29px;
