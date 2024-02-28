@@ -60,74 +60,22 @@ if(isset($_GET['championID'])) {
 
          try {
 
-             $req4 = $bdd->prepare("UPDATE champions SET Nom=:Nom ,Sexe=:Sexe ,PaysID=:PaysID,NvPaysID=:NvPaysID,DateChangementNat=:DateChangementNat ,DateNaissance=:DateNaissance ,LieuNaissance=:LieuNaissance ,Grade=:Grade,Clubs=:Clubs,Taille=:Taille, Poids=:Poids, TokuiWaza=:TokuiWaza, MainDirectrice=:MainDirectrice, Activite=:Activite, Forces=:Forces, Idole=:Idole, Idole2=:Idole2, Idole3=:Idole3, Idole4=:Idole4, Idole5=:Idole5, Idole6=:Idole6, Idole7=:Idole7, Lidole2=:Lidole2, Lidole3=:Lidole3, Lidole4=:Lidole4, Lidole5=:Lidole5, Lidole6=:Lidole6, Lidole7=:Lidole7, Anecdote=:Anecdote, Phrase=:Phrase, VuPar=:VuPar, Site=:Site WHERE ID=:id");
-
-
+            $req4 = $bdd->prepare("UPDATE champions SET Nom=:Nom ,Poids=:poids ,Taille=:taille ,Sexe=:Sexe ,PaysID=:PaysID,NvPaysID=:NvPaysID,DateChangementNat=:DateChangementNat ,DateNaissance=:DateNaissance ,LieuNaissance=:LieuNaissance ,Lien_site_équipementier=:lien_equip,Instagram=:Instagram,Facebook=:Facebook, Bio=:Bio WHERE ID=:id");
 
              $req4->bindValue('Nom',$_POST['Nom'], PDO::PARAM_STR);
-
              $req4->bindValue('Sexe',$_POST['Sexe'], PDO::PARAM_STR);
-
              $req4->bindValue('PaysID',$_POST['PaysID'], PDO::PARAM_STR);
-
              $req4->bindValue('NvPaysID',$_POST['NvPaysID'], PDO::PARAM_STR);
-
              $req4->bindValue('DateChangementNat',$datechang, PDO::PARAM_STR);
-
              $req4->bindValue('DateNaissance',$date, PDO::PARAM_STR);
-
              $req4->bindValue('LieuNaissance',$_POST['LieuNaissance'], PDO::PARAM_STR);
-
-             $req4->bindValue('Grade',$_POST['Grade'], PDO::PARAM_STR);
-
-             $req4->bindValue('Clubs',$_POST['Clubs'], PDO::PARAM_STR);
-
-             $req4->bindValue('Taille',$taille, PDO::PARAM_INT);
-
-             $req4->bindValue('Poids',$poid, PDO::PARAM_INT);
-
-             $req4->bindValue('TokuiWaza',$_POST['TokuiWaza'], PDO::PARAM_STR);
-
-             $req4->bindValue('MainDirectrice',$_POST['MainDirectrice'], PDO::PARAM_STR);
-
-             $req4->bindValue('Activite',$_POST['Activite'], PDO::PARAM_STR);
-
-             $req4->bindValue('Forces',$_POST['Forces'], PDO::PARAM_STR);
-
-             $req4->bindValue('Idole',$_POST['Idole'], PDO::PARAM_STR);
-
-             $req4->bindValue('Idole2',$_POST['Idole2'], PDO::PARAM_STR);
-
-             $req4->bindValue('Idole3',$_POST['Idole3'], PDO::PARAM_STR);
-
-             $req4->bindValue('Idole4',$_POST['Idole4'], PDO::PARAM_STR);
-
-             $req4->bindValue('Idole5',$_POST['Idole5'], PDO::PARAM_STR);
-
-             $req4->bindValue('Idole6',$_POST['Idole6'], PDO::PARAM_STR);
-
-             $req4->bindValue('Idole7',$_POST['Idole7'], PDO::PARAM_STR);
-
-             $req4->bindValue('Lidole2',$_POST['Lidole2'], PDO::PARAM_STR);
-
-             $req4->bindValue('Lidole3',$_POST['Lidole3'], PDO::PARAM_STR);
-
-             $req4->bindValue('Lidole4',$_POST['Lidole4'], PDO::PARAM_STR);
-
-             $req4->bindValue('Lidole5',$_POST['Lidole5'], PDO::PARAM_STR);
-
-             $req4->bindValue('Lidole6',$_POST['Lidole6'], PDO::PARAM_STR);
-
-             $req4->bindValue('Lidole7',$_POST['Lidole7'], PDO::PARAM_STR);
-
-             $req4->bindValue('Anecdote',$_POST['Anecdote'], PDO::PARAM_STR);
-
-             $req4->bindValue('Phrase',$_POST['Phrase'], PDO::PARAM_STR);
-
-             $req4->bindValue('VuPar',$_POST['VuPar'], PDO::PARAM_STR);
-
-             $req4->bindValue('Site',$_POST['Site'], PDO::PARAM_STR);
-
+             $req4->bindValue('lien_equip',$_POST['lien_equip'], PDO::PARAM_STR);
+             $req4->bindValue('Instagram',$_POST['Instagram'], PDO::PARAM_STR);
+             $req4->bindValue('poids',$_POST['poids'], PDO::PARAM_STR);
+             $req4->bindValue('taille',$_POST['taille'], PDO::PARAM_STR);
+             $req4->bindValue('Facebook',$_POST['Facebook'], PDO::PARAM_STR);
+             $req4->bindValue('Bio',$_POST['Bio'], PDO::PARAM_STR);
+            
              $req4->bindValue('id',$_GET['championID'], PDO::PARAM_INT);
 
              $statut=$req4->execute();
@@ -432,143 +380,46 @@ catch(Exception $e)
             <p id="pErreur" align="center"><?php echo $erreur; ?></p>
 
             <table>
-
-
-
-                <tr><td align="right"><label for="Nom">Nom : </label></td><td><input type="text" name="Nom" value="<?php echo str_replace('\\', '',$champion['Nom']);?>" /></td></tr>
-
+            <tr><td align="right"><label for="Nom">Nom : </label></td><td><input type="text" name="Nom" value="<?php echo str_replace('\\', '',$champion['Nom']);?>" /></td></tr>
                 <tr><td  align="right"><label for="Sexe">Sexe : </label></td><td><input type="radio" name="Sexe" value="M" <?php if($champion['Sexe']=="M") echo 'checked="checked"';?> /><span>homme</span><input type="radio" name="Sexe" value="F" <?php if($champion['Sexe']=="F") echo 'checked="checked"';?> /><span >femme</span></td></tr>
 
-
-
                 <tr><td align="right"><label for="PaysID">Pays : </label></td><td>
-
                     <select name="PaysID" >
-
                         <?php //while($pays = mysql_fetch_array($result4)){
-
                             foreach ($result4 as $pays) {
-
-                                if($champion['PaysID']==$pays['Abreviation'])
-
+                                if($champion['PaysID']==$pays['Abreviation'] || $champion['PaysID']==$pays['Abreviation_2'] || $champion['PaysID']==$pays['Abreviation_3'] ||$champion['PaysID']==$pays['Abreviation_4'] ||$champion['PaysID']==$pays['Abreviation_5'])
                                     echo '<option value="'.$pays['Abreviation'].'" selected>'.$pays['NomPays'].'</option>';
-
                                 else
-
                                     echo '<option value="'.$pays['Abreviation'].'">'.$pays['NomPays'].'</option>';
-
                             } ?>
-
                         </select>
-
                     </td></tr>
-
                     <tr><td  align="right"><label for="DateNaissance">Date Naissance : </label></td><td><input type="text" name="DateNaissance" id="datepicker" value="<?php echo $champion['DateNaissance'];?>" /></td></tr>
-
                     <tr><td  align="right"><label for="LieuNaissance">Lieu de Naissance : </label></td><td><input type="text" name="LieuNaissance" id="LieuNaissance" value="<?php echo $champion['LieuNaissance'];?>" /></td></tr>
-
                     <tr><td  align="right"><label for="DateChangementNat">Date Changement Nationalité : </label></td><td><input type="text" name="DateChangementNat" id="DateChangementNat" value="<?php echo $champion['DateChangementNat'];?>" /></td></tr>
-
                     <tr><td align="right"><label for="NvPaysID">Nouvelle nationalité : </label></td><td>
-
                     <select name="NvPaysID" >
-
                         <?php //while($pays = mysql_fetch_array($result4)){
-
                             foreach ($result4 as $pays) {
-
                                 if($champion['NvPaysID']==$pays['Abreviation'])
-
                                     echo '<option value="'.$pays['Abreviation'].'" selected>'.$pays['NomPays'].'</option>';
-
                                 else
-
                                     echo '<option value="'.$pays['Abreviation'].'">'.$pays['NomPays'].'</option>';
-
                             } ?>
-
                         </select>
-
                     </td></tr>
+                    <tr><td  align="right"><label for="poids">poids : </label></td><td><input type="text" name="poids" id="poids" value="<?php echo str_replace('\\', '',str_replace('"', '\'', $champion['Poids']));?>" /></td></tr>
 
-                    <tr><td  align="right"><label for="Grade">Grade : </label></td><td><input type="text" name="Grade" id="Grade" value="<?php echo str_replace('\\', '',str_replace('"', '\'', $champion['Grade']));?>" /></td></tr>
+                    <tr><td  align="right"><label for="taille">taille : </label></td><td><input type="text" name="taille" id="taille" value="<?php echo str_replace('\\', '',str_replace('"', '\'', $champion['Taille']));?>" /></td></tr>
 
-                    <tr><td  align="right"><label for="Clubs">Clubs : </label></td><td><input type="text" name="Clubs" id="Clubs" value="<?php echo str_replace('\\', '',str_replace('"', '\'', $champion['Clubs']));?>" /></td></tr>
-
-                    <tr><td  align="right"><label for="Taille">Taille : </label></td><td><input type="text" name="Taille" id="Taille" value="<?php echo $champion['Taille'];?>" /></td></tr>
-
-                    <tr><td  align="right"><label for="Poids">Poids : </label></td><td><input type="text" name="Poids" id="Poids" value="<?php echo $champion['Poids'];?>" /></td></tr>
-
-                    <tr><td  align="right"><label for="TokuiWaza">TokuiWaza : </label></td><td><textarea name="TokuiWaza" id="TokuiWaza" cols="50" rows="4"><?php echo str_replace('\\', '',str_replace('"', '\'', $champion['TokuiWaza']));?></textarea></td></tr>
-
-                    <tr><td  align="right"><label for="MainDirectrice">MainDirectrice : </label></td><td>
-
-                        <select name="MainDirectrice" >
-
-                            <option value="">aucune</option>
-
-                            <option value="droite" <?php if($champion['MainDirectrice']=='droite') echo 'selected="selected"'; ?>>droite</option>
-
-                            <option value="gauche" <?php if($champion['MainDirectrice']=='gauche') echo 'selected="selected"'; ?>>gauche</option>
-
-                            <option value="ambidextre" <?php if($champion['MainDirectrice']=='ambidextre') echo 'selected="selected"'; ?>>ambidextre</option>
-
-                        </select>
-
-
-
-                    </td></tr>
-
-                    <tr><td  align="right"><label for="Activite">Activit&eacute; : </label></td><td><input type="text" name="Activite" id="Activite" value="<?php echo str_replace('\\', '',str_replace('"', '\'', $champion['Activite']));?>" /></td></tr>
-
-                    <tr><td  align="right"><label for="Forces">Force : </label></td><td><textarea name="Forces" id="Forces" cols="50" rows="4" ><?php echo str_replace('\\', '',str_replace('"', '\'', $champion['Forces']));?></textarea></td></tr>
-
-                    <tr><td  align="right"><label for="Idole">Idole : </label></td><td><input type="text" name="Idole" id="Idole" value="<?php echo str_replace('\\', '',str_replace('"', '\'', $champion['Idole']));?>" /></td></tr>
-
-
-
-                    <tr><td  align="right"><label for="Idole2"><?php echo ("chanteur ou groupes pr&eacute;f&eacute;r&eacute; :"); ?>  </label></td><td><input type="text" name="Idole2" id="Idole2" value="<?php echo str_replace('\\', '', str_replace('"', '\'', $champion['Idole2'])); ?>" /></td></tr>
-
-                    <tr><td  align="right"><label for="Lidole2"><?php echo ("lien :"); ?>  </label></td><td><input type="text" name="Lidole2" id="Lidole2" value="<?php echo str_replace('\\', '', str_replace('"', '\'', $champion['Lidole2'])); ?>" /></td></tr>        
-
-                    <tr><td  align="right"><label for="Idole3"><?php echo ("chanson pr&eacute;f&eacute;r&eacute;e : "); ?></label></td><td><input type="text" name="Idole3" id="Idole3" value="<?php echo str_replace('\\', '', str_replace('"', '\'', $champion['Idole3'])); ?>" /></td></tr>
-
-                    <tr><td  align="right"><label for="Lidole3"><?php echo ("lien : "); ?></label></td><td><input type="text" name="Lidole3" id="Lidole3" value="<?php echo str_replace('\\', '', str_replace('"', '\'', $champion['Lidole3'])); ?>" /></td></tr>
-
-                    <tr><td  align="right"><label for="Idole4"><?php echo ("humoriste pr&eacute;f&eacute;r&eacute; :"); ?> </label></td><td><input type="text" name="Idole4" id="Idole4" value="<?php echo str_replace('\\', '', str_replace('"', '\'', $champion['Idole4'])); ?>" /></td></tr>
-
-                    <tr><td  align="right"><label for="Lidole4"><?php echo ("lien :"); ?> </label></td><td><input type="text" name="Lidole4" id="Lidole4" value="<?php echo str_replace('\\', '', str_replace('"', '\'', $champion['Lidole4'])); ?>" /></td></tr>
-
-                    <tr><td  align="right"><label for="Idole5"><?php echo ("sketch pr&eacute;f&eacute;r&eacute; :"); ?> </label></td><td><input type="text" name="Idole5" id="Idole5" value="<?php echo str_replace('\\', '', str_replace('"', '\'', $champion['Idole5'])); ?>" /></td></tr>
-
-                    <tr><td  align="right"><label for="Lidole5"><?php echo ("lien :"); ?> </label></td><td><input type="text" name="Lidole5" id="Lidole5" value="<?php echo str_replace('\\', '', str_replace('"', '\'', $champion['Lidole5'])); ?>" /></td></tr>
-
-                    <tr><td  align="right"><label for="Idole6"><?php echo ("Film pr&eacute;f&eacute;r&eacute; :"); ?> </label></td><td><input type="text" name="Idole6" id="Idole6" value="<?php echo str_replace('\\', '', str_replace('"', '\'', $champion['Idole6'])); ?>" /></td></tr>
-
-                    <tr><td  align="right"><label for="Lidole6"><?php echo ("lien :"); ?> </label></td><td><input type="text" name="Lidole6" id="Lidole6" value="<?php echo str_replace('\\', '', str_replace('"', '\'', $champion['Lidole6'])); ?>" /></td></tr>
-
-                    <tr><td  align="right"><label for="Idole7"><?php echo ("Plat pr&eacute;f&eacute;r&eacute; :"); ?> </label></td><td><input type="text" name="Idole7" id="Idole7" value="<?php echo str_replace('\\', '', str_replace('"', '\'', $champion['Idole7'])); ?>" /></td></tr>
-
-                    <tr><td  align="right"><label for="Lidole7"><?php echo ("lien :"); ?> </label></td><td><input type="text" name="Lidole7" id="Lidole7" value="<?php echo str_replace('\\', '', str_replace('"', '\'', $champion['Lidole7'])); ?>" /></td></tr>
-
-
-
-
-
-                    <tr><td  align="right"><label for="Anecdote">Anecdote : </label></td><td><textarea name="Anecdote" id="Anecdote" cols="50" rows="4" ><?php echo str_replace('\\', '',str_replace('"', '\'', $champion['Anecdote']));?></textarea></td></tr>
-
-                    <tr><td  align="right"><label for="Phrase">Phrase : </label></td><td><textarea name="Phrase" id="Phrase" cols="50" rows="4" ><?php echo str_replace('\\', '',str_replace('"', '\'', $champion['Phrase']));?></textarea></td></tr>
-
-                    <tr><td  align="right"><label for="VuPar">VuPar : </label></td><td><textarea name="VuPar" id="VuPar" cols="50" rows="4" ><?php echo str_replace('\\', '',str_replace('"', '\'', $champion['VuPar']));?></textarea></td></tr>
-
-                    <tr><td  align="right"><label for="Site">Site : </label></td><td><input type="text" name="Site" id="Site" value="<?php echo str_replace('\\', '',str_replace('"', '\'', $champion['Site']));?>" /></td></tr>
-
-
-
-
+                    <tr><td  align="right"><label for="Equipementier">Equipementier :  </label></td><td><input type="text" name="Equipementier" id="Equipementier" value="<?php echo str_replace('\\', '',str_replace('"', '\'', $champion['Equipementier']));?>" /></td></tr>
+                    <tr><td  align="right"><label for="Facebook">Facebook : </label></td><td><input type="text" name="Facebook" id="Facebook" value="<?php echo str_replace('\\', '',str_replace('"', '\'', $champion['Facebook']));?>" /></td></tr>
+                    <tr><td  align="right"><label for="Instagram">Instagram : </label></td><td><input type="text" name="Instagram" id="Instagram" value="<?php echo $champion['Instagram'];?>" /></td></tr>
+                    <tr><td  align="right"><label for="lien_equip">Lien site équipementier :  </label></td><td><input type="text" name="lien_equip" id="lien_equip" value="<?php echo $champion['Lien_site_équipementier'];?>" /></td></tr>
+                    <tr><td  align="right"><label for="Bio">Bio : </label></td><td><textarea name="Bio" id="Bio" cols="50" rows="20"><?php echo str_replace('\\', '',str_replace('"', '\'', $champion['Bio']));?></textarea></td></tr>
+                    
 
                     <tr align="center"><td colspan="2"><input type="submit" name="sub" value="modifier" /></td></tr>
-
                 </table>
 
             </form>

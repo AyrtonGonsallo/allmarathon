@@ -272,8 +272,8 @@ catch(Exception $e)
             <h1>pas de résultats</h1>
             <h4>Pour avoir un résultat soit:</h4>
                 <ul style="color:blue">
-                    <li>tous les noms et prénoms du champion à remplacer <i style="color:red">sont contenus</i> dans des noms différents d'un remplacant potentiel; de plus le nom du candidat et celui du remplacant doivent <i style="color:red">etre similaires à 50%</i></li>
-                    <li>le nom du candidat et celui du remplacant sont <i style="color:red">similaires à 70%</i>;  En outre tous les noms des remplacants potentiels doivent soit: <p style="width:370px;position:absolute;right:-30px;"><li><i style="color:green">commencer par les 3 mêmes lettres</i></li> <li> se <i style="color:purple">terminer par les 3 mêmes lettres</i></li>  <li><i style="color:red">commencer et se terminer par les 2 mêmes lettres</i></li></p> que ceux du remplacé</li>
+                    <li>tous les noms et prénoms du champion à remplacer <i style="color:red">sont contenus</i> dans des noms différents d'un remplacant potentiel, de plus le nom du candidat et celui du remplacant doivent <i style="color:red">être similaires à 50%</i></li>
+                    <li>le nom du candidat et celui du remplacant sont <i style="color:red">similaires à 70%</i>,  en outre tous les noms des remplacants potentiels doivent soit: <p style="width:370px;position:absolute;right:-30px;"><li><i style="color:green">commencer par les 3 mêmes lettres</i></li> <li> se <i style="color:purple">terminer par les 3 mêmes lettres</i></li>  <li><i style="color:red">commencer et se terminer par les 2 mêmes lettres</i></li></p> que ceux du remplacé</li>
                 </ul>
             
         </div>

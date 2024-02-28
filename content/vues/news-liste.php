@@ -483,7 +483,7 @@ include_once('nv_header-integrer.php'); ?>
                                         $chmp=$champion->getChampionById($article->getChampionID())["donnees"];
                                         echo "<a href='athlete-".$chmp->getId()."-".$chmp->getNom().".html' class='home-link mb-5 mr-5 '>Le palmarès de ". $chmp->getNom()."</a>";
                                     }
-                                    if($article->getLien1() || $article->getEvenementID()>0 ){
+                                    if($article->getLien1()  ){
                                         if( $article->getEvenementID()>0 ){
                                             $evenement=$event->getEvenementByID($article->getEvenementID())["donnees"];
                                             $cat_event=$ev_cat_event->getEventCatEventByID($evenement->getCategorieId())['donnees']->getIntitule();
@@ -491,8 +491,8 @@ include_once('nv_header-integrer.php'); ?>
                                             $nom_res_lien=$cat_event.' - '.$evenement->getNom().' - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
                                             $marathon= $event->getMarathon($evenement->getmarathon_id())['donnees'];
                                         }
-                                        $lien_perso=($article->getEvenementID()>0 )?("/resultats-marathon-".$evenement->getId()."-".slugify($nom_res_lien).".html"):$article->getLien1();
-                                        $texte_perso=($article->getEvenementID()>0 )?("Résultats du marathon ".$marathon["prefixe"]." ".$marathon["nom"]." ".strftime("%Y",strtotime($evenement->getDateDebut()))):$article->getTextlien1();
+                                        $lien_perso=$article->getLien1();
+                                        $texte_perso=$article->getTextlien1();
                                         
                                         echo "<a href='".$lien_perso."' class='home-link mb-5 mr-5 '>".$texte_perso."</a>";
                                     }
@@ -590,7 +590,7 @@ include_once('nv_header-integrer.php'); ?>
                                         $chmp=$champion->getChampionById($article->getChampionID())["donnees"];
                                         echo "<a href='athlete-".$chmp->getId()."-".$chmp->getNom().".html' class='home-link mb-5 mr-5 '>Le palmarès de ". $chmp->getNom()."</a>";
                                     }
-                                    if($article->getLien1() || $article->getEvenementID() ){
+                                    if($article->getLien1()  ){
                                         if( $article->getEvenementID()>0 ){
                                             $evenement=$event->getEvenementByID($article->getEvenementID())["donnees"];
                                             $cat_event=$ev_cat_event->getEventCatEventByID($evenement->getCategorieId())['donnees']->getIntitule();
@@ -598,8 +598,8 @@ include_once('nv_header-integrer.php'); ?>
                                             $nom_res_lien=$cat_event.' - '.$evenement->getNom().' - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
                                             $marathon= $event->getMarathon($evenement->getmarathon_id())['donnees'];
                                         }
-                                        $lien_perso=($article->getEvenementID()>0 )?("/resultats-marathon-".$evenement->getId()."-".slugify($nom_res_lien).".html"):$article->getLien1();
-                                        $texte_perso=($article->getEvenementID()>0 )?("Résultats du marathon ".$marathon["prefixe"]." ".$marathon["nom"]." ".strftime("%Y",strtotime($evenement->getDateDebut()))):$article->getTextlien1();
+                                        $lien_perso=$article->getLien1();
+                                        $texte_perso=$article->getTextlien1();
                                         
                                         echo "<a href='".$lien_perso."' class='home-link mb-5 mr-5 '>".$texte_perso."</a>";
                                     }
@@ -701,7 +701,7 @@ include_once('nv_header-integrer.php'); ?>
                                         $chmp=$champion->getChampionById($article->getChampionID())["donnees"];
                                         echo "<a href='athlete-".$chmp->getId()."-".$chmp->getNom().".html' class='home-link mb-5 mr-5 '>Le palmarès de ". $chmp->getNom()."</a>";
                                     }
-                                    if($article->getLien1() || $article->getEvenementID() ){
+                                    if($article->getLien1()  ){
                                         if( $article->getEvenementID()>0 ){
                                             $evenement=$event->getEvenementByID($article->getEvenementID())["donnees"];
                                             $cat_event=$ev_cat_event->getEventCatEventByID($evenement->getCategorieId())['donnees']->getIntitule();
@@ -709,8 +709,8 @@ include_once('nv_header-integrer.php'); ?>
                                             $nom_res_lien=$cat_event.' - '.$evenement->getNom().' - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
                                             $marathon= $event->getMarathon($evenement->getmarathon_id())['donnees'];
                                         }
-                                        $lien_perso=($article->getEvenementID()>0 )?("/resultats-marathon-".$evenement->getId()."-".slugify($nom_res_lien).".html"):$article->getLien1();
-                                        $texte_perso=($article->getEvenementID()>0 )?("Résultats du marathon ".$marathon["prefixe"]." ".$marathon["nom"]." ".strftime("%Y",strtotime($evenement->getDateDebut()))):$article->getTextlien1();
+                                        $lien_perso=$article->getLien1();
+                                        $texte_perso=$article->getTextlien1();
                                         
                                         echo "<a href='".$lien_perso."' class='home-link mb-5 mr-5 '>".$texte_perso."</a>";
                                      }
@@ -1001,7 +1001,7 @@ if($pub160x600 !="") {
                                         $chmp=$champion->getChampionById($article->getChampionID())["donnees"];
                                         echo "<a href='athlete-".$chmp->getId()."-".$chmp->getNom().".html' class='home-link mb-5 mr-5 '>Le palmarès de ". $chmp->getNom()."</a>";
                                     }
-                                    if($article->getLien1() || $article->getEvenementID() ){
+                                    if($article->getLien1()  ){
                                         if( $article->getEvenementID()>0 ){
                                             $evenement=$event->getEvenementByID($article->getEvenementID())["donnees"];
                                             $cat_event=$ev_cat_event->getEventCatEventByID($evenement->getCategorieId())['donnees']->getIntitule();
@@ -1009,8 +1009,8 @@ if($pub160x600 !="") {
                                             $nom_res_lien=$cat_event.' - '.$evenement->getNom().' - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
                                             $marathon= $event->getMarathon($evenement->getmarathon_id())['donnees'];
                                         }
-                                        $lien_perso=($article->getEvenementID()>0 )?("/resultats-marathon-".$evenement->getId()."-".slugify($nom_res_lien).".html"):$article->getLien1();
-                                        $texte_perso=($article->getEvenementID()>0 )?("Résultats du marathon ".$marathon["prefixe"]." ".$marathon["nom"]." ".strftime("%Y",strtotime($evenement->getDateDebut()))):$article->getTextlien1();
+                                        $lien_perso=$article->getLien1();
+                                        $texte_perso=$article->getTextlien1();
                                         
                                         echo "<a href='".$lien_perso."' class='home-link mb-5 mr-5 '>".$texte_perso."</a>";
                                     }

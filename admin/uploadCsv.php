@@ -28,7 +28,8 @@ if (isset($_FILES['file']) && isset($eventID)) {
     $handle = fopen($file, 'r');
 
     fgetcsv($handle, 1000);
-
+    $min_id=0;
+    $max_id=0;
     $insertChampion = 0;
     $insertResultat = 0;
     $i = 0;
@@ -111,6 +112,10 @@ if (isset($_FILES['file']) && isset($eventID)) {
                 continue;
             }
             $idChampion=$bdd->lastInsertId();
+            if($i==0){
+                $min_id=$idChampion;
+            }
+            $max_id= $idChampion;
             $insertChampion++;
         }else{
             $champion=$req1->fetch(PDO::FETCH_ASSOC);
@@ -158,10 +163,10 @@ if (isset($_FILES['file']) && isset($eventID)) {
                   $headers .= "MIME-Version: 1.0\r\n";
                   $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
                   $message = '
-<html><body>Bonjour,
-Vous recevez ce message pour vous pr&eacute;venir qu\'un nouveau r&eacute;sultat, une nouvelle vid&eacute;o ou une nouvelle photo a &eacute;t&eacute; ajout&eacute;e sur la fiche de '.$r['Nom'].'
-Cordialement
-L\'&eacute;quipe de Allmarathon</body></html>';
+                    <html><body>Bonjour,
+                    Vous recevez ce message pour vous pr&eacute;venir qu\'un nouveau r&eacute;sultat, une nouvelle vid&eacute;o ou une nouvelle photo a &eacute;t&eacute; ajout&eacute;e sur la fiche de '.$r['Nom'].'
+                    Cordialement
+                    L\'&eacute;quipe de Allmarathon</body></html>';
                   // mail('sabilmariam91@gmail.com', $subject,$message,$headers);
                    mail($r['email'], $subject,$message,$headers);
            }
@@ -170,6 +175,7 @@ L\'&eacute;quipe de Allmarathon</body></html>';
         
         $i++;
     }
+}
     echo '<head><link href="../styles/admin2009.css" rel="stylesheet" type="text/css" /><link rel="icon" type="image/x-icon" href="../images/favicon.ico"></head><body>';
     require_once "menuAdmin.php";
     echo " nbr nouveau champions : ".$insertChampion." nbr resultat inserés : ".$insertResultat;
@@ -177,5 +183,109 @@ L\'&eacute;quipe de Allmarathon</body></html>';
     if(isset($erreur))
         print_r($erreur);
     echo "</pre></body>";
-}
-?>
+
+    $start_time = time();
+    require '../content/classes/test.php';
+
+    require '../content/classes/script_fusion_fiches.php'; 
+    $result=recherche_et_fusion($min_id,$max_id);?>
+<? if($result){ ?>
+
+    <fieldset style="float:left;">
+
+        <legend>Suggestion de fusion (nouveau par ancien)</legend>
+
+
+
+        <div id="compte" style="color:red;background-color:black;width: 300px;height:50px; font-size:20px;padding:10px;margin:10px;border-radius:20px;"><? echo count($result);?> de vos athlètes ajoutés pourraient déja exister</div>
+
+            <div >
+
+                <table class="tab1">
+
+                <thead>
+
+                    <tr><th colspan="2">A remplacer</th><th colspan="2">remplacant</th><th colspan="2">Action</th></tr>
+
+                </thead>
+
+                <tbody>
+
+                    
+
+                    <tr><td>ID</td><td>Nom</td><td>ID</td><td>Nom</td><td colspan="2"></td></tr>
+
+                    <?php //while($champion = mysql_fetch_array($result3)){
+
+                        foreach ($result as $format) {
+
+                            foreach ($format->getRemplacants() as $remplacant) {
+
+                    if($_SESSION['admin'] == true){
+
+                        echo "<tr align=\"center\" ><td>".$format->getChampion_courant()['ID']."</td><td>".$format->getChampion_courant()['Nom']."</td><td>".$remplacant['ID']."</td><td>".$remplacant['Nom']."</td>
+
+                            <td colspan='2'>
+
+                            <a href=\"remplacerChampion2.php?remplacer=".$format->getChampion_courant()['ID']."&remplacant=".$remplacant['ID']."'\" target=\"_blank\">
+
+                            <img style=\"cursor:pointer;\" src=\"../images/replace.png\" alt=\"replace\" title=\"remplacer\" onclick=\"deleteRow2(this)\" />
+
+                            </a>
+
+                            <img style=\"cursor:pointer;\" src=\"../images/cancel.png\" alt=\"annuler\" title=\"annuler\"  onclick=\"if(confirm('Voulez vous vraiment annuler le remplacement de ".$format->getChampion_courant()['Nom']."par ".$remplacant['Nom']." ?')) { deleteRow(this)} else { return 0;}\" />
+
+                            
+
+                            <a href=\"remplacerChampion2.php?remplacer=".$format->getChampion_courant()['ID']."&remplacant=".$remplacant['ID']."&modifier=true\" target=\"_blank\">
+
+                            <img style=\"cursor:pointer;\" src=\"../images/rempMod.png\" alt=\"replaceandedit\" title=\"remplacer et modifier\" onclick=\"deleteRow2(this)\" />
+
+                            </a>
+
+                            
+
+                            </td></tr>";
+
+                    }elseif($_SESSION['ev'] == true){
+
+                        echo "<tr align=\"center\" ><td>".$format->getChampion_courant()['ID']."</td><td>".$format->getChampion_courant()['Nom']."</td><td>".$remplacant['ID']."</td><td>".$remplacant['Nom']."</td> 
+
+                            <td colspan='2'><img style=\"cursor:pointer;\" src=\"../images/replace.png\" alt=\"replace\" title=\"remplacer\" onclick=\"location.href='remplacerChampion2.php?remplacer=".$format->getChampion_courant()['ID']."&remplacant=".$remplacant['ID']."'\" />
+
+                            </td></tr>";
+
+                    }
+
+                    }
+
+                    } ?>
+
+                    
+
+                </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </fieldset>
+
+    <div style="position: absolute; right: 0px; color:red;background-color:black;width: 700px;;height:60px; font-size:30px;padding:20px;margin:20px;border-radius:40px;">
+
+        <?php 
+
+            $end_time = time();
+
+            $execution_time = ($end_time - $start_time);
+
+            echo "<b style=\"color:white\">Temps d'exécution :</b> ".$execution_time."<b style=\"color:white\"> sec</b>";
+
+        ?>
+
+    </div>
+<? }else{?>
+Le script n'a pas détecté de doublons
+<? }?>

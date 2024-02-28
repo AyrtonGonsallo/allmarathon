@@ -196,6 +196,9 @@ try{
                             $pays_flag=$pays->getFlagByName($chmp['NomPays'])['donnees']['Flag'];
                             
                             $total=gettotalMarathonsByPays($chmp["Abreviation"],$chmp["Abreviation_2"],$chmp["Abreviation_3"],$chmp["Abreviation_4"])['donnees'][0]["total"];
+                            if($total==0){
+                                continue;
+                            }
                             if($total==1){
                                 $marathon_par_pays_total=$total.' marathon';
                             }else{

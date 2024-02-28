@@ -588,6 +588,22 @@ function array_msort($array, $cols)
 		  return display_results_3($results_sorted_by_next_event);
 	}
 
+	function getThisMonthForcalendar(){
+		try{
+			include("../database/connexion.php");
+				$req2 = $bdd->prepare("SELECT DateDebut FROM evenements where Valider=1  AND (DateDebut > :today) ORDER BY DateDebut limit 1");
+		
+				
+				$req2->bindValue('today', date('Y-m-d'), PDO::PARAM_STR); 
+				$req2->execute();
+				$datemois = $req2->fetch(PDO::FETCH_ASSOC);
+				return $datemois["DateDebut"];
+			}
+			catch(Exception $e)
+			{
+				die('Erreur : ' . $e->getMessage());
+			}
+	}
 
 
 	function getThisMonthEvents(){
