@@ -243,7 +243,7 @@ catch(Exception $e)
                         </ul>
                     </div>
                     <div class="section-divider"></div>
-                    <div class="col-sm-12 mb-80">
+                    <div class="col-sm-12">
                        <?php
                             //var_dump($olympiques);
                         ?>

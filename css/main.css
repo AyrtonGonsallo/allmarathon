@@ -358,6 +358,7 @@ li.menu-item-categories  li{
 .container.page-content {
     font-family: 'Poppins-regular';
     min-height: 680px;
+    margin-bottom: 70px;
 }
 .page-content .banniere1 {
     text-align: center;
@@ -654,9 +655,11 @@ div#copy-button {
 
 }
 #disqus_thread{
-    margin-bottom: 60px;
+    margin-bottom: 0px;
 }
-
+.lignes-données-nationales{
+    margin-bottom: 0px !important;
+}
 /*marathons*/
 .left-side h1 {
     font-family: 'Poppins-black';
