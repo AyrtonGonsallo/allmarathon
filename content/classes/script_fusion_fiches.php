@@ -37,7 +37,7 @@ function getmax(){
 
 //require 'test.php';
 require '../database/connexion.php';
-$tab       = explode(" ", $nom_champion);
+$tab       = explode(" ", str_replace("'","",$nom_champion));
 $nbr       = count($tab);
 //si le nom contient entierement le nom de famille et les autres prenoms on ajoute une condition similaire a 50%
 $query7     ="SELECT * FROM champions WHERE (ID !=".$id.") AND (( UPPER(Nom) LIKE UPPER('%".$tab[0]."%'))";
