@@ -429,6 +429,7 @@ header .header--nav ul>li.header--pull.pull-right ul.dropdown_menu_user>li:first
   border: 1px solid rgba(0, 0, 0, .25);
   box-shadow: none;
   font-size: 18px;
+  width:60%;
 }
 
 .pull-right1 {
@@ -721,6 +722,15 @@ section.last_articles_part1 {
 }
 .title_news.mb-70{
   margin-bottom: 30px !important;
+}
+#mobile-search-button{
+  padding: 12px 20px;
+    background-color: #fbff0b;
+    border-radius: 3px;
+    border: none;
+}
+.title_news.mb-70-2{
+  margin-bottom: 20px !important;
 }
 .title_news a {
   font-size: 18px;

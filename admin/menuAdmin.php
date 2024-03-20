@@ -100,7 +100,7 @@ if(isset($_SESSION['admin']) && isset($_SESSION['login'])):
         <?php if($_SESSION['admin']):?><li class="menuItem"><a href="pays.php">Pays</a></li><?php endif ?>
         <?php if($_SESSION['admin']):?><li class="menuItem"><a href="api-indexation.php">Google Indexing API</a></li><?php endif ?>
         <?php if($_SESSION['admin']):?><li class="menuItem"><a href="open-ai.php">Open AI API</a></li><?php endif ?>
-
+            <?php if($_SESSION['admin']):?><li class="menuItem"><a href="gemini-ai.php">Gemini AI API</a></li><?php endif ?>
         </ul>
 
     <div id="logout"> Bienvenue <?php echo $_SESSION['login'] ?> ! <a href="logout.php">Se d&eacute;connecter</a></div>

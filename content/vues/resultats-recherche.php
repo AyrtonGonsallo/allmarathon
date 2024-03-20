@@ -125,7 +125,11 @@ echo $pub728x90["code"] ? $pub728x90["code"] :  "<img src=".'../images/pubs/'.$p
 
         <div class="row">
             <div class="col-sm-8 left-side resultat-detail recherche-blocs">
+            <div class="row banniere1">
 
+            <div class="col-sm-12"></div>
+
+            </div>
                 <div class="row">
                     <div class="col-sm-12">
                         <h2>Nous avons trouvé <?php echo $nombre_res; ?> résultats sur votre recherche "<?php echo $key_search; ?>"</h2>

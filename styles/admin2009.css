@@ -33,7 +33,18 @@ body {
   overflow-x: hidden;
 
 }
-
+#gpt-api-results{
+  position: relative;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+.copy-icon img {
+  width: 30px;
+  cursor: pointer;
+  position: absolute;
+  right: 0;
+}
 .ui-tabs .ui-tabs-active {
 
   background-color:#fbff0b !important;

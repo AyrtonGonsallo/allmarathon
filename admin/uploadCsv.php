@@ -176,19 +176,29 @@ if (isset($_FILES['file']) && isset($eventID)) {
         $i++;
     }
 }
+if(!(isset($_POST["lancer_script"]))){
     echo '<head><link href="../styles/admin2009.css" rel="stylesheet" type="text/css" /><link rel="icon" type="image/x-icon" href="../images/favicon.ico"></head><body>';
     require_once "menuAdmin.php";
     echo " nbr nouveau champions : ".$insertChampion." nbr resultat inserés : ".$insertResultat;
     echo "<br><pre>";
     if(isset($erreur))
         print_r($erreur);
-    echo "</pre></body>";
-
+    echo "</pre></body>";?>
+    <form Method="POST" ACTION="" >
+        <input type="text" name="lancer_script" value="true" style="display:none">
+        <input type="text" name="min_id" value="<? echo $min_id;?>" style="display:none">
+        <input type="text" name="max_id" value="<? echo $max_id;?>" style="display:none">
+        <input type="submit" class="season-selector-button" value="lancer le script">
+    </form>
+<?}?>
+   <? if(isset($_POST["lancer_script"])){ 
+     echo '<head><link href="../styles/admin2009.css" rel="stylesheet" type="text/css" /><link rel="icon" type="image/x-icon" href="../images/favicon.ico"></head><body>';
+     require_once "menuAdmin.php";
     $start_time = time();
     require '../content/classes/test.php';
 
     require '../content/classes/script_fusion_fiches.php'; 
-    $result=recherche_et_fusion($min_id,$max_id);?>
+    $result=recherche_et_fusion($_POST["min_id"],$_POST["max_id"]);?>
 <? if($result){ ?>
 
     <fieldset style="float:left;">
@@ -288,4 +298,5 @@ if (isset($_FILES['file']) && isset($eventID)) {
     </div>
 <? }else{?>
 Le script n'a pas détecté de doublons
-<? }?>
+<? }
+}?>

@@ -531,7 +531,7 @@ account_circle
 
         <input id="header-search" placeholder="Recherche" type="text" name="recherche_glob" value="">
 
-        <input type="submit" name="op" value="Search"><!--  A revoir! -->
+        <input type="submit" name="op" id="mobile-search-button" value="Chercher"><!--  A revoir! -->
     </form>
 </header>
 <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>

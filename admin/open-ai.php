@@ -30,20 +30,47 @@ $erreur = "";
         <link href="../styles/admin2009.css" rel="stylesheet" type="text/css" /><link rel="icon" type="image/x-icon" href="../images/favicon.ico">
         <script type="text/javascript" src="../Scripts/tiny_mce/tiny_mce.js"></script>
         <script type="text/javascript" src="../Scripts/direct_tiny_mce_init.js"></script>
+        <script src="../Scripts/CsvToTable.js"></script>
         <title>allmarathon admin</title>
-              
+        <style>
+		table {
+		  margin: 0 auto;
+		  text-align: center;
+		  border-collapse: collapse;
+		  border: 1px solid #d4d4d4;
+		  height: 500px; 
+		}
+		 
+		tr:nth-child(even) {
+		  background: #d4d4d4;
+		}
+		 
+		th, td {
+		  padding: 10px 30px;
+		}
+		 
+		th {
+		  border-bottom: 1px solid #d4d4d4;
+		}
+	</style>   
     </head>
 
     <body>
         <?php require_once "menuAdmin.php"; ?>
 
-        <fieldset style="float:left;">
-            <legend>MODIFIER</legend>
+        
             <div>
             <div id="chat-container">
         <div id="chat"></div>
-        <input type="text" id="user-input" placeholder="Tapez votre message...">
-        <button onclick="sendMessage()">Envoyer</button>
+        <textarea name="user-input" cols="50" rows="10" id="user-input" placeholder="Règles à suivre...">
+            1ere colonne : Prénom Nom (respecter la casse)
+            2e colonne : Sexe (M pour les hommes et F pour les femmes)
+            3e colonne : Pays (utiliser les 3 lettres du code ISO du pays. Exemple : FRA pour la France)
+            4e colonne : Classement (1 pour le premier, 2 pour le deuxième, ect..)
+            5e colonne : le temps réalisé ou chrono (sous la forme 02:10:20 pour un temps de deux heures, dix minutes et vingt secondes)
+        </textarea>
+        <textarea name="user-input" cols="80" rows="10" id="user-data" placeholder="Vos données(élement html)..."></textarea>
+        <button onclick="sendMessage()" style="display:block">Envoyer</button>
     </div>
 
     <script>
@@ -53,19 +80,26 @@ $erreur = "";
 
         function sendMessage() {
             var userInput = document.getElementById('user-input').value;
-            appendMessage('Utilisateur', userInput);
+            var userData = document.getElementById('user-data').value
+            appendMessage('Utilisateur', "Extrait les résultats suivants. "+"Suis ces règles et affiche moi un csv : "+userInput);
 
             // Appel AJAX vers le script PHP
             var xhr = new XMLHttpRequest();
             xhr.open('POST', 'https://api.openai.com/v1/chat/completions');
             xhr.setRequestHeader("Content-Type", "application/json");
-            xhr.setRequestHeader("Authorization", "Bearer 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");
+            xhr.setRequestHeader("Authorization", "Bearer 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");
             xhr.onreadystatechange = function () {
                 if (xhr.readyState == 4 && xhr.status == 200) {
                     console.log(xhr.status);
                     console.log(xhr.responseText);
                     var response = JSON.parse(xhr.responseText);
                     var chatGPTResponse = response.choices[0].message.content;
+                   
+                    var csvtotable = new CsvToTable({
+		                csvData: chatGPTResponse
+                    });
+                    csvtotable.run();
+
                     appendMessage('ChatGPT', chatGPTResponse);
                 }
             };
@@ -78,7 +112,7 @@ $erreur = "";
                 },
                 {
                 'role': 'user',
-                'content': userInput
+                'content': "Extrait les résultats suivants: "+userData+". Suis ces règles et affiche moi un csv : "+userInput
                 }
             ]
             });
@@ -88,6 +122,6 @@ $erreur = "";
 
 
             </div>
-        </fieldset>
+        
     </body>
 </html>

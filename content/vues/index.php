@@ -216,7 +216,7 @@ function switch_cat($cat)
 
                         </div>            
 
-                        <div class="title_news <?php echo ($i==0)?'mb-70':'';?>  <?php echo ($i>0)?'mt-20':'';?>">
+                        <div class="title_news <?php echo ($i==0)?'mb-70':'mb-70-2';?>  <?php echo ($i>0)?'mt-20':'';?>">
 
                             <?php echo '<a href="/actualite-marathon-'.$article->getId().'-'.slugify($article->getTitre()).'.html">'.$article->getTitre().'</a><br>'; 
 
