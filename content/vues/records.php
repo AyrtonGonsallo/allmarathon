@@ -126,11 +126,11 @@ function slugify($text)
     <title>Records du marathon masculin : record du monde, record olympique, continentaux et nationaux
     </title>
     <meta name="description" content="Liste des records du marathon masculin. Record du monde, record olympique, meilleurs performance en Europe, et records nationaux. ">
-    <link rel="canonical" href="https://allmarathon.fr/records-marathon-masculins.html" />
+    <link rel="canonical" href="https://dev.allmarathon.fr/records-marathon-masculins.html" />
     <meta property="og:type" content="siteweb" />
     <meta property="og:title" content="Records du marathon masculin : record du monde, record olympique, continentaux et nationaux" />
-    <meta property="og:image" content="https://allmarathon.fr/images/allmarathon.png" />
-    <meta property="og:url" content="https://allmarathon.fr/records-marathon-masculins.html" />
+    <meta property="og:image" content="https://dev.allmarathon.fr/images/allmarathon.png" />
+    <meta property="og:url" content="https://dev.allmarathon.fr/records-marathon-masculins.html" />
     <meta property="og:description" content="Liste des records du marathon masculin. Record du monde, record olympique, meilleurs performance en Europe, et records nationaux. " />
 
     <link rel="apple-touch-icon" href="apple-favicon.png">

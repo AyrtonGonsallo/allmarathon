@@ -145,8 +145,8 @@ catch(Exception $e)
     <meta property="og:description" content="Découvrez les 10 meilleurs performances de tous les temps réalisées sur marathon - Championnats d'Europe, hommes et femmes." />
     <meta property="og:locale" content="fr_FR" />
     <meta property="og:type" content="siteweb" />
-    <meta property="og:image" content="https://allmarathon.fr/images/allmarathon.png" />
-    <meta property="og:url" content="https://allmarathon.fr/10-meilleures-performances-championnats-europe-marathon.html" />
+    <meta property="og:image" content="https://dev.allmarathon.fr/images/allmarathon.png" />
+    <meta property="og:url" content="https://dev.allmarathon.fr/10-meilleures-performances-championnats-europe-marathon.html" />
   
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/font-awesome.min.css">

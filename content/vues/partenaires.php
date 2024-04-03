@@ -194,7 +194,7 @@ echo $pub300x250["code"] ? $pub300x250["code"] :  "<img src=".'../images/pubs/'.
 if($pub160x600 !="") {
     //var_dump($pub160x600["url"]); exit;
     if($pub160x600["code"]==""){
-        echo "<a href=".'https://allmarathon.fr/'.$pub160x600["url"]." target='_blank'><img src=".'../images/news/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" /></a>";
+        echo "<a href=".'https://dev.allmarathon.fr/'.$pub160x600["url"]." target='_blank'><img src=".'../images/news/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" /></a>";
     }
     else{
         echo $pub160x600["code"];

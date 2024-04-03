@@ -33,7 +33,7 @@ if (session_status() == PHP_SESSION_NONE) {
 			// if(isset($_POST['top_ippon'])){
 			// $top_ippon2=1;
             try {
-                             $req4 = $bdd->prepare("INSERT INTO videos (Titre ,Date ,Duree ,Objet ,Categorie ,Vignette ,A_la_une, Champion_id ,Technique_id ,Technique2_id ,Evenement_id, PoidID, Sexe, top_ippon ) VALUES (:Titre,:Date,:Duree,:Objet,:Categorie,:Vignette,:A_la_une,:Champion_id,:Technique_id,:Technique2_id,:Evenement_id,:PoidID,:Sexe,:top_ippon)");
+                             $req4 = $bdd->prepare("INSERT INTO videos (Titre ,Date ,Duree ,Objet,description  ,Categorie ,Vignette ,A_la_une, Champion_id ,Technique_id ,Technique2_id ,Evenement_id, PoidID, Sexe, top_ippon ) VALUES (:Titre,:Date,:Duree,:Objet,:descr,:Categorie,:Vignette,:A_la_une,:Champion_id,:Technique_id,:Technique2_id,:Evenement_id,:PoidID,:Sexe,:top_ippon)");
 
                              $req4->bindValue('Titre',$_POST['Titre'], PDO::PARAM_STR);
                              $req4->bindValue('Date',date("Y-m-d G:i:s"), PDO::PARAM_STR);
@@ -42,6 +42,7 @@ if (session_status() == PHP_SESSION_NONE) {
                              $req4->bindValue('Categorie',$_POST['Categorie'], PDO::PARAM_STR);
                              $req4->bindValue('Vignette',$_POST['Vignette'], PDO::PARAM_STR);
                              $req4->bindValue('A_la_une',$_POST['A_la_une'], PDO::PARAM_STR);
+                             $req4->bindValue('descr',$_POST['description'], PDO::PARAM_STR);
 
                              $req4->bindValue('Champion_id',$_POST['Champion_id'], PDO::PARAM_INT);
                              $req4->bindValue('Technique_id',0, PDO::PARAM_INT);
@@ -176,6 +177,25 @@ try{
     }
     document.onload = getVid();
 </script>
+<script type="text/javascript" src="../Scripts/tiny_mce/tiny_mce.js"></script>
+    <script type="text/javascript">
+    tinyMCE.init({
+        // General options
+        convert_urls: false,
+        mode: "exact",
+        elements: "description",
+        theme: "advanced",
+        plugins: "safari,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template",
+        // Theme options
+        theme_advanced_toolbar_location: "top",
+        theme_advanced_toolbar_align: "left",
+        theme_advanced_statusbar_location: "bottom",
+        theme_advanced_resizing: true,
+        theme_advanced_buttons1: "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,formatselect,fontselect,fontsizeselect",
+        theme_advanced_buttons2: "cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,link,image,cleanup,code,|,forecolor,backcolor",
+        theme_advanced_buttons3: "undo,redo,|,visualaid,|,tablecontrols"
+    });
+    </script>
 <title>allmarathon admin</title>
 
 
@@ -194,6 +214,9 @@ try{
         <tr><td align="right"><label for="Titre">Titre : </label></td><td><input type="text" name="Titre" id="titre" value="" /></td></tr>
         <tr><td  align="right"><label for="Duree">Duree : </label></td><td><input type="text" name="Duree" value="" id="duree"/></td></tr>
         <tr><td align="right"><label for="Objet">Objet : </label></td><td><textarea cols="50" rows="10" id="objet" name="Objet" ></textarea></td></tr>
+        
+        <tr><td align="right"><label for="description">Description : </label></td><td><textarea onblur="fillPathPicture();" cols="50" rows="10" id="description" name="description" ></textarea></td></tr>
+
         <tr><td  align="right"><label for="Vignette">Vignette : </label></td><td><input size="50"  type="text" id="vignette" name="Vignette" value="" /></td></tr>
         <tr><td  align="right"><label for="A_la_une">A la une : </label></td><td>
             <select name="A_la_une" >
@@ -241,7 +264,10 @@ try{
         </table>
     </form>
 </fieldset>
-
+<fieldset style="float:left;">
+description:
+<div id="desc"style="width:400px;"></div>
+</fieldset>
 </body>
 <!-- InstanceEnd --></html>
 

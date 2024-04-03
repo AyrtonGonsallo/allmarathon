@@ -431,7 +431,9 @@ header .header--nav ul>li.header--pull.pull-right ul.dropdown_menu_user>li:first
   font-size: 18px;
   width:60%;
 }
-
+.news-list-element-grid{
+  grid-template-columns: 1fr;
+}
 .pull-right1 {
   float: right !important
 }

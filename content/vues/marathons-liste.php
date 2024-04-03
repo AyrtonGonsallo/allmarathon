@@ -194,10 +194,10 @@ try{
     <meta property="og:description" content="Retrouvez tous les marathons dans le monde : agenda, dates, résultats, records, infos." />
     <meta property="og:locale" content="fr_FR" />
     <meta property="og:type" content="siteweb" />
-    <meta property="og:image" content="https://allmarathon.fr/images/allmarathon.png" />
-    <meta property="og:url" content="https://allmarathon.fr/calendrier-agenda-marathons.html" />
+    <meta property="og:image" content="https://dev.allmarathon.fr/images/allmarathon.png" />
+    <meta property="og:url" content="https://dev.allmarathon.fr/calendrier-agenda-marathons.html" />
 
-    <link rel="canonical" href="https://allmarathon.fr/calendrier-agenda-marathons.html" />
+    <link rel="canonical" href="https://dev.allmarathon.fr/calendrier-agenda-marathons.html" />
 
     <link rel="apple-touch-icon" href="apple-favicon.png">
 

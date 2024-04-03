@@ -76,7 +76,7 @@ $nb_champs=$req->fetch(PDO::FETCH_ASSOC)['total'];
     <link rel="apple-touch-icon" href="apple-favicon.png">
     <link rel="icon" type="image/x-icon" href="../../images/favicon.ico" />
     
-    <link rel="canonical" href="https://allmarathon.fr/liste-des-athletes.html" />
+    <link rel="canonical" href="https://dev.allmarathon.fr/liste-des-athletes.html" />
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/font-awesome.min.css">
     <link rel="stylesheet" href="../../css/fonts.css">

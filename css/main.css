@@ -1929,3 +1929,19 @@ div#copy-button:hover {
 .resultat-detail aside,li.header--edition-dropdown,.champion-detail aside{
     display: none;
 }
+.news-liste-grid{
+    display: grid;
+    grid-template-columns: 1fr;
+}
+.news-list-element-grid{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 30px;
+}
+.news-liste-grid  .article-img{
+    width: 100% !important;
+}
+.news-liste-grid  .desc-img h2{
+    font-size: 19px !important ;
+    margin: 9px 0 7px 0 !important;
+}

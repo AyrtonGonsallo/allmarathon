@@ -85,10 +85,10 @@ function slugify($text)
     <meta property="og:description" content="Allmarathon.fr, les plus belles videos de marathon : Résumé des courses, conseils entrainement marathon, interviews de marathoniens." />
     <meta property="og:locale" content="fr_FR" />
     <meta property="og:type" content="siteweb" />
-    <meta property="og:image" content="https://allmarathon.fr/images/allmarathon.png" />
-    <meta property="og:url" content="https://allmarathon.fr/videos-de-marathon.html" />
+    <meta property="og:image" content="https://dev.allmarathon.fr/images/allmarathon.png" />
+    <meta property="og:url" content="https://dev.allmarathon.fr/videos-de-marathon.html" />
 
-    <link rel="canonical" href="https://allmarathon.fr/videos-de-marathon.html" />
+    <link rel="canonical" href="https://dev.allmarathon.fr/videos-de-marathon.html" />
     <link rel="apple-touch-icon" href="apple-favicon.png">
     <link rel="icon" type="image/x-icon" href="../../images/favicon.ico" />
 
@@ -223,7 +223,7 @@ echo $pub300x250["code"] ? $pub300x250["code"] :  "<a href=". $pub300x250['url']
 if($pub160x600 !="") {
     //var_dump($pub160x600["url"]); exit;
     if($pub160x600["code"]==""){
-        echo "<a href=".'https://allmarathon.fr/'.$pub160x600["url"]." target='_blank'><img src=".'../images/news/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" /></a>";
+        echo "<a href=".'https://dev.allmarathon.fr/'.$pub160x600["url"]." target='_blank'><img src=".'../images/news/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" /></a>";
     }
     else{
         echo $pub160x600["code"];

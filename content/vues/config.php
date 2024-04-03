@@ -11,7 +11,7 @@ $client->setClientId($client_id);
 $client->setClientSecret($client_secret);
 
 # redirection location is the path to login.php
-$redirect_uri = 'https://allmarathon.fr/content/vues/login-google.php';
+$redirect_uri = 'https://dev.allmarathon.fr/content/vues/login-google.php';
 $client->setRedirectUri($redirect_uri);
 $client->addScope("email");
 $client->addScope("profile");

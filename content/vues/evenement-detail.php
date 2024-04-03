@@ -19,16 +19,14 @@ if(!empty($_SESSION['user'])) {
 $user_session=$_SESSION['user'];
 $erreur_auth='';
 }  else $user_session='';
-
+include("../classes/marathon.php");
 include("../classes/evenement.php");
-include("../classes/evCategorieEvenement.php");
 include("../classes/evCategorieAge.php");
 include("../classes/video.php");
 include("../classes/championAdminExterneClass.php");
 include("../classes/resultat.php");
 include("../classes/news.php");
 include("../classes/pub.php");
-include("../classes/pays.php");
 include("../classes/user.php");
 include("../classes/evresultat.php");
 include("../classes/champion.php");
@@ -72,7 +70,8 @@ $champAdmin=new championAdminExterne();
 $isAdmin=$user_id?true:false;
 $resultat=new resultat();
 $photos=$resultat->getPhotos($id)['donnees'];
-
+$last_results=$resultat->getLastResults();
+$all_year_results=$resultat->getAllYearsResults($evById->getmarathon_id(),$id);
 $club =$ev_cat_event->getEventCatEventByID($evById->getCategorieId())['donnees']->getClub();
 ($club) ? $classement="clubs" : $classement="pays";
 
@@ -88,15 +87,7 @@ $annee_titre=substr($evById->getDateDebut(), 0, 4);
 
 
 
-function slugify($text)
-{
-    $text = str_replace('é', 'e', $text); 
-    $text = str_replace('û', 'u', $text); 
-$text = preg_replace('/[^\pL\d]+/u', '-', $text); 
-$text = trim($text, '-');
-$text = strtolower($text);
-return $text;
-}
+
 function switch_cat($cat)
 
 {
@@ -151,16 +142,16 @@ setlocale(LC_TIME, "fr_FR","French");
     <meta property="og:title" content="Résultats du marathon <?php echo $evById->getPrefixe();?> <?php echo str_replace('\\','',$evById->getNom());?> - <?php echo $pays->getFlagByAbreviation($evById->getPaysId())['donnees']['NomPays'];?> - <?php echo $ev_cat_event_int_titre;?> <?php echo $annee_titre;?>" />
     <meta property="og:description" content="Le <?php echo $ev_cat_event_int_titre;?> <?php echo $annee_titre;?> de <?php echo $evById->getNom();?> (<?php echo $pays->getFlagByAbreviation($evById->getPaysId())['donnees']['NomPays'];?>) a eu lieu le <?php echo changeDate($evById->getDateDebut());?>. Les vainqueurs sont <?php echo  $evresultat->getResultBySexe($id,"M")['donnees'][0]['Nom'];?> (hommes) et <?php echo  $evresultat->getResultBySexe($id,"F")['donnees'][0]['Nom'];?> (femmes). Résultats complets, classements et temps." />
     <? if($next_date){?>
-        <meta property="og:image" content="<?php echo 'https://allmarathon.fr/images/marathons/'.$next_date['image'];?>" />
+        <meta property="og:image" content="<?php echo 'https://dev.allmarathon.fr/images/marathons/'.$next_date['image'];?>" />
     <? }?>
-    <meta property="og:url" content="<?php echo 'https://allmarathon.fr/resultats-marathon-'.$evById->getId().'-'.slugify($ev_cat_event->getEventCatEventByID($evById->getCategorieId())['donnees']->getIntitule()).'-'.slugify($evById->getNom()).'-'.slugify(changeDate($evById->getDateDebut())).'.html';?>" />
+    <meta property="og:url" content="<?php echo 'https://dev.allmarathon.fr/resultats-marathon-'.$evById->getId().'-'.slugify($ev_cat_event->getEventCatEventByID($evById->getCategorieId())['donnees']->getIntitule()).'-'.slugify($evById->getNom()).'-'.slugify(changeDate($evById->getDateDebut())).'.html';?>" />
 
 
     <link rel="apple-touch-icon" href="apple-favicon.png">
     <link rel="icon" type="image/x-icon" href="../../images/favicon.ico" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
   
-    <?php echo '<link rel="canonical" href="https://allmarathon.fr/resultats-marathon-'.$evById->getId().'-'.slugify($ev_cat_event->getEventCatEventByID($evById->getCategorieId())['donnees']->getIntitule()).'-'.slugify($evById->getNom()).'-'.slugify(changeDate($evById->getDateDebut())).'.html" />';?>
+    <?php echo '<link rel="canonical" href="https://dev.allmarathon.fr/resultats-marathon-'.$evById->getId().'-'.slugify($ev_cat_event->getEventCatEventByID($evById->getCategorieId())['donnees']->getIntitule()).'-'.slugify($evById->getNom()).'-'.slugify(changeDate($evById->getDateDebut())).'.html" />';?>
 
   
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
@@ -623,6 +614,89 @@ setlocale(LC_TIME, "fr_FR","French");
         <?}?>
         
     </aside>
+
+    <div class="col-sm-4 no-padding-right">
+    
+            <dt class="bref">
+                <h2 class="h2-aside">
+                    <span class="material-symbols-outlined ">
+                        directions_run
+                    </span>
+                    Résultats récents
+                </h2>
+            </dt>
+
+            <dd class="result">
+
+                <ul class="clearfix">
+
+                <?php
+                $i=0;
+                foreach ($last_results['donnees'] as $result) {   
+                    if($i%2==0){
+                        $class="gray-background";
+                    }else{
+                        $class="";
+                    }
+                    $ev_cat_age_intitule=$ev_cat_age->getEventCatAgeByID($result->getCategorieAgeID())['donnees']->getIntitule();
+                    $marathon = getMarathonsById($result->getmarathon_id())["donnees"][0];
+                    $marathon_nom = $marathon["nom"];
+                    $marathon_prefixe = $marathon["prefixe"];
+                    $pays_nom=$pays->getFlagByAbreviation($result->getPaysID())['donnees']['NomPays'];
+                    $nom_res=$result->getCategorie().' '.$ev_cat_age_intitule.' ('.$result->getSexe().') - '.$result->getNom().' - '.substr($result->getDateDebut(),0,4);
+                    $nom_res_lien_archive=$result->getCategorie().' - '.$result->getNom().' - '.utf8_encode(strftime("%A %d %B %Y",strtotime($result->getDateDebut())));
+                    echo '<a href="/resultats-marathon-'.$result->getID().'-'.slugify($nom_res_lien_archive).'.html"><div class="res-recents row '.$class.'"> <div class="col-lg-3 col-sm-3 pt-10"><span class="res-recents-date"><b>'.date("d/m",strtotime($result->getDateDebut())).'</b></span></div><div class="col-lg-9 col-sm-9"><strong>Marathon '.$marathon_prefixe.' '.$marathon_nom.'</strong><br><span>'. $pays_nom.'</span></div></div></a>';
+                    $i++;
+                }
+
+                ?>
+
+                    <li class="last mx-auto"><a href="/resultats-marathon.html" class="mx-auto w-fc  blue-btn">Voir tous les résultats</a></li>
+
+                </ul>
+
+            </dd>
+
+            <dt class="bref mt-60">
+            <h2 class="h2-aside">
+                <span class="material-symbols-outlined ">
+                archive
+                </span>
+                Tous les autres Résultats
+            </h2>
+        </dt>
+
+        <dd class="result">
+
+            <ul class="clearfix">
+
+            <?php
+            $i=0;
+            foreach ($all_year_results['donnees'] as $result) {   
+                if($i%2==0){
+                    $class="gray-background";
+                }else{
+                    $class="";
+                }
+                $ev_cat_age_intitule=$ev_cat_age->getEventCatAgeByID($result->getCategorieAgeID())['donnees']->getIntitule();
+                $marathon = getMarathonsById($result->getmarathon_id())["donnees"][0];
+                $marathon_nom = $marathon["nom"];
+                $marathon_prefixe = $marathon["prefixe"];
+                $pays_nom=$pays->getFlagByAbreviation($result->getPaysID())['donnees']['NomPays'];
+                $nom_res=$result->getCategorie().' '.$ev_cat_age_intitule.' ('.$result->getSexe().') - '.$result->getNom().' - '.substr($result->getDateDebut(),0,4);
+                $nom_res_lien_archive=$result->getCategorie().' - '.$result->getNom().' - '.utf8_encode(strftime("%A %d %B %Y",strtotime($result->getDateDebut())));
+                echo '<a href="/resultats-marathon-'.$result->getID().'-'.slugify($nom_res_lien_archive).'.html"><div class="res-recents row '.$class.'"> <div class="col-lg-3 col-sm-3 pt-10"><span class="res-recents-date"><b>'.date("Y",strtotime($result->getDateDebut())).'</b></span></div><div class="col-lg-9 col-sm-9"><strong>Marathon '.$marathon_prefixe.' '.$marathon_nom.'</strong><br><span>'. $pays_nom.'</span></div></div></a>';
+                $i++;
+            }
+
+            ?>
+
+                <li class="last mx-auto"><a href="/resultats-marathon.html" class="mx-auto w-fc  blue-btn">Voir tous les résultats</a></li>
+
+            </ul>
+
+        </dd>
+        </div>
     </div>
 
     </div> <!-- End container page-content -->

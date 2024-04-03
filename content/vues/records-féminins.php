@@ -129,14 +129,14 @@ function slugify($text)
     <meta name="description" content="Liste des records du marathon féminin. Record du monde, record olympique, meilleurs performance en Europe, et records nationaux.">
     <meta property="og:type" content="siteweb" />
     <meta property="og:title" content="Records du marathon féminin : record du monde, record olympique, continentaux et nationaux" />
-    <meta property="og:image" content="https://allmarathon.fr/images/allmarathon.png" />
-    <meta property="og:url" content="https://allmarathon.fr/records-marathon-feminins.html" />
+    <meta property="og:image" content="https://dev.allmarathon.fr/images/allmarathon.png" />
+    <meta property="og:url" content="https://dev.allmarathon.fr/records-marathon-feminins.html" />
     <meta property="og:description" content="Liste des records du marathon féminin. Record du monde, record olympique, meilleurs performance en Europe, et records nationaux." />
 
 
     <link rel="apple-touch-icon" href="apple-favicon.png">
     <link rel="icon" type="image/x-icon" href="../../images/favicon.ico" />
-    <link rel="canonical" href="https://allmarathon.fr/records-marathon-feminins.html" />
+    <link rel="canonical" href="https://dev.allmarathon.fr/records-marathon-feminins.html" />
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/font-awesome.min.css">
     <link rel="stylesheet" href="../../css/fonts.css">

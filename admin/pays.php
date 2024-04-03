@@ -371,7 +371,7 @@ if (session_status() == PHP_SESSION_NONE) {
                 <tbody>
                     <?php //while($pays = mysql_fetch_array($result1)){<?>
                     <?php foreach ($result1 as $pays) {
-                        $pays_flag_url='https://allmarathon.fr/images/flags/'.$pays['Flag'];
+                        $pays_flag_url='https://dev.allmarathon.fr/images/flags/'.$pays['Flag'];
                         echo "<tr align=\"center\" >
                             <td>".$pays['ID']."</td>
                             <td>".$pays['Abreviation']."</td>

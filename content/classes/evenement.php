@@ -495,7 +495,7 @@ function search_array($tab_pack_a_afficher_fct,$tab_indice_fct)
         if ($age!='') {$condition.=' AND CategorieageID='.$age.' ';}
         try {
 					  include("../database/connexion.php");
-					 $req = $bdd->prepare("SELECT CategorieageID,CategorieID,Nom,DateDebut,PaysID,ID,Sexe  FROM evenements WHERE Visible='1' ".$condition." ORDER BY DateDebut DESC LIMIT :offset,39");
+					 $req = $bdd->prepare("SELECT CategorieageID,CategorieID,Nom,DateDebut,PaysID,ID,Sexe,prefixe  FROM evenements WHERE Visible='1' ".$condition." ORDER BY DateDebut DESC LIMIT :offset,39");
 				 	 // $req->bindValue('condition', $condition, PDO::PARAM_STR);
 				 	 $req->bindValue('offset', $page*40, PDO::PARAM_INT);
 

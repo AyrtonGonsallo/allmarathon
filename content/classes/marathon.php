@@ -213,6 +213,11 @@ function array_msort($array, $cols)
 					$pays_flag=$pays->getFlagByAbreviation($resultat['PaysID'])['donnees']['Flag'];
 				   $nom_res= $resultat['nom'];
 				   $timestamp=strtotime($resultat["date_prochain_evenement"]);
+				   if($resultat['affiche']){
+					$top='<span class="mention-top"><span class="material-symbols-outlined">kid_star</span>Top</span>';
+				}else{
+					$top="";
+				}
 					$res.= '<div class="col-sm-12 bottom-border"><a class="marathon-link" href="/marathons-'.$resultat['id'].'-'.slugify($nom_res).'.html">
 					<div class="coming-soon-image">
 						';
@@ -223,7 +228,7 @@ function array_msort($array, $cols)
 							
 							if ($img_src)
 								{
-									$res.= '<div class="marathon-image" style="background-image:url('.$img_src.')"></div>';
+									$res.= '<div class="marathon-liste-image" style="background-image:url('.$img_src.')">'.$top.'</div>';
 								}else{
 									$res.= '<div class="marathon-image" style="background-color:#000"></div>';
 								}
@@ -616,9 +621,9 @@ function array_msort($array, $cols)
 			//$first_events= array();
 			$last_linked_events= array();
 			while ( $row  = $req->fetch(PDO::FETCH_ASSOC)) {  
-				$req2 = $bdd->prepare("SELECT * FROM evenements where marathon_id=:mar_id and Valider=1  AND (DateDebut > :today) ORDER BY DateDebut limit 1");
+				$req2 = $bdd->prepare("SELECT * FROM evenements where marathon_id=:mar_id and Valider=1  AND (DateDebut > :today) AND (DateDebut < :nextmonth) ORDER BY a_l_affiche desc,DateDebut asc limit 1");
 				$req2->bindValue('mar_id', $row["id"], PDO::PARAM_INT);
-				
+				$req2->bindValue('nextmonth', date('Y-m-d',strtotime('first day of +1 month')), PDO::PARAM_STR);
 				$req2->bindValue('today', date('Y-m-d'), PDO::PARAM_STR); 
 				$req2->execute();
 				if($req2->rowCount()>0){
@@ -627,6 +632,7 @@ function array_msort($array, $cols)
 						//array_push($first_events, $row2);
 						$row['date_prochain_evenement']=$row2['DateDebut'];
 						$row['date_prochain_evenement_nom']=$row2['Nom'];
+						$row['affiche']=$row2['a_l_affiche'];
 						$row['date_prochain_evenement_id']=$row2['ID'];
 						$row['last_linked_events_cat_id']=$row2['CategorieID'];
 
@@ -635,7 +641,7 @@ function array_msort($array, $cols)
 					//array_push($first_events, NULL);
 					$row['date_prochain_evenement']='NULL';
 					$row['last_linked_events_cat_id']=NULL;
-		
+					$row['affiche']=0;
 				}
 		
 				
@@ -647,7 +653,7 @@ function array_msort($array, $cols)
 			  die('Erreur : ' . $e->getMessage());
 		  }
 
-		  $results_sorted_by_next_event=array_slice(array_msort($results, array('date_prochain_evenement'=>SORT_ASC,'nom'=>SORT_ASC)),0,4);
+		  $results_sorted_by_next_event=array_slice(array_msort($results, array('affiche'=>SORT_DESC,'date_prochain_evenement'=>SORT_ASC,'nom'=>SORT_ASC)),0,8);
 		  return display_results_4($results_sorted_by_next_event);
 	}
 

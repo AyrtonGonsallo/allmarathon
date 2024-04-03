@@ -222,10 +222,10 @@ setlocale(LC_TIME, "fr_FR","French");
     <meta property="og:description" content="Les actualités du marathon en France et dans le monde. News, résultats, interviews, vidéos, comptes-rendus, brèves, sondages." />
     <meta property="og:locale" content="fr_FR" />
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://allmarathon.fr/images/allmarathon.png" />
-    <meta property="og:url" content="https://allmarathon.fr/actualites-marathon.html" />
+    <meta property="og:image" content="https://dev.allmarathon.fr/images/allmarathon.png" />
+    <meta property="og:url" content="https://dev.allmarathon.fr/actualites-marathon.html" />
 
-    <link rel="canonical" href="https://allmarathon.fr/actualites-marathon.html" />
+    <link rel="canonical" href="https://dev.allmarathon.fr/actualites-marathon.html" />
 
 
     <link rel="apple-touch-icon" href="apple-favicon.png">
@@ -812,7 +812,7 @@ if($pub160x600 !="") {
 
     if($pub160x600["code"]==""){
 
-        echo "<a href=".'http://allmarathon.fr/'.$pub160x600["url"]." target='_blank'><img src=".'../images/news/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" /></a>";
+        echo "<a href=".'http://dev.allmarathon.fr/'.$pub160x600["url"]." target='_blank'><img src=".'../images/news/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" /></a>";
 
     }
 

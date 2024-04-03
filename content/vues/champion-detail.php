@@ -31,6 +31,7 @@ include("../classes/evresultat.php");
 include("../classes/video.php");
 include("../classes/commentaire.php");
 include("../classes/user.php");
+include("../classes/news.php");
 include("../classes/evenement.php");
 include("../classes/championPopularite.php");
 include("../classes/abonnement.php");
@@ -50,7 +51,8 @@ $ev_cat_event=new evCategorieEvenement();
 $champ_pop=new championPopularite();
 $event=new evenement();
 $user=new user();
-
+$news=new news();
+$actus=$news->getNewsByChampId($id)['donnees'];
 $admins=$champAdmin->getAdminExterneByChampion($id)['donnees'];
 $liste_admin="";
 if(sizeof($admins)!=0) {
@@ -77,9 +79,6 @@ $tab_med=$champ->getTabMedailleByChampion($id)['donnees'];
 
 $page=0;
 
-$commentaire=new commentaire();
-$coms=$commentaire->getCommentaires(0,0,$id)['donnees'];
-// $coms=$commentaire->getCommentairesChampion($id,$page)['donnees'];
 
 $ev_res=new evresultat();
 
@@ -191,14 +190,14 @@ $afficher_tab_medaille=false;
     <meta name="Description" lang="fr" content="<?php echo $champ->getNom();?> est athlète, marathonien. Pays: <?php echo $pays_intitule;?>. Record de <?php echo $champ->getNom();?> sur marathon, résultats, photos, vidéos.">
     <meta property="og:type" content="siteweb" />
     <meta property="og:title" content="<?php echo $champ->getNom();?>, coureur de marathon. Résultats, vidéos, photos, record." />
-    <meta property="og:image" content="https://allmarathon.fr/images/allmarathon.png" />
-    <meta property="og:url" content="<?php echo 'https://allmarathon.fr/athlete-'.$champ->getId().'-'.slugify($champ->getNom()).'.html';?>" />
+    <meta property="og:image" content="https://dev.allmarathon.fr/images/allmarathon.png" />
+    <meta property="og:url" content="<?php echo 'https://dev.allmarathon.fr/athlete-'.$champ->getId().'-'.slugify($champ->getNom()).'.html';?>" />
     <meta property="og:description" content="<?php echo $champ->getNom();?> est athlète, marathonien. Pays: <?php echo $pays_intitule;?>. Record de <?php echo $champ->getNom();?> sur marathon, résultats, photos, vidéos." />
 
 
     <link rel="apple-touch-icon" href="../../images/favicon.ico">
     <link rel="icon" type="image/x-icon" href="../../images/favicon.ico" />
-    <?php echo '<link rel="canonical" href="https://allmarathon.fr/athlete-'.$champ->getId().'-'.slugify($champ->getNom()).'.html" />';?>
+    <?php echo '<link rel="canonical" href="https://dev.allmarathon.fr/athlete-'.$champ->getId().'-'.slugify($champ->getNom()).'.html" />';?>
 
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/font-awesome.min.css">
@@ -272,6 +271,11 @@ $afficher_tab_medaille=false;
                                 <li ><a href="#tab2" role="tab" class="sub-menu-link"
                                         data-toggle="tab">Résultats</a>
                                 </li>
+                                <? if($actus){?>
+                                    <li>
+                                        <a href="#tab5" role="tab" class="sub-menu-link" data-toggle="tab">Actus</a>
+                                    </li>
+                                <? }?>
                                 <? if($videos){?>
                                     <li>
                                         <a href="#tab4" role="tab" class="sub-menu-link"  data-toggle="tab">Vidéos</a>
@@ -379,6 +383,100 @@ $afficher_tab_medaille=false;
                                     </tbody>
                                 </table>
                                 <?php }?>
+                            </div>
+                            <div class="tab-pane fade" id="tab5">
+                                <div class="news-liste-grid">
+                                    <?php //var_dump($actus);
+                                    foreach($actus as $index =>  $article){
+                                        $subheader="auteur : ".$article->getAuteur()." / ".utf8_encode(strftime("%A %d %B %Y",strtotime($article->getDate())))." / source : ".$article->getSource();
+                                            $cat="";
+
+                                            $lien_1="";
+
+                                            $text_lien_1="";
+
+                                            $lien_2="";
+
+                                            $text_lien_2="";
+
+                                            $lien_3="";
+
+                                            $text_lien_3="";
+
+                                                        if($article->getLien1()!=""){
+
+                                                            $lien_1=$article->getLien1();
+
+                                                            $text_lien_1="> ".$article->getTextlien1();
+
+                                                        }
+
+                                                        if($article->getLien2()!=""){
+
+                                                            $lien_2=$article->getLien2();
+
+                                                            $text_lien_2="> ".$article->getTextlien2();
+
+                                                        }
+
+                                                        if($article->getLien3()!=""){
+
+                                                            $lien_3=$article->getLien3();
+
+                                                            $text_lien_3="> ".$article->getTextlien3();
+
+                                                        }
+
+                                                        $url_text=slugify($article->getTitre());
+
+                                                    
+
+
+                                                    
+
+                                                            $image_src='/images/news/'.substr($article->getDate(), 0,4).'/thumb_'.strtolower($article->getPhoto());
+
+                                                            $src_a_afficher= ($image_src) ? $image_src : '/images/news/2015/thumb_defaut.jpg';
+
+                                                            $img_a_afficher= '<img class="img-responsive" alt="" src="'.$src_a_afficher.'"/>';
+
+                                                        echo '<article class="news-list-element-grid">';?>
+                                                            <?
+
+                                                    
+
+                                                            echo '<div class="article-img"><a href="/actualite-marathon-'.$article->getId().'-'.$url_text.'.html">'.$img_a_afficher.'</a></div>
+
+                                                    
+
+                                                        <div class="desc-img">
+
+                                                            <h2><a href="/actualite-marathon-'.$article->getId().'-'.$url_text.'.html" style="color: #000;" >'.$article->getTitre().' </a></h2>';
+
+                                                            
+                                                            if($article->getLien1()  ){
+                                                                if( $article->getEvenementID()>0 ){
+                                                                    $evenement=$event->getEvenementByID($article->getEvenementID())["donnees"];
+                                                                    $cat_event=$ev_cat_event->getEventCatEventByID($evenement->getCategorieId())['donnees']->getIntitule();
+                                                                    $nom_res='<strong>'.$cat_event.' - '.$evenement->getNom().'</strong> - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
+                                                                    $nom_res_lien=$cat_event.' - '.$evenement->getNom().' - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
+                                                                    $marathon= $event->getMarathon($evenement->getmarathon_id())['donnees'];
+                                                                }
+                                                                $lien_perso=$article->getLien1();
+                                                                $texte_perso=$article->getTextlien1();
+                                                                
+                                                                echo "<a href='".$lien_perso."' class='home-link mb-5 mr-5 '>".$texte_perso."</a>";
+                                                            }
+                                                            echo '</div>
+                                                        </article>';
+
+
+                                                        
+
+                                        }
+
+                                    ?>
+                                </div>
                             </div>
                             <div class="tab-pane fade" id="tab2">
 

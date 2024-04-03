@@ -110,11 +110,11 @@ $getMobileAds=$pub->getMobileAds("accueil")['donnees'];
     <meta name="Description" lang="fr" content="Vidéo : <?php echo $video->getTitre();?>. Durée : <?php echo $video->getDuree();?>. Thème : <?php echo $event_name;?> - <?php echo $champ_name;?>">
     <meta property="og:type" content="video" />
     <meta property="og:title" content="<?php echo $video->getTitre();?>" />
-    <meta property="og:image" content="https://allmarathon.fr/images/allmarathon.png" />
-    <meta property="og:url" content="<?php echo 'https://allmarathon.fr/video-de-marathon-'.$video->getId().'.html';?>" />
+    <meta property="og:image" content="https://dev.allmarathon.fr/images/allmarathon.png" />
+    <meta property="og:url" content="<?php echo 'https://dev.allmarathon.fr/video-de-marathon-'.$video->getId().'.html';?>" />
     <meta property="og:description" content="Vidéo : <?php echo $video->getTitre();?>. Durée : <?php echo $video->getDuree();?>. Thème : <?php echo $event_name;?> - <?php echo $champ_name;?>" />
 
-    <?php echo '<link rel="canonical" href="https://allmarathon.fr/video-de-marathon-'.$video->getId().'.html" />';?>
+    <?php echo '<link rel="canonical" href="https://dev.allmarathon.fr/video-de-marathon-'.$video->getId().'.html" />';?>
 
 
     <link rel="apple-touch-icon" href="apple-favicon.png">
@@ -180,7 +180,7 @@ $getMobileAds=$pub->getMobileAds("accueil")['donnees'];
                      echo '<h1 class="video_title">Vidéo : '.$video->getTitre().'</h1>';
                      echo  $res_event;?>
                      <span class="comment-count-container">
-                        <a style="font-weight: bold;" href="<?php echo 'https://allmarathon.fr/video-de-marathon-'.$video->getId().'.html';?>#disqus_thread"># </a>
+                        <a style="font-weight: bold;" href="<?php echo 'https://dev.allmarathon.fr/video-de-marathon-'.$video->getId().'.html';?>#disqus_thread"># </a>
                         <span class="material-symbols-outlined">chat_bubble</span>
                     </span>
                     <script>

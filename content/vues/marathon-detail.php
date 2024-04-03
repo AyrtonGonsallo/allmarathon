@@ -175,10 +175,10 @@ if($pays_datas){
     <meta property="og:type" content="siteweb" />
     <meta property="og:title" content="<?php echo $categorie;?> <?php echo $marathon['prefixe'];?> <?php echo $marathon['nom'];?>  | allmarathon.fr" />
     <meta property="og:description" content="Toutes les informations sur le marathon <?php echo $marathon['prefixe'];?> <?php echo $marathon['nom'];?> : prochaine édition, résultats des éditions précédentes, records... " />
-    <meta property="og:image" content="<?php echo 'https://allmarathon.fr/images/marathons/'.$marathon['image'];?>" />
-    <meta property="og:url" content="<?php echo 'https://allmarathon.fr/marathons-'.$marathon['id'].'-'.slugify($marathon['nom']).'.html';?>" />
+    <meta property="og:image" content="<?php echo 'https://dev.allmarathon.fr/images/marathons/'.$marathon['image'];?>" />
+    <meta property="og:url" content="<?php echo 'https://dev.allmarathon.fr/marathons-'.$marathon['id'].'-'.slugify($marathon['nom']).'.html';?>" />
 
-    <?php echo '<link rel="canonical" href="https://allmarathon.fr/marathons-'.$marathon['id'].'-'.slugify($marathon['nom']).'.html" />';?>
+    <?php echo '<link rel="canonical" href="https://dev.allmarathon.fr/marathons-'.$marathon['id'].'-'.slugify($marathon['nom']).'.html" />';?>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
   
  

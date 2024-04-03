@@ -165,7 +165,7 @@ try{
 
     
 
-    <link rel="canonical" href="https://allmarathon.fr/calendrier-agenda-marathons.html" />
+    <link rel="canonical" href="https://dev.allmarathon.fr/calendrier-agenda-marathons.html" />
 
     <link rel="apple-touch-icon" href="apple-favicon.png">
 

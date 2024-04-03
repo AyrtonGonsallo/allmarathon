@@ -124,10 +124,10 @@ catch(Exception $e)
     <meta property="og:description" content="Retrouvez les palmarès de <?php echo $nb_champs;?> coureurs, ainsi  que les photos et vidéos des athlètes et marathoniens célèbres. " />
     <meta property="og:locale" content="fr_FR" />
     <meta property="og:type" content="siteweb" />
-    <meta property="og:image" content="https://allmarathon.fr/images/allmarathon.png" />
-    <meta property="og:url" content="https://allmarathon.fr/liste-des-athletes.html" />
+    <meta property="og:image" content="https://dev.allmarathon.fr/images/allmarathon.png" />
+    <meta property="og:url" content="https://dev.allmarathon.fr/liste-des-athletes.html" />
 
-    <link rel="canonical" href="https://allmarathon.fr/liste-des-athletes.html" />
+    <link rel="canonical" href="https://dev.allmarathon.fr/liste-des-athletes.html" />
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/font-awesome.min.css">
     <link rel="stylesheet" href="../../css/fonts.css">
@@ -305,7 +305,7 @@ echo $pub300x250["code"] ? $pub300x250["code"] :  "<a href=". $pub300x250['url']
 if($pub160x600 !="") {
     //var_dump($pub160x600["url"]); exit;
     if($pub160x600["code"]==""){
-        echo "<a href=".'http://allmarathon.fr/'.$pub160x600["url"]." target='_blank'><img src=".'../images/news/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" /></a>";
+        echo "<a href=".'http://dev.allmarathon.fr/'.$pub160x600["url"]." target='_blank'><img src=".'../images/news/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" /></a>";
     }
     else{
         echo $pub160x600["code"];

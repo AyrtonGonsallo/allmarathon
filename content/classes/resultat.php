@@ -127,7 +127,8 @@ class resultat{
 		 	try {
 				  include("../database/connexion.php");
 				 $req = $bdd->prepare("SELECT e.CategorieageID,e.CategorieID,e.Nom,e.DateDebut,e.PaysID,e.ID,e.Sexe,e.marathon_id,c.Intitule AS Categorie,a.Intitule AS Age FROM evenements e LEFT JOIN evcategorieevenement c ON e.CategorieID = c.ID LEFT JOIN evcategorieage a ON e.CategorieageID = a.ID WHERE e.Visible=1 and not marathon_id=0 ORDER BY e.DateDebut DESC LIMIT 10");
-	             $req->execute();
+	            
+				 $req->execute();
 	             $last_results = array();
 	             while ( $row  = $req->fetch(PDO::FETCH_ASSOC)) {    
 					  $resultat = self::constructWithArray($row);
@@ -143,6 +144,30 @@ class resultat{
 	        }
 
 	    }
+
+		public function getAllYearsResults($mar_id,$ev_id){
+		 	
+			try {
+				 include("../database/connexion.php");
+				$req = $bdd->prepare("SELECT e.CategorieageID,e.CategorieID,e.Nom,e.DateDebut,e.PaysID,e.ID,e.Sexe,e.marathon_id,c.Intitule AS Categorie,a.Intitule AS Age FROM evenements e LEFT JOIN evcategorieevenement c ON e.CategorieID = c.ID LEFT JOIN evcategorieage a ON e.CategorieageID = a.ID WHERE e.Visible=1 and marathon_id=:mar_id and not e.id=:ev_id ORDER BY e.DateDebut DESC LIMIT 10");
+				$req->bindValue('ev_id', $ev_id, PDO::PARAM_INT);
+				$req->bindValue('mar_id', $mar_id, PDO::PARAM_INT);
+				$req->execute();
+				$last_results = array();
+				while ( $row  = $req->fetch(PDO::FETCH_ASSOC)) {    
+					 $resultat = self::constructWithArray($row);
+					 array_push($last_results, $resultat);
+				}
+				$bdd=null;
+				   return array('validation'=>true,'donnees'=>$last_results,'message'=>'');
+		   }
+		  
+		   catch(Exception $e)
+		   {
+			   die('Erreur : ' . $e->getMessage());
+		   }
+
+	   }
 
 	    public function getPhotos($id){
 	    	try {

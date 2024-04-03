@@ -83,12 +83,12 @@ function array_msort($array, $cols)
 				  
 					
 					if($pays_id=="all"){
-						$req = $bdd->prepare("SELECT CategorieageID,CategorieID,Nom,DateDebut,PaysID,ID,Sexe  FROM evenements WHERE Visible='1'  ORDER BY DateDebut desc LIMIT :offset,$par_pages");
+						$req = $bdd->prepare("SELECT CategorieageID,CategorieID,Nom,DateDebut,PaysID,ID,Sexe,prefixe  FROM evenements WHERE Visible='1'  ORDER BY DateDebut desc LIMIT :offset,$par_pages");
 						$req->bindValue('offset', $offset, PDO::PARAM_INT);
 						$req->execute();
 						$results= array();
 					}else{
-						$req = $bdd->prepare("SELECT CategorieageID,CategorieID,Nom,DateDebut,PaysID,ID,Sexe  FROM evenements WHERE Visible='1' and PaysID like :pays_id ORDER BY DateDebut desc LIMIT :offset,$par_pages");
+						$req = $bdd->prepare("SELECT CategorieageID,CategorieID,Nom,DateDebut,PaysID,ID,Sexe,prefixe  FROM evenements WHERE Visible='1' and PaysID like :pays_id ORDER BY DateDebut desc LIMIT :offset,$par_pages");
 						$req->bindValue('pays_id', '%'.$pays_id.'%', PDO::PARAM_STR);
 						$req->bindValue('offset', $offset, PDO::PARAM_INT);
 						$req->execute();
@@ -112,7 +112,7 @@ function array_msort($array, $cols)
 		try {
 				  include("../database/connexion.php");
 				  
-				  $req = $bdd->prepare("SELECT e.CategorieageID,e.CategorieID,e.Nom,e.DateDebut,e.PaysID,e.ID,e.Sexe  FROM evenements e,marathons m WHERE m.id=e.marathon_id and e.Visible='1' and (e.PaysID like :search or e.Nom like :search or m.nom like :search) ORDER BY e.DateDebut desc LIMIT :offset,$par_pages");
+				  $req = $bdd->prepare("SELECT e.CategorieageID,e.CategorieID,e.Nom,e.DateDebut,e.PaysID,e.ID,e.Sexe,prefixe  FROM evenements e,marathons m WHERE m.id=e.marathon_id and e.Visible='1' and (e.PaysID like :search or e.Nom like :search or m.nom like :search) ORDER BY e.DateDebut desc LIMIT :offset,$par_pages");
 				  $req->bindValue('search', '%'.$search.'%', PDO::PARAM_STR);
 				  $req->bindValue('offset', $offset, PDO::PARAM_INT);
 				  $req->execute();
@@ -142,7 +142,7 @@ function array_msort($array, $cols)
 				  $fin=$par_pages;
 				  if($search){
 					if($pays_id=="all"){
-						$req = $bdd->prepare("SELECT e.CategorieageID,e.CategorieID,e.Nom,e.DateDebut,e.PaysID,e.ID,e.Sexe  FROM evenements e,marathons m WHERE m.id=e.marathon_id and e.Visible='1' and (e.PaysID like :search or e.Nom like :search or m.nom like :search) ORDER BY e.DateDebut desc LIMIT :offset,$fin");
+						$req = $bdd->prepare("SELECT e.CategorieageID,e.CategorieID,e.Nom,e.DateDebut,e.PaysID,e.ID,e.Sexe,prefixe  FROM evenements e,marathons m WHERE m.id=e.marathon_id and e.Visible='1' and (e.PaysID like :search or e.Nom like :search or m.nom like :search) ORDER BY e.DateDebut desc LIMIT :offset,$fin");
 						$req->bindValue('search', '%'.$search.'%', PDO::PARAM_STR);
 	  
 						$req->bindValue('offset', $offset, PDO::PARAM_INT);
