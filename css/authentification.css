@@ -67,7 +67,7 @@ input.form-control.search_header {
 .auth--header {
 
     background-color: #fbff0b;
-    color: #fff;
+    color: #000000;
     padding: .7em 0;
     text-align: center;
     text-transform: uppercase;
@@ -204,7 +204,7 @@ a.link:hover {
 
 .auth--signin {
 
-    color: #fff;
+    color: #000000;
     text-align: right;
     margin: .5em 0;
 
@@ -322,7 +322,7 @@ input.red {
 .auth--footer1 {
 
     background-color: #fbff0b;
-    color: white;
+    color: rgb(0, 0, 0);
     float: left;
     font-size: 1em;
     text-transform: uppercase;
@@ -463,7 +463,7 @@ input.red {
 .btn_auth{
      border: none;
      margin-top: 20px;
-    color: #fff;
+    color: #000000;
     display: inline-block;
     font: 700 1em/2em 'Source Sans Pro', lucida sans, arial, sans-serif;
     padding: 0px 12px;
@@ -510,8 +510,13 @@ input.red {
     }
 
 }
-.link.forgot{
-font-size: 14px;
+.forgot{
+    font-size: 14px;
+    font-weight: bolder;
+}
+.forgot:hover{
+    cursor: pointer;
+    text-decoration: underline !important;
 }
 @media all and (min-width: 701px) {
 

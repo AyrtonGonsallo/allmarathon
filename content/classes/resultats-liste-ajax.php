@@ -112,7 +112,7 @@ function array_msort($array, $cols)
 		try {
 				  include("../database/connexion.php");
 				  
-				  $req = $bdd->prepare("SELECT e.CategorieageID,e.CategorieID,e.Nom,e.DateDebut,e.PaysID,e.ID,e.Sexe,prefixe  FROM evenements e,marathons m WHERE m.id=e.marathon_id and e.Visible='1' and (e.PaysID like :search or e.Nom like :search or m.nom like :search) ORDER BY e.DateDebut desc LIMIT :offset,$par_pages");
+				  $req = $bdd->prepare("SELECT e.CategorieageID,e.CategorieID,e.Nom,e.DateDebut,e.PaysID,e.ID,e.Sexe,e.prefixe  FROM evenements e,marathons m WHERE m.id=e.marathon_id and e.Visible='1' and (e.PaysID like :search or e.Nom like :search or m.nom like :search) ORDER BY e.DateDebut desc LIMIT :offset,$par_pages");
 				  $req->bindValue('search', '%'.$search.'%', PDO::PARAM_STR);
 				  $req->bindValue('offset', $offset, PDO::PARAM_INT);
 				  $req->execute();

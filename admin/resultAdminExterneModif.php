@@ -17,13 +17,11 @@ require_once '../database/connexion.php';
 if (isset($_POST['modifier'])) {
 
     try {
-         $req4 = $bdd->prepare("UPDATE champion_admin_externe_palmares SET Rang = :rang, Temps=:Temps, utilisateur=:utilisateur, Date = :date, CompetitionFr = :fr WHERE  ID = :resultID");
+         $req4 = $bdd->prepare("UPDATE champion_admin_externe_palmares SET Rang = :rang, Temps=:Temps, utilisateur=:utilisateur WHERE  ID = :resultID");
 
          $req4->bindValue('rang',$_POST['rang'], PDO::PARAM_INT);
          $req4->bindValue('Temps',$_POST['Temps'], PDO::PARAM_STR);
-         $req4->bindValue('date',$_POST['date'], PDO::PARAM_STR);
          $req4->bindValue('utilisateur',$_POST['utilisateur'], PDO::PARAM_STR);
-         $req4->bindValue('fr',$_POST['fr'], PDO::PARAM_STR);
          $req4->bindValue('resultID',$_POST['resultID'], PDO::PARAM_STR);
 
 
@@ -94,10 +92,7 @@ if (isset($_POST['modifier'])) {
                     <td>Rang: </td>
                     <td><input type="text" name="rang" value="<?php echo $_POST['rang'] ?>" /></td>
                 </tr>
-                <tr>
-                    <td>Evenement: </td>
-                    <td><input type="text" name="fr" value="<?php echo $_POST['CompetitionFr'] ?>" /></td>
-                </tr>
+                
                 <tr>
                     <td>utilisateur: </td>
                     <td><input type="text" name="utilisateur" value="<?php echo $_POST['utilisateur'] ?>" /></td>
@@ -107,10 +102,7 @@ if (isset($_POST['modifier'])) {
                     <td><input type="text" name="Temps" value="<?php echo $_POST['Temps'] ?>" /></td>
                 </tr>
                 
-                        <tr>
-                            <td>Date: </td>
-                            <td><input type="text" name="date" id="datepicker" value="<?php echo $_POST['date'] ?>" /></td>
-                        </tr>
+                     
                         
                        
                      <tr>

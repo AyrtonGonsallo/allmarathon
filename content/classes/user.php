@@ -251,11 +251,12 @@ class user{
 			            die('Erreur : ' . $e->getMessage());
 			        }
 	}
-	public function getUserByUsername($username){
+	public function getUserByUsername($username,$email){
 		try {
 						  include("../database/connexion.php");
-						 $req = $bdd->prepare("SELECT * FROM users  WHERE username LIKE :username");
-			             $req->bindValue('username', $username, PDO::PARAM_STR);
+						 $req = $bdd->prepare("SELECT * FROM users  WHERE username LIKE :username or email LIKE :email");
+			             $req->bindValue('username', '%'.$username.'%', PDO::PARAM_STR);
+						 $req->bindValue('email', '%'.$email.'%', PDO::PARAM_STR);
 			             $req->execute();
 			             if ($req->rowCount() > 0) {
 							  $user= self::constructWithArray($req->fetch(PDO::FETCH_ASSOC));
@@ -314,6 +315,27 @@ class user{
 		}
 	}
 
+	public function getAddedResults($username)
+	{
+		try {
+			require('../database/connexion.php');
+			$req = $bdd->prepare('SELECT p.*,e.Nom,e.DateDebut FROM `champion_admin_externe_palmares` p,evenements e WHERE `utilisateur` = :username and e.ID=p.EvenementID');
+			$req->bindValue('username', $username, PDO::PARAM_STR);
+			$req->execute();
+			$res= array();
+		    while ( $row  = $req->fetch(PDO::FETCH_ASSOC)) { 
+				array_push($res, $row);
+		    }
+		return array('validation'=>true,'donnees'=>$res,'message'=>'');
+		$bdd=null;
+		}
+		catch(Exception $e)
+		{ 
+		die('Erreur : ' . $e->getMessage());
+		}
+	}
+
+
 	public function updateUserById($nom,$prenom,$sexe,$email,$dn,$pays,$newsletter,$offres,$membre_id,$LieuNaissance,$Equipementier,$lien_equip,$Instagram,$p,$taille,$Facebook,$Bio,$c_id)
 	{
 		try {
@@ -365,16 +387,101 @@ class user{
 	}
 
 
+
+	public function updateUserIGById($nom,$prenom,$sexe,$email,$pays,$membre_id,$c_id)
+	{
+		try {
+			
+						 require('../database/connexion.php');
+						 
+						 $req = $bdd->prepare("UPDATE users SET nom= :nom ,prenom= :prenom, email= :email , pays= :pays  WHERE id = :membre_id ");
+
+			             $req->bindValue('nom', $nom, PDO::PARAM_STR);
+			             $req->bindValue('prenom', $prenom, PDO::PARAM_STR);
+			             $req->bindValue('email', $email, PDO::PARAM_STR);
+			             $req->bindValue('pays', $pays, PDO::PARAM_STR);
+			             $req->bindValue('membre_id', $membre_id, PDO::PARAM_INT);
+
+			             $req->execute();
+
+						// mettre a jour champion
+						 $req4 = $bdd->prepare("UPDATE champions SET Nom=:Nom ,Sexe=:Sexe ,PaysID=:PaysID  WHERE ID=:id");
+
+						$req4->bindValue('Nom',$nom.' '.$prenom, PDO::PARAM_STR);
+						$req4->bindValue('Sexe',$sexe, PDO::PARAM_STR);
+						$req4->bindValue('PaysID',$pays, PDO::PARAM_STR);
+						
+						
+						$req4->bindValue('id',$c_id, PDO::PARAM_INT);
+						$statut=$req4->execute();
+			             return array('validation'=>true,'message'=>'');
+
+			             $bdd=null;
+			        }
+			       
+			        catch(Exception $e)
+			        {
+			            die('Erreur : ' . $e->getMessage());
+			            return array('validation'=>false,'message'=>'');
+
+			        }
+	}
+
+
+	public function updateUserDCById($dn,$newsletter,$offres,$membre_id,$LieuNaissance,$Equipementier,$lien_equip,$Instagram,$p,$taille,$Facebook,$Bio,$c_id)
+	{
+		try {
+			
+						 require('../database/connexion.php');
+						 
+						 $req = $bdd->prepare("UPDATE users SET date_naissance= :date_naissance , newsletter= :newsletter , offres= :offres WHERE id = :membre_id ");
+
+			            
+			             $req->bindValue('date_naissance', $dn, PDO::PARAM_STR);
+			             $req->bindValue('newsletter', $newsletter, PDO::PARAM_INT);
+			             $req->bindValue('offres', $offres, PDO::PARAM_INT);
+			             $req->bindValue('membre_id', $membre_id, PDO::PARAM_INT);
+
+			             $req->execute();
+
+						// mettre a jour champion
+						 $req4 = $bdd->prepare("UPDATE champions SET Poids=:p ,Taille=:t,Equipementier=:Equipementier  ,DateNaissance=:DateNaissance ,LieuNaissance=:LieuNaissance ,Lien_site_équipementier=:lien_equip,Instagram=:Instagram,Facebook=:Facebook, Bio=:Bio WHERE ID=:id");
+
+						$req4->bindValue('DateNaissance',$dn, PDO::PARAM_STR);
+						$req4->bindValue('LieuNaissance',$LieuNaissance, PDO::PARAM_STR);
+						$req4->bindValue('Equipementier',$Equipementier, PDO::PARAM_STR);
+						$req4->bindValue('lien_equip',$lien_equip, PDO::PARAM_STR);
+					   $req4->bindValue('Instagram',$Instagram, PDO::PARAM_STR);
+					   $req4->bindValue('p',$p, PDO::PARAM_INT);
+					   $req4->bindValue('t',$taille, PDO::PARAM_INT);
+					   $req4->bindValue('Facebook',$Facebook, PDO::PARAM_STR);
+					   $req4->bindValue('Bio',$Bio, PDO::PARAM_STR);
+						
+						$req4->bindValue('id',$c_id, PDO::PARAM_INT);
+						$statut=$req4->execute();
+			             return array('validation'=>true,'message'=>'');
+
+			             $bdd=null;
+			        }
+			       
+			        catch(Exception $e)
+			        {
+			            die('Erreur : ' . $e->getMessage());
+			            return array('validation'=>false,'message'=>'');
+
+			        }
+	}
+
 	public function updatePassprdByUserId($membre_id,$password)
 	{
 		try {
 			
 						 require('../database/connexion.php');
 						 
-						 $req = $bdd->prepare("UPDATE users SET password= :password WHERE id = :membre_id ");
-			             $req->bindValue('password', $password, PDO::PARAM_STR);
-			             $req->bindValue('membre_id', $membre_id, PDO::PARAM_INT);
-			             $req->execute();
+						 $req22 = $bdd->prepare("UPDATE users SET password= :pass WHERE id = :membre_id ");
+			             $req22->bindValue('pass', $password, PDO::PARAM_STR);
+			             $req22->bindValue('membre_id', $membre_id, PDO::PARAM_INT);
+			             $req22->execute();
 			             return array('validation'=>true,'message'=>'');
 			             $bdd=null;
 			        }
@@ -457,6 +564,46 @@ class user{
 					   $req4->bindValue('t',$taille, PDO::PARAM_INT);
 					   $req4->bindValue('Facebook',$Facebook, PDO::PARAM_STR);
 					   $req4->bindValue('Bio',$Bio, PDO::PARAM_STR);
+						
+						$statut=$req4->execute();
+
+
+			            return array('validation'=>true,'id'=>$id,'message'=>'');
+						$bdd=null;
+			        }
+			       
+			        catch(Exception $e)
+			        {
+			            die('Erreur : ' . $e->getMessage());
+			            return array('validation'=>false,'message'=>'');
+
+			        }
+					
+	}
+
+	public function addNewUser2($username,$password,$nom,$prenom,$email)
+	{
+		try {
+			
+						 require('../database/connexion.php');
+						 
+						 $req = $bdd->prepare("INSERT INTO `users` (`id` ,`nom` ,`prenom` ,`username` ,`email` ,`password`)
+		VALUES (NULL , :nom, :prenom, :username, :email, :password)");
+			             
+			             $req->bindValue('nom', $nom, PDO::PARAM_STR);
+			             $req->bindValue('prenom', $prenom, PDO::PARAM_STR);
+			             $req->bindValue('username', $username, PDO::PARAM_STR);
+			             $req->bindValue('email', $email, PDO::PARAM_STR);
+			             $req->bindValue('password', $password, PDO::PARAM_STR);
+			             $req->execute();
+			             $id=$bdd->lastInsertId();
+			             
+
+						 //CREEER LE CHAMPION
+						 $req4 = $bdd->prepare("INSERT INTO champions (Nom,user_id) VALUES (:Nom,:uid)");
+	   
+						$req4->bindValue('Nom',$nom.' '.$prenom, PDO::PARAM_STR);
+						$req4->bindValue('uid',$id, PDO::PARAM_INT);
 						
 						$statut=$req4->execute();
 

@@ -229,7 +229,7 @@ echo $pub728x90["code"] ? $pub728x90["code"] :  "<img src=".'../images/pubs/'.$p
                             <li><a href="#tab2" role="tab" data-toggle="tab">Vos actions</a></li>
                          
                             <li><a href="#tab4" role="tab" data-toggle="tab">Modifier vos infos</a></li>
-                            <li><a href="#tab5" role="tab" data-toggle="tab">Modifier votre mot de passe</a></li>
+                            <li><a href="#tab5" role="tab" data-toggle="tab">Mot de passe</a></li>
                             <li><a href="#tab6" role="tab" data-toggle="tab">Google</a></li>
                         </ul>
                         <!-- TAB CONTENT -->

@@ -595,6 +595,26 @@ public function getNewsByEventId($evenementID){
 	        }
 	}
 
+	public function gettotalNewsByChampId($cid){
+		
+		try {
+				  include("../database/connexion.php");
+				 $req = $bdd->prepare("SELECT count(*) FROM news WHERE championID=:cid order by date desc");
+				 $req->bindValue('cid',$cid, PDO::PARAM_INT);
+	             $req->execute();
+	             $nbr_pages= $req->fetch(PDO::FETCH_ASSOC);
+				
+	             
+	             $bdd=null;
+	             return array('validation'=>true,'donnees'=>$nbr_pages,'message'=>'');
+	        }
+	       
+	        catch(Exception $e)
+	        {
+	            die('Erreur : ' . $e->getMessage());
+	        }
+	}
+
 	public function getNewsForNewsletter()
 	{
 		try {

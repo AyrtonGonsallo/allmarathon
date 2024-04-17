@@ -37,9 +37,9 @@ endif;
 
 
 try{
-  $req_select = $bdd->prepare("SELECT caep.*, c.Nom, e.Intitule FROM champion_admin_externe_palmares caep"
+  $req_select = $bdd->prepare("SELECT caep.*, e.Nom as ev,c.Nom FROM champion_admin_externe_palmares caep"
     ." LEFT JOIN champions c ON c.ID = caep.ChampionID"
-    ." LEFT JOIN evcategorieage e ON caep.CategorieAge = e.ID"
+    ." LEFT JOIN evenements e ON caep.EvenementID = e.ID"
     ." ORDER BY caep.ID DESC");
   $req_select->execute();
   $resultResult= array();
@@ -118,7 +118,7 @@ catch(Exception $e)
 
             <table class="tablesorter" id="tbl1">
                 <thead>
-                    <tr><th>Champion</th><th>Rang</th><th>Evenement</th><th>Temps</th><th>Utilisateur</th><th>Actions</th></tr>
+                    <tr><th>Champion</th><th>Rang</th><th>Evenement</th><th>Temps</th><th>Utilisateur</th><th>Date</th><th>Pays</th><th>Sexe</th><th>Justificatif</th><th>Actions</th></tr>
                 </thead>
                 <tbody>
                 <?php //while($result = mysql_fetch_array($resultResult)){ 
@@ -126,14 +126,19 @@ catch(Exception $e)
                     <tr>
                         <td><a href="../athlete-<?php echo $result['ChampionID'] ?>.html"><?php echo $result['Nom'] ?></a></td>
                         <td><?php echo $result['Rang'] ?></td>
-                        <td><?php echo $result['CompetitionFr'] ?></td>
+                        <td><?php echo $result['ev'] ?></td>
                         <td><?php echo $result['Temps'] ?></td>
                         <td><?php echo $result['utilisateur'] ?></td>
+                        <td><?php echo $result['Date'] ?></td>
+                        <td><?php echo $result['PaysID'] ?></td>
+                        <td><?php echo $result['Sexe'] ?></td>
+                        
+                        <td><a href="../uploadDocument/<?php echo $result['Justificatif'] ?>" target="_blank" title="<?php echo $result['Justificatif'] ?>">voir le fichier</a></td>
                         <td>
                             <form method="post" action="resultAdminExterneValid.php" style="float: left">
                                 <input type="hidden" name="rang" value="<?php echo $result['Rang'] ?>" />
                                 <input type="hidden" name="ID" value="<?php echo $result['ID'] ?>" />
-                                <input type="hidden" name="CompetitionFr" value="<?php echo $result['CompetitionFr'] ?>" />
+                                <input type="hidden" name="ev" value="<?php echo $result['ev'] ?>" />
                                 <input type="hidden" name="Temps" value="<?php echo $result['Temps'] ?>" />
                                 <input type="hidden" name="utilisateur" value="<?php echo $result['utilisateur'] ?>" />
                                 <input type="hidden" name="EvenementID" value="<?php echo $result['EvenementID'] ?>" />
@@ -144,7 +149,7 @@ catch(Exception $e)
                             </form>
                             <form method="post" action="resultAdminExterneModif.php" style="float: left">
                                 <input type="hidden" name="rang" value="<?php echo $result['Rang'] ?>" />
-                                <input type="hidden" name="CompetitionFr" value="<?php echo $result['CompetitionFr'] ?>" />
+                                <input type="hidden" name="ev" value="<?php echo $result['ev'] ?>" />
                                 <input type="hidden" name="Temps" value="<?php echo $result['Temps'] ?>" />
                                 <input type="hidden" name="utilisateur" value="<?php echo $result['utilisateur'] ?>" />
 

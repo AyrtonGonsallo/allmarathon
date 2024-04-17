@@ -38,7 +38,7 @@ $evequipe=new evequipe();
 $ch=new champion();
 
 $pays=new pays();
-
+$liste_pays=$pays->getAll()['donnees'];
 $ev_cat_age=new evCategorieAge();
 
 $pub=new pub();
@@ -137,10 +137,10 @@ setlocale(LC_TIME, "fr_FR","French");
     <meta content="width=device-width, initial-scale=1.0" name="viewport"><meta http-equiv="x-ua-compatible" content="ie=edge">
     <?php require_once("../scripts/header_script.php") ?>
     <title>Résultats du marathon <?php echo $evById->getPrefixe();?> <?php echo str_replace('\\','',$evById->getNom());?> - <?php echo $pays->getFlagByAbreviation($evById->getPaysId())['donnees']['NomPays'];?> - <?php echo $ev_cat_event_int_titre;?> <?php echo $annee_titre;?></title>
-    <meta name="Description" content="Le <?php echo $ev_cat_event_int_titre;?> <?php echo $annee_titre;?> de <?php echo $evById->getNom();?> (<?php echo $pays->getFlagByAbreviation($evById->getPaysId())['donnees']['NomPays'];?>) a eu lieu le <?php echo changeDate($evById->getDateDebut());?>. Les vainqueurs sont <?php echo  $evresultat->getResultBySexe($id,"M")['donnees'][0]['Nom'];?> (hommes) et <?php echo  $evresultat->getResultBySexe($id,"F")['donnees'][0]['Nom'];?> (femmes). Résultats complets, classements et temps." lang="fr" xml:lang="fr" />
+    <meta name="Description" content="Le <?php echo $ev_cat_event_int_titre;?> <?php echo $annee_titre;?> de <?php echo $evById->getNom();?> (<?php echo $pays->getFlagByAbreviation($evById->getPaysId())['donnees']['NomPays'];?>) a eu lieu le <?php echo changeDate($evById->getDateDebut()).'.';if($evresultat->getResultBySexe($id,"M")['donnees']){?> Les vainqueurs sont <?php echo  $evresultat->getResultBySexe($id,"M")['donnees'][0]['Nom'];?> (hommes) et <?php echo  $evresultat->getResultBySexe($id,"F")['donnees'][0]['Nom'];?> (femmes). Résultats complets, classements et temps.<? }?>" lang="fr" xml:lang="fr" />
     <meta property="og:type" content="siteweb" />
     <meta property="og:title" content="Résultats du marathon <?php echo $evById->getPrefixe();?> <?php echo str_replace('\\','',$evById->getNom());?> - <?php echo $pays->getFlagByAbreviation($evById->getPaysId())['donnees']['NomPays'];?> - <?php echo $ev_cat_event_int_titre;?> <?php echo $annee_titre;?>" />
-    <meta property="og:description" content="Le <?php echo $ev_cat_event_int_titre;?> <?php echo $annee_titre;?> de <?php echo $evById->getNom();?> (<?php echo $pays->getFlagByAbreviation($evById->getPaysId())['donnees']['NomPays'];?>) a eu lieu le <?php echo changeDate($evById->getDateDebut());?>. Les vainqueurs sont <?php echo  $evresultat->getResultBySexe($id,"M")['donnees'][0]['Nom'];?> (hommes) et <?php echo  $evresultat->getResultBySexe($id,"F")['donnees'][0]['Nom'];?> (femmes). Résultats complets, classements et temps." />
+    <meta property="og:description" content="Le <?php echo $ev_cat_event_int_titre;?> <?php echo $annee_titre;?> de <?php echo $evById->getNom();?> (<?php echo $pays->getFlagByAbreviation($evById->getPaysId())['donnees']['NomPays'];?>) a eu lieu le <?php echo changeDate($evById->getDateDebut()).'.';if($evresultat->getResultBySexe($id,"M")['donnees']){?> Les vainqueurs sont <?php echo  $evresultat->getResultBySexe($id,"M")['donnees'][0]['Nom'];?> (hommes) et <?php echo  $evresultat->getResultBySexe($id,"F")['donnees'][0]['Nom'];?> (femmes). Résultats complets, classements et temps.<? }?>" />
     <? if($next_date){?>
         <meta property="og:image" content="<?php echo 'https://dev.allmarathon.fr/images/marathons/'.$next_date['image'];?>" />
     <? }?>
@@ -272,10 +272,12 @@ setlocale(LC_TIME, "fr_FR","French");
                                 <li class="col-sm-12">
                                 <?php echo '<div id="genre">'.$type.'</div>';?>
                                 <div class="results-sub-menu">
+                                <?php if(($type=="MF") || ($type=="M")){ ?>
                                     <button id="res-hommes" class="res-by-gender"><span class="material-symbols-outlined">male</span>Hommes</button>
+                                    <?php }if(($type=="MF") || ($type=="F")){ ?>
                                     <button id="res-femmes" class="res-by-gender"><span class="material-symbols-outlined">female</span>Femmes</button>
                                     
-                                    <?php if($evById->getDocument1()!='') echo '<a class="btn results-buttons" href="PDF_frame-'.rawurlencode($evById->getDocument1()).'" target="_blank" class="btn btn-default"><i class="fa-file-pdf-o fa"></i>&nbspPDF</a>';  ?>
+                                    <?php }if($evById->getDocument1()!='') echo '<a class="btn results-buttons" href="PDF_frame-'.rawurlencode($evById->getDocument1()).'" target="_blank" class="btn btn-default"><i class="fa-file-pdf-o fa"></i>&nbspPDF</a>';  ?>
                                     <?php if($evById->getlien_resultats_complet()) echo '<a class=" results-buttons" href="'.$evById->getlien_resultats_complet().'" target="_blank" class="btn btn-default"><img width="16px" src="../../images/redirect.png" alt="tout voir">&nbspRésultats complets</a>';  ?>
                                     <?php //if($isAdmin) echo '<a class="btn results-buttons" href="evenement-detail-admin-'.$id.'.html" ><img width="13px" src="../../images/pictos/finisher.png" alt="finisher"> Je suis finisher</a>';  ?>
                                     <?php //if(!$isAdmin) echo '<a class="btn results-buttons" href="#" id="finisher"><img width="13px" src="../../images/pictos/finisher.png" alt="finisher"> Je suis finisher</a>';  ?>
@@ -566,7 +568,93 @@ setlocale(LC_TIME, "fr_FR","French");
            
             <div class="center">..</div>
             <div class="center">Vous êtes finisher ?</div>
-            <div><button class="call-to-action mx-auto">Enregistrez votre résultat !</button></div>
+            <div>
+            <?php if(empty($_SESSION['user_id'])){ ?>
+                <a id="enregistrer_resulat" href="#"  class="call-to-action mx-auto">
+                    Enregistrez votre résultat !
+                </a>
+            <?php }else{ ?>
+                <?php if (isset($_SESSION['msg_ajout_resultat'])){?>
+                    
+                    <div class="modal fade" id="AddResultResponseModal" tabindex="-1" role="dialog" aria-labelledby="AddResultResponseModal" aria-hidden="true">
+                    <div class="add-result-box">
+                        <?php echo $_SESSION['msg_ajout_resultat'];?>
+                        
+                    </div>
+                </div>
+                <?php }?>
+                <div class="modal fade" id="AddResultModal" tabindex="-1" role="dialog" aria-labelledby="AddResultModal" aria-hidden="true">
+                    <div class="add-result-box">
+                        <?php echo '<h1>Ajouter votre résultat au '.$ev_cat_event_int.' '.$next_date["prefixe"].' '.$evById->getNom().' '.$annee.'</h1>';?>
+                        <form action="/content/modules/ajouter-resultat.php" enctype="multipart/form-data" method="post" class="form-horizontal"
+                            id="target">
+                            <input type="hidden" name="c" id="c_id" value="<?php echo $user_champ->getID(); ?>" />
+                            <input type="hidden" name="e" id="e_id" value="<?php echo $id; ?>" />
+                            <input type="hidden" name="u" id="u_id" value="<?php echo  $profil->getUsername(); ?>" />
+                            <?php if(!$user_champ->getSexe()){?>
+                                <div class="form-group">
+                                    <label for="naissance" class="col-sm-5">Sexe * </label>
+                                    <div class="col-sm-7">
+                                        <input type="radio" name="s"  value="M" class="mr-5"/><span class="mr-10">homme</span><input class="mr-5" type="radio" name="s" value="F"  /><span class="mr-10">femme</span>
+                                    </div>
+                                </div>
+                            <?php }else{?>
+                                <input type="hidden" name="s"  value="<?php echo $user_champ->getSexe();?>" />
+                            <?php }?>
+                            <?php if(!$user_champ->getPaysID()){?>
+                                <div class="form-group">
+                                    <label for="pays" class="col-sm-5">Nationalité </label>
+                                    <div class="col-sm-7">
+                                        <select name="p" id="pays" class="form-control">
+                                            <?php
+                                            foreach ($liste_pays as $p) {
+                                                $selected = ($p->getAbreviation()=='FRA') ? "selected" : "";
+                                                echo '<option value="'.$p->getAbreviation().'"'.$selected.'>'.$p->getNomPays().'</option>';
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
+                            <?php }else{?>
+                                <input type="hidden" name="p"  value="<?php echo $user_champ->getPaysID();?>" />
+                            <?php } ?>
+                           
+                            <div class="form-group">
+                                <label for="marathon" class="col-sm-5">Rang</label>
+                                <div class="col-sm-7">
+                                    <input id="rang" type="number" name="r" value="" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="marathon" class="col-sm-5">Temps</label>
+                                <div class="col-sm-7">
+                                    <input id="temps" type="time" name="t" step="1" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="marathon" class="col-sm-5">Justificatif</label>
+                                <div class="col-sm-7">
+                                    <input type="file" id="justificatif" name="j" accept="image/png, image/jpeg, application/pdf," />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                            <div class="col-sm-5">
+                                </div>
+                                <div class="col-sm-7">
+                                <input id="ajouter-resultat"  type="submit" class="call-to-action" value="envoyer">
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+                <a id="" href="#" data-toggle="modal" data-target="#AddResultModal" class="call-to-action mx-auto">
+                    Enregistrez votre résultat !
+                </a>
+            <?php }?>
+                
+                
+            </div>
             
         </div>
         <? }?>
@@ -612,12 +700,7 @@ setlocale(LC_TIME, "fr_FR","French");
                 
             </div>
         <?}?>
-        
-    </aside>
-
-    <div class="col-sm-4 no-padding-right">
-    
-            <dt class="bref">
+        <dt class="bref mt-30">
                 <h2 class="h2-aside">
                     <span class="material-symbols-outlined ">
                         directions_run
@@ -656,53 +739,20 @@ setlocale(LC_TIME, "fr_FR","French");
                 </ul>
 
             </dd>
-
-            <dt class="bref mt-60">
-            <h2 class="h2-aside">
-                <span class="material-symbols-outlined ">
-                archive
-                </span>
-                Tous les autres Résultats
-            </h2>
-        </dt>
-
-        <dd class="result">
-
-            <ul class="clearfix">
-
-            <?php
-            $i=0;
-            foreach ($all_year_results['donnees'] as $result) {   
-                if($i%2==0){
-                    $class="gray-background";
-                }else{
-                    $class="";
-                }
-                $ev_cat_age_intitule=$ev_cat_age->getEventCatAgeByID($result->getCategorieAgeID())['donnees']->getIntitule();
-                $marathon = getMarathonsById($result->getmarathon_id())["donnees"][0];
-                $marathon_nom = $marathon["nom"];
-                $marathon_prefixe = $marathon["prefixe"];
-                $pays_nom=$pays->getFlagByAbreviation($result->getPaysID())['donnees']['NomPays'];
-                $nom_res=$result->getCategorie().' '.$ev_cat_age_intitule.' ('.$result->getSexe().') - '.$result->getNom().' - '.substr($result->getDateDebut(),0,4);
-                $nom_res_lien_archive=$result->getCategorie().' - '.$result->getNom().' - '.utf8_encode(strftime("%A %d %B %Y",strtotime($result->getDateDebut())));
-                echo '<a href="/resultats-marathon-'.$result->getID().'-'.slugify($nom_res_lien_archive).'.html"><div class="res-recents row '.$class.'"> <div class="col-lg-3 col-sm-3 pt-10"><span class="res-recents-date"><b>'.date("Y",strtotime($result->getDateDebut())).'</b></span></div><div class="col-lg-9 col-sm-9"><strong>Marathon '.$marathon_prefixe.' '.$marathon_nom.'</strong><br><span>'. $pays_nom.'</span></div></div></a>';
-                $i++;
-            }
-
-            ?>
-
-                <li class="last mx-auto"><a href="/resultats-marathon.html" class="mx-auto w-fc  blue-btn">Voir tous les résultats</a></li>
-
-            </ul>
-
-        </dd>
+            
         </div>
-    </div>
+    </aside>
+
+    
 
     </div> <!-- End container page-content -->
 
 
-    <?php include_once('footer.inc.php'); ?>
+    <?php include_once('footer.inc.php'); 
+        if (isset($_SESSION['msg_ajout_resultat'])) {
+            unset($_SESSION['msg_ajout_resultat']);
+        }
+    ?>
 
     <style type="text/css">
 
@@ -712,7 +762,13 @@ setlocale(LC_TIME, "fr_FR","French");
     <script>
     window.jQuery || document.write('<script src="../../js/vendor/jquery-1.12.0.min.js"><\/script>')
     </script>
-    <script data-type="lazy" ddata-src="../../js/bootstrap.min.js"></script>
+    <script  src="../../js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+$(window).load(function() {
+    setTimeout(function(e){ $('#AddResultResponseModal').modal('show'); }, 2000);
+
+});
+</script>
     <script data-type="lazy" ddata-src="../../js/plugins.js"></script>
     <script data-type="lazy" ddata-src="../../js/jquery.jcarousel.min.js"></script>
     <script data-type="lazy" ddata-src="../../js/jquery.sliderPro.min.js"></script>
@@ -737,16 +793,51 @@ setlocale(LC_TIME, "fr_FR","French");
     <script type="text/javascript" src="/js/jquery.fancybox-thumbs.js?v=1.0.7"></script>
     <script type="text/javascript">
         function full_view(ele){
-				let src=ele.parentElement.querySelector(".parcours-img-source").getAttribute("src");
-                console.log("srs lightbox",src)
-				document.querySelector("#parcours-img-viewer").querySelector("img").setAttribute("src",src);
-				document.querySelector("#parcours-img-viewer").style.display="block";
-			}
+			let src=ele.parentElement.querySelector(".parcours-img-source").getAttribute("src");
+            console.log("srs lightbox",src)
+			document.querySelector("#parcours-img-viewer").querySelector("img").setAttribute("src",src);
+			document.querySelector("#parcours-img-viewer").style.display="block";
+		}
 			
-			function close_model(){
-				document.querySelector("#parcours-img-viewer").style.display="none";
-			}
+		function close_model(){
+			document.querySelector("#parcours-img-viewer").style.display="none";
+		}
+      
+   
+    </script>
+    <script type="text/javascript">
     $(document).ready(function() {
+        function getCookie(name) {
+            console.log("coco",document.cookie)
+            var value = "; " + document.cookie;
+            var parts = value.split("; " + name + "=");
+            if (parts.length == 2) return parts.pop().split(";").shift();
+        }
+
+        // Lire le cookie "open_add_resulat_modal"
+        var open_add_resulat_modal = getCookie("open_add_resulat_modal");
+
+        // Vérifier si le cookie existe et afficher sa valeur
+        if (open_add_resulat_modal !== undefined) {
+            console.log("La valeur du open_add_resulat_modal monCookie est : " + open_add_resulat_modal);
+            $('#AddResultModal').modal('show');
+        } else {
+            console.log("Le cookie open_add_resulat_modal n'existe pas.");
+        }
+       
+       
+        $('#enregistrer_resulat').on('click',function(e){
+                $('input[type="checkbox"].openSidebarMenu').prop( "checked", true );
+                cname="page_when_logging_to_add_result"
+                cvalue=window.location.href
+                exdays=1
+                //e.preventDefault();
+                const d = new Date();
+                d.setTime(d.getTime() + (exdays*24*60*60*1000));
+                let expires = "expires="+ d.toUTCString();
+                document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+                console.log("Création du cookie: "+cname + "=" + cvalue + ";" + expires)
+            });
         $('#finisher').on('click',function(e){
                 $('#SigninModal').modal('show');});
                     
@@ -761,11 +852,19 @@ setlocale(LC_TIME, "fr_FR","French");
             },
             margin: [110, 60, 30, 60]
         });
-    });
-    </script>
-    <script type="text/javascript">
-    $(document).ready(function() {
         
+        $('#ajouter-resultat').on('click', function(e) {
+            cname="page_when_adding_result"
+            cvalue=window.location.href
+            exdays=1
+            //e.preventDefault();
+            const d = new Date();
+            d.setTime(d.getTime() + (exdays*24*60*60*1000));
+            let expires = "expires="+ d.toUTCString();
+            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+            console.log("Création du cookie: "+cname + "=" + cvalue + ";" + expires)
+
+        });
             $('#tableauHommes').DataTable( {
                 paging: false,
                 bFilter: false,
@@ -805,13 +904,12 @@ setlocale(LC_TIME, "fr_FR","French");
                 $('#res-hommes').removeClass("active")
         });
         $('.dataTables_filter input[type="search"]').attr('placeholder', 'Trouver un Athlète');
-        /*$('#tableauHommes').DataTable({
-        lengthMenu: [
-            [10, 25, 50, 100],
-            ['10 lignes', '25 lignes', '50 lignes', '100 lignes'],
-        ],
-    });*/
+        
+         
+        
+   
     });
+   
     </script>
 
 

@@ -29,6 +29,7 @@
       display: flex;
       justify-content: center;
       padding: 0px 26px;
+      margin:20px 0px;
     }
     .google a{
       all: unset;
@@ -104,13 +105,27 @@
     <?php
 
         if($user_session!=''){
-
+        if (!class_exists('user')) { 
+            include("../classes/user.php");
+        }
+        if (!class_exists('champion')) { 
+            include("../classes/champion.php");
+        }
+        if (!class_exists('pays')) { 
+            include("../classes/pays.php");
+        }
+        $pays=new pays();
+        $liste_pays=$pays->getAll()['donnees'];
             $href_modal="/membre-profil.php";
 
             $target_modal="";
 
             $signin_compte='<span class="user-connect"><i class="fa fa-user user_compte"></i></span>';
-
+            $champion=new champion();
+            $user=new user();
+            $profil = $user->getUserById($user_id)['donnees'];
+            $added_res = $user->getAddedResults($profil->getUsername())['donnees'];
+            $user_champ=($user_id)?$champion->getUserChampion($user_id)['donnees']:null;
         }
 
         else{
@@ -154,17 +169,24 @@
                     <div class="formobile">
 
                         <li>
+                            <? if($user_id){?>
+                                <label for="openSidebarMenu" class="sidebarIconToggle mobile">
+                                    <?php echo $signin_compte; ?>
+                                </label>
+                                <span class="tag_name_m">Utilisateur</span>
+                            <?}else{?>
+                                <a href=<?php echo $href_modal;?> data-toggle="modal" <?php echo $target_modal;?> class=" ">
 
-                            <a href=<?php echo $href_modal;?> data-toggle="modal" <?php echo $target_modal;?> class=" ">
+                                <span class="material-symbols-outlined">
+                                    account_circle
+                                    </span>
 
-                            <span class="material-symbols-outlined">
-                                account_circle
-                                </span>
+                                <span class="tag_name_m">se connecter</span>
 
-                            <span class="tag_name_m">se connecter</span>
-
-                            </a>
-
+                                </a>
+                            <?}?>
+                            
+                            
                         </li>
 
                         <li class="menu-item-search formobile ">
@@ -291,32 +313,210 @@ search
 
                             class="header--nav--link pas_direct">DIRECT</a></li>
 
-                    <li class="header--edition-dropdown">
+                    <li class="header--edition-dropdown ">
+                    <? if($user_id){?>
+                        <input type="checkbox" class="openSidebarMenu" id="openSidebarMenu">
+                        <label for="openSidebarMenu" class="sidebarIconToggle bureau">
+                            <?php echo $signin_compte; ?>
+                        </label>
+                        <?}else{?>
+                            <input type="checkbox" class="openSidebarMenu" id="openSidebarMenu">
+                        <label for="openSidebarMenu" class="sidebarIconToggle bureau">
+                            <?php echo $signin_compte; ?>
+                        </label>
+                        <?}?>
+                    
+                        <div id="sidebarMenu">
+                        <? if($user_id){?>
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <a class="call-to-action mx-auto" href="<? echo $href_modal;?>"> Mon compte</a>
+                                </div>
+                                <div class="col-md-12 text-center">
+                                    <a class="call-to-action new-logout mx-auto" href="/logout.php"><i class="fa fa-sign-out"></i> Déconnexion</a>
+                                </div>
+                            </div>
+                        <? }else{?>
+                            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
-                        <a id="<?php echo ($user_session!='')?'connected_user':''?>" href=<?php echo $href_modal;?>
+                                <div class="swiper mySwiper">
+                                    <div class="swiper-wrapper">
+                                        <div class="swiper-slide">
+                                            <div class="auth--body">
 
-                            data-toggle="modal" <?php echo $target_modal;?>
-
-                            class="header--nav--link header--nav--border signin visible-lg visible-md visible-sm">
-
-                            <div class="header-signin"><?php echo $signin_compte; ?></div>
-
-                        </a>
+                                                <?php if($erreur_auth!='') echo '<div class="col-md-12 fail">'.$erreur_auth.'</div> <br> <br>';?>
 
 
-                        <ul class="dropdown_menu_user">
 
-                            <li><a class="link" href="/membre-profil.php"><span class="material-symbols-outlined">
-account_circle
-</span> Mon compte</a></li>
+                                                <form name="signup" id="form" method="post" class="clearfix signup-form relative "
 
-                            <li><a class="link" href="/membre-profil.php"><i class="fa fa-comment"></i> Commentaires</a>
+                                                    action="/content/modules/login.php">
 
-                            </li>
+                                                    <input type="hidden" name="referer" id="referer" value="" />
 
-                            <li><a class="link" href="/logout.php"><i class="fa fa-sign-out"></i> Déconnexion</a></li>
+                                                    <input type="hidden" name="option" id="option" value="" />
 
-                        </ul>
+                                                    <div class="col-md-12 form-wrapper text-left">
+
+                                                        <label for="email" >E-mail ou Nom d’utilisateur</label>
+
+                                                        <input type="text" class="input_auth" name="name_user" id="name_user"
+
+                                                            value="" required />
+
+                                                    </div>
+
+                                                    <div class="col-md-12 form-wrapper text-left" style="margin-top: 20px !important;">
+
+                                                        <label for="password" >Mot de passe</label>
+
+                                                        <input type="password" class="input_auth" name="password" id="password_auth"
+
+                                                            value="" required />
+
+
+
+                                                        <a onclick="forgot();" data-toggle="modal" data-target="#forgot"
+
+                                                            class="forgot mt-10">Mot de passe oublié?</a>
+
+                                                    
+
+                                                    </div>
+
+                                                    <div class="col-md-12 form-wrapper button-modal text-center mb-30">
+
+                                                        <input type="submit" name="submit" id="submit" value="Se connecter"
+
+                                                            class="call-to-action large-round mx-auto" />
+
+                                                    </div>
+
+                                                    
+                                                    <div class="mx-auto" style="width:fit-content">ou connecte toi avec 👇</div>
+                                                    <?php
+                                                        require('./config.php');
+                                                        # the createAuthUrl() method generates the login URL.
+                                                        $login_url = $client->createAuthUrl();
+                                                    ?>
+                                                    <div class="col-sm-12 google button-social">
+                                                        <div class="btn">
+                                                        <a href="<?= $login_url ?>"><img src="https://tinyurl.com/46bvrw4s" alt="Google Logo"> Login with Google</a>
+                                                        </div>
+                                                    </div>
+                                                   
+
+                                                    <?php echo '<input type="hidden" name="previous_url" value="http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'].'">';?>
+
+                                                </form>
+
+                                            </div>
+                                            
+                                            
+                                        </div>
+                                        <div class="swiper-slide">
+                                            <div class="row">
+
+                                                <div class="col-sm-12">
+                                                    <h4>Créer un compte</h4>
+                                                    
+                                                    
+
+                                                    <?php if (isset($_SESSION['msg_inscription'])) {
+                                                        
+                                                    echo $_SESSION['msg_inscription'];
+                                                    echo '<button class="btn btn-pager-mar-list" id="next-link" style="pointer-events: all; background-color: rgb(252, 182, 20); cursor: pointer;"> <a style="color:black;" href="formulaire-google.html">Associer un compte google</a></button>';
+                                                    unset($_SESSION['msg_inscription']);
+                                                } ?>
+
+                                                    <form action="/content/modules/verification-user.php" method="post" class="form-horizontal"
+                                                        id="target">
+                                                    
+                                                        <div class="form-group text-left">
+                                                            <label for="nom" class="col-sm-12">Nom *</label>
+                                                            <div class="col-sm-12">
+                                                                <input type="text" class="form-control input_auth" id="nom" required
+                                                                    data-msg-required="Ce champ est obligatoire!" name="nom">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group text-left">
+                                                            <label for="prenom" class="col-sm-12">Prénom *</label>
+                                                            <div class="col-sm-12">
+                                                                <input type="text" class="form-control input_auth" id="prenom"
+                                                                    data-msg-required="Ce champ est obligatoire!" required name="prenom">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group  text-left">
+                                                            <label for="email" class="col-sm-12">E-mail *</label>
+                                                            <div class="col-sm-12">
+                                                                <input type="email" class="form-control input_auth" id="email" required
+                                                                    data-msg-email="Votre adresse e-mail n'est pas valide."
+                                                                    data-msg-required="Ce champ est obligatoire!" name="email">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group  text-left">
+                                                            <label for="Mot_de_passe" class="col-sm-12">Mot de passe *</label>
+                                                            <div class="col-sm-12">
+                                                                <input type="password" class="form-control input_auth" name="mot_de_passe" id="password"
+                                                                    required data-msg-required="Ce champ est obligatoire!">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group text-left">
+                                                            <label for="confirmePW" class="col-sm-12">Confirmation du mot de passe *</label>
+                                                            <div class="col-sm-12">
+                                                                <input type="password" class="form-control input_auth" name="confirmePW" required
+                                                                    data-msg-required="Ce champ est obligatoire!" data-rule-equalto="#password"
+                                                                    data-msg-equalto="Les mots de passe doivent se correspondre !">
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- <div class="g-recaptcha" id="g-recaptcha-response" name="g-recaptcha-response" data-sitekey="6Lc-wRsTAAAAAP8A0DXsgrJhboYw05SPxJlWYuRY"></div> -->
+                                                        <div class="g-recaptcha" id="g-recaptcha" data-sitekey="6LdcITUpAAAAAJNe_-kxs-4q4Xy9_HrQnk3FvTkx"></div>
+                                                        <br>
+                                                        <div class="form-group">
+                                                            <div class="col-sm-12" style="top:-20px">
+                                                                <input id="create_account" value="Je m'inscris" type="submit" name="register_button" class="call-to-action large-round mx-auto" />
+                                                            </div>
+                                                        </div>
+                                                    </form>
+
+
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="swiper-pagination"></div>
+                                </div>
+
+                                <!-- Swiper JS -->
+                                <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+                                <!-- Initialize Swiper -->
+                                <script>
+                                    
+                                    var swiper = new Swiper(".mySwiper", {
+                                    pagination: {
+                                        el: ".swiper-pagination",
+                                        clickable: true,
+                                        renderBullet: function (index, className) {
+                                            if(index==0){
+                                                return '<div id="bseconnecter" class="' + className + ' swipe-buttons">' +"Tu as déja un compte ?<br><span> Connecte-toi !</span>"+ "</div>";
+                                            }else if(index==1){
+                                                return '<div id="bsinscrire" class="' + className + ' swipe-buttons">' +"Pas encore de compte ?<br><span> Inscris-toi-vite !</span>"+ "</div>";
+                                            }
+                                       
+                                        },
+                                    },
+                                    });
+                                </script>
+                            <? }?>
+                    </div>
+
+                   
 
 
                         <div class="modal fade" id="SigninModal" tabindex="-1" role="dialog"
@@ -349,7 +549,7 @@ account_circle
 
                                         <div class="col-md-12 form-wrapper">
 
-                                            <label for="email">Nom d'utilisateur </label>
+                                            <label for="email">Nom d'utilisateur ou email</label>
 
                                             <input type="text" class="input_auth" name="name_user" id="name_user"
 
@@ -375,7 +575,7 @@ account_circle
 
                                         </div>
 
-                                        <div class="col-md-6 form-wrapper button-modal">
+                                        <div class="col-md-12 form-wrapper button-modal text-center">
 
                                             <input type="submit" name="submit" id="submit" value="Se connecter"
 
@@ -384,7 +584,7 @@ account_circle
                                         </div>
 
                                         
-                                        <div class="button-modal separateur" style="width:fit-content">-ou-</div>
+                                        <div class="button-modal separateur mx-auto" style="width:fit-content">-ou-</div>
                                         <?php
                                             require('./config.php');
                                             # the createAuthUrl() method generates the login URL.
@@ -395,16 +595,7 @@ account_circle
                                             <a href="<?= $login_url ?>"><img src="https://tinyurl.com/46bvrw4s" alt="Google Logo"> Login with Google</a>
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 facebook button-social">
-                                            <div class="btn">
-                                            <?php
-                                            require('./index2.php');
-                                            # the createAuthUrl() method generates the login URL.
-                                            $loginUrl = $helper->getLoginUrl('https://tutsmake.com/Demos/php-facebook', $permissions);
-                                        ?>
-                                            <a href="<?= $loginUrl?>"><img src="/images/pictos/face.png" alt="Facebook Logo"> Continue with Facebook</a>
-                                            </div>
-                                        </div>
+                                        
 
                                         <?php echo '<input type="hidden" name="previous_url" value="http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'].'">';?>
 
@@ -429,6 +620,9 @@ account_circle
                             </div>
 
                         </div>
+
+
+                        
 
                         <div class="modal fade" id="forgot" tabindex="-1" role="dialog" aria-labelledby="forgotModal"
 
@@ -619,6 +813,41 @@ function hideWhenClickedOnBody(elm, ns) {
         $(document).off('click.' + ns);
     }
 }
+$('#bseconnecter').hide()
+$('#bsinscrire').on('click', function(e) {
+    $(this).hide()
+    $('#bseconnecter').show()
+})
+$('#bseconnecter').on('click', function(e) {
+    $(this).hide()
+    $('#bsinscrire').show()
+})
+$('.modal-last-link').on('click', function(e) {
+    cname="page_when_creating_account"
+    cvalue=window.location.href
+    exdays=1
+    //e.preventDefault();
+    const d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    let expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    console.log("Création du cookie: "+cname + "=" + cvalue + ";" + expires)
+
+});
+$('#create_account').on('click', function(e) {
+    cname="page_when_creating_account"
+    cvalue=window.location.href
+    exdays=1
+    //e.preventDefault();
+    const d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    let expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    console.log("Création du cookie: "+cname + "=" + cvalue + ";" + expires)
+
+});
+
+
 $('.menu-item-search > a.header--nav--link').on('click', function(e) {
     e.preventDefault();
     var elm = $('#frm-search');

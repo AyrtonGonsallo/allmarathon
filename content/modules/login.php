@@ -13,7 +13,7 @@ $us=new user();
 $login=$_POST['name_user'];
 $password=$_POST['password'];
 
-$user=$us->getUserByUsername($login)['donnees'];
+$user=$us->getUserByUsername($login,$login)['donnees'];
 
 
 
@@ -23,12 +23,20 @@ if(isset($login) && isset($password))
 			$_SESSION['user']    =$user->getUsername();
 		    $_SESSION['user_id'] = $user->getId();
 		    // header("Location: http://localhost/allmarathon_nv/www/");
-		    header("Location:".$_POST['previous_url']);
+			if(isset($_COOKIE["page_when_logging_to_add_result"])) {
+				header("Location:".$_COOKIE["page_when_logging_to_add_result"]);
+				unset($_COOKIE['page_when_logging_to_add_result']); 
+				setcookie("open_add_resulat_modal", "yes", time()+600, "/");
+			}
+			else{
+				header("Location:".$_POST['previous_url']);
+			}
 		    // header('Location:'.$_SERVER['HTTP_REFERER']);
 			exit;
 		}
 		else{
-			$_SESSION['auth_error'] = "Login ou mot de passe incorrect ! ";
+			//$_SESSION['auth_error'] = "Login ou mot de passe incorrect ! <br>".$login." ".$password;
+			$_SESSION['auth_error'] = "Login ou mot de passe incorrect ! <br>";
 			header("Location:".$_POST['previous_url']);
 			// header("Location: http://localhost/allmarathon_nv/www/");
 			// header('Location:'.$_SERVER['HTTP_REFERER']);

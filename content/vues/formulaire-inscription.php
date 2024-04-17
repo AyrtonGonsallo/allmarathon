@@ -83,6 +83,7 @@ echo $pub728x90["code"] ? $pub728x90["code"] :  "<img src=".'../images/pubs/'.$p
                         <br />
 
                         <?php if (isset($_SESSION['msg_inscription'])) {
+                            
                         echo $_SESSION['msg_inscription'];
                         echo '<button class="btn btn-pager-mar-list" id="next-link" style="pointer-events: all; background-color: rgb(252, 182, 20); cursor: pointer;"> <a style="color:black;" href="formulaire-google.html">Associer un compte google</a></button>';
                         unset($_SESSION['msg_inscription']);
@@ -90,30 +91,7 @@ echo $pub728x90["code"] ? $pub728x90["code"] :  "<img src=".'../images/pubs/'.$p
 
                         <form action="/content/modules/verification-user.php" method="post" class="form-horizontal"
                             id="target">
-                            <div class="form-group">
-                                <label for="pseudo" class="col-sm-5">Pseudo *</label>
-                                <div class="col-sm-7">
-                                    <input type="text" class="form-control" name="pseudo" required
-                                        data-msg-required="Ce champ est obligatoire!">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="Mot_de_passe" class="col-sm-5">Mot de passe *</label>
-                                <div class="col-sm-7">
-                                    <input type="password" class="form-control" name="mot_de_passe" id="password"
-                                        required data-msg-required="Ce champ est obligatoire!">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="confirmePW" class="col-sm-5">Confirmation du mot de passe *</label>
-                                <div class="col-sm-7">
-                                    <input type="password" class="form-control" name="confirmePW" required
-                                        data-msg-required="Ce champ est obligatoire!" data-rule-equalto="#password"
-                                        data-msg-equalto="Les mots de passe doivent se correspondre !">
-                                </div>
-                            </div>
-
+                           
                             <div class="form-group">
                                 <label for="nom" class="col-sm-5">Nom *</label>
                                 <div class="col-sm-7">
@@ -139,105 +117,25 @@ echo $pub728x90["code"] ? $pub728x90["code"] :  "<img src=".'../images/pubs/'.$p
                             </div>
 
                             <div class="form-group">
-                                <label for="naissance" class="col-sm-5">Date de naissance *</label>
+                                <label for="Mot_de_passe" class="col-sm-5">Mot de passe *</label>
                                 <div class="col-sm-7">
-                                    <input type="text" class="form-control" id="date_naissance" name="date_naissance">
+                                    <input type="password" class="form-control" name="mot_de_passe" id="password"
+                                        required data-msg-required="Ce champ est obligatoire!">
                                 </div>
                             </div>
 
                             <div class="form-group">
-                            <label for="naissance" class="col-sm-5">Sexe * </label>
+                                <label for="confirmePW" class="col-sm-5">Confirmation du mot de passe *</label>
                                 <div class="col-sm-7">
-                                    <input type="radio" name="Sexe"  value="M" /><span>homme</span><input type="radio" name="Sexe" value="F"  /><span >femme</span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="pays" class="col-sm-5">Pays </label>
-                                <div class="col-sm-7">
-                                    <select name="pays" id="pays" class="form-control">
-                                        <?php
-                                foreach ($liste_pays as $p) {
-                                    $selected = ($p->getAbreviation()=='FRA') ? "selected" : "";
-                                    echo '<option value="'.$p->getAbreviation().'"'.$selected.'>'.$p->getNomPays().'</option>';
-                                }
-                                ?>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-5" for="LieuNaissance">Lieu de Naissance</label>
-                                <div class="col-sm-7">
-                                    <input class="form-control" type="text" name="LieuNaissance" id="LieuNaissance" value="" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-5" for="Equipementier">Equipementier</label>
-                                <div class="col-sm-7">
-                                    <input class="form-control" type="text" name="Equipementier" id="Equipementier" value="" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-5" for="lien_equip">Lien site équipementier</label>
-                                <div class="col-sm-7">
-                                    <input class="form-control" type="text" name="lien_equip" id="lien_equip" value="" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-5" for="Instagram">Instagram</label>
-                                <div class="col-sm-7">
-                                    <input class="form-control" type="text" name="Instagram" id="Instagram" value="" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-5" for="poids">poids</label>
-                                <div class="col-sm-7">
-                                    <input class="form-control" type="text" name="poids" id="poids" value="" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-5" for="taille">taille</label>
-                                <div class="col-sm-7">
-                                    <input class="form-control" type="text" name="taille" id="taille" value="" />
+                                    <input type="password" class="form-control" name="confirmePW" required
+                                        data-msg-required="Ce champ est obligatoire!" data-rule-equalto="#password"
+                                        data-msg-equalto="Les mots de passe doivent se correspondre !">
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label class="col-sm-5" for="Facebook">Facebook</label>
-                                <div class="col-sm-7">
-                                    <input class="form-control" type="text" name="Facebook" id="Facebook" value="" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-5" for="Bio">Bio</label>
-                                <div class="col-sm-7">
-                                    <textarea name="Bio" id="Bio" cols="50" rows="10"></textarea>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-11">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="recevoir_mail" id="recevoir_mail" value="1">
-                                            Recevoir un mail ?
-                                        </label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="newsletter" id="newsletter" value="1">
-                                            J'accepte de recevoir la newsletter hebdomadaire de allmarathon
-                                        </label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="offres" id="offres" value="1"> J'accepte de
-                                            recevoir des offres commerciales des partenaires de allmarathon
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
                             <!-- <div class="g-recaptcha" id="g-recaptcha-response" name="g-recaptcha-response" data-sitekey="6Lc-wRsTAAAAAP8A0DXsgrJhboYw05SPxJlWYuRY"></div> -->
-                            <div class="g-recaptcha" id="g-recaptcha"
-                                data-sitekey="6LdcITUpAAAAAJNe_-kxs-4q4Xy9_HrQnk3FvTkx"></div><br>
+                            <div class="g-recaptcha" id="g-recaptcha" data-sitekey="6LdcITUpAAAAAJNe_-kxs-4q4Xy9_HrQnk3FvTkx"></div>
+                            <br>
                             <div class="form-group">
                                 <div class="col-sm-offset-1 col-sm-11">
                                     <input value="Valider" type="submit" name="register_button" class="btn_custom" />
@@ -296,7 +194,29 @@ echo $pub160x600["code"] ? $pub160x600["code"] :  "<img src=".'../images/pubs/'.
     <script src="js/main.js"></script>
     <script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js">
     </script>
+<script type="text/javascript">
+function getCookie(cname) {
+  let name = cname + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for(let i = 0; i <ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
 
+$(document).ready(function() {
+    var page=getCookie("page_when_creating_account")
+    console.log("page_when_creating_account : "+page)
+    });
+
+</script>
     <script type="text/javascript">
     $('#target').validate();
     </script>

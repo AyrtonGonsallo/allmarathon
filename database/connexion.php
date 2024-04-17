@@ -1,9 +1,11 @@
 <?php
 
-$server_ip="allmarcadmin.mysql.db";
-$server_database="allmarcadmin";
-$server_user="allmarcadmin";
-$server_password="J5Sswy879aX5cB";
+$server_ip="localhost";
+$server_database="sc1mala2782_preprod_allmarathon";
+$server_user="sc1mala2782_preprod_allmarathon_user";
+$server_password= "q22CI@%3XC4MC@qy";
+
+
 $mysqli = new mysqli($server_ip, $server_user, $server_password, $server_database);
 try
 {

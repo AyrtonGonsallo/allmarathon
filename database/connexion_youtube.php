@@ -1,15 +1,14 @@
 <?php
 
-
-$server_ip="localhost";
-$server_database="mala4322_almarathon";
-$server_user="mala4322_allmarathon";
-$server_password="allmarathon";
-/*
 $server_ip="lhcp2091.webapps.net";
 $server_database="v83j6wh7_alljudo";
 $server_user="v83j6wh7_alljudo";
 $server_password="Om~WAZgp]Gb4"; 
+/*
+$server_ip="allmarcadmin.mysql.db";
+$server_database="allmarcadmin";
+$server_user="allmarcadmin";
+$server_password="J5Sswy879aX5cB";
 */
 $mysqli = new mysqli($server_ip, $server_user, $server_password, $server_database);
 try

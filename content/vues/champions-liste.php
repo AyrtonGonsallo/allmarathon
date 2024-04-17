@@ -25,7 +25,6 @@ include("../classes/pays.php");
 include("../classes/pub.php");
 
 $pub=new pub();
-
 $pub728x90=$pub->getBanniere728_90("athlètes")['donnees'];
 $pub300x60=$pub->getBanniere300_60("athlètes")['donnees'];
 $pub300x250=$pub->getBanniere300_250("athlètes")['donnees'];
@@ -66,7 +65,6 @@ $req = $bdd->prepare('SELECT COUNT(*) as total FROM champions');
 $req->execute();
 $nb_champs=$req->fetch(PDO::FETCH_ASSOC)['total'];
 
-
 try {
     include("../database/connexion.php");
     $req = $bdd->prepare("select c.* from champions c where not c.Nom like '' order by UPPER(c.Nom) asc LIMIT 39;");
@@ -91,9 +89,16 @@ try {
           $req13->execute();
           $row13  = $req13->fetch(PDO::FETCH_ASSOC);
 
+
+          $req14 = $bdd->prepare('SELECT COUNT(*) as total FROM `news` WHERE championID=:cid');
+          $req14->bindValue('cid',$champ_id, PDO::PARAM_INT);
+          $req14->execute();
+          $row14  = $req14->fetch(PDO::FETCH_ASSOC);
+
           $row["t_videos"]=$row13["total"];
           $row["t_photos"]=$row12["total"];
           $row["t_res"]=$row1["total"];
+          $row["t_news"]=$row14["total"];
           array_push( $results_initial, $row);
     }
      $bdd=null;
@@ -228,6 +233,7 @@ catch(Exception $e)
                                         '.$pays_nom.
                                     '<br>
                                     <span>courses('.$resultat['t_res'].')</span>
+                                    <span>- news('.$resultat['t_news'].')</span>
                                     <span>- photos('.$resultat['t_photos'].')</span>
                                     <span>- vidéos('.$resultat['t_videos'].')</span>
                                     </div>';
@@ -264,6 +270,7 @@ catch(Exception $e)
                                     '.$pays_nom.
                                 '<br>
                                 <span>courses('.$resultat['t_res'].')</span>
+                                <span>- news('.$resultat['t_news'].')</span>
                                 <span>- photos('.$resultat['t_photos'].')</span>
                                 <span>- vidéos('.$resultat['t_videos'].')</span>
                                 </div>';

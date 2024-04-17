@@ -11,7 +11,7 @@ if (!isset($_SESSION['admin']) || !isset($_SESSION['login'])) {
     header('Location: login.php');
     exit();
 }
-
+require_once('testMails.php');// envoyerEmail($dest,$sujet,$contenu_html,$contenu_text)
 require_once '../database/connexion.php';
 
 if (isset($_POST['valider'])) {
@@ -38,6 +38,15 @@ if (isset($_POST['valider'])) {
 
 
          $req_add->execute();
+         $req_add2 = $bdd->prepare("select email from users where username like :u");
+         $req_add2->bindValue('u','%'.$_POST['utilisateur'].'%', PDO::PARAM_STR);
+         $req_add2->execute();
+         $mail2= $req_add2->fetch(PDO::FETCH_ASSOC);
+         $mail=$mail2["email"];
+         $message="Votre résultat:<br> Rang:".$_POST['rang']." - temps: ".$_POST['Temps']." - evenement: ".$_POST['EvenementID']." a été validé";
+         $res=envoyerEmail($mail,'Validation de résultat sur allmarathon',$message,'This is a plain-text message body');
+
+
      }
      catch(Exception $e)
      {
@@ -53,7 +62,7 @@ if (isset($_POST['valider'])) {
      die('Erreur : ' . $e->getMessage());
  }
 
-    header('location: resultAdminExterne.php');
+    header('location: resultAdminExterne.php?email='.$res);
 }
 
 
@@ -112,10 +121,7 @@ if (isset($_POST['valider'])) {
                     <td>Rang: </td>
                     <td><input type="text" name="rang" value="<?php echo $_POST['rang'] ?>" /></td>
                 </tr>
-                <tr>
-                    <td>Evenement: </td>
-                    <td><input type="text" name="fr" value="<?php echo $_POST['CompetitionFr'] ?>" /></td>
-                </tr>
+               
                 <tr>
                     <td>utilisateur: </td>
                     <td><input type="text" name="utilisateur" value="<?php echo $_POST['utilisateur'] ?>" /></td>

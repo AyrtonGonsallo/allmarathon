@@ -62,6 +62,7 @@ function array_msort($array, $cols)
 					'.$pays_nom.
 				'<br>
 				<span>courses('.$resultat['t_res'].')</span>
+				<span>- news('.$resultat['t_news'].')</span>
 				<span>- photos('.$resultat['t_photos'].')</span>
 				<span>- vidéos('.$resultat['t_videos'].')</span>
 				</div>';
@@ -117,10 +118,15 @@ function array_msort($array, $cols)
 						$req13->bindValue('cid',$champ_id, PDO::PARAM_INT);
 						$req13->execute();
 						$row13  = $req13->fetch(PDO::FETCH_ASSOC);
-
+						$req14 = $bdd->prepare('SELECT COUNT(*) as total FROM `news` WHERE championID=:cid');
+						$req14->bindValue('cid',$champ_id, PDO::PARAM_INT);
+						$req14->execute();
+						$row14  = $req14->fetch(PDO::FETCH_ASSOC);
+			  
 						$row["t_videos"]=$row13["total"];
 						$row["t_photos"]=$row12["total"];
 						$row["t_res"]=$row1["total"];
+						$row["t_news"]=$row14["total"];
 						array_push($results, $row);
 					}
 
@@ -162,10 +168,15 @@ function array_msort($array, $cols)
 						$req13->bindValue('cid',$champ_id, PDO::PARAM_INT);
 						$req13->execute();
 						$row13  = $req13->fetch(PDO::FETCH_ASSOC);
-
+						$req14 = $bdd->prepare('SELECT COUNT(*) as total FROM `news` WHERE championID=:cid');
+						$req14->bindValue('cid',$champ_id, PDO::PARAM_INT);
+						$req14->execute();
+						$row14  = $req14->fetch(PDO::FETCH_ASSOC);
+			  
 						$row["t_videos"]=$row13["total"];
 						$row["t_photos"]=$row12["total"];
 						$row["t_res"]=$row1["total"];
+						$row["t_news"]=$row14["total"];
 						array_push($results, $row);
 				  }
 				   $bdd=null;
@@ -244,9 +255,15 @@ function array_msort($array, $cols)
 						$req13->execute();
 						$row13  = $req13->fetch(PDO::FETCH_ASSOC);
 
+						$req14 = $bdd->prepare('SELECT COUNT(*) as total FROM `news` WHERE championID=:cid');
+						$req14->bindValue('cid',$champ_id, PDO::PARAM_INT);
+						$req14->execute();
+						$row14  = $req14->fetch(PDO::FETCH_ASSOC);
+			  
 						$row["t_videos"]=$row13["total"];
 						$row["t_photos"]=$row12["total"];
 						$row["t_res"]=$row1["total"];
+						$row["t_news"]=$row14["total"];
 						array_push($results, $row);
 				  }
 				   $bdd=null;

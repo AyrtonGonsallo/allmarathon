@@ -724,7 +724,7 @@ function switch_cat($cat)
     <script src="../../js/easing.js"></script>
     <script src="../../js/jquery.ui.totop.min.js"></script>
     <script src="../../js/main.js"></script>
-
+    <script async src="https://static.linguise.com/script-js/switcher.bundle.js?d=pk_4bTqzNg4fOu5lSJj9KvvmakbgG7jJMzt"></script>
 </body>
 
 </html>

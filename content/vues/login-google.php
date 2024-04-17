@@ -45,8 +45,8 @@ if (isset($_GET['code'])):
   //var_dump($cond) ;exit(-1);
   if(!$cond){
     # Inserting the new user into the database
-    $query_template = "INSERT INTO `users` (`id` ,`nom` ,`prenom` ,`username` ,`email` ,`newsletter` ,`offres` ,`password`,`user_regdate`,`oauth_uid`,`profile_pic`,`gender`,`local`)
-		VALUES (NULL , :nom, :prenom, :username, :email, :newsletter, :offres, :password,:t,:param1,:param2,:param3,:param4)";
+    $query_template = "INSERT INTO `users` (`id` ,`nom` ,`prenom` ,`username` ,`email` ,`newsletter` ,`offres` ,`password`,`user_regdate`,`oauth_uid`,`profile_pic`,`gender`,`local`,is_connected,user_google_id)
+		VALUES (NULL , :nom, :prenom, :username, :email, :newsletter, :offres, :password,:t,:param1,:param2,:param3,:param4,:param5,:param6)";
 
     $insert_stmt = $bdd->prepare($query_template);
     $insert_stmt->bindValue('nom', $f_name, PDO::PARAM_STR);
@@ -62,6 +62,8 @@ if (isset($_GET['code'])):
     $insert_stmt->bindValue("param3",  $gender,  PDO::PARAM_STR);
     $insert_stmt->bindValue("param4", $local, PDO::PARAM_STR);
     $insert_stmt->bindValue("param2",  $picture, PDO::PARAM_STR);
+    $insert_stmt->bindValue("param5",  1, PDO::PARAM_INT);
+    $insert_stmt->bindValue("param6",  $google_id, PDO::PARAM_STR);
     $insert_stmt->execute();
 	  $google_user_id=$bdd->lastInsertId();
     if(!$google_user_id){
@@ -127,9 +129,16 @@ if (isset($_GET['code'])):
       $_SESSION['google_user_id'] = $google_user_id;
 
     
+      if(isset($_COOKIE["page_when_logging_to_add_result"])) {
+				header("Location:".$_COOKIE["page_when_logging_to_add_result"]);
+				unset($_COOKIE['page_when_logging_to_add_result']); 
+				setcookie("open_add_resulat_modal", "yes", time()+600, "/");
+			}
+			else{
+        header('Location: membre-profil.php');
+			}
 
-
-  header('Location: membre-profil.php');
+ 
   exit;
 
 endif;

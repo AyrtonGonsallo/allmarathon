@@ -490,7 +490,6 @@ li.menu-item-search.formobile {
 
 div.formobile li i {
   font-size: 18px;
-  border: 1px solid #d2cbcb;
   width: 40px;
   height: 40px;
   border-radius: 100%;
@@ -1507,14 +1506,23 @@ p.title-act-marathon {
 
 /*************user connect************************/
 .user-connect {
-  background-color: #000;
   border-radius: 50%;
   padding: 5px;
   width: 30px;
   height: 30px;
   text-align: center;
 }
-
+.header li{
+  font-size: 22px !important;
+}
+.sidebarIconToggle{
+  position: relative !important;
+  top: -12px;
+    right: -29px;
+}
+#sidebarMenu{
+  width: 100% !important;
+}
 .bonhomme {
   margin-top: 22px;
   width: 39px;
