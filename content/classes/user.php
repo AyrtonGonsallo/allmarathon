@@ -319,7 +319,7 @@ class user{
 	{
 		try {
 			require('../database/connexion.php');
-			$req = $bdd->prepare('SELECT p.*,e.Nom,e.DateDebut FROM `champion_admin_externe_palmares` p,evenements e WHERE `utilisateur` = :username and e.ID=p.EvenementID');
+			$req = $bdd->prepare('SELECT p.*,e.Nom,e.DateDebut,m.prefixe FROM `champion_admin_externe_palmares` p,evenements e,marathons m WHERE `utilisateur` = :username and e.ID=p.EvenementID and m.id=e.marathon_id');
 			$req->bindValue('username', $username, PDO::PARAM_STR);
 			$req->execute();
 			$res= array();
@@ -335,6 +335,29 @@ class user{
 		}
 	}
 
+
+	public function subscribe_to_newsletter($user_id){
+		try {
+			
+			require('../database/connexion.php');
+			
+			$req = $bdd->prepare("UPDATE users SET newsletter= 1  WHERE id = :membre_id ");
+			$req->bindValue('membre_id', $user_id, PDO::PARAM_INT);
+
+			$req->execute();
+
+			return 1;
+
+			$bdd=null;
+	   }
+	  
+	   catch(Exception $e)
+	   {
+		   die('Erreur : ' . $e->getMessage());
+		   return 0;
+
+	   }
+	}
 
 	public function updateUserById($nom,$prenom,$sexe,$email,$dn,$pays,$newsletter,$offres,$membre_id,$LieuNaissance,$Equipementier,$lien_equip,$Instagram,$p,$taille,$Facebook,$Bio,$c_id)
 	{

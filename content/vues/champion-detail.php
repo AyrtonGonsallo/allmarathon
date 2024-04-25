@@ -248,14 +248,15 @@ $afficher_tab_medaille=false;
                             $pays_datas=('9999-12-31'!=$champ->getDateChangementNat())?$pays->getFlagByAbreviation($champ->getNvPaysID())['donnees']:$pays->getFlagByAbreviation($champ->getPaysID())['donnees'];
                             if($pays_datas){
                                 $flag=$pays_datas['Flag'];  
+                                ($flag!='NULL') ? $pays_flag='<img src="../../images/flags/'.$flag.'" alt=""/>':$pays_flag="";
                             }
-                            ($flag!='NULL') ? $pays_flag='<img src="../../images/flags/'.$flag.'" alt=""/>':$pays_flag="";
+                            
                             
                             echo '<div class="row">
                                 <div class="col-sm-12 athlete-detail-no-padding-left">
                                 <h1>'.$champ->getNom().'</h1>';?>
                                 <span class="athlete-details-breadcumb">
-                                    <a href="liste-des-athletes.html">Athlètes</a> > <? echo $pays_datas["NomPays"];?> > <? echo $champ->getNom();?>
+                                    <a href="liste-des-athletes.html">Athlètes</a> > <? if($pays_datas){ echo $pays_datas["NomPays"];}?> > <? echo $champ->getNom();?>
                                 </span>
                             <? echo '</div>
                                 <div class="col-sm-5 athlete-detail-no-padding-left no-padding-right">'; ?> 
@@ -487,6 +488,7 @@ $afficher_tab_medaille=false;
                                             <th class="">Rang</th>
                                             <th class="">Course</th>
                                             <th class="">Temps</th>
+                                            
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -505,23 +507,13 @@ $afficher_tab_medaille=false;
                                 	}
                                     if(sizeof($resultsPerso)!=0){
                                         foreach ($resultsPerso as $resultPerso) {
-                                            
-                                            if($resultPerso['CompetitionFr'] != ""){
-                                                 echo '<tr>
-                                                <td>'.$resultPerso['Date'].'</td>
-                                                <td align="center">'.$resultPerso['Rang'].'</td>
-                                                <td class="capitalize">'.$resultPerso['CompetitionType']. ' '. " de France (" . $resultPerso['CompetitionFr'] . ") " . $resultPerso['Intitule'].' '.$resultPerso['CompetitionLieu']. " " .'</td>
-                                                <td align="center">'.$resultPerso['Temps'].'</td>
-                                            </tr>';
-                                            }
-                                           
-                                            else{ 
+                                             $status=($resultPerso['Status'])?" (validé)":" (non validé)";
                                                 echo '<tr>
                                                 <td>'.$resultPerso['Date'].'</td>
-                                                <td align="center">'.$resultPerso['Rang'].'</td>
-                                                <td class="capitalize">'.$resultPerso['CompetitionType'].' '. $resultPerso['Intitule'] .' '. $resultPerso['CompetitionLieu'] . " " .'</td>
-                                                <td align="center">'.$resultPerso['Temps'].'</td>
-                                            </tr>';}
+                                                <td align="left">'.$resultPerso['Rang'].'</td>
+                                                <td class="capitalize">'.$resultPerso['intitule'].$status.'</td>
+                                                <td >'.$resultPerso['Temps'].'</td>
+                                            </tr>';
                                            
                                         }
                                         }  
@@ -599,7 +591,7 @@ $afficher_tab_medaille=false;
             </div> <!-- End left-side -->
 
             <aside class="col-sm-4">
-                <div class="box-next-edition bureau">
+               <!-- <div class="box-next-edition bureau">
                     <div class="mx-auto" style="width:80%">
                        Vous êtes le coureur présenté sur cette page ?
                     </div>
@@ -608,7 +600,7 @@ $afficher_tab_medaille=false;
                     </div>
                    
                     
-                </div>
+                </div>-->
                 <!-- <p class="ban"><a href=""><?php //echo $pub300x60; ?></a></p>
             <p class="ban"><a href=""><?php //echo $pub300x250; ?></a></p> -->
                 <p class="ban ban_160-600"><?php

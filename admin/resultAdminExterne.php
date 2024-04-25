@@ -40,7 +40,7 @@ try{
   $req_select = $bdd->prepare("SELECT caep.*, e.Nom as ev,c.Nom FROM champion_admin_externe_palmares caep"
     ." LEFT JOIN champions c ON c.ID = caep.ChampionID"
     ." LEFT JOIN evenements e ON caep.EvenementID = e.ID"
-    ." ORDER BY caep.ID DESC");
+    ." where caep.Status=0 ORDER BY caep.ID DESC");
   $req_select->execute();
   $resultResult= array();
   while ( $row  = $req_select->fetch(PDO::FETCH_ASSOC)) {  

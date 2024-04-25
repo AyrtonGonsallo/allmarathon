@@ -56,6 +56,7 @@ $journal=$champion_admin_externe_journal->getJournalByUser($user_id)['donnees'];
 
 $user=new user();
 $profil =$user->getUserById($user_id)['donnees'];
+$added_res = $user->getAddedResults($profil->getUsername())['donnees'];
 
 
 
@@ -227,7 +228,9 @@ echo $pub728x90["code"] ? $pub728x90["code"] :  "<img src=".'../images/pubs/'.$p
                         <ul class="nav nav-tabs" role="tablist">
                             <li class="active"><a href="#tab1" role="tab" data-toggle="tab">Profil</a></li>
                             <li><a href="#tab2" role="tab" data-toggle="tab">Vos actions</a></li>
-                         
+                            <?php if($added_res){?>
+                                <li><a href="#tab7" role="tab" data-toggle="tab">Résultats</a></li>
+                            <? }?>
                             <li><a href="#tab4" role="tab" data-toggle="tab">Modifier vos infos</a></li>
                             <li><a href="#tab5" role="tab" data-toggle="tab">Mot de passe</a></li>
                             <li><a href="#tab6" role="tab" data-toggle="tab">Google</a></li>
@@ -410,7 +413,7 @@ echo $pub728x90["code"] ? $pub728x90["code"] :  "<img src=".'../images/pubs/'.$p
                                                     <select name="pays" class="update_athlète_input" id="pays">
                                                         <?php
                                                 foreach ($liste_pays as $p) {
-                                                    $selected=($p->getAbreviation()==$profil->getPays()) ? "selected":"";
+                                                    $selected=($p->getAbreviation()==$user_champ->getPaysID()) ? "selected":"";
                                                     echo '<option value="' .$p->getID(). '"'.$selected.'>' .$p->getNomPays(). '</option>';
                                                 }
                                                 ?>
@@ -600,6 +603,18 @@ echo $pub728x90["code"] ? $pub728x90["code"] :  "<img src=".'../images/pubs/'.$p
                                 ?>
                                 
                             </div>
+                            <?php if($added_res){?>
+                                <div class="tab-pane fade" id="tab7">
+                                    <ul>
+                                    <?php foreach ($added_res as $key) { 
+                                        $status=(!$key["Status"])?"En attente de validation":"Validé";
+                                        $rang_termi=($key["Rang"]>1)?" ème" :" er";
+                                        echo "<li>".$key["Rang"].$rang_termi." en ".$key["Temps"]." au marathon ".$key["prefixe"]." ".str_replace('\\','',$key["Nom"])." ".strftime("%Y",strtotime($key["DateDebut"]))." (".$key["Sexe"].")."." ".$status." </li>";
+                                    }
+                                    ?>
+                                    </ul>
+                                </div>
+                            <?php }?>
                         </div>
                     </div>
                 </div>

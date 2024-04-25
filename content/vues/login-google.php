@@ -49,8 +49,8 @@ if (isset($_GET['code'])):
 		VALUES (NULL , :nom, :prenom, :username, :email, :newsletter, :offres, :password,:t,:param1,:param2,:param3,:param4,:param5,:param6)";
 
     $insert_stmt = $bdd->prepare($query_template);
-    $insert_stmt->bindValue('nom', $f_name, PDO::PARAM_STR);
-    $insert_stmt->bindValue('prenom', $l_name, PDO::PARAM_STR);
+    $insert_stmt->bindValue('nom', $l_name, PDO::PARAM_STR);
+    $insert_stmt->bindValue('prenom', $f_name, PDO::PARAM_STR);
     $insert_stmt->bindValue('username', $f_name." ".$l_name, PDO::PARAM_STR);
     $insert_stmt->bindValue('email', $email, PDO::PARAM_STR);
     
@@ -70,7 +70,7 @@ if (isset($_GET['code'])):
       echo "Failed to insert user.";
     }
 
-    $query_template2 = "INSERT INTO `champions`(user_id	,`Nom`, `Taille`, `Poids`, `Site`, DateChangementNat,`NvPaysID`, `Lien_site_équipementier`, `Facebook`, `Equipementier`, `Instagram`, `Bio`) VALUES (:user_id,:p1,180,65,'à remplir',9999-12-31,'AFG','à remplir','à remplir','à remplir','à remplir','à remplir')";
+    $query_template2 = "INSERT INTO `champions`(user_id	,`Nom`, `Taille`, `Poids`, `Site`, DateChangementNat,`NvPaysID`, `Lien_site_équipementier`, `Facebook`, `Equipementier`, `Instagram`, `Bio`) VALUES (:user_id,:p1,180,65,'','9999-12-31','AFG','','','','','')";
 
     $insert_stmt2 = $bdd->prepare($query_template2);
 

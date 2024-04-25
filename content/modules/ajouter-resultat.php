@@ -68,7 +68,7 @@ try {
 
             $_SESSION['msg_ajout_resultat']="Votre résultat est en cours de validation, vous receverez un message lorsque celui-ci aura été validé.<br>";
             if($user["newsletter"]==0){
-                $_SESSION['msg_ajout_resultat'].=" Pour ne rien manquer de l'actualité du marathon abonnez-vous à notre newsletter<br><button class='call-to-action mx-auto'>Oui, je m'abonne</button>";
+                $_SESSION['msg_ajout_resultat'].=" Pour ne rien manquer de l'actualité du marathon abonnez-vous à notre newsletter<br><a href='/content/modules/update_profile.php?subscribe_to_newsletter=1' class='call-to-action mx-auto'>Oui, je m'abonne</a>";
             }
             header('Location:  '.$page); 
 }

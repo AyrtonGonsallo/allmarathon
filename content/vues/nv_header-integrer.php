@@ -965,17 +965,19 @@ $(document).ready(function() {
 <script ddata-src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7261110840191217" data-type='lazy'
      crossorigin="anonymous"></script>
 <!-- Matomo -->
+<!-- Matomo -->
 <script>
   var _paq = window._paq = window._paq || [];
   /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
   _paq.push(['trackPageView']);
   _paq.push(['enableLinkTracking']);
   (function() {
-    var u="//outils.cquoi.fr/matomo2/";
+    var u="//outils.cquoi.fr/matomo/";
     _paq.push(['setTrackerUrl', u+'matomo.php']);
     _paq.push(['setSiteId', '1']);
     var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
     g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
   })();
 </script>
+<!-- End Matomo Code -->
 <!-- End Matomo Code -->

@@ -15,7 +15,8 @@ RewriteRule ^resultats-marathon-17-world-marathon-majors-new-york-dimanche-05-no
 RewriteRule ^$ content/vues/index.php [L]
 RewriteRule ^index\.html$ content/vues/index.php [L]
 RewriteRule ^evenement-detail-admin-([0-9]+)\.html$ content/vues/evenement-detail-admin.php?evenementID=$1 [L]
-
+RewriteRule ^convertisseur-allure-vitesse\.html$ content/vues/convertisseur-allure-vitesse.php [L]
+RewriteRule ^calculateur-de-temps-de-passages\.html$ content/vues/calculateur-de-temps-de-passages.php [L]
 RewriteRule ^champion-detail-admin-([0-9]+)\.html$ content/vues/champion-detail-admin.php?championID=$1 [L]
 RewriteRule ^membres-allmarathon\.html$ /membre-liste.php [L]
 RewriteRule ^resultats-recherche\.html$ content/vues/resultats-recherche.php [L]

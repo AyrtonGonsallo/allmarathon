@@ -137,10 +137,22 @@ setlocale(LC_TIME, "fr_FR","French");
     <meta content="width=device-width, initial-scale=1.0" name="viewport"><meta http-equiv="x-ua-compatible" content="ie=edge">
     <?php require_once("../scripts/header_script.php") ?>
     <title>Résultats du marathon <?php echo $evById->getPrefixe();?> <?php echo str_replace('\\','',$evById->getNom());?> - <?php echo $pays->getFlagByAbreviation($evById->getPaysId())['donnees']['NomPays'];?> - <?php echo $ev_cat_event_int_titre;?> <?php echo $annee_titre;?></title>
-    <meta name="Description" content="Le <?php echo $ev_cat_event_int_titre;?> <?php echo $annee_titre;?> de <?php echo $evById->getNom();?> (<?php echo $pays->getFlagByAbreviation($evById->getPaysId())['donnees']['NomPays'];?>) a eu lieu le <?php echo changeDate($evById->getDateDebut()).'.';if($evresultat->getResultBySexe($id,"M")['donnees']){?> Les vainqueurs sont <?php echo  $evresultat->getResultBySexe($id,"M")['donnees'][0]['Nom'];?> (hommes) et <?php echo  $evresultat->getResultBySexe($id,"F")['donnees'][0]['Nom'];?> (femmes). Résultats complets, classements et temps.<? }?>" lang="fr" xml:lang="fr" />
+    <?php
+    $winner="";    
+    if($evresultat->getResultBySexe($id,"M")['donnees'] && $evresultat->getResultBySexe($id,"F")['donnees']){
+        $winner=" Les vainqueurs sont ".$evresultat->getResultBySexe($id,"M")['donnees'][0]['Nom']." (hommes) et ".$evresultat->getResultBySexe($id,"F")['donnees'][0]['Nom']." (femmes).";
+    }else if($evresultat->getResultBySexe($id,"M")['donnees'] &&  !$evresultat->getResultBySexe($id,"F")['donnees']){
+        $winner=" Le vainqueur est ".$evresultat->getResultBySexe($id,"M")['donnees'][0]['Nom']." (hommes).";
+    }else if(!$evresultat->getResultBySexe($id,"M")['donnees'] && $evresultat->getResultBySexe($id,"F")['donnees']){
+        $winner=" Le vainqueur est ".$evresultat->getResultBySexe($id,"F")['donnees'][0]['Nom']." (femmes).";
+    }else{
+        $winner="";
+    }
+    ?>
+    <meta name="Description" content="Le <?php echo $ev_cat_event_int_titre;?> <?php echo $annee_titre;?> de <?php echo $evById->getNom();?> (<?php echo $pays->getFlagByAbreviation($evById->getPaysId())['donnees']['NomPays'];?>) a eu lieu le <?php echo changeDate($evById->getDateDebut()).'.'.$winner;?> Résultats complets, classements et temps." lang="fr" xml:lang="fr" />
     <meta property="og:type" content="siteweb" />
     <meta property="og:title" content="Résultats du marathon <?php echo $evById->getPrefixe();?> <?php echo str_replace('\\','',$evById->getNom());?> - <?php echo $pays->getFlagByAbreviation($evById->getPaysId())['donnees']['NomPays'];?> - <?php echo $ev_cat_event_int_titre;?> <?php echo $annee_titre;?>" />
-    <meta property="og:description" content="Le <?php echo $ev_cat_event_int_titre;?> <?php echo $annee_titre;?> de <?php echo $evById->getNom();?> (<?php echo $pays->getFlagByAbreviation($evById->getPaysId())['donnees']['NomPays'];?>) a eu lieu le <?php echo changeDate($evById->getDateDebut()).'.';if($evresultat->getResultBySexe($id,"M")['donnees']){?> Les vainqueurs sont <?php echo  $evresultat->getResultBySexe($id,"M")['donnees'][0]['Nom'];?> (hommes) et <?php echo  $evresultat->getResultBySexe($id,"F")['donnees'][0]['Nom'];?> (femmes). Résultats complets, classements et temps.<? }?>" />
+    <meta property="og:description" content="Le <?php echo $ev_cat_event_int_titre;?> <?php echo $annee_titre;?> de <?php echo $evById->getNom();?> (<?php echo $pays->getFlagByAbreviation($evById->getPaysId())['donnees']['NomPays'];?>) a eu lieu le <?php echo changeDate($evById->getDateDebut()).'.'.$winner;?> Résultats complets, classements et temps." />
     <? if($next_date){?>
         <meta property="og:image" content="<?php echo 'https://dev.allmarathon.fr/images/marathons/'.$next_date['image'];?>" />
     <? }?>
@@ -595,7 +607,7 @@ setlocale(LC_TIME, "fr_FR","French");
                                 <div class="form-group">
                                     <label for="naissance" class="col-sm-5">Sexe * </label>
                                     <div class="col-sm-7">
-                                        <input type="radio" name="s"  value="M" class="mr-5"/><span class="mr-10">homme</span><input class="mr-5" type="radio" name="s" value="F"  /><span class="mr-10">femme</span>
+                                        <input type="radio" name="s"  required  value="M" class="mr-5"/><span class="mr-10">homme</span><input class="mr-5" type="radio" name="s" value="F"  /><span class="mr-10">femme</span>
                                     </div>
                                 </div>
                             <?php }else{?>
@@ -603,9 +615,9 @@ setlocale(LC_TIME, "fr_FR","French");
                             <?php }?>
                             <?php if(!$user_champ->getPaysID()){?>
                                 <div class="form-group">
-                                    <label for="pays" class="col-sm-5">Nationalité </label>
+                                    <label for="pays" class="col-sm-5">Nationalité *</label>
                                     <div class="col-sm-7">
-                                        <select name="p" id="pays" class="form-control">
+                                        <select name="p" id="pays" class="form-control"  required>
                                             <?php
                                             foreach ($liste_pays as $p) {
                                                 $selected = ($p->getAbreviation()=='FRA') ? "selected" : "";
@@ -620,15 +632,15 @@ setlocale(LC_TIME, "fr_FR","French");
                             <?php } ?>
                            
                             <div class="form-group">
-                                <label for="marathon" class="col-sm-5">Rang</label>
+                                <label for="marathon" class="col-sm-5">Rang *</label>
                                 <div class="col-sm-7">
-                                    <input id="rang" type="number" name="r" value="" />
+                                    <input id="rang" type="number" name="r" value=""  required/>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="marathon" class="col-sm-5">Temps</label>
+                                <label for="marathon" class="col-sm-5">Temps *</label>
                                 <div class="col-sm-7">
-                                    <input id="temps" type="time" name="t" step="1" />
+                                    <input id="temps" type="time" name="t" step="1"  required/>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -852,7 +864,7 @@ $(window).load(function() {
             },
             margin: [110, 60, 30, 60]
         });
-        
+       
         $('#ajouter-resultat').on('click', function(e) {
             cname="page_when_adding_result"
             cvalue=window.location.href

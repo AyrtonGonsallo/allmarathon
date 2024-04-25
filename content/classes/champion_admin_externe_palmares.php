@@ -157,7 +157,7 @@ class champion_admin_externe_palmares
 			$req = $bdd->prepare("SELECT caep.*, c.Nom, e.Intitule FROM champion_admin_externe_palmares caep"
 				." LEFT JOIN champions c ON c.ID = caep.ChampionID"
 				." LEFT JOIN evcategorieage e ON caep.CategorieAge = e.ID"
-				." WHERE caep.ChampionID = :champion_id");
+				." WHERE caep.ChampionID = :champion_id ");
 			$req->bindValue('champion_id',$champion_id, PDO::PARAM_INT);
 			$req->execute();
 			$results = array();
@@ -191,10 +191,10 @@ class champion_admin_externe_palmares
 	{
 		try {
 			require('../database/connexion.php');
-			$req = $bdd->prepare("SELECT c.ID, c.Rang, c.Temps, DATE_FORMAT(c.Date, '%Y') AS Date, e.Intitule, c.CompetitionType, c.CompetitionLieu,  c.CompetitionFr, c.CategorieAge FROM champion_admin_externe_palmares c
+			$req = $bdd->prepare("SELECT c.ID, c.Status,c.Rang, c.Temps,CONCAT(e.Nom,' ',DATE_FORMAT(e.DateDebut, '%Y')) as intitule, DATE_FORMAT(c.Date, '%Y') AS Date FROM champion_admin_externe_palmares c
 				
-				LEFT JOIN evcategorieage e ON c.CategorieAge = e.ID
-				WHERE ChampionID =:champion_id ORDER BY c.Date DESC");
+				LEFT JOIN evenements e ON c.EvenementID = e.ID
+				WHERE ChampionID =:champion_id  ORDER BY c.Date DESC");
 			$req->bindValue('champion_id',$champion_id, PDO::PARAM_INT);
 			$req->execute();
 			$results = array();

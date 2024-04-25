@@ -23,7 +23,15 @@ $p=new pays();
 
 $user=new user();
 $profil=$user->getUserById($user_id);
+if(isset( $_GET['subscribe_to_newsletter'])){
+    if($user->subscribe_to_newsletter($user_id)){
+        $page=$_COOKIE["page_when_adding_result"];
+        unset($_COOKIE["page_when_adding_result"]); 
+        header('Location:  '.$page);
+       
+    }
 
+}
 if(isset( $_POST['sub'])){
 	
     $membre_id=$_GET['profilID'];
@@ -59,6 +67,7 @@ if(isset( $_POST['sub'])){
     }
     else{
         $pays=$p->getPaysById($pays)['donnees']->getAbreviation();
+        
         $user_updated=$user->updateUserById($nom,$prenom,$sexe,$email,$date_de_naissance,$pays,$newsletter,$offres,$membre_id,$LieuNaissance,$Equipementier,$lien_equip,$Instagram,$poids,$taille,$Facebook,$Bio,$c_id);
     }
 

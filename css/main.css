@@ -2166,3 +2166,139 @@ font-weight: bolder;
     width: 90%;
     display: block;
 }
+.page-outil{
+	padding-bottom: 20%;
+    padding-top: 20%;
+}
+.page-outil .dataTables_wrapper .dataTables_length select {
+    border: 1px solid #000000;
+    border-radius: 0px;
+    background-color: transparent;
+	height: 40px;
+}
+.page-outil  table.dataTable.display > tbody > tr.odd > .sorting_1, table.dataTable.order-column.stripe > tbody > tr.odd > .sorting_1 {
+    box-shadow: none;
+}
+.page-outil thead{
+	background-color:#f5a52c
+}
+.page-outil thead th {
+	color: #ffffff;
+}
+.page-outil .dataTables_wrapper .dataTables_filter input {
+    border: 1px solid #000000;
+    border-radius: 0px;
+    height: 40px;
+    background-color: transparent;
+    margin-left: 0px;
+}
+.page-outil .dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+    color: inherit !important;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    background-color: rgba(230, 230, 230, 0.1);
+    background: linear-gradient(to bottom, #f5a52c 0%, rgba(255, 255, 255, 0.1) 100%);
+}
+.page-outil .mb-50{
+	margin-bottom: 50px;
+}
+.page-outil .mt-50{
+	margin-top: 50px;
+}
+.page-outil .mt-20{
+	margin-top: 20px;
+}
+.page-outil .ml-21{
+	margin-left: 21px;
+}
+.listes-calendrier { 
+	grid-template-columns: repeat(4,1fr);
+    padding-top: 1%;
+    display: grid;
+    text-align: center;
+    align-items: start;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+.listes-calendrier-element {
+    border: 1px solid #cccccc00;
+    width: 300px;
+    display: grid;
+    align-items: center;
+    justify-self: center;
+	margin-left:20px;
+	margin-right: 20px;
+}
+.page-outil h2{
+	font-size: 35px;
+}
+.page-outil h3{
+	font-size: 25px;
+}
+.page-outil h4{
+	font-size: 20px;
+}
+.page-outil p,.page-outil div{
+	color: #000;
+	font-weight: 500;
+}
+.page-outil input[type=number], .page-outil input[type=text] {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    margin: 0 6px 6px 0;
+    padding: 4.5px 6px 4.5px 6px;
+    font-family: "poppins",inherit;
+    font-size: 18px;
+    line-height: 23px;
+    font-weight: inherit;
+    color: #000000;
+    background-color: #ffffff;
+    border: 1px solid #000000;
+    outline: 0;
+    cursor: default;
+	border-radius: 0;
+	width: 197px;
+}
+.page-outil #timeInput {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    margin: 0 6px 6px 0;
+    padding: 4.5px 26px 4.5px 6px;
+    font-family: "poppins",inherit;
+    font-size: 18px;
+    line-height: 23px;
+    font-weight: inherit;
+    color: #000000;
+    background-color: #ffffff;
+    border: 1px solid #000000;
+    outline: 0;
+    cursor: default;
+	border-radius: 0;
+	width: 197px;
+}
+.page-outil input[type=radio]  {
+	accent-color: #000000;
+}
+.page-outil  table  tr  td:nth-child(1){
+	width: 50% !important;
+}
+.page-outil  table  tr  td:nth-child(2){
+	width: 50% !important;
+}
+.button-outils{
+	background-color: #f5a52c;
+    color: #ffffff;
+    padding: 6px 10px 5px 10px;
+    font-family: "poppins",Barlow,sans-serif !important;
+    font-size: 15px;
+    margin: 0 0 6px;
+    border: 0px solid #ffffff;
+    cursor: pointer;
+    line-height: 23px;
+    letter-spacing: 1px;
+
+}
+.fbc-page .fbc-wrap .fbc-items li a:hover{
+    color: #f5a52c;
+}

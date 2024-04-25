@@ -53,7 +53,7 @@ if (isset($_POST['valider'])) {
         die('Erreur : ' . $e->getMessage());
     }
     try {
-        $req_del_from_palm = $bdd->prepare("DELETE FROM champion_admin_externe_palmares WHERE ID = :id LIMIT 1");
+        $req_del_from_palm = $bdd->prepare("update champion_admin_externe_palmares set Status=1 WHERE ID = :id");
         $req_del_from_palm->bindValue('id',$_POST['ID'], PDO::PARAM_INT);
         $req_del_from_palm->execute();
     }

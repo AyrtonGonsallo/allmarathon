@@ -87,7 +87,7 @@ $erreur = "";
             var xhr = new XMLHttpRequest();
             xhr.open('POST', 'https://api.openai.com/v1/chat/completions');
             xhr.setRequestHeader("Content-Type", "application/json");
-            xhr.setRequestHeader("Authorization", "Bearer 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");
+            xhr.setRequestHeader("Authorization", "Bearer sk-proj-Hkc7oeW930GRgHVqUMoFT3BlbkFJOCSshUxDT7rHXLhFp7A6");
             xhr.onreadystatechange = function () {
                 if (xhr.readyState == 4 && xhr.status == 200) {
                     console.log(xhr.status);
