@@ -616,6 +616,26 @@ class champion{
 	         }
 	}
 
+
+	public function getChampionByUserId($uid)
+	{
+		try {
+				 require('../database/connexion.php');
+				 $req = $bdd->prepare('SELECT * FROM champions   WHERE user_id=:uid limit 1');
+	             $req->bindValue('uid',$uid, PDO::PARAM_INT);
+	             $req->execute();
+				 if($req->rowCount() > 0){
+					$champ=self::constructWithArray($req->fetch(PDO::FETCH_ASSOC));
+					return array('validation'=>true,'donnees'=>$champ,'message'=>'');
+				}
+	             $bdd=null;
+	        }
+	        catch(Exception $e)
+	        {
+	            die('Erreur : ' . $e->getMessage());
+	        }
+	}
+	
 	public function getChampionById($idChamp)
 	{
 		try {

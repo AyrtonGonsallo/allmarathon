@@ -19,7 +19,13 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 (!empty($_SESSION['user_id'])) ? $user_id=$_SESSION['user_id'] : $user_id='';
-
+function slugify($text)
+{
+    $text = preg_replace('/[^\pL\d]+/u', '-', $text); 
+    $text = trim($text, '-');
+    $text = strtolower($text);
+    return $text;
+}
 $erreur = "";
     if( isset($_POST['sub']) ){
         if($_POST['Nom']=="")
@@ -53,16 +59,21 @@ $erreur = "";
              $req4->bindValue('id',$_GET['championID'], PDO::PARAM_INT);
              $statut=$req4->execute();
 
+             $req45 = $bdd->prepare("INSERT INTO champion_admin_externe_journal (type, user_id, champion_id) VALUES ('modification', :user_id, :champion_id)");
+             $req45->bindValue('user_id',$user_id, PDO::PARAM_STR);
+             $req45->bindValue('champion_id',$_GET['championID'], PDO::PARAM_INT);
+             $req45->execute();
+
          }
          catch(Exception $e)
          {
             die('Erreur : ' . $e->getMessage());
         }
         if($statut){
-            header('Location: /champion-detail-admin-'.$_GET['championID'].'.html'); 
+            header('Location: /athlete-'.$_GET['championID'].'.html'); 
         }else{
             $_SESSION['fiche_error']="Une erreur est survenue, veuillez réessayer.";
-    	    header('Location: /champion-detail-admin-'.$_GET['championID'].'.html');
+    	    header('Location: /athlete-'.$_GET['championID'].'.html');
         }
     }
 
@@ -81,14 +92,14 @@ if(isset($_POST['submitForm']))
     $evID = $_POST['evID'];
     if($temps==""||$date==""||$rang==""){
         $_SESSION['fiche_error']="Veuillez renseigner les champs vides.";
-        header('Location: /champion-detail-admin-'.$championID.'.html');
+        header('Location: /champion-detail-admin-'.$championID.'-'.slugify($_POST['Nom']).'.html');
     }else{
         $admin_externe_journal=$champ_admin_externe_journal->update_fiche_athlète($championID,$user_id,'champion',$evID);
     $admin_externe_palmares=$champ_admin_externe_palmares->addResults($rang,$championID,$evID,$username,$date,$compFr,$temps);
     if(($admin_externe_palmares['validation']==true) && ($admin_externe_journal['validation']==true)){ header('Location: /champion-detail-admin-'.$championID.'.html');}
     else {
         $_SESSION['fiche_error']="Une erreur est survenue, veuillez réessayer.";
-        header('Location: /champion-detail-admin-'.$championID.'.html');
+        header('Location: /champion-detail-admin-'.$championID.'-'.slugify($_POST['Nom']).'.html');
     }
     }
 }

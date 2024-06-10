@@ -16,7 +16,7 @@ if($_SESSION['admin'] == false){
     header('Location: login.php');
     exit();
 }
-
+require_once('testMails.php');// envoyerEmail($dest,$sujet,$contenu_html,$contenu_text)
 require_once '../database/connexion.php';
 
 $page = 0;
@@ -35,12 +35,24 @@ if( isset($_POST['extern_actif'])) {
          $req4->bindValue('actif',($_POST['extern_actif'])?0:1, PDO::PARAM_INT);
          $req4->bindValue('id',$_POST['extern_id'], PDO::PARAM_INT);
          $req4->execute();
+         $req41 = $bdd->prepare("UPDATE champions SET user_id=:uid WHERE ID = :id");
+         $req41->bindValue('uid',$_POST['user_id'], PDO::PARAM_INT);
+         $req41->bindValue('id',$_POST['champion_id'], PDO::PARAM_INT);
+         $req41->execute();
          if(!$_POST['extern_actif']){
             $req5 = $bdd->prepare("INSERT INTO champion_admin_externe_journal (type, user_id, champion_id) VALUES ('new_admin', :user_id, :champion_id)");
             $req5->bindValue('user_id',$_POST['user_id'], PDO::PARAM_STR);
-             $req5->bindValue('champion_id',$_POST['champion_id'], PDO::PARAM_INT);
-             $req5->execute();
+            $req5->bindValue('champion_id',$_POST['champion_id'], PDO::PARAM_INT);
+            $req5->execute();
          }
+         $req_add2 = $bdd->prepare("select email from users where id = :u");
+         $req_add2->bindValue('u',$_POST['user_id'], PDO::PARAM_INT);
+         $req_add2->execute();
+         $mail2= $req_add2->fetch(PDO::FETCH_ASSOC);
+         $mail=$mail2["email"];
+         $message="Votre demande d'administration sur la fiche de :<br>".$_POST['c_name']." a été validée.";
+         $res=envoyerEmail($mail,'Demande d\'administration acceptée sur allmarathon',$message,'This is a plain-text message body');
+
      }
      catch(Exception $e)
      {
@@ -94,26 +106,14 @@ if( isset($_POST['video_sub']) ) {
 
 
 try{
-  $req = $bdd->prepare("SELECT p.situation, p.nom, p.prenom, u.email, p.telephone,p.actif,u.username,p.id,u.id as user_id,c.Nom,p.champion_id FROM users u INNER JOIN champion_admin_externe p ON u.id = p.user_id INNER JOIN champions c ON c.ID=p.champion_id ORDER BY p.date_creation DESC");
+  $req = $bdd->prepare("SELECT c.Nom as c_name, u.nom as u_name, u.prenom as u_pname,u.username,u.email, p.* FROM champion_admin_externe p INNER JOIN champions c ON c.ID = p.champion_id INNER JOIN users u ON u.id=p.user_id ORDER BY p.date_creation DESC");
   $req->execute();
   $result1= array();
   while ( $row  = $req->fetch(PDO::FETCH_ASSOC)) {  
     array_push($result1, $row);
 }
 
-$req2 = $bdd->prepare("SELECT p.video, p.date_mod, u.email, u.username,p.id,u.id as user_id,c.Nom,p.champion_id FROM users u INNER JOIN champion_admin_externe p ON u.id = p.user_id INNER JOIN champions c ON c.ID=p.champion_id WHERE p.date_mod != '0000-00-00 00:00:00' ORDER BY p.date_mod DESC");
-$req2->execute();
-$result2= array();
-while ( $row  = $req2->fetch(PDO::FETCH_ASSOC)) {  
-    array_push($result2, $row);
-}
 
-$req3 = $bdd->prepare("SELECT i.*,c.Nom as nom_athlète FROM images i INNER JOIN champions c ON i.Champion_id = c.ID WHERE i.Galerie_id = 24 AND i.champion_id in (SELECT Champion_id FROM images WHERE i.Galerie_id = 24 group by Champion_id ) ORDER BY i.ID DESC limit 40");
-$req3->execute();
-$result3= array();
-while ( $row  = $req3->fetch(PDO::FETCH_ASSOC)) {  
-    array_push($result3, $row);
-}
 
 }
 catch(Exception $e)
@@ -195,26 +195,29 @@ catch(Exception $e)
 
    <table class="tablesorter" id="tbl1">
     <thead>
-        <tr><th>Champion</th><th>Utilisateur</th><th>Nom</th><th>Prenom</th><th>Lien</th><th>Mail</th><th>t&eacute;l&eacute;phone</th><th>Action</th></tr>
+        <tr><th>Champion</th><th>Utilisateur</th><th>Nom</th><th>Prenom</th><th>Mail</th><th>Message</th><th>Justificatif</th><th>Action</th></tr>
     </thead>
     <tbody>
                         <?php 
                             foreach ($result1 as $l) {?>
                             <tr>
-                                <td><a href="../athlete-<?php echo $l['champion_id'] ?>.html"><?php echo $l['Nom'] ?></a></td>
-                                <td><a href=""><?php echo $l['username'] ?></a></td>
-                                <td><?php echo $l['nom'] ?></td>
-                                <td><?php echo $l['prenom'] ?></td>
-                                <td><?php echo $l['situation'] ?></td>
+                                <td><a href="../athlete-<?php echo $l['champion_id'] ?>.html"><?php echo $l['c_name'] ?></a></td>
+                                <td><?php echo $l['username'] ?></td>
+                                <td><?php echo $l['u_name'] ?></td>
+                                <td><?php echo $l['u_pname'] ?></td>
+                               
                                 <td><a href="mailto:<?php echo $l['email'] ?>"><?php echo $l['email'] ?></a></td>
-                                <td><?php echo $l['telephone'] ?></td>
+                                <td><?php echo $l['Message'] ?></td>
+                                <td><a href="../uploadDocument/<?php echo $l['Justificatif'] ?>" target="_blank" title="<?php echo $l['Justificatif'] ?>">voir le fichier</a></td>
+
                                 <td>
                                     <form action="" method="post" style="float: left;">
                                         <input type="hidden" name="extern_id" value="<?php echo $l['id']?>"/>
                                         <input type="hidden" name="extern_actif" value="<?php echo $l['actif']?>"/>
                                         <input type="hidden" name="user_id" value="<?php echo $l['user_id']?>"/>
+                                        <input type="hidden" name="c_name" value="<?php echo $l['c_name']?>"/>
                                         <input type="hidden" name="champion_id" value="<?php echo $l['champion_id']?>"/>
-                                        <input name="extern_active" type="image" src="../images/<?php echo ($l['actif'])?'valid.gif':'invalid.png'; ?>" style="width: 20px" title="Autoriser utilisateur &agrave; administrer le champion" />
+                                        <input name="extern_active" type="image" src="../images/<?php echo ($l['actif'])?'invalid.png':'valid.gif'; ?>" style="width: 20px" title="Autoriser utilisateur &agrave; administrer le champion" />
                                     </form>
                                     <form action="" style="float: left;" method="post" onsubmit="if(window.confirm('Refuser la demande ?'))return true; else return false;">
                                         <input type="hidden" name="extern_refus_id" value="<?php echo $l['id']?>"/>
@@ -227,95 +230,7 @@ catch(Exception $e)
                     </table>
                 </div>
             </fieldset>
-            <fieldset>
-                <legend>Liste des derni&egrave;res modifications</legend>
-                <div id="pager2" class="pager">
-                    <form>
-                        <img src="../fonction/tablesorter/first.png" class="first"/>
-                        <img src="../fonction/tablesorter/prev.png" class="prev"/>
-                        <input type="text" class="pagedisplay"/>
-                        <img src="../fonction/tablesorter/next.png" class="next"/>
-                        <img src="../fonction/tablesorter/last.png" class="last"/>
-                        <select class="pagesize">
-                            <option selected="selected"  value="10">10</option>
-
-                            <option value="20">20</option>
-                            <option value="30">30</option>
-                            <option  value="40">40</option>
-                        </select>
-                    </form>
-                </div>
-                <table class="tablesorter" id="tbl2">
-
-                    <thead>
-                        <tr><th>Champion</th><th>Utilisateur</th><th>Date modification</th><th>Mail</th><th>Video</th></tr>
-                    </thead>
-                    <tbody>
-                    <?php
-                        foreach ($result2 as $l) {?>
-                        <tr>
-                            <td><a href="../athlete-<?php echo $l['champion_id'] ?>.html"><?php echo $l['Nom'] ?></a></td>
-                            <td><a href=""><?php echo $l['username'] ?></a></td>
-                            <td><?php echo $l['date_mod'] ?></td>
-                            <td><a href="mailto:<?php echo $l['email'] ?>"><?php echo $l['email'] ?></a></td>
-                            <td>
-                                <?php if($l['video'] != ""):?>
-                                    <form action="" method="post">
-                                        
-                                        <input type="hidden" name="admin_id" value="<?php echo $l['id'] ?>"/>
-                                        <input type="hidden" name="user_id" value="<?php echo $l['user_id']?>"/>
-                                        <input type="hidden" name="champion_id" value="<?php echo $l['champion_id']?>"/>
-                                        <input type="hidden"  name="video" value="<?php echo $l['video'] ?>"/>
-                                        
-                                        <iframe width="200" height="145" src="https://www.youtube.com/embed/<?php echo explode("?v=", $l['video'])[1]; ?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                                        <br><br>publier dans le journal : <select name="journal"><option value="true">oui</option><option value="false">non</option></select>
-                                        <br>
-                                        <label for="Titre">Titre : </label>
-                                            <input type="text" name="Titre" value="" /><br>
-                                        <label for="Duree">Duree : </label>
-                                            <input type="text" name="Duree" value="" /><br>
-                                        <label for="Vignette">Vignette : </label>
-                                            <input size="50" type="text" id="vignette" name="Vignette" value="https://i1.ytimg.com/vi/XXX/default.jpg" /><br>
-                                        <label for="Vignette">A la une : </label>
-                                        <select name="A_la_une" >
-                                                <option value="1" selected="selected">oui</option>
-                                                <option value="0">non</option>
-                                        </select>
-                                        <br>
-                                        <label for="Objet">Objet : </label>
-                                        <textarea onblur="fillPathPicture();" cols="50" rows="10" id="objet" name="Objet"><iframe width="640" height="345" src="https://www.youtube.com/embed/<?php echo explode("?v=", $l['video'])[1]; ?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                                        </textarea>
-                                
-
-                                        <input type="submit" name="video_sub" value="publier" />
-                                    </form>
-                                <?php endif;?>
-                            </td>
-                        </tr>
-                        <?php } ?>
-                    </tbody>
-                </table>
-            </fieldset>
-            <fieldset>
-                <legend>Les derni&egrave;res photos</legend>
-                <a href="galerieDetail.php?galerieID=24">Galerie 24</a><br />
-                <table class="tab1">
-                    <thead>
-                        <tr>
-                            <th>Champion</th><th>Images</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <?php 
-                    foreach ($result3 as $image) {?>
-                    <tr>
-                        <td><a href="../athlete-<?php echo $image['Champion_id'] ?>.html" ><?php echo $image['nom_athlète'] ?></a></td>
-                        <td><img src="../images/galeries/24/<?php echo $image['Nom'] ?>" alt="<?php echo $image['nom_athlète'] ?>" width="80px" /></td>
-                    </tr>
-                    <?php }?>
-                </tbody>
-            </table>
-        </fieldset>
+            
     </body>
     <!-- InstanceEnd --></html>
 

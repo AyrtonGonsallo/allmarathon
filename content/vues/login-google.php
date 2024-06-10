@@ -153,6 +153,11 @@ if (isset($_GET['code'])):
 				unset($_COOKIE['page_when_logging_to_add_result']); 
 				setcookie("open_add_resulat_modal", "yes", time()+600, "/");
 			}
+      else if(isset($_COOKIE["page_when_logging_to_rev_fiche"])) {
+				header("Location:".$_COOKIE["page_when_logging_to_rev_fiche"]);
+				unset($_COOKIE['page_when_logging_to_rev_fiche']); 
+				setcookie("open_rev_fiche_modal", "yes", time()+600, "/");
+			}
       else if(isset($_COOKIE["currentPage"])) {
 				header("Location:".$_COOKIE["currentPage"]);
 				unset($_COOKIE['currentPage']); 

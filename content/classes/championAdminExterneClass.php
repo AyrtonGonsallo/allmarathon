@@ -255,5 +255,7 @@ class championAdminExterne{
 	            die('Erreur : ' . $e->getMessage());
 	        }
 	}
+
+	
 }
 ?>

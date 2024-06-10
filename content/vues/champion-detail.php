@@ -591,16 +591,64 @@ $afficher_tab_medaille=false;
             </div> <!-- End left-side -->
 
             <aside class="col-sm-4">
-               <!-- <div class="box-next-edition bureau">
+            <?php if (isset($_SESSION['msg_adm_fiche'])){?>
+                    
+                    <div class="modal fade in" id="AddResultResponseModal" tabindex="-1" role="dialog" aria-labelledby="AddResultResponseModal" aria-hidden="true">
+                    <div class="add-result-box">
+                        <?php echo $_SESSION['msg_adm_fiche'];?>
+                        
+                    </div>
+                </div>
+                <?php }?>
+            <div class="modal fade" id="revendicationFicheModal" tabindex="-1" role="dialog" aria-labelledby="revendicationFicheModal" aria-hidden="true">
+                    <div class="add-result-box">
+
+                        <form action="/content/modules/administrer-fiche.php" enctype="multipart/form-data" method="post" class="form-horizontal"
+                            id="target">
+                            <input type="hidden" name="c" id="c_id" value="<?php echo $champ->getID(); ?>" />
+                            <input type="hidden" name="u" id="u_id" value="<?php echo  $user_id; ?>" />
+                            
+                            <div class="form-group">
+                                <label for="marathon" class="col-sm-5">Justificatif</label>
+                                <div class="col-sm-7">
+                                    <input type="file" id="justificatif" name="j" accept="image/png, image/jpeg, application/pdf," required/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="marathon" class="col-sm-5">Message</label>
+                                <div class="col-sm-7">
+                                    <textarea  cols="50" rows="10" name="message" value=""></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                            <div class="col-sm-5">
+                                </div>
+                                <div class="col-sm-7">
+                                <input id="ajouter-resultat"  type="submit" class="call-to-action" value="envoyer">
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+                <div class="box-next-edition bureau">
                     <div class="mx-auto" style="width:80%">
                        Vous êtes le coureur présenté sur cette page ?
                     </div>
-                    <div class="next-edition">
-                        Revendiquer cette fiche
+                    <div>
+                        <?php if(empty($_SESSION['user_id'])){?>
+                            <a  id="connecter-et-revendiquer" href="#"  class="call-to-action mx-auto">
+                                Revendiquer cette fiche
+                            </a>
+                        <? }else{?>
+                            <a  href="#" data-toggle="modal" data-target="#revendicationFicheModal" class="call-to-action mx-auto">
+                                Revendiquer cette fiche
+                            </a>
+                        <? }?>
                     </div>
                    
                     
-                </div>-->
+                </div>
                 <!-- <p class="ban"><a href=""><?php //echo $pub300x60; ?></a></p>
             <p class="ban"><a href=""><?php //echo $pub300x250; ?></a></p> -->
                 <p class="ban ban_160-600"><?php
@@ -623,7 +671,11 @@ if($pub160x600 !="") {
     </div> <!-- End container page-content -->
 
 
-    <?php include_once('footer.inc.php'); ?>
+    <?php include_once('footer.inc.php'); 
+    if (isset($_SESSION['msg_adm_fiche'])) {
+        unset($_SESSION['msg_adm_fiche']);
+    }
+    ?>
 
 
 
@@ -703,6 +755,33 @@ if($pub160x600 !="") {
 
     <script type="text/javascript">
     $(document).ready(function() {
+        $(window).load(function() {
+    setTimeout(function(e){ $('#AddResultResponseModal').modal('show'); }, 2000);
+
+});
+        $('#connecter-et-revendiquer').on('click',function(e){
+                $('input[type="checkbox"].openSidebarMenu').prop( "checked", true );
+                cname="page_when_logging_to_rev_fiche"
+                cvalue=window.location.href
+                exdays=1
+                //e.preventDefault();
+                const d = new Date();
+                d.setTime(d.getTime() + (exdays*24*60*60*1000));
+                let expires = "expires="+ d.toUTCString();
+                document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+                console.log("Création du cookie: "+cname + "=" + cvalue + ";" + expires)
+            });
+            
+            // Lire le cookie "open_rev_fiche_modal"
+            var open_rev_fiche_modal = getCookie("open_rev_fiche_modal");
+
+            // Vérifier si le cookie existe et afficher sa valeur
+            if (open_rev_fiche_modal !== undefined) {
+                console.log("La valeur du open_rev_fiche_modal monCookie est : " + open_rev_fiche_modal);
+                $('#revendicationFicheModal').modal('show');
+            } else {
+                console.log("Le cookie open_rev_fiche_modal n'existe pas.");
+            }
         $('#classement_resultats').DataTable({
             "paging": false,
             "bFilter": false,
