@@ -631,7 +631,7 @@ $afficher_tab_medaille=false;
                         </form>
                     </div>
                 </div>
-                <div class="box-next-edition bureau">
+                <div class="box-next-edition ">
                     <div class="mx-auto" style="width:80%">
                        Vous êtes le coureur présenté sur cette page ?
                     </div>
