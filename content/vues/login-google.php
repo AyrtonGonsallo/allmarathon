@@ -1,5 +1,7 @@
 <?php
 require('./config.php');
+require_once('../modules/testMails.php');// envoyerEmail($dest,$sujet,$contenu_html,$contenu_text)
+
 # the createAuthUrl() method generates the login URL.
 $login_url = $client->createAuthUrl();
 setlocale(LC_TIME, "fr_FR","French");
@@ -83,6 +85,23 @@ if (isset($_GET['code'])):
     if(!$google_user_id2){
       echo "Failed to insert champion.";
     }
+    $message = '<html>
+    <head>
+    <title>Identifiants allmarathon </title>
+    </head>
+    <body>
+    Bonjour ' . $f_name.' '.$l_name . ',<br>
+
+    Merci pour votre inscription sur allmarathon, voici vos identifiants de connexion :<br>
+    Pseudo : ' . $f_name.' '.$l_name . '<br>
+    Votre mot de passe est celui que vous avez renseign&eacute; lors de l\'inscription.<br>
+    Pour vous connecter veuillez cliquer sur <a href="">ce lien</a><br><br>
+    L\'&eacute;quipe allmarathon est heureuse de vous compter parmi ses membres.<br><br>
+
+
+    Cordialement.
+    </body></html>';
+    envoyerEmail($email,'inscription sur allmarathon',$message,'Merci pour votre inscription sur allmarathon');
     /*
     $check_simple_user_exists = $bdd->prepare("SELECT id FROM `users` WHERE user_google_id =:user_google_id or email like :email");
     $check_simple_user_exists->bindValue("user_google_id", $google_user_id, PDO::PARAM_INT);
@@ -133,6 +152,10 @@ if (isset($_GET['code'])):
 				header("Location:".$_COOKIE["page_when_logging_to_add_result"]);
 				unset($_COOKIE['page_when_logging_to_add_result']); 
 				setcookie("open_add_resulat_modal", "yes", time()+600, "/");
+			}
+      else if(isset($_COOKIE["currentPage"])) {
+				header("Location:".$_COOKIE["currentPage"]);
+				unset($_COOKIE['currentPage']); 
 			}
 			else{
         header('Location: membre-profil.php');

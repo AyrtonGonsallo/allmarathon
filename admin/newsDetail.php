@@ -193,7 +193,7 @@ if($_GET['newsID']!=""){
 <!-- <script src="../fonction/ui/js/datepicker_time.min.js" type="text/javascript"></script>
 <script src="../fonction/ui/js/ui.datepicker-fr.js" type="text/javascript"></script>
 <link href="../fonction/ui/css/timepicker.css" rel="stylesheet" type="text/css" /> -->
-<link href="http://code.jquery.com/ui/1.10.2/jquery-ui.js" rel="stylesheet" type="text/css" />
+<link href="https://code.jquery.com/ui/1.10.2/jquery-ui.js" rel="stylesheet" type="text/css" />
 <!-- <script src="../fonction/ui/js/timepicker.js" type="text/javascript"></script> -->
 <link rel="stylesheet" href="../fonction/nyroModal-1.5.0/styles/nyroModal.css" type="text/css" media="screen" />
 <script type="text/javascript" src="../fonction/nyroModal-1.5.0/js/jquery.nyroModal-1.5.0.min.js"></script>

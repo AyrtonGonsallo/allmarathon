@@ -250,14 +250,7 @@ if (session_status() == PHP_SESSION_NONE) {
 
     <!-- InstanceBeginEditable name="doctitle" -->
     <title>allmarathon admin</title>
-    <script type="text/javascript">
-    $(function() {
-        $('#timepicker').datetime({
-            userLang: 'en',
-            americanMode: false
-        });
-    });
-    </script>
+  
 
     <script type="text/javascript">
     function addCompletion(str, index) {

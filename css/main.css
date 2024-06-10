@@ -1447,7 +1447,7 @@ table.dataTable.no-footer {
     border-bottom: 1px solid #00000000 !important;
 }
 .athlete-detail #tab1 table tr td{
-    text-align: left !important;
+    text-align: center;
 }
 #athlete-detail table > tbody > tr:nth-child(1) > td:nth-child(2){
     width: 30px !important;
@@ -2167,8 +2167,8 @@ font-weight: bolder;
     display: block;
 }
 .page-outil{
-	padding-bottom: 20%;
-    padding-top: 20%;
+	padding-bottom: 0em;
+    padding-top: 3em;
 }
 .page-outil .dataTables_wrapper .dataTables_length select {
     border: 1px solid #000000;
@@ -2180,10 +2180,10 @@ font-weight: bolder;
     box-shadow: none;
 }
 .page-outil thead{
-	background-color:#f5a52c
+	background-color:#fbff0b
 }
 .page-outil thead th {
-	color: #ffffff;
+	color: #000;
 }
 .page-outil .dataTables_wrapper .dataTables_filter input {
     border: 1px solid #000000;
@@ -2208,7 +2208,7 @@ font-weight: bolder;
 	margin-top: 20px;
 }
 .page-outil .ml-21{
-	margin-left: 21px;
+	margin-left: 0;
 }
 .listes-calendrier { 
 	grid-template-columns: repeat(4,1fr);
@@ -2240,6 +2240,7 @@ font-weight: bolder;
 .page-outil p,.page-outil div{
 	color: #000;
 	font-weight: 500;
+    margin-bottom: 1%;
 }
 .page-outil input[type=number], .page-outil input[type=text] {
     position: relative;
@@ -2248,7 +2249,7 @@ font-weight: bolder;
     margin: 0 6px 6px 0;
     padding: 4.5px 6px 4.5px 6px;
     font-family: "poppins",inherit;
-    font-size: 18px;
+    font-size: 14px;
     line-height: 23px;
     font-weight: inherit;
     color: #000000;
@@ -2279,6 +2280,7 @@ font-weight: bolder;
 }
 .page-outil input[type=radio]  {
 	accent-color: #000000;
+    margin-right: 5px;
 }
 .page-outil  table  tr  td:nth-child(1){
 	width: 50% !important;
@@ -2287,18 +2289,58 @@ font-weight: bolder;
 	width: 50% !important;
 }
 .button-outils{
-	background-color: #f5a52c;
-    color: #ffffff;
-    padding: 6px 10px 5px 10px;
-    font-family: "poppins",Barlow,sans-serif !important;
-    font-size: 15px;
-    margin: 0 0 6px;
-    border: 0px solid #ffffff;
-    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+    font-weight: 700;
+    font-family: "Poppins-regular", sans-serif;
+    color: #000000;
+    background-color: #95d7fe;
+    border-radius: 3px;
+    border-width: 0px;
+
+    min-height: 20px;
     line-height: 23px;
-    letter-spacing: 1px;
+
+    display: inline-block;
+    padding: 6px 18px;
+    border: none;
+    overflow-wrap: break-word;
+    max-width: 100%;
+    cursor: pointer;
+
+    box-sizing: border-box;
 
 }
 .fbc-page .fbc-wrap .fbc-items li a:hover{
     color: #f5a52c;
+}
+.sg-container{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    border-radius: 5px;
+    padding: 20px 20px;
+    box-shadow: 0 6px 7px #e5e5e5;
+}
+#res-box{
+    margin-top: 50px;
+}
+.page-stats-generator label{
+    font-weight: 100 !important;
+    margin-bottom: 1px;
+}
+.page-stats-generator{
+    font-size: 16px;
+}
+.page-stats-generator  .form-title{
+    margin-bottom: 6px;
+    margin-top: 20px;
+    display: block;
+}
+
+.page-stats-generator input[type=number], .page-stats-generator input[type=text] {
+    font-size: 16px !important;
+}
+.section-stats-generator{
+	padding-bottom: 0em;
+    padding-top: 3em;
 }

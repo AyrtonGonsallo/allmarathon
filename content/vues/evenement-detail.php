@@ -646,7 +646,7 @@ setlocale(LC_TIME, "fr_FR","French");
                             <div class="form-group">
                                 <label for="marathon" class="col-sm-5">Justificatif</label>
                                 <div class="col-sm-7">
-                                    <input type="file" id="justificatif" name="j" accept="image/png, image/jpeg, application/pdf," />
+                                    <input type="file" id="justificatif" name="j" accept="image/png, image/jpeg, application/pdf," required/>
                                 </div>
                             </div>
                             <div class="form-group">

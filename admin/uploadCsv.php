@@ -20,29 +20,61 @@ if(isset($_GET['evenementID'])){
     $eventID=$_GET['evenementID'];
     $table="evenements";
 }
-if (isset($_FILES['file']) && isset($eventID)) {
-    $file = $_FILES['file']['tmp_name'];
+if ((isset($_FILES['file']) || isset($_POST['url_drive'])) && isset($eventID)) {
+    $separateur=";";
+    if ($_FILES['file']['tmp_name']!=""){
+        //echo "par fichier";
+        //var_dump($_FILES['file']);
+        $file = $_FILES['file']['tmp_name'];
+    }else if (isset($_POST['url_drive'])){
+        $separateur=",";
+        //echo "par url";
+        $url_drive = $_POST['url_drive'];
+        //echo $url_drive;
+        // Convert the Google Sheets URL to the CSV export URL
+        $csv_url = str_replace("/edit?usp=sharing", "/export?format=csv", $url_drive);
+        
+        // Download the CSV file
+        $file = 'temp.csv'; // Temporary file to store the downloaded CSV
+        file_put_contents($file, file_get_contents($csv_url));
+    }
+   
     require_once '../database/connexion.php';
     ini_set('auto_detect_line_endings',1);
 
     $handle = fopen($file, 'r');
-
+    //var_dump($file);
+    //exit(-1);
     fgetcsv($handle, 1000);
     $min_id=0;
     $max_id=0;
     $insertChampion = 0;
     $insertResultat = 0;
     $i = 0;
-    while (($data = fgetcsv($handle, 1000, ';')) !== FALSE) {
+    while (($data = fgetcsv($handle, 1000, $separateur)) !== FALSE) {
 
-      $data = array_map( "convert", $data );
-
-        $evenementID = $data[0];               
-        $Nom = $data[1];
-        $Sexe = $data[2];
-        $Pays = $data[3];
-        $Rang = $data[4];
-        $Temps = $data[5];
+        $data = array_map( "convert", $data );
+        $evenementID = $eventID;               
+            $Nom = ""; 
+            $Sexe = ""; 
+            $Pays = ""; 
+            $Rang = ""; 
+            $Temps = ""; 
+        if ($_FILES['file']['tmp_name']!=""){
+            $evenementID = $data[0];               
+            $Nom = $data[1];
+            $Sexe = $data[2];
+            $Pays = $data[3];
+            $Rang = $data[4];
+            $Temps = $data[5];
+        }else if (isset($_POST['url_drive'])){
+            $Nom = $data[0];
+            $Sexe = $data[1];
+            $Pays = $data[2];
+            $Rang = $data[3];
+            $Temps = $data[4]; 
+        }
+       
         
        /* if(!is_numeric($evenementID) && $evenementID!="" || is_numeric($Pays) || !is_numeric($Rang) || $Sexe!='M' && $Sexe!='F')
             $erreur[$Nom] = "";
@@ -94,7 +126,7 @@ if (isset($_FILES['file']) && isset($eventID)) {
 
         if(isset($erreur[$Nom]))
             continue;
-            
+             
         if($numberChampions==0){
             //insertion du nouveau champion
 

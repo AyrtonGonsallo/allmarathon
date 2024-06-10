@@ -82,6 +82,7 @@
     }
   </style>
 <link rel="stylesheet" href="/css/authentification.css">
+<meta name="robots" content="noindex, nofollow">
 <link rel="alternate" type="application/rss+xml" title="allmarathon.fr - RSS feed" href="https://dev.allmarathon.fr/flux-rss.xml" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300,0,0" />
 <script>
@@ -539,19 +540,19 @@ search
 
 
 
-                                    <form name="signup" id="form" method="post" class="clearfix signup-form relative "
+                                    <form name="signup" id="form2" method="post" class="clearfix signup-form relative "
 
                                         action="/content/modules/login.php">
 
-                                        <input type="hidden" name="referer" id="referer" value="" />
+                                        <input type="hidden" name="referer" id="referer2" value="" />
 
-                                        <input type="hidden" name="option" id="option" value="" />
+                                        <input type="hidden" name="option" id="option2" value="" />
 
                                         <div class="col-md-12 form-wrapper">
 
                                             <label for="email">Nom d'utilisateur ou email</label>
 
-                                            <input type="text" class="input_auth" name="name_user" id="name_user"
+                                            <input type="text" class="input_auth" name="name_user" id="name_user2"
 
                                                 value="" required />
 
@@ -561,7 +562,7 @@ search
 
                                             <label for="password">Mot de passe</label>
 
-                                            <input type="password" class="input_auth" name="password" id="password_auth"
+                                            <input type="password" class="input_auth" name="password" id="password_auth2"
 
                                                 value="" required />
 
@@ -577,7 +578,7 @@ search
 
                                         <div class="col-md-12 form-wrapper button-modal text-center">
 
-                                            <input type="submit" name="submit" id="submit" value="Se connecter"
+                                            <input type="submit" name="submit" id="submit2" value="Se connecter"
 
                                                 class="btn_auth button__red" />
 
@@ -866,6 +867,29 @@ $('li.menu-item-categories .fa-bars, li.menu-item-categories .hamburger-menu-but
 
 });
 $(document).ready(function() {
+
+    // Fonction pour définir un cookie
+    function setCookie(name, value, mins) {
+        var expires = "";
+        if (mins) {
+            var date = new Date();
+            date.setTime(date.getTime() + (mins * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + (value || "") + expires + "; path=/";
+    }
+
+    // Ajouter un gestionnaire d'événements au clic sur .sidebarIconToggle
+    $('.sidebarIconToggle').on('click', function() {
+        // Obtenir l'URL de la page courante
+        var currentUrl = window.location.href;
+
+        // Définir le cookie 'currentPage' avec l'URL de la page courante
+        setCookie('currentPage', currentUrl, 7); // Cookie valable 7 jours
+
+        // Optionnel : afficher un message de confirmation dans la console
+        console.log('Cookie créé : currentPage=' + currentUrl);
+    });
     const regex_url_actus = new RegExp(/actualite(.|-)*.html/);
     const regex_url_marathons = new RegExp(/(.|-)*marathons(.|-)*.html/);
     const regex_url_resultats = new RegExp(/(.|-)*resultats-marathon(.|-)*.html/);
@@ -962,8 +986,7 @@ $(document).ready(function() {
 });
 
 </script>
-<script ddata-src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7261110840191217" data-type='lazy'
-     crossorigin="anonymous"></script>
+
 <!-- Matomo -->
 <!-- Matomo -->
 <script>

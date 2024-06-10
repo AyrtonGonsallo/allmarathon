@@ -40,8 +40,8 @@ $pub768x90=$pub->getBanniere768_90("accueil")['donnees'];
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport"><meta http-equiv="x-ua-compatible" content="ie=edge">
     <?php require_once("../scripts/header_script.php") ?>
-    <title>Formulaire d'inscription</title>
-    <meta name="description" content="">
+    <title>Convertisseur allure vitesse</title>
+    <meta name="description" content="Sur cette page vous allez pouvoir facilement convertir votre vitesse en allure et vice versa. Il vous suffit d'entrer la valeur dans l'unité de mesure appropriée (vitesse ou allure) et le convertisseur effectue la conversion. Que ce soit pour calculer leur rythme pendant un entraînement, établir un plan d'entraînement ou simplement pour connaître vos performances, cet outil de conversion a été conçu pour aider les fans de course à pied.">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
     <link rel="apple-touch-icon" href="apple-favicon.png">
@@ -64,6 +64,7 @@ $pub768x90=$pub->getBanniere768_90("accueil")['donnees'];
     <?php include_once('nv_header-integrer.php'); ?>
     <div class="container page-content">
         <section class="page-outil">
+        <h1>Convertisseur vitesse / allure</h1>
         <p>
         Vous êtes coureur ? vous êtes au bon endroit ! Sur cette page vous allez pouvoir facilement convertir votre vitesse en allure et vice versa. Il vous suffit d'entrer la valeur dans l'unité de mesure appropriée (vitesse ou allure) et le convertisseur effectue la conversion.
     Que ce soit pour calculer leur rythme pendant un entraînement, établir un plan d'entraînement ou simplement pour connaître vos performances, cet outil de conversion a été conçu pour aider les fans de course à pied.

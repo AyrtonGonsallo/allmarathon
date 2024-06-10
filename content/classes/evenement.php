@@ -672,7 +672,31 @@ function search_array($tab_pack_a_afficher_fct,$tab_indice_fct)
 	}
 	
 	
-	
+	public function getAllYears()
+	{
+		try {
+					  include("../database/connexion.php");
+
+    				 $req = $bdd->prepare("SELECT DISTINCT Year(DateDebut) as annee FROM `evenements` order by annee desc;");
+					
+					 
+		             $req->execute();
+		             $results= array();
+		             while ( $row  = $req->fetch(PDO::FETCH_ASSOC)) {    
+						  
+						  array_push($results, $row);
+		             }
+		             $bdd=null;
+		                return array('validation'=>true,'donnees'=>$results,'message'=>'');
+		        }
+		       
+		        catch(Exception $e)
+		        {
+		            die('Erreur : ' . $e->getMessage());
+		        }
+	}
+
+
 
 	public function incrementerCompteur($event_id){
 		try {

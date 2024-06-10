@@ -28,7 +28,7 @@ function envoyerEmail($dest,$sujet,$contenu_html,$contenu_text){
     
         // Destinataire et expéditeur
         $mail->setFrom('nash@dev.allmarathon.fr', 'dev.allmarathon.fr');
-        $mail->addAddress('fnietzsche636@gmail.com', 'Destinataire');
+        $mail->addAddress($dest, 'Destinataire');
     
         // Contenu du message
         $mail->isHTML(true); // Définir le format du message HTML

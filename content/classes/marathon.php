@@ -455,7 +455,7 @@ function array_msort($array, $cols)
 
 							}
 						}else {
-							$req24 = $bdd->prepare("SELECT * FROM evenements where marathon_id=:mar_id and Valider=1  ORDER BY DateDebut limit 1");
+							$req24 = $bdd->prepare("SELECT * FROM evenements where marathon_id=:mar_id and Valider=1  ORDER BY DateDebut desc limit 1");
 							$req24->bindValue('mar_id', $row["id"], PDO::PARAM_INT);
 							
 							$req24->execute();
@@ -623,7 +623,7 @@ function array_msort($array, $cols)
 			while ( $row  = $req->fetch(PDO::FETCH_ASSOC)) {  
 				$req2 = $bdd->prepare("SELECT * FROM evenements where marathon_id=:mar_id and Valider=1  AND (DateDebut > :today) AND (DateDebut < :nextmonth) ORDER BY a_l_affiche desc,DateDebut asc limit 1");
 				$req2->bindValue('mar_id', $row["id"], PDO::PARAM_INT);
-				$req2->bindValue('nextmonth', date('Y-m-d',strtotime('first day of +1 month')), PDO::PARAM_STR);
+				$req2->bindValue('nextmonth', date('Y-m-d',strtotime('first day of +2 month')), PDO::PARAM_STR);
 				$req2->bindValue('today', date('Y-m-d'), PDO::PARAM_STR); 
 				$req2->execute();
 				if($req2->rowCount()>0){
@@ -840,7 +840,7 @@ function array_msort($array, $cols)
 					}
 				}
 				else {
-					$req24 = $bdd->prepare("SELECT * FROM evenements where marathon_id=:mar_id and Valider=1 AND (DateDebut < :today) ORDER BY DateDebut limit 1");
+					$req24 = $bdd->prepare("SELECT * FROM evenements where marathon_id=:mar_id and Valider=1 AND (DateDebut < :today) ORDER BY DateDebut desc limit 1");
 					$req24->bindValue('mar_id', $row["id"], PDO::PARAM_INT);
 					$req24->bindValue('today', date('Y-m-d'), PDO::PARAM_STR); 
 					$req24->execute();
@@ -924,18 +924,26 @@ function array_msort($array, $cols)
 			$req01->bindValue('datedeb','%-'.$mois.'-%', PDO::PARAM_STR);
             $req01->execute();
             
-            while ( $row01  = $req01->fetch(PDO::FETCH_ASSOC)) {   
-				$req02 = $bdd->prepare("select * from evenements e where e.marathon_id=:mid and DateDebut>DATE(NOW()) and DateDebut like :datedeb  ORDER BY DateDebut asc;");
-				$req02->bindValue('datedeb','%'.$annee.'-'.$mois.'-%', PDO::PARAM_STR);
+            while ( $row01  = $req01->fetch(PDO::FETCH_ASSOC)) {  
+
+				$req02 = $bdd->prepare("select * from evenements e where e.marathon_id=:mid and DateDebut>DATE(NOW())  ORDER BY DateDebut limit 1;");
 				$req02->bindValue('mid',$row01["id"], PDO::PARAM_INT);
 				$req02->execute();
             
 				if($req02->rowCount()>0){  
 						continue;
+				}else{
+					$req03 = $bdd->prepare("select * from evenements e where e.marathon_id=:mid and DateDebut<DATE(NOW()) and DateDebut like :datedeb  ORDER BY DateDebut desc limit 1;");
+					$req03->bindValue('datedeb','%-'.$mois.'-%', PDO::PARAM_STR);
+					$req03->bindValue('mid',$row01["id"], PDO::PARAM_INT);
+					$req03->execute();
+					while ( $row03  = $req03->fetch(PDO::FETCH_ASSOC)) { 
+						$row01['type_evenement']="dernier";
+						$row01['date_dernier_evenement']=$row03['DateDebut'];
+					}
+					array_push($liste, $row01); 
 				}
-					$row01['type_evenement']="dernier";
-					$row01['date_dernier_evenement']=$row01['DateDebut'];
-                	array_push($liste, $row01); 
+					
             }
             $bdd=null;
             

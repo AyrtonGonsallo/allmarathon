@@ -469,7 +469,7 @@ function switch_cat($cat)
 
                     ?>
                         <?php $today = date("Y/m/d");?>
-                        <div class="mx-auto"><a href="<?php echo 'calendrier-marathons-'.utf8_encode(strftime("%B",strtotime($mois_calendrier))).'-'.intval((date("m"))).'-'.strftime("%Y",strtotime($today)).'.html'; ?>" class="mx-auto w-fc blue-btn blue-btn">Tous les marathons de <?php echo utf8_encode(strftime("%B",strtotime($mois_calendrier)));?></a></div>
+                        <div class="mx-auto"><a href="<?php echo 'calendrier-marathons-'.utf8_encode(strftime("%B",strtotime($mois_calendrier))).'-'.intval((date("m", strtotime($mois_calendrier)))).'-'.strftime("%Y",strtotime($today)).'.html'; ?>" class="mx-auto w-fc blue-btn blue-btn">Tous les marathons de <?php echo utf8_encode(strftime("%B",strtotime($mois_calendrier)));?></a></div>
 
                     <div>
 
@@ -650,7 +650,7 @@ function switch_cat($cat)
 
                     ?>
                         <?php $today = date("Y/m/d");?>
-                        <li class="last mx-auto"><a href="<?php echo 'calendrier-marathons-'.utf8_encode(strftime("%B",strtotime($mois_calendrier))).'-'.intval((date("m"))).'-'.strftime("%Y",strtotime($mois_calendrier)).'.html'; ?>" class="mx-auto w-fc blue-btn bouton-mobile">Tous les marathons de <?php echo utf8_encode(strftime("%B",strtotime($today)));?></a></li>
+                        <li class="last mx-auto"><a href="<?php echo 'calendrier-marathons-'.utf8_encode(strftime("%B",strtotime($mois_calendrier))).'-'.intval((date("m", strtotime($mois_calendrier)))).'-'.strftime("%Y",strtotime($mois_calendrier)).'.html'; ?>" class="mx-auto w-fc blue-btn bouton-mobile">Tous les marathons de <?php echo utf8_encode(strftime("%B",strtotime($today)));?></a></li>
 
                     </ul>
 
@@ -724,7 +724,6 @@ function switch_cat($cat)
     <script src="../../js/easing.js"></script>
     <script src="../../js/jquery.ui.totop.min.js"></script>
     <script src="../../js/main.js"></script>
-    <script async src="https://static.linguise.com/script-js/switcher.bundle.js?d=pk_4bTqzNg4fOu5lSJj9KvvmakbgG7jJMzt"></script>
 </body>
 
 </html>

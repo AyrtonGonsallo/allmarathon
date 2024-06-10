@@ -114,7 +114,7 @@ if(isset($_GET['evenementID'])){
     <br />
 
     <a href="modelCsv.php">telecharger le model</a>
-
+ 
     <p>Envoie fichier r&eacute;sultat</p>
     <?php
         if(isset($_GET['evenementID'])){
@@ -126,6 +126,10 @@ if(isset($_GET['evenementID'])){
     ?>
     
     <p><input type="file" name="file" /></p>
+    <br>
+    <div style="text-align:center;width:70%">ou</div>
+    <br>
+    <input type="text"  name="url_drive" value="" />
     <input type="submit" name="Submit" value="Envoyer">
     </form>
 

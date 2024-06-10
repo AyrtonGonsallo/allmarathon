@@ -37,9 +37,10 @@ endif;
 
 
 try{
-  $req_select = $bdd->prepare("SELECT caep.*, e.Nom as ev,c.Nom FROM champion_admin_externe_palmares caep"
+  $req_select = $bdd->prepare("SELECT caep.*, e.Nom as ev,YEAR(e.DateDebut) as annee,u.email as email,c.Nom FROM champion_admin_externe_palmares caep"
     ." LEFT JOIN champions c ON c.ID = caep.ChampionID"
     ." LEFT JOIN evenements e ON caep.EvenementID = e.ID"
+    ." LEFT JOIN users u ON u.username = caep.utilisateur"
     ." where caep.Status=0 ORDER BY caep.ID DESC");
   $req_select->execute();
   $resultResult= array();
@@ -118,7 +119,7 @@ catch(Exception $e)
 
             <table class="tablesorter" id="tbl1">
                 <thead>
-                    <tr><th>Champion</th><th>Rang</th><th>Evenement</th><th>Temps</th><th>Utilisateur</th><th>Date</th><th>Pays</th><th>Sexe</th><th>Justificatif</th><th>Actions</th></tr>
+                    <tr><th>Champion</th><th>Rang</th><th>Evenement</th><th>Temps</th><th>Utilisateur</th><th>Date</th><th>Pays</th><th>Sexe</th><th>Justificatif</th><th>Email</th><th>Actions</th></tr>
                 </thead>
                 <tbody>
                 <?php //while($result = mysql_fetch_array($resultResult)){ 
@@ -126,7 +127,7 @@ catch(Exception $e)
                     <tr>
                         <td><a href="../athlete-<?php echo $result['ChampionID'] ?>.html"><?php echo $result['Nom'] ?></a></td>
                         <td><?php echo $result['Rang'] ?></td>
-                        <td><?php echo $result['ev'] ?></td>
+                        <td><?php echo $result['ev'].' '.$result['annee'] ?></td>
                         <td><?php echo $result['Temps'] ?></td>
                         <td><?php echo $result['utilisateur'] ?></td>
                         <td><?php echo $result['Date'] ?></td>
@@ -134,6 +135,8 @@ catch(Exception $e)
                         <td><?php echo $result['Sexe'] ?></td>
                         
                         <td><a href="../uploadDocument/<?php echo $result['Justificatif'] ?>" target="_blank" title="<?php echo $result['Justificatif'] ?>">voir le fichier</a></td>
+                        <td><a href="mailto:<?php echo $result['email'] ?>">Envoyer Email</a></td>
+
                         <td>
                             <form method="post" action="resultAdminExterneValid.php" style="float: left">
                                 <input type="hidden" name="rang" value="<?php echo $result['Rang'] ?>" />

@@ -19,16 +19,16 @@ function envoyerEmail($dest,$sujet,$contenu_html,$contenu_text){
         $mail = new PHPMailer(true); // true active les exceptions
         // Paramètres du serveur SMTP de Gmail
         $mail->isSMTP(); // Utiliser SMTP
-        $mail->Host = 'smtp.gmail.com'; // Serveur SMTP de Gmail
+        $mail->Host = 'dev.allmarathon.fr'; // Serveur SMTP de Gmail
         $mail->SMTPAuth = true; // Activer l'authentification SMTP
-        $mail->Username = 'fnietzsche636@gmail.com'; // Votre adresse Gmail
+        $mail->Username = 'nash@dev.allmarathon.fr'; // Votre adresse Gmail
         $mail->Password = 'ltiryvtcoodddwhf'; // Votre mot de passe Gmail
-        $mail->SMTPSecure = 'tls'; // Protocole de sécurité (tls ou ssl)
-        $mail->Port = 587; // Port SMTP de Gmail
+        $mail->SMTPSecure = 'ssl'; // Protocole de sécurité (tls ou ssl)
+        $mail->Port = 465; // Port SMTP de Gmail
     
         // Destinataire et expéditeur
-        $mail->setFrom('allmarathon703@gmail.com', 'dev.allmarathon.fr');
-        $mail->addAddress('fnietzsche636@gmail.com', 'Destinataire');
+        $mail->setFrom('nash@dev.allmarathon.fr', 'dev.allmarathon.fr');
+        $mail->addAddress($dest, 'Destinataire');
     
         // Contenu du message
         $mail->isHTML(true); // Définir le format du message HTML
@@ -44,7 +44,7 @@ function envoyerEmail($dest,$sujet,$contenu_html,$contenu_text){
     }
     return $res;
 }
-
-
+//$res=envoyerEmail('fnietzsche636@gmail.com','test email','test fnietzsche636@gmail.com','fnietzsche636@gmail.com');
+//echo $res;
 
 ?>

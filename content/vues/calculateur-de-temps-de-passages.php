@@ -40,8 +40,8 @@ $pub768x90=$pub->getBanniere768_90("accueil")['donnees'];
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport"><meta http-equiv="x-ua-compatible" content="ie=edge">
     <?php require_once("../scripts/header_script.php") ?>
-    <title>Formulaire d'inscription</title>
-    <meta name="description" content="">
+    <title>Calculateur de temps de passages</title>
+    <meta name="description" content="Que vous soyez un coureur débutant ou expérimenté, notre calculateur va vous permettre de planifier et d'ajuster vos temps de course pour atteindre vos objectifs. Notre calculateur est conçu pour être simple et intuitif à utiliser. Il vous donne la possibilité de calculer les temps de passage au kilomètre sur une distance donnée, en fonction de l'allure souhaitée ou du temps global souhaité. Vous pouvez ainsi ajuster vos temps de passage en fonction de votre rythme de course et de vos objectifs de performance.">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
     <link rel="apple-touch-icon" href="apple-favicon.png">
@@ -63,7 +63,8 @@ $pub768x90=$pub->getBanniere768_90("accueil")['donnees'];
 <body>
     <?php include_once('nv_header-integrer.php'); ?>
     <div class="container page-content">
-        <section class="page-outil ">
+        <section class="page-outil">
+        <h1>Calculateur de temps de passage</h1>
         <p>Que vous soyez un coureur débutant ou expérimenté, notre calculateur va vous permettre de planifier et d'ajuster vos temps de course pour atteindre vos objectifs.
     Notre calculateur est conçu pour être simple et intuitif à utiliser. Il vous donne la possibilité de calculer les temps de passage au kilomètre sur une distance donnée, en fonction de l'allure souhaitée ou du temps global souhaité. Vous pouvez ainsi ajuster vos temps de passage en fonction de votre rythme de course et de vos objectifs de performance.</p>
         <div class="mt-50"><strong>Distance à parcourir</strong></div>

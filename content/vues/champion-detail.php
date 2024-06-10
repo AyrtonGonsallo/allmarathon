@@ -499,13 +499,13 @@ $afficher_tab_medaille=false;
                                         
                                         $nom_res=slugify($cat_event.' - '.$value['Nom'].' - '.utf8_encode(strftime("%A %d %B %Y",strtotime($value['DateDebut']))));
                                 		echo '<tr>
-			                                    <td>'.$value['DateDebut'].'</td>
+			                                    <td>'.$value['annee'].'</td>
 			                                    <td align="left">'.$value['Rang'].'</td>
 			                                    <td><a href="/resultats-marathon-'.$value['ID'].'-'.$nom_res.'.html">'.$value['Intitule'].' - '.$value['Nom'].'</a></td>
 			                                    <td>'.$value['Temps'].'</td>
 			                                </tr>';
                                 	}
-                                    if(sizeof($resultsPerso)!=0){
+                                    /*if(sizeof($resultsPerso)!=0){
                                         foreach ($resultsPerso as $resultPerso) {
                                              $status=($resultPerso['Status'])?" (validé)":" (non validé)";
                                                 echo '<tr>
@@ -516,7 +516,7 @@ $afficher_tab_medaille=false;
                                             </tr>';
                                            
                                         }
-                                        }  
+                                        }  */
                                 	 ?>
                                     </tbody>
                                 </table>

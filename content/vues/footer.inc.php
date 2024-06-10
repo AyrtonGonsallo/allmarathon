@@ -205,6 +205,7 @@
   var AUTOHIDE = Boolean(0);
 </script>
 <script data-type='lazy' ddata-src="https://sibforms.com/forms/end-form/build/main.js"></script>
+<script async src="https://static.linguise.com/script-js/switcher.bundle.js?d=pk_4bTqzNg4fOu5lSJj9KvvmakbgG7jJMzt"></script>
 
 <script data-type='lazy' ddata-src="https://www.google.com/recaptcha/api.js?hl=fr"></script>
 
@@ -241,10 +242,10 @@
                         <dt>Suivez-nous</dt>
                         <dd>
                                         <ul>
-                                            <li><a href="https://www.facebook.com/dev.allmarathon.fr"
+                                            <li><a href="https://www.facebook.com/allmarathon.fr"
                                                     target="_blank">
                                                     Facebook</a></li>
-                                            <li><a href="https://www.instagram.com/dev.allmarathon.fr"
+                                            <li><a href="https://www.instagram.com/allmarathon.fr"
                                                     target="_blank">Instagram</a></li>
                                                     <li><a href="https://www.pinterest.fr/allmarathon/"
                                             target="_blank">Pinterest</a></li>
@@ -290,8 +291,8 @@
                         <dt>Outils</dt>
                         <dd>
                             <ul>
-                                        <li><a href="https://cquoi.fr/calculateur-de-temps-de-passages/" target="_blank">Calculateur de temps de passages en course</a></li>
-                                        <li><a href="https://cquoi.fr/convertisseur-allure-vitesse/" target="_blank">Convertisseur allure-vitesse et vitesse-allure</a></li>
+                                        <li><a href="/calculateur-de-temps-de-passages.html">Calculateur de temps de passages en course</a></li>
+                                        <li><a href="/convertisseur-allure-vitesse.html">Convertisseur allure-vitesse et vitesse-allure</a></li>
 
                             </ul>
                         </dd>
