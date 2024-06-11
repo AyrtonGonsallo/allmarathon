@@ -66,7 +66,7 @@ if(isset($_SESSION['admin']) && isset($_SESSION['login'])):
 
         <?php endif ?>
 
-        <?php if($_SESSION['admin']):?><li class="menuItem"><a href="validation.php">Validation</a></li><?php endif ?>
+        <?php if($_SESSION['admin']):?><li class="menuItem"><a href="validation.php">Validation des données utilisateurs</a></li><?php endif ?>
 
         
         <?php if($_SESSION['admin']):?><li class="menuItem"><a href="pub.php">Pub</a></li><?php endif ?>

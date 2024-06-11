@@ -602,24 +602,27 @@ $afficher_tab_medaille=false;
                 <?php }?>
             <div class="modal fade" id="revendicationFicheModal" tabindex="-1" role="dialog" aria-labelledby="revendicationFicheModal" aria-hidden="true">
                     <div class="add-result-box">
-
+                    Si vous avez découvert la fiche d'un coureur que vous connaissez et souhaitez revendiquer cette fiche, nous vous invitons à suivre les étapes ci-dessous pour nous fournir les justificatifs nécessaires.
+                    Expliquez brièvement votre relation avec l'athlète (ex. : membre de la famille, entraîneur, ami proche) et pourquoi vous souhaitez revendiquer sa fiche.
+                    Téléchargez les documents nécessaires pour prouver votre lien avec l'athlète. Cela peut inclure des photos, des certificats, ou tout autre document pertinent. <br><br>
                         <form action="/content/modules/administrer-fiche.php" enctype="multipart/form-data" method="post" class="form-horizontal"
                             id="target">
                             <input type="hidden" name="c" id="c_id" value="<?php echo $champ->getID(); ?>" />
                             <input type="hidden" name="u" id="u_id" value="<?php echo  $user_id; ?>" />
                             
                             <div class="form-group">
-                                <label for="marathon" class="col-sm-5">Justificatif</label>
-                                <div class="col-sm-7">
-                                    <input type="file" id="justificatif" name="j" accept="image/png, image/jpeg, application/pdf," required/>
+                                <label for="justificatif" class="col-sm-3">Justificatif <span style="color: red;">*</span></label>
+                                <div class="col-sm-9">
+                                    <input type="file" id="justificatif" name="j" accept="image/png, image/jpeg, application/pdf" required/>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="marathon" class="col-sm-5">Message</label>
-                                <div class="col-sm-7">
-                                    <textarea  cols="50" rows="10" name="message" value=""></textarea>
+                                <label for="message" class="col-sm-3">Message <span style="color: red;">*</span></label>
+                                <div class="col-sm-9">
+                                    <textarea cols="50" rows="4" name="message" required></textarea>
                                 </div>
                             </div>
+
                             <div class="form-group">
                             <div class="col-sm-5">
                                 </div>

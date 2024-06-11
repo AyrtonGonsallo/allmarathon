@@ -234,7 +234,7 @@ echo $pub728x90["code"] ? $pub728x90["code"] :  "<img src=".'../images/pubs/'.$p
                             <? if(sizeof($athlete_adminitres)==0) {?>
                             <li><a href="#tab4" role="tab" data-toggle="tab">Fiche athlète</a></li>
                             <? }?>
-                            <li><a href="#tab8" role="tab" data-toggle="tab">Athlète administré</a></li>
+                            <li><a href="#tab8" role="tab" data-toggle="tab">Votre fiche athlète</a></li>
                             <li><a href="#tab5" role="tab" data-toggle="tab">Mot de passe</a></li>
                             <li><a href="#tab6" role="tab" data-toggle="tab">Google</a></li>
                         </ul>
@@ -523,178 +523,239 @@ echo $pub728x90["code"] ? $pub728x90["code"] :  "<img src=".'../images/pubs/'.$p
                             </div>
                             <? }?>
                             <? if(sizeof($athlete_adminitres)!=0) {?>
-                            <div class="tab-pane fade" id="tab8">
+                            <div class="tab-pane fade pt-10" id="tab8">
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li class="active"><a href="#tab8-1" role="tab" data-toggle="tab">Infos</a></li>
+                                    <li><a href="#tab8-2" role="tab" data-toggle="tab">Photos</a></li>
+                                    <li><a href="#tab8-3" role="tab" data-toggle="tab">Vidéos</a></li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="active tab-pane fade in pt-10" id="tab8-1">
+                                        <ul>
+                                            <?php 
+                                                if(isset($_SESSION['update_profile_msg'])){
+                                                    echo $_SESSION['update_profile_msg'];
+                                                    unset($_SESSION['update_profile_msg']);
+                                                }
+                                                
+                                                ?>
+
+                                            <form   
+                                                action="/content/modules/update_fiche_athlete.php?championID=<?php echo $athlete_adminitre->getId(); ?>"
+                                                method="post">
+
+                                                <table style="font-size: 0.9em;">
+                                                    <tr class="row">
+                                                        <td class="col-md-3" align="left">
+                                                            <label for="nom">Nom * : </label>
+                                                        </td>
+                                                        <td class="col-md-7" align="left">
+                                                            <input type="text" align="left" class="update_athlète_input" required
+                                                                name="Nom" id="nom" value="<?php echo $athlete_adminitre->getNom(); ?>" />
+                                                        </td>
+                                                        <td class="col-md-2"></td>
+                                                    </tr>
+                                                    <tr class="row">
+                                                        <td class="col-md-3" align="left">
+                                                            <label for="Sexe">Sexe : </label>
+                                                        </td>
+                                                        <td class="col-md-7" align="left">
+                                                            <input type="radio" name="Sexe" value="M" <?php if($athlete_adminitre->getSexe()=="M") echo 'checked="checked"';?> />
+                                                            <span>homme</span>
+                                                            <input type="radio" name="Sexe" value="F" <?php if($athlete_adminitre->getSexe()=="F") echo 'checked="checked"';?> />
+                                                            <span >femme</span>
+                                                        </td>
+                                                    </tr>
+
+                                                    
+                                                
+
+                                                    <tr class="row">
+                                                        <td class="col-md-3" align="left">
+                                                            <label for="date_de_naissance">Date de naissance : </label>
+                                                        </td>
+                                                        <td class="col-md-7" align="left">
+                                                            <input type="text" class="update_athlète_input"
+                                                                id="date_de_naissance" name="DateNaissance"
+                                                                value="<?php echo $athlete_adminitre->getDateNaissance(); ?>" />
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="row">
+                                                        <td class="col-md-3" align="left">
+                                                            <label for="DateChangementNat">Date de changement de nationalité: </label>
+                                                        </td>
+                                                        <td class="col-md-7" align="left">
+                                                            <input type="text" class="update_athlète_input"
+                                                                id="DateChangementNat" name="DateChangementNat"
+                                                                value="<?php echo $athlete_adminitre->getDateChangementNat(); ?>" />
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="row">
+                                                        <td class="col-md-3" align="left">
+                                                            <label for="pays">Pays : </label>
+                                                        </td>
+                                                        <td class="col-md-7" align="left">
+                                                            <select name="PaysID" class="update_athlète_input" id="pays">
+                                                                <?php
+                                                        foreach ($liste_pays as $p) {
+                                                            $selected=($p->getAbreviation()==$athlete_adminitre->getPaysID()) ? "selected":"";
+                                                            echo '<option value="' .$p->getAbreviation(). '"'.$selected.'>' .$p->getNomPays(). '</option>';
+                                                        }
+                                                        ?>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="row">
+                                                        <td class="col-md-3" align="left">
+                                                            <label for="NvPaysID">Nouveau pays : </label>
+                                                        </td>
+                                                        <td class="col-md-7" align="left">
+                                                            <select name="NvPaysID" class="update_athlète_input" id="NvPaysID">
+                                                                <?php
+                                                        foreach ($liste_pays as $p) {
+                                                            $selected=($p->getAbreviation()==$athlete_adminitre->getNvPaysID()) ? "selected":"";
+                                                            echo '<option value="' .$p->getAbreviation(). '"'.$selected.'>' .$p->getNomPays(). '</option>';
+                                                        }
+                                                        ?>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="row">
+                                                        <td class="col-md-3" align="left">
+                                                            <label for="LieuNaissance">Lieu de Naissance : </label>
+                                                        </td>
+                                                        <td class="col-md-7" align="left">
+                                                            <input type="text" class="update_athlète_input"  name="LieuNaissance" id="LieuNaissance" value="<?php echo $athlete_adminitre->getLieuNaissance(); ?>" />
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="row">
+                                                        <td class="col-md-3" align="left">
+                                                            <label for="Equipementier">Equipementier : </label>
+                                                        </td>
+                                                        <td class="col-md-7" align="left">
+                                                            <input type="text" class="update_athlète_input"  name="Equipementier" id="Equipementier" value="<?php echo $athlete_adminitre->getEquipementier(); ?>" />
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="row">
+                                                        <td class="col-md-3" align="left">
+                                                            <label for="lien_equip">Lien site équipementier : </label>
+                                                        </td>
+                                                        <td class="col-md-7" align="left">
+                                                            <input type="text" class="update_athlète_input"  name="lien_equip" id="lien_equip" value="<?php echo $athlete_adminitre->getLien_site_équipementier(); ?>" />
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="row">
+                                                        <td class="col-md-3" align="left">
+                                                            <label for="Instagram">Instagram : </label>
+                                                        </td>
+                                                        <td class="col-md-7" align="left">
+                                                            <input type="text" class="update_athlète_input"  name="Instagram" id="Instagram" value="<?php echo $athlete_adminitre->getInstagram(); ?>" />
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="row">
+                                                        <td class="col-md-3" align="left">
+                                                            <label for="poids">poids : </label>
+                                                        </td>
+                                                        <td class="col-md-7" align="left">
+                                                            <input type="text" class="update_athlète_input"  name="Poids" id="poids" value="<?php echo $athlete_adminitre->getPoids(); ?>" />
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="row">
+                                                        <td class="col-md-3" align="left">
+                                                            <label for="taille">taille : </label>
+                                                        </td>
+                                                        <td class="col-md-7" align="left">
+                                                            <input type="text" class="update_athlète_input"  name="Taille" id="taille" value="<?php echo $athlete_adminitre->getTaille(); ?>" />
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr class="row">
+                                                        <td class="col-md-3" align="left">
+                                                            <label for="Facebook">Facebook : </label>
+                                                        </td>
+                                                        <td class="col-md-7" align="left">
+                                                            <input type="text" class="update_athlète_input"  name="Facebook" id="Facebook" value="<?php echo $athlete_adminitre->getFacebook(); ?>" />
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="row">
+                                                        <td class="col-md-3" align="left">
+                                                            <label for="Bio">Bio : </label>
+                                                        </td>
+                                                        <td class="col-md-7" align="left">
+                                                            <textarea name="Bio" id="Bio" cols="50" rows="20"><?php echo $athlete_adminitre->getBio(); ?></textarea>
+                                                        </td>
+                                                    </tr>
+                                                    
+                                                
+
+                                                    <tr class="row">
+                                                        <td class="col-md-3" align="left"></td>
+                                                        <td class="pull-right">
+                                                            <!-- <input type="submit" class="btn_custom" name="sub" value ="Modifier"/> -->
+                                                            <button type="submit" name="sub"
+                                                                class="btn_custom">Modifier</button>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </form>
+
+                                        </ul>
+                                    </div>
+                                    <div class="tab-pane fade" id="tab8-2">
+                                        <h2>Upload an Image</h2>
+                                        <form action="/content/modules/upload-athlete-image.php?championID=<?php echo $athlete_adminitre->getId(); ?>" method="post" enctype="multipart/form-data">
+                                            <label for="file">Ajoutez une image:</label>
+                                            <input type="file" name="file" id="file" accept="image/*" required>
+                                            <br><br>
+                                            <input type="submit" name="submit" value="Uploader">
+                                        </form>
+                                    </div>
+                                    <div class="tab-pane fade" id="tab8-3">
+                                        <h2>Upload Video</h2>
+                                        <!-- Dans votre template Angular -->
+                                        <form id="video-form" action="/content/modules/upload-athlete-video.php?championID=<?php echo $athlete_adminitre->getId(); ?>" method="post" enctype="multipart/form-data">
+                                            <div>
+                                                <label for="video-url">Entrez l'URL de la vidéo :</label>
+                                                <input type="text" id="video-url" name="video-url" placeholder="Entrez l'URL de la vidéo">
+                                                <button type="button" id="preview-button">Aperçu</button>
+                                            </div>
+                                            <div id="preview-container" style="display: none;">
+                                                <h3>Aperçu de la vidéo :</h3>
+                                                <div id="video-preview"></div>
+                                            </div>
+                                            <div>
+                                                <button type="submit">Uploader la vidéo</button>
+                                            </div>
+                                        </form>
+
+                                        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                                        <script>
+                                            $(document).ready(function() {
+                                                $('#preview-button').on('click', function() {
+                                                    var videoUrl = $('#video-url').val();
+                                                    if (videoUrl) {
+                                                        // Extraire l'ID de la vidéo YouTube à partir de l'URL
+                                                        var videoId = videoUrl.split('v=')[1];
+                                                        // Vérifier si l'URL a des paramètres supplémentaires
+                                                        var ampersandPosition = videoId.indexOf('&');
+                                                        if (ampersandPosition != -1) {
+                                                            videoId = videoId.substring(0, ampersandPosition);
+                                                        }
+                                                        // Construire l'URL de l'iframe avec l'ID de la vidéo YouTube
+                                                        var iframeUrl = 'https://www.youtube.com/embed/' + videoId;
+                                                        // Afficher l'iframe dans la zone d'aperçu
+                                                        $('#video-preview').html('<iframe width="560" height="315" src="' + iframeUrl + '" frameborder="0" allowfullscreen></iframe>');
+                                                        $('#preview-container').show();
+                                                    } else {
+                                                        alert('Veuillez entrer une URL de vidéo.');
+                                                    }
+                                                });
+                                            });
+                                        </script>
+                                    </div>
                                 <br>
                                 <!--  -->
-                                <ul>
-                                    <?php 
-                            if(isset($_SESSION['update_profile_msg'])){
-                                echo $_SESSION['update_profile_msg'];
-                                unset($_SESSION['update_profile_msg']);
-                            }
-                            
-                            ?>
-
-                            <form   
-                                        action="/content/modules/update_fiche_athlete.php?championID=<?php echo $athlete_adminitre->getId(); ?>"
-                                        method="post">
-
-                                        <table style="font-size: 0.9em;">
-                                            <tr class="row">
-                                                <td class="col-md-3" align="left">
-                                                    <label for="nom">Nom * : </label>
-                                                </td>
-                                                <td class="col-md-7" align="left">
-                                                    <input type="text" align="left" class="update_athlète_input" required
-                                                        name="Nom" id="nom" value="<?php echo $athlete_adminitre->getNom(); ?>" />
-                                                </td>
-                                                <td class="col-md-2"></td>
-                                            </tr>
-                                            <tr class="row">
-                                                <td class="col-md-3" align="left">
-                                                    <label for="Sexe">Sexe : </label>
-                                                </td>
-                                                <td class="col-md-7" align="left">
-                                                    <input type="radio" name="Sexe" value="M" <?php if($athlete_adminitre->getSexe()=="M") echo 'checked="checked"';?> />
-                                                    <span>homme</span>
-                                                    <input type="radio" name="Sexe" value="F" <?php if($athlete_adminitre->getSexe()=="F") echo 'checked="checked"';?> />
-                                                    <span >femme</span>
-                                                </td>
-                                            </tr>
-
-                                            
-                                          
-
-                                            <tr class="row">
-                                                <td class="col-md-3" align="left">
-                                                    <label for="date_de_naissance">Date de naissance : </label>
-                                                </td>
-                                                <td class="col-md-7" align="left">
-                                                    <input type="text" class="update_athlète_input"
-                                                        id="date_de_naissance" name="DateNaissance"
-                                                        value="<?php echo $athlete_adminitre->getDateNaissance(); ?>" />
-                                                </td>
-                                            </tr>
-                                            <tr class="row">
-                                                <td class="col-md-3" align="left">
-                                                    <label for="DateChangementNat">Date de changement de nationalité: </label>
-                                                </td>
-                                                <td class="col-md-7" align="left">
-                                                    <input type="text" class="update_athlète_input"
-                                                        id="DateChangementNat" name="DateChangementNat"
-                                                        value="<?php echo $athlete_adminitre->getDateChangementNat(); ?>" />
-                                                </td>
-                                            </tr>
-                                            <tr class="row">
-                                                <td class="col-md-3" align="left">
-                                                    <label for="pays">Pays : </label>
-                                                </td>
-                                                <td class="col-md-7" align="left">
-                                                    <select name="PaysID" class="update_athlète_input" id="pays">
-                                                        <?php
-                                                foreach ($liste_pays as $p) {
-                                                    $selected=($p->getAbreviation()==$athlete_adminitre->getPaysID()) ? "selected":"";
-                                                    echo '<option value="' .$p->getAbreviation(). '"'.$selected.'>' .$p->getNomPays(). '</option>';
-                                                }
-                                                ?>
-                                                    </select>
-                                                </td>
-                                            </tr>
-                                            <tr class="row">
-                                                <td class="col-md-3" align="left">
-                                                    <label for="NvPaysID">Nouveau pays : </label>
-                                                </td>
-                                                <td class="col-md-7" align="left">
-                                                    <select name="NvPaysID" class="update_athlète_input" id="NvPaysID">
-                                                        <?php
-                                                foreach ($liste_pays as $p) {
-                                                    $selected=($p->getAbreviation()==$athlete_adminitre->getNvPaysID()) ? "selected":"";
-                                                    echo '<option value="' .$p->getAbreviation(). '"'.$selected.'>' .$p->getNomPays(). '</option>';
-                                                }
-                                                ?>
-                                                    </select>
-                                                </td>
-                                            </tr>
-                                            <tr class="row">
-                                                <td class="col-md-3" align="left">
-                                                    <label for="LieuNaissance">Lieu de Naissance : </label>
-                                                </td>
-                                                <td class="col-md-7" align="left">
-                                                    <input type="text" class="update_athlète_input"  name="LieuNaissance" id="LieuNaissance" value="<?php echo $athlete_adminitre->getLieuNaissance(); ?>" />
-                                                </td>
-                                            </tr>
-                                            <tr class="row">
-                                                <td class="col-md-3" align="left">
-                                                    <label for="Equipementier">Equipementier : </label>
-                                                </td>
-                                                <td class="col-md-7" align="left">
-                                                    <input type="text" class="update_athlète_input"  name="Equipementier" id="Equipementier" value="<?php echo $athlete_adminitre->getEquipementier(); ?>" />
-                                                </td>
-                                            </tr>
-                                            <tr class="row">
-                                                <td class="col-md-3" align="left">
-                                                    <label for="lien_equip">Lien site équipementier : </label>
-                                                </td>
-                                                <td class="col-md-7" align="left">
-                                                    <input type="text" class="update_athlète_input"  name="lien_equip" id="lien_equip" value="<?php echo $athlete_adminitre->getLien_site_équipementier(); ?>" />
-                                                </td>
-                                            </tr>
-                                            <tr class="row">
-                                                <td class="col-md-3" align="left">
-                                                    <label for="Instagram">Instagram : </label>
-                                                </td>
-                                                <td class="col-md-7" align="left">
-                                                    <input type="text" class="update_athlète_input"  name="Instagram" id="Instagram" value="<?php echo $athlete_adminitre->getInstagram(); ?>" />
-                                                </td>
-                                            </tr>
-                                            <tr class="row">
-                                                <td class="col-md-3" align="left">
-                                                    <label for="poids">poids : </label>
-                                                </td>
-                                                <td class="col-md-7" align="left">
-                                                    <input type="text" class="update_athlète_input"  name="Poids" id="poids" value="<?php echo $athlete_adminitre->getPoids(); ?>" />
-                                                </td>
-                                            </tr>
-                                            <tr class="row">
-                                                <td class="col-md-3" align="left">
-                                                    <label for="taille">taille : </label>
-                                                </td>
-                                                <td class="col-md-7" align="left">
-                                                    <input type="text" class="update_athlète_input"  name="Taille" id="taille" value="<?php echo $athlete_adminitre->getTaille(); ?>" />
-                                                </td>
-                                            </tr>
-
-                                            <tr class="row">
-                                                <td class="col-md-3" align="left">
-                                                    <label for="Facebook">Facebook : </label>
-                                                </td>
-                                                <td class="col-md-7" align="left">
-                                                    <input type="text" class="update_athlète_input"  name="Facebook" id="Facebook" value="<?php echo $athlete_adminitre->getFacebook(); ?>" />
-                                                </td>
-                                            </tr>
-                                            <tr class="row">
-                                                <td class="col-md-3" align="left">
-                                                    <label for="Bio">Bio : </label>
-                                                </td>
-                                                <td class="col-md-7" align="left">
-                                                    <textarea name="Bio" id="Bio" cols="50" rows="20"><?php echo $athlete_adminitre->getBio(); ?></textarea>
-                                                </td>
-                                            </tr>
-                                            
-                                           
-
-                                            <tr class="row">
-                                                <td class="col-md-3" align="left"></td>
-                                                <td class="pull-right">
-                                                    <!-- <input type="submit" class="btn_custom" name="sub" value ="Modifier"/> -->
-                                                    <button type="submit" name="sub"
-                                                        class="btn_custom">Modifier</button>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </form>
-
-                                </ul>
+                                </div>
                             </div>
                             <? }?>
                             <div class="tab-pane fade" id="tab5">
