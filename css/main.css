@@ -204,7 +204,18 @@ a:hover{
 
 
 
-
+.sg-col div {
+    margin-bottom: 10px !important;
+}
+tr.odd {
+    background-color: #A6DDFE !important;
+}
+.button-outils:hover {
+    background-color: #FBFF0B !important;
+}
+.page-stats-generator input[type=text] {
+    margin-top: 15px !important;
+}
 
 /*fantaisies stylistiques*/
 .pull-right {

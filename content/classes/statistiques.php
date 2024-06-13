@@ -1,6 +1,7 @@
 <?php
 include("pays.php");
 include("evCategorieEvenement.php");
+setlocale(LC_TIME, "fr_FR","French");
 
 function slugify($text)
 
@@ -51,7 +52,7 @@ function array_msort($array, $cols)
 		$ev_cat_event=new evCategorieEvenement();
 		$res="";
 		setlocale(LC_TIME, "fr_FR","French");
-		$res.='<h3>Les '.$nbr.' meilleurs chronos '.$periode.' ';
+		$res.='<h3 class="sg-h3">Les '.$nbr.' meilleurs chronos '.$periode.' ';
 		if($sexe=='M'){
 			$res.='chez les hommes';
 		}else if($sexe=='F'){
@@ -69,14 +70,16 @@ function array_msort($array, $cols)
 		$res.=' </h3>';
 
 		$res.=' <br>
-		<table id="tableau-stats" data-page-length="10" class="display">
+		<table id="tableau-stats" data-page-length="'.$nbr.'" class="display">
 		<thead>
 		<tr>
 			<th style="text-transform: capitalize;">Rang</th>
-			<th style="text-transform: capitalize;">Sexe</th>
-			<th style="text-transform: capitalize;">Athlète</th>
-			<th style="text-transform: capitalize;">Pays</th>
-			<th style="text-transform: capitalize;">Temps</th>
+			<th style="text-transform: capitalize;">Athlète</th>';
+			if($pays_1=="tous"){
+				$res.='<th style="text-transform: capitalize;">Pays</th>';
+			}
+			
+			$res.='<th style="text-transform: capitalize;">Temps</th>
 			<th style="text-transform: capitalize;">Evenement</th>
 			<th style="text-transform: capitalize;">Date</th>
         </tr>
@@ -85,15 +88,16 @@ function array_msort($array, $cols)
 		$i=1;
 		foreach ($results as $result) {
 			$cat_event=$ev_cat_event->getEventCatEventByID($result['CategorieID'])['donnees']->getIntitule();
-			$nom_res='<strong>'.$cat_event.' '.$result['prefixe'].' '.$result['nom_ev'].'</strong>';
+			$nom_res=$cat_event.' '.$result['prefixe'].' '.$result['nom_ev'];
 			$pays_datas=$pays->getFlagByAbreviation($result['PaysID'])['donnees'];
 			$nom_res_lien=$cat_event.' - '.$result['nom_ev'].' - '.utf8_encode(strftime("%A %d %B %Y",strtotime($result['DateDebut'])));
 			$date_res=utf8_encode(strftime("%d %B %Y",strtotime($result['DateDebut'])));
 			$res.= '<tr>';
 			$res.= '<td>'.$i.'</td>';
-			$res.= '<td>'.$result['Sexe'].'</td>';
 			$res.= '<td><a href="athlete-'.$result['cid'].'-'.slugify($result['nom_champ']).'.html">'.$result['nom_champ'].'</a></td>';
-			$res.= '<td>'.$pays_datas['NomPays'].'</td>';
+			if($pays_1=="tous"){
+				$res.= '<td>'.$pays_datas['NomPays'].'</td>';			}
+			
 			$res.= '<td>'.$result['Temps'].'</td>';
 			$res.= '<td><a href="/resultats-marathon-'.$result['eid'].'-'.slugify($nom_res_lien).'.html">'.$nom_res.'</a></td>';
 			$res.= '<td>'.$date_res.'</td>';
@@ -164,7 +168,7 @@ function array_msort($array, $cols)
 			}
 	
 			$bdd = null;
-			echo display_results($results, "du " . $date_deb . " au " . $date_fin, $pays, $sexe, $nbr);
+			echo display_results($results, "du " . utf8_encode(strftime("%A %d %B %Y",strtotime($date_deb))) . " au " . utf8_encode(strftime("%A %d %B %Y",strtotime($date_fin))), $pays, $sexe, $nbr);
 		} catch (Exception $e) {
 			die('Erreur : ' . $e->getMessage());
 		}

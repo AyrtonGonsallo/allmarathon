@@ -1502,8 +1502,26 @@ p.title-act-marathon {
   width: 100% !important;
   margin: 0 auto !important;
 }
-
-
+.sg-h1{
+  font-size: 24px;
+  margin-top: 50px;
+}
+.sg-h3{
+  font-size: 20px;
+}
+.sg-container{
+  grid-template-columns:  1fr;
+  
+}
+#get_res{
+  margin-top: 10px;
+}
+#tableau-stats{
+  font-size: 11px;
+}
+.sg-col div {
+  margin-bottom: 1px !important;
+}
 /*************user connect************************/
 .user-connect {
   border-radius: 50%;

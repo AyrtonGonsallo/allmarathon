@@ -677,7 +677,7 @@ function search_array($tab_pack_a_afficher_fct,$tab_indice_fct)
 		try {
 					  include("../database/connexion.php");
 
-    				 $req = $bdd->prepare("SELECT DISTINCT Year(DateDebut) as annee FROM `evenements` order by annee desc;");
+    				 $req = $bdd->prepare("SELECT DISTINCT Year(DateDebut) as annee FROM `evenements` where visible=1 order by annee desc;");
 					
 					 
 		             $req->execute();

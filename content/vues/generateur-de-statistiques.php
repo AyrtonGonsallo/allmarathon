@@ -65,7 +65,12 @@ $years = $event->getAllYears()['donnees'];
     <?php include_once('nv_header-integrer.php'); ?>
     <div class="container page-content page-stats-generator">
         <section class="section-stats-generator">
-        <h1>Générateur de statistiques</h1>
+        <h1 class="sg-h1">Générateur de statistiques</h1>
+        <p>
+            Le générateur de statistiques de allmarathon vous permet d'afficher les meilleurs temps réalisés sur marathon selon la période, le pays et le genre. Par exemple vous pouvez obtenir les meilleurs chronos des coureuses françaises pour l'année 2024.
+            <br>
+            Les résultats fournis ne sont pas exhaustifs, ils se basent uniquement sur les résultats enregistrés dans la base de données de allmarathon.
+        </p>
         <div class="sg-container">
             <div class="sg-col">
                 <b class="form-title">Période</b>
@@ -98,7 +103,7 @@ $years = $event->getAllYears()['donnees'];
                     <input type="radio" id="range" name="periode" value="range" />
                     <label for="range">Choisir une période</label>
                     <br>
-                    <input id="range-value" type="text" name="daterange" value="01/01/1900 - 01/15/2025" />
+                    <input id="range-value" type="text" name="daterange" value="01/01/2024 - 01/06/2024" />
                 </div>
             </div>
             <div class="sg-col">
@@ -195,7 +200,11 @@ $years = $event->getAllYears()['donnees'];
                    $("#res-box").html(html).show();
                    //console.log("success",html)
                    $('#tableau-stats').DataTable( {
-                    
+                    paging: false,
+                    bFilter: false,
+                    bSort: false,
+                    info:false,
+                    searching: false,
                         language: {
                             url: '//cdn.datatables.net/plug-ins/2.0.8/i18n/fr-FR.json',
                         },
@@ -253,6 +262,12 @@ $years = $event->getAllYears()['donnees'];
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <script>
 $(function() {
+    // Calculer la date actuelle
+  const today = moment();
+  // Calculer la date 20 jours dans le passé
+  const startDate = today.clone().subtract(20, 'days');
+  // Calculer la date 20 jours dans le futur
+  const endDate = today;
   $('input[name="daterange"]').daterangepicker({
     "locale": {
         "format": "DD/MM/YYYY",
@@ -288,8 +303,8 @@ $(function() {
         ],
         "firstDay": 1
     },
-    "startDate": "06/04/1900",
-    "endDate": "06/10/2025",
+    "startDate": startDate,
+    "endDate": endDate,
     opens: 'left'
   }, function(start, end, label) {
     console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
