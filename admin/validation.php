@@ -20,21 +20,21 @@ if (session_status() == PHP_SESSION_NONE) {
     require_once '../database/connexion.php';
 
     try{
-              $req = $bdd->prepare("SELECT j.*,c.Nom as c_name,u.nom,u.prenom,u.username FROM champion_admin_externe_journal j, users u, champions c where j.type like '%upload-image%' and j.champion_id=c.ID and j.user_id=u.id");
+              $req = $bdd->prepare("SELECT E.*,A.Intitule FROM evenements E LEFT OUTER JOIN evcategorieage A ON E.CategorieageID=A.ID  WHERE Valider=0 ORDER BY E.DateDebut");
               $req->execute();
               $result1= array();
               while ( $row  = $req->fetch(PDO::FETCH_ASSOC)) {  
                 array_push($result1, $row);
             }
-            $req2 = $bdd->prepare("SELECT j.*,c.Nom as c_name,u.nom,u.prenom,u.username FROM champion_admin_externe_journal j, users u, champions c where j.type like '%upload-video%' and j.champion_id=c.ID and j.user_id=u.id");
-            $req2->execute();
-            $result2= array();
-            while ( $row2  = $req2->fetch(PDO::FETCH_ASSOC)) {  
-              array_push($result2, $row2);
-          }
 
            
 
+            $req2 = $bdd->prepare("SELECT * FROM liens WHERE Valide=0 ORDER BY ID DESC");
+            $req2->execute();
+            $result3= array();
+            while ( $row  = $req2->fetch(PDO::FETCH_ASSOC)) {  
+                array_push($result3, $row);
+            }
 
         }
         catch(Exception $e)
@@ -57,82 +57,71 @@ if (session_status() == PHP_SESSION_NONE) {
 <?php require_once "menuAdmin.php"; ?>
 
 <fieldset style="float:left;">
-<legend>Liste des images en attente de validation</legend>
+<legend>Liste des manifestations en attente de validation</legend>
 <div align="center">
 
-<table class="tab1">
+    <table class="tab1">
     <thead>
-    <tr><th>ID</th><th>Date</th><th>Utilisateur</th><th>Champion</th><th>Image</th><th>Action</th></tr>
+        <tr><th>ID</th><th>DateDebut</th><th>Nom</th><th>Sexe</th><th>cat d'age</th><th>Action</th></tr>
     </thead>
     <tbody>
-    <?php 
-    //while($res = mysql_fetch_array($result1)){
-    foreach ($result1 as $res) {
-        $imagePath = $res['image'];
-        $thumbnail = '<a href="../images/galeries/0/' . $imagePath . '" target="_blank">'.$imagePath.'</a>';
+        <?php //while($evenement = mysql_fetch_array($result1)){
+            foreach ($result1 as $evenement) {
+            echo "<tr align=\"center\" ><td>".$evenement['ID']."</td><td>".$evenement['DateDebut']."</td><td>".$evenement['Nom']."</td><td>".$evenement['Sexe']."</td><td>".$evenement['Intitule']."</td>
+                <td><img style=\"cursor:pointer;\" width=\"16px\" src=\"../images/dl.png\" alt=\"resultat\" title=\"ajouter r�sultat\" onclick=\"location.href='evenementResultat.php?evenementID=".$evenement['ID']."'\" />
+                <img style=\"cursor:pointer;\" src=\"../images/edit.png\" alt=\"edit\" title=\"modifier\" onclick=\"location.href='evenementDetail.php?evenementID=".$evenement['ID']."'\" />
+                <img style=\"cursor:pointer;\" src=\"../images/supprimer.png\" alt=\"supprimer\" title=\"supprimer\"  onclick=\"if(confirm('Voulez vous vraiment supprimer ".$evenement['Nom']." ?')) { location.href='supprimerEvenement.php?evenementID=".$evenement['ID']."&evenementNom=".$evenement['Nom']."';} else { return 0;}\" /></td></tr>";
+        } ?>
 
-        echo "<tr align=\"center\">
-                <td>".$res['ID']."</td>
-                <td>".$res['date']."</td>
-                <td>".$res['nom'].' '.$res['prenom']."</td>
-                <td>".$res['c_name']."</td>
-                <td>".$thumbnail."</td>
-                <td>
-                    <img style=\"cursor:pointer;\" width=\"16px\" src=\"../images/valid.gif\" alt=\"resultat\" title=\"valider image\" onclick=\"location.href='valider_image_externe.php?ID=".$res['ID']."'\" />
-                    <img style=\"cursor:pointer;\" src=\"../images/supprimer.png\" alt=\"supprimer\" title=\"supprimer\" onclick=\"if(confirm('Voulez vous vraiment supprimer  ?')) { location.href='supprimer_action_externe.php?ID=".$res['ID']."';} else { return 0;}\" />
-                </td>
-              </tr>";
-    } 
-    ?>
     </tbody>
-</table>
-
+    </table>
 
 </div>
 </fieldset>
     <fieldset style="float:left;">
-<legend>Liste des vidéos en attente de validation</legend>
+<legend>Liste des site en attente de validation</legend>
 <div align="center">
 
-<table class="tab1">
+    <table class="tab1">
     <thead>
-    <tr><th>ID</th><th>Date</th><th>Utilisateur</th><th>Champion</th><th>Vidéo</th><th>Action</th></tr>
+        <tr><th>ID</th><th>Nom</th><th>Type</th><th>doublons</th><th>Action</th></tr>
     </thead>
     <tbody>
-    <?php 
-    function getYouTubeVideoId($url) {
-        parse_str(parse_url($url, PHP_URL_QUERY), $vars);
-        return isset($vars['v']) ? $vars['v'] : null;
-    }
-
-    //while($res = mysql_fetch_array($result1)){
-    foreach ($result2 as $res) {
-        $videoId = getYouTubeVideoId($res['video']);
-        if ($videoId) {
-            $iframe = '<iframe width="300" height="155" src="https://www.youtube.com/embed/' . $videoId . '" frameborder="0" allowfullscreen></iframe>';
-        } else {
-            $iframe = 'Invalid video URL';
+        <?php //while($evenement = mysql_fetch_array($result3)){
+            foreach ($result3 as $evenement) {
+        $query4    = sprintf('SELECT ID FROM liens WHERE Site=\'%s\' AND ID != %s',$evenement['Site'],$evenement['ID']);
+        $result4   = mysql_query($query4);
+        $doublons = "";
+        while($doublon  = mysql_fetch_array($result4)){
+            $doublons .= '<a href="annuaireSiteDetail.php?siteID='.$doublon['ID'].'" >'.$doublon['ID'].'</a>';
         }
-
-        echo "<tr align=\"center\">
-                <td>".$res['ID']."</td>
-                <td>".$res['date']."</td>
-                <td>".$res['nom'].' '.$res['prenom']."</td>
-                <td>".$res['c_name']."</td>
-                <td>".$iframe."</td>
+            echo "<tr align=\"center\" ><td>".$evenement['ID']."</td><td>".$evenement['Pr�sentation']."</td><td>".$evenement['Site']."</td><td>".$doublons."</td>
                 <td>
-                    <img style=\"cursor:pointer;\" width=\"16px\" src=\"../images/valid.gif\" alt=\"resultat\" title=\"valider image\" onclick=\"location.href='valider_video_externe.php?ID=".$res['ID']."'\" />
-                    <img style=\"cursor:pointer;\" src=\"../images/supprimer.png\" alt=\"supprimer\" title=\"supprimer\" onclick=\"if(confirm('Voulez vous vraiment supprimer  ?')) { location.href='supprimer_action_externe.php?ID=".$res['ID']."';} else { return 0;}\" />
-                </td>
-              </tr>";
-    } ?>
-    </tbody>
-</table>
+                <img style=\"cursor:pointer;\" src=\"../images/edit.png\" alt=\"edit\" title=\"modifier\" onclick=\"location.href='annuaireSiteDetail.php?siteID=".$evenement['ID']."'\" />
+                <img style=\"cursor:pointer;\" src=\"../images/supprimer.png\" alt=\"supprimer\" title=\"supprimer\"  onclick=\"if(confirm('Voulez vous vraiment supprimer ".$evenement['Pr�sentation']." ?')) { location.href='supprimerSite.php?siteID=".$evenement['ID']."';} else { return 0;}\" /></td></tr>";
+        } ?>
 
+    </tbody>
+    </table>
 
 </div>
 </fieldset>
-   
+    <fieldset style="float:left;">
+<legend>Liste des contact en attente de validation</legend>
+<div align="center">
+
+    <table class="tab1">
+    <thead>
+        <tr><th>ID</th><th>Pays</th><th>doublons</th><th>Action</th></tr>
+    </thead>
+    <tbody>
+        <?php //while($evenement = mysql_fetch_array($result2)){
+             ?>
+
+    </tbody>
+    </table>
+
+</div>
+</fieldset>
 </body>
 <!-- InstanceEnd --></html>
-
