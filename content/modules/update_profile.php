@@ -25,8 +25,9 @@ $user=new user();
 $profil=$user->getUserById($user_id);
 if(isset( $_GET['subscribe_to_newsletter'])){
     if($user->subscribe_to_newsletter($user_id)){
-        $page=$_COOKIE["page_when_adding_result"];
+        $page=($_COOKIE["page_when_adding_result"])?$_COOKIE["page_when_adding_result"]:$_COOKIE["page_when_logging_to_rev_fiche"];;
         unset($_COOKIE["page_when_adding_result"]); 
+        unset($_COOKIE["page_when_logging_to_rev_fiche"]); 
         header('Location:  '.$page);
        
     }

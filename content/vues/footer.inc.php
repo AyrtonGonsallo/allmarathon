@@ -205,8 +205,7 @@
   var AUTOHIDE = Boolean(0);
 </script>
 <script data-type='lazy' ddata-src="https://sibforms.com/forms/end-form/build/main.js"></script>
-<script async src="https://static.linguise.com/script-js/switcher.bundle.js?d=pk_4bTqzNg4fOu5lSJj9KvvmakbgG7jJMzt"></script>
-
+<script async src="https://static.linguise.com/script-js/switcher.bundle.js?d=pk_VU5C4h0YOZqUtZn2ha54fz8fJjLGIsPz"></script>
 <script data-type='lazy' ddata-src="https://www.google.com/recaptcha/api.js?hl=fr"></script>
 
 <!-- END - We recommend to place the above code in footer or bottom of your website html  -->
@@ -242,10 +241,10 @@
                         <dt>Suivez-nous</dt>
                         <dd>
                                         <ul>
-                                            <li><a href="https://www.facebook.com/allmarathon.fr"
+                                            <li><a href="https://www.facebook.com/dev.allmarathon.fr"
                                                     target="_blank">
                                                     Facebook</a></li>
-                                            <li><a href="https://www.instagram.com/allmarathon.fr"
+                                            <li><a href="https://www.instagram.com/dev.allmarathon.fr"
                                                     target="_blank">Instagram</a></li>
                                                     <li><a href="https://www.pinterest.fr/allmarathon/"
                                             target="_blank">Pinterest</a></li>

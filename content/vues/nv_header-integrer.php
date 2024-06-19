@@ -82,7 +82,7 @@
     }
   </style>
 <link rel="stylesheet" href="/css/authentification.css">
-<meta name="robots" content="noindex, nofollow">
+<meta name="robots" content="index, follow">
 <link rel="alternate" type="application/rss+xml" title="allmarathon.fr - RSS feed" href="https://dev.allmarathon.fr/flux-rss.xml" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300,0,0" />
 <script>
@@ -261,7 +261,9 @@ search
                     <li> <a data-category="Header_Links" data-action="Top Menu Click" data-label="RECORDS"
 
                     href="/records-marathon-masculins.html" class="header--nav--link pull-right1" id="records">Records</a></li>
-                    
+                    <li> <a data-category="Header_Links" data-action="Top Menu Click" data-label="STATS"
+
+                    href="/generateur-de-statistiques.html" class="header--nav--link pull-right1" id="generateur">Statistiques</a></li>
                 </ul>
 
             </li>
@@ -896,6 +898,7 @@ $(document).ready(function() {
     const regex_url_athletes = new RegExp(/(.|-)*athlete(.|-)*.html/);
     const regex_url_videos = new RegExp(/(.|-)*video(.|-)*.html/);
     const regex_url_records = new RegExp(/records-marathon(.|-)*.html/);
+    const regex_url_generateur = new RegExp(/generateur-de-statistiques(.|-)*.html/);
     urlparts = getCurrentURL()
     console.log("url parts",urlparts)
     url_actuelle=urlparts[3]
@@ -922,6 +925,10 @@ $(document).ready(function() {
     else if( regex_url_records.test(url_actuelle)){
         console.log("records page")
         $('#records').addClass("active-menu-link");
+    }
+    else if( regex_url_generateur.test(url_actuelle)){
+        console.log("generateur page")
+        $('#generateur').addClass("active-menu-link");
     }
     
     if (window.matchMedia("(min-width: 1121px)").matches) {

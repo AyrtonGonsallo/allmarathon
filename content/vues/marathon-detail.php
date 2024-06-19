@@ -40,12 +40,12 @@ $res_image=new resultat();
 $video=new video();
 $pub=new pub();
 
-$pub728x90=$pub->getBanniere728_90("resultats")['donnees'];
-$pub300x60=$pub->getBanniere300_60("resultats")['donnees'];
-$pub300x250=$pub->getBanniere300_250("resultats")['donnees'];
-$pub160x600=$pub->getBanniere160_600("resultats")['donnees'];
-$pub768x90=$pub->getBanniere768_90("accueil")['donnees'];
-$getMobileAds=$pub->getMobileAds("resultats")['donnees'];
+$pub728x90=$pub->getBanniere728_90("marathon")['donnees'];
+$pub300x60=$pub->getBanniere300_60("marathon")['donnees'];
+$pub300x250=$pub->getBanniere300_250("marathon")['donnees'];
+$pub160x600=$pub->getBanniere160_600("marathon")['donnees'];
+$pub768x90=$pub->getBanniere768_90("marathon")['donnees'];
+$getMobileAds=$pub->getMobileAds("marathon")['donnees'];
 // $id=4951; //video
 // $id=4465; //images
 // $id=4990; //club
@@ -792,6 +792,20 @@ if($pays_datas){
                         <?php echo $lien_youtube;?>
                     </div>
                 </div>
+                <p class="ban ban_160-600">
+                    <?php
+                    if($pub160x600 !="") {
+                        //var_dump($pub160x600["url"]); exit;
+                        if($pub160x600["code"]==""){
+                            echo "<a href=".'http://allmarathon.net/'.$pub160x600["url"]." target='_blank'><img src=".'../images/news/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" /></a>";
+                        }
+                        else{
+                            echo $pub160x600["code"];
+                        }
+                    /*echo $pub160x600["code"] ? $pub160x600["code"] :  "<img src=".'../images/pubs/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" />";*/
+                    }
+                    ?>
+                </p>
             </aside>
         </div>
     </div>

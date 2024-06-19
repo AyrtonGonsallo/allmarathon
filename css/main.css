@@ -207,21 +207,19 @@ a:hover{
 .sg-col div {
     margin-bottom: 10px !important;
 }
-tr.odd {
-    background-color: #A6DDFE !important;
-}
+
 .button-outils:hover {
     background-color: #FBFF0B !important;
 }
-.page-stats-generator input[type=text] {
-    margin-top: 15px !important;
-}
+
 
 /*fantaisies stylistiques*/
 .pull-right {
     float: right !important;
 }
-
+.pt-d-50{
+    padding-top: 47px;
+}
 .pull-left {
     float: left !important;
 }
@@ -270,7 +268,7 @@ nav.header--nav>ul {
 
 }
 .menu-item-search {
-    width: 26.2%;
+    width: 15%;
 }
 .header--nav--link {
     color: #000 !important;
@@ -1490,7 +1488,6 @@ table.dataTable.no-footer {
     margin-top: 0;
     font-family: 'Poppins-regular';
     font-size: 17px;
-    padding-right: 300px;
     line-height: 25px;
 }
 .lignes-données{
@@ -2327,10 +2324,13 @@ font-weight: bolder;
 }
 .sg-container{
     display: grid;
-    grid-template-columns: repeat(3,1fr);
+    grid-template-columns: 2fr 1fr 2fr;
     border-radius: 5px;
-    padding: 20px 20px;
+    padding: 36px;
     box-shadow: 0 6px 7px #e5e5e5;
+}
+.gs-presentation{
+    padding: 0px 36px;
 }
 #res-box{
     margin-top: 50px;
@@ -2345,7 +2345,6 @@ font-weight: bolder;
 .page-stats-generator  .form-title{
     margin-bottom: 6px;
     margin-top: 20px;
-    display: block;
 }
 
 .page-stats-generator input[type=number], .page-stats-generator input[type=text] {
@@ -2354,4 +2353,11 @@ font-weight: bolder;
 .section-stats-generator{
 	padding-bottom: 0em;
     padding-top: 3em;
+}
+#get_res{
+    margin-top: 70px;
+}
+.ban_160-600{
+    margin-top: 25px;
+    text-align: center;
 }

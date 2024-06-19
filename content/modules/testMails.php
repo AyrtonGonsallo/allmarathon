@@ -44,7 +44,6 @@ function envoyerEmail($dest,$sujet,$contenu_html,$contenu_text){
     }
     return $res;
 }
-//$res=envoyerEmail('fnietzsche636@gmail.com','test email','test fnietzsche636@gmail.com','fnietzsche636@gmail.com');
-//echo $res;
+
 
 ?>

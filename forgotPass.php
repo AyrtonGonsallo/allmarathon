@@ -86,7 +86,7 @@ if ($responseData->success && $_POST["mail"] != "") {//&& $resp->is_valid
             $_SESSION['mail'] = "forgot";
             echo ("<SCRIPT LANGUAGE='JavaScript'>
             window.alert('une erreur est survenue !')
-            window.location.href='https://www.allmarathon.fr';
+            window.location.href='https://dev.allmarathon.fr';
             </SCRIPT>");
         }
         else {
@@ -96,7 +96,7 @@ if ($responseData->success && $_POST["mail"] != "") {//&& $resp->is_valid
             $_SESSION['message'] = "forgot";
             echo ("<SCRIPT LANGUAGE='JavaScript'>
             window.alert('un nouveau code a été envoyé, vérifiez votre boite email !')
-            window.location.href='http://www.allmarathon.fr';
+            window.location.href='http://dev.allmarathon.fr';
             </SCRIPT>");    
         }
     }

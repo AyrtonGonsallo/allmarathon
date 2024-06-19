@@ -39,7 +39,7 @@ function display_rss($result1){
     // Boucle qui liste les URL
     foreach ($result1 as $res) {
         $url_text=slugify($res['titre']);
-        $loc        = 'https://www.allmarathon.fr/actualite-marathon-'.$res['ID'].'-'.slugify($url_text).'.html';
+        $loc        = 'https://dev.allmarathon.fr/actualite-marathon-'.$res['ID'].'-'.slugify($url_text).'.html';
         $date = $res['date'];
         $titre = $res['titre'];
         $tab = explode('-',$date);

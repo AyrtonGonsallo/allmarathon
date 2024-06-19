@@ -26,9 +26,11 @@ $pays=new pays();
 $liste_pays=$pays->getAll()['donnees'];
 
 $pub=new pub();
-$pub728x90=$pub->getBanniere728_90("calendrier")['donnees'];
-$pub160x600=$pub->getBanniere160_600("resultats")['donnees'];
-$pub768x90=$pub->getBanniere768_90("accueil")['donnees'];
+$pub728x90=$pub->getBanniere728_90("outils")['donnees'];
+$pub300x60=$pub->getBanniere300_60("outils")['donnees'];
+$pub300x250=$pub->getBanniere300_250("outils")['donnees'];
+$pub160x600=$pub->getBanniere160_600("outils")['donnees'];
+$pub768x90=$pub->getBanniere768_90("outils")['donnees'];
 
 
 
@@ -63,6 +65,18 @@ $pub768x90=$pub->getBanniere768_90("accueil")['donnees'];
 <body>
     <?php include_once('nv_header-integrer.php'); ?>
     <div class="container page-content">
+        <div class="row banniere1">
+            <div  class="col-sm-12"><?php
+                if($pub728x90 !="") {
+                echo '<a target="_blank" href="'.$pub728x90["url"].'" class="col-sm-12">';
+                    echo $pub728x90["code"] ? $pub728x90["code"] :  "<img src=".'../images/pubs/'.$pub728x90['image'] . " alt='' style=\"width: 100%;\" />";
+                    echo '</a>';
+                }else if($getMobileAds !="") {
+                echo $getMobileAds["code"] ? $getMobileAds["code"] :  "<a href=".$getMobileAds["url"]." target='_blank'><img src=".'../images/pubs/'.$getMobileAds['image'] . " alt='' style=\"width: 100%;\" /></a>";
+                }
+                ?>
+            </div>
+        </div>
         <section class="page-outil">
         <h1>Convertisseur vitesse / allure</h1>
         <p>

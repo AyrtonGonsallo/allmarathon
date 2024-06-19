@@ -6,6 +6,15 @@ if (session_status() == PHP_SESSION_NONE) {
 
 }
 
+include("../classes/pub.php");
+$pub=new pub();
+
+$pub728x90=$pub->getBanniere728_90("marathon")['donnees'];
+$pub300x60=$pub->getBanniere300_60("marathon")['donnees'];
+$pub300x250=$pub->getBanniere300_250("marathon")['donnees'];
+$pub160x600=$pub->getBanniere160_600("marathon")['donnees'];
+$pub768x90=$pub->getBanniere768_90("marathon")['donnees'];
+$getMobileAds=$pub->getMobileAds("marathon")['donnees'];
 
 
 // (!empty($_SESSION['auth_error'])) ? $erreur_auth=$_SESSION['auth_error'] : $erreur_auth='';
@@ -268,13 +277,16 @@ try{
 
      
 
-        <div class="row banniere1">
-
+    <div class="row banniere1">
             <div  class="col-sm-12"><?php
-
-               
+                if($pub728x90 !="") {
+                echo '<a target="_blank" href="'.$pub728x90["url"].'" class="col-sm-12">';
+                    echo $pub728x90["code"] ? $pub728x90["code"] :  "<img src=".'../images/pubs/'.$pub728x90['image'] . " alt='' style=\"width: 100%;\" />";
+                    echo '</a>';
+                }else if($getMobileAds !="") {
+                echo $getMobileAds["code"] ? $getMobileAds["code"] :  "<a href=".$getMobileAds["url"]." target='_blank'><img src=".'../images/pubs/'.$getMobileAds['image'] . " alt='' style=\"width: 100%;\" /></a>";
+                }
                 ?></div>
-
         </div>
 
 

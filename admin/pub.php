@@ -40,7 +40,7 @@ require_once '../database/connexion.php';
 
 $adType = (isset($_GET['type'])) ? addslashes($_GET['type']) : "banniere160x600";
 
-$ads = array("banniere160x600", "banniere300x250", "banniere336x280", "banniere728x90", "banniere768x90", "banniere300x60", "banniereBackground", "bannieremobile", "banniereNewsletter");
+$ads = array("banniere160x600", "banniere300x250", "banniere336x280", "banniere728x90", "banniere768x90", "banniere300x60", "bannieremobile");
 
 if (!in_array($adType,$ads ))
 
@@ -295,9 +295,9 @@ if (!isset($_GET["type"])) {
 
     function checkAll() {
 
-        var tab = new Array("accueil", "actualite", "resultats", "calendrier", "videos", "photos", "marathonkas",
+        var tab = new Array("accueil", "actualite", "resultats", "calendrier","marathon", "videos", "athlètes",
 
-            "technique", "savoirs", "annuaires", "detente");
+            "records", "statistiques", "outils", "autres");
 
         element = document.getElementById("tous");
 
@@ -341,19 +341,18 @@ if (!isset($_GET["type"])) {
 
         <br />
 
-        <a href="pub.php?type=banniereBackground">Bannière Background</a>
 
-        <a href="pub.php?type=banniere160x600">Bannière 300x600-1</a>
+        <a href="pub.php?type=banniere160x600">Bannière 160x600</a>
+        <a href="pub.php?type=banniere300x60">Bannière 300x60</a>
+        <a href="pub.php?type=banniere336x280">Bannière 336x280</a>
+        <a href="pub.php?type=banniere300x250">Bannière 300x250</a>
 
-        <a href="pub.php?type=banniere300x250">Bannière 300x600-2</a>
+        <a href="pub.php?type=banniere728x90">Bannière 728x90</a>
 
-        <a href="pub.php?type=banniere728x90">Bannière 970x250-1</a>
-
-        <a href="pub.php?type=banniere768x90">Bannière 970x250-2</a>
+        <a href="pub.php?type=banniere768x90">Bannière 768x90</a>
 
         <a href="pub.php?type=bannieremobile">Bannière Mobile</a>
 
-        <a href="pub.php?type=banniereNewsletter">Bannière Newsletter</a>
 
         <br /><br /><br />
 
@@ -408,20 +407,20 @@ athlèteathlète
                         <td>R&eacute;sultats</td>
 
                         <td>Calendrier</td>
-
+                        <td>Marathons</td>
                         <td>Vid&eacute;os</td>
 
-                        <td>Photos</td>
+                       
 
-                        <td>Marathonkas</td>
+                        <td>Athlètes</td>
 
-                        <td>Technique</td>
+                        <td>Records</td>
 
-                        <td>savoirs</td>
+                        <td>Statistiques</td>
 
-                        <td>Annuaires</td>
+                        <td>Outils</td>
 
-                        <td>D&eacute;tente</td>
+                        <td>Autres</td>
 
                     </tr>
 
@@ -464,20 +463,20 @@ foreach ($resultTechnique as $j) {
     , '<td align="center"><input type="checkbox" name="restriction' . $i . '[]" value="resultats"', (isset($restriction['resultats'])) ? ' checked="checked"' : "", '/></td>'
 
     , '<td align="center"><input type="checkbox" name="restriction' . $i . '[]" value="calendrier"', (isset($restriction['calendrier'])) ? ' checked="checked"' : "", '/></td>'
+    , '<td align="center"><input type="checkbox" name="restriction' . $i . '[]" value="marathon"', (isset($restriction['marathon'])) ? ' checked="checked"' : "", '/></td>'
 
     , '<td align="center"><input type="checkbox" name="restriction' . $i . '[]" value="videos"', (isset($restriction['videos'])) ? ' checked="checked"' : "", '/></td>'
 
-    , '<td align="center"><input type="checkbox" name="restriction' . $i . '[]" value="photos"', (isset($restriction['photos'])) ? ' checked="checked"' : "", '/></td>'
 
-    , '<td align="center"><input type="checkbox" name="restriction' . $i . '[]" value="marathonkas"', (isset($restriction['marathonkas'])) ? ' checked="checked"' : "", '/></td>'
+    , '<td align="center"><input type="checkbox" name="restriction' . $i . '[]" value="athlètes"', (isset($restriction['athlètes'])) ? ' checked="checked"' : "", '/></td>'
 
-    , '<td align="center"><input type="checkbox" name="restriction' . $i . '[]" value="technique"', (isset($restriction['technique'])) ? ' checked="checked"' : "", '/></td>'
+    , '<td align="center"><input type="checkbox" name="restriction' . $i . '[]" value="records"', (isset($restriction['records'])) ? ' checked="checked"' : "", '/></td>'
 
-    , '<td align="center"><input type="checkbox" name="restriction' . $i . '[]" value="savoirs"', (isset($restriction['savoirs'])) ? ' checked="checked"' : "", '/></td>'
+    , '<td align="center"><input type="checkbox" name="restriction' . $i . '[]" value="statistiques"', (isset($restriction['statistiques'])) ? ' checked="checked"' : "", '/></td>'
 
-    , '<td align="center"><input type="checkbox" name="restriction' . $i . '[]" value="annuaires"', (isset($restriction['annuaires'])) ? ' checked="checked"' : "", '/></td>'
+    , '<td align="center"><input type="checkbox" name="restriction' . $i . '[]" value="outils"', (isset($restriction['outils'])) ? ' checked="checked"' : "", '/></td>'
 
-    , '<td align="center"><input type="checkbox" name="restriction' . $i . '[]" value="detente"', (isset($restriction['detente'])) ? ' checked="checked"' : "", '/></td>'
+    , '<td align="center"><input type="checkbox" name="restriction' . $i . '[]" value="autres"', (isset($restriction['autres'])) ? ' checked="checked"' : "", '/></td>'
 
     , '</tr>';
 
@@ -729,6 +728,18 @@ foreach ($resultTechnique as $j) {
 
                                     <tr>
 
+                                        <td><label for="marathon">Marathon</label></td>
+
+                                        <td><input id="marathon" type="checkbox" name="restriction[]"
+
+                                                value="marathon" />
+
+                                        </td>
+
+                                    </tr>
+
+                                    <tr>
+
                                         <td><label for="videos">Vid&eacute;os</label></td>
 
                                         <td><input id="videos" type="checkbox" name="restriction[]" value="videos" />
@@ -737,11 +748,13 @@ foreach ($resultTechnique as $j) {
 
                                     </tr>
 
+                                    
+
                                     <tr>
 
-                                        <td><label for="photos">Photos</label></td>
+                                        <td><label for="athletes">Athlètes</label></td>
 
-                                        <td><input id="photos" type="checkbox" name="restriction[]" value="photos" />
+                                        <td><input id="athletes" type="checkbox" name="restriction[]" value="athletes" />
 
                                         </td>
 
@@ -749,21 +762,11 @@ foreach ($resultTechnique as $j) {
 
                                     <tr>
 
-                                        <td><label for="marathonkas">Marathonkas</label></td>
+                                        <td><label for="records">Records</label></td>
 
-                                        <td><input id="marathonkas" type="checkbox" name="restriction[]" value="marathonkas" />
+                                        <td><input id="records" type="checkbox" name="restriction[]"
 
-                                        </td>
-
-                                    </tr>
-
-                                    <tr>
-
-                                        <td><label for="technique">Technique</label></td>
-
-                                        <td><input id="technique" type="checkbox" name="restriction[]"
-
-                                                value="technique" />
+                                                value="records" />
 
                                         </td>
 
@@ -771,21 +774,9 @@ foreach ($resultTechnique as $j) {
 
                                     <tr>
 
-                                        <td><label for="savoirs">Savoirs</label></td>
+                                        <td><label for="statistiques">Statistiques</label></td>
 
-                                        <td><input id="savoirs" type="checkbox" name="restriction[]" value="savoirs" />
-
-                                        </td>
-
-                                    </tr>
-
-                                    <tr>
-
-                                        <td><label for="annuaires">Annuaires</label></td>
-
-                                        <td><input id="annuaires" type="checkbox" name="restriction[]"
-
-                                                value="annuaires" />
+                                        <td><input id="statistiques" type="checkbox" name="restriction[]" value="statistiques" />
 
                                         </td>
 
@@ -793,9 +784,21 @@ foreach ($resultTechnique as $j) {
 
                                     <tr>
 
-                                        <td><label for="detente">D&eacute;tente</label></td>
+                                        <td><label for="outils">Outils</label></td>
 
-                                        <td><input id="detente" type="checkbox" name="restriction[]" value="detente" />
+                                        <td><input id="outils" type="checkbox" name="restriction[]"
+
+                                                value="outils" />
+
+                                        </td>
+
+                                    </tr>
+
+                                    <tr>
+
+                                        <td><label for="autres">Autres</label></td>
+
+                                        <td><input id="autres" type="checkbox" name="restriction[]" value="autres" />
 
                                         </td>
 

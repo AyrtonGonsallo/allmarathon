@@ -25,10 +25,14 @@ include("../classes/evenement.php");
 $pays=new pays();
 $liste_pays=$pays->getAll()['donnees'];
 $event=new evenement();
+
 $pub=new pub();
-$pub728x90=$pub->getBanniere728_90("calendrier")['donnees'];
-$pub160x600=$pub->getBanniere160_600("resultats")['donnees'];
-$pub768x90=$pub->getBanniere768_90("accueil")['donnees'];
+$pub728x90=$pub->getBanniere728_90("statistiques")['donnees'];
+$pub300x60=$pub->getBanniere300_60("statistiques")['donnees'];
+$pub300x250=$pub->getBanniere300_250("statistiques")['donnees'];
+$pub160x600=$pub->getBanniere160_600("statistiques")['donnees'];
+$pub768x90=$pub->getBanniere768_90("statistiques")['donnees'];
+
 $years = $event->getAllYears()['donnees'];
 
 
@@ -64,16 +68,57 @@ $years = $event->getAllYears()['donnees'];
 <body>
     <?php include_once('nv_header-integrer.php'); ?>
     <div class="container page-content page-stats-generator">
+        <div class="row banniere1">
+            <div  class="col-sm-12"><?php
+                if($pub728x90 !="") {
+                echo '<a target="_blank" href="'.$pub728x90["url"].'" class="col-sm-12">';
+                    echo $pub728x90["code"] ? $pub728x90["code"] :  "<img src=".'../images/pubs/'.$pub728x90['image'] . " alt='' style=\"width: 100%;\" />";
+                    echo '</a>';
+                }else if($getMobileAds !="") {
+                echo $getMobileAds["code"] ? $getMobileAds["code"] :  "<a href=".$getMobileAds["url"]." target='_blank'><img src=".'../images/pubs/'.$getMobileAds['image'] . " alt='' style=\"width: 100%;\" /></a>";
+                }
+                ?>
+            </div>
+        </div>
         <section class="section-stats-generator">
-        <h1 class="sg-h1">Générateur de statistiques</h1>
-        <p>
-            Le générateur de statistiques de allmarathon vous permet d'afficher les meilleurs temps réalisés sur marathon selon la période, le pays et le genre. Par exemple vous pouvez obtenir les meilleurs chronos des coureuses françaises pour l'année 2024.
-            <br>
-            Les résultats fournis ne sont pas exhaustifs, ils se basent uniquement sur les résultats enregistrés dans la base de données de allmarathon.
-        </p>
+            <div class="gs-presentation">
+                <h1 class="sg-h1">Générateur de statistiques</h1>
+                <p>
+                    Le générateur de statistiques de allmarathon vous permet d'afficher les meilleurs temps réalisés sur marathon selon la période, le pays et le genre. Par exemple vous pouvez obtenir les meilleurs chronos des coureuses françaises pour l'année 2024.
+                    <br>
+                    Les résultats fournis ne sont pas exhaustifs, ils se basent uniquement sur les résultats enregistrés dans la base de données de allmarathon.
+                </p>
+            </div>
         <div class="sg-container">
+
             <div class="sg-col">
-                <b class="form-title">Période</b>
+                <b class="form-title disp-block">Pays</b>
+                <div>
+                    <select name="PaysID" id="select-pays">
+                        <option value="tous">Tous les pays</option>
+                        <?php 
+                            foreach ($liste_pays as $pays) {
+                                echo '<option value="'.$pays->getAbreviation().'">'.$pays->getNomPays().'</option>';
+                            } ?>
+                    </select>
+                </div>
+                <b class="form-title disp-block">Sexe</b>
+                <div>
+                    <input type="radio" id="homme" name="sexe" value="M" />
+                    <label for="homme" class="mr-10">Homme</label>
+               
+                    <input type="radio" id="femme" name="sexe" value="F" />
+                    <label for="femme">Femme</label>
+                </div>
+                <div class="mb-5">
+                    <b class="form-title">Nombre de résultats</b>
+                    <input type="number" id="nbr" name="nbr" min="10" max="100" value="10" />
+                </div>
+            </div>
+
+
+            <div class="sg-col">
+                <b class="form-title disp-block">Période</b>
                 <div>
                     <input type="radio" id="mois" name="periode" value="du mois en cours" checked />
                     <label for="mois">Mois en cours</label>
@@ -88,54 +133,32 @@ $years = $event->getAllYears()['donnees'];
                     <input type="radio" id="30dj" name="periode" value="des 30 derniers jours" />
                     <label for="30dj">30 derniers jours</label>
                 </div>
-                <div>
-                    <input type="radio" id="specific-year" name="periode" value="specific-year" />
-                    <label for="specific-year">Choisir une année</label>
-                    <select name="year" id="year-value">
-                        <?php
-                        foreach ($years as $year ) {
-                            echo '<option value="' . $year['annee'] . '"' . $selected . '>' . $year['annee'] . '</option>';
-                        }
-                        ?>
-                    </select>
-                </div>
-                <div>
-                    <input type="radio" id="range" name="periode" value="range" />
-                    <label for="range">Choisir une période</label>
-                    <br>
-                    <input id="range-value" type="text" name="daterange" value="01/01/2024 - 01/06/2024" />
-                </div>
+                <button id="get_res" class="button-outils bureau get-res">Générer</button>
             </div>
-            <div class="sg-col">
-                <b class="form-title">Pays</b>
-                <div>
-                    <select name="PaysID" id="select-pays">
-                        <option value="tous">Tous les pays</option>
-                        <?php 
-                            foreach ($liste_pays as $pays) {
-                                echo '<option value="'.$pays->getAbreviation().'">'.$pays->getNomPays().'</option>';
-                            } ?>
-                    </select>
-                </div>
-                <b class="form-title">Sexe</b>
-                <div>
-                    <input type="radio" id="homme" name="sexe" value="M" />
-                    <label for="homme">Homme</label>
+            
+            <div class="sg-col pt-d-50">
+                <div class="float-r w-fc">
+                    <div>
+                            <input type="radio" id="specific-year" name="periode" value="specific-year" />
+                            <label for="specific-year">Choisir une année</label>
+                            <select name="year" id="year-value">
+                                <?php
+                                foreach ($years as $year ) {
+                                    echo '<option value="' . $year['annee'] . '"' . $selected . '>' . $year['annee'] . '</option>';
+                                }
+                                ?>
+                            </select>
+                        </div>
+                        <div>
+                            <input type="radio" id="range" name="periode" value="range" />
+                            <label for="range">Choisir une période</label>
+                        
+                            <input id="range-value" type="text" name="daterange" value="01/01/2024 - 01/06/2024" />
+                        </div>
+                        <button id="get_res-2" class="button-outils mobile get-res">Générer</button>
+                    </div>
                 </div>
 
-                <div>
-                    <input type="radio" id="femme" name="sexe" value="F" />
-                    <label for="femme">Femme</label>
-                </div>
-               
-            </div>
-            <div class="sg-col">
-                <b class="form-title">Nombre de résultats</b>
-                <div class="mb-5">
-                    <input type="number" id="nbr" name="nbr" min="10" max="100" value="10" />
-                </div>
-                <button id="get_res" class="button-outils">Générer</button>
-            </div>
         </div>
     </section>
     <div id="res-box">
@@ -146,7 +169,7 @@ $years = $event->getAllYears()['donnees'];
 <script type="text/javascript">
     $(document).ready(function() {
         
-        $("#get_res").click(function() {
+        $(".get-res").click(function() {
             var dateRange = $('#range-value').val();
             
             // Séparer la chaîne en deux dates

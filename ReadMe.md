@@ -10,6 +10,6 @@ et ceux qui n'on pas de date mettre en attente de date en bleu
 
 
 
-
+accueil|actualite|resultats|calendrier|videos|athlètes|records|statistiques|outils|autres
 
 

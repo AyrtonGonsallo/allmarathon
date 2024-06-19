@@ -34,6 +34,15 @@ include("../classes/champion.php");
 include("../classes/pub.php");
 include("../classes/commentaire.php");
 
+$pub=new pub();
+
+$pub728x90=$pub->getBanniere728_90("accueil")['donnees'];
+$pub300x60=$pub->getBanniere300_60("accueil")['donnees'];
+$pub300x250=$pub->getBanniere300_250("accueil")['donnees'];
+$pub160x600=$pub->getBanniere160_600("accueil")['donnees'];
+$pub768x90=$pub->getBanniere768_90("accueil")['donnees'];
+$getMobileAds=$pub->getMobileAds("accueil")['donnees'];
+
 $commentaire=new commentaire();
 
 $news=new news();
@@ -156,7 +165,16 @@ function switch_cat($cat)
 
                     
     <div class="container page-content homepage">
-        <div class="row banniere1 bureau">
+        <div class="row banniere1">
+            <div  class="col-sm-12"><?php
+                if($pub728x90 !="") {
+                echo '<a target="_blank" href="'.$pub728x90["url"].'" class="col-sm-12">';
+                    echo $pub728x90["code"] ? $pub728x90["code"] :  "<img src=".'../images/pubs/'.$pub728x90['image'] . " alt='' style=\"width: 100%;\" />";
+                    echo '</a>';
+                }else if($getMobileAds !="") {
+                echo $getMobileAds["code"] ? $getMobileAds["code"] :  "<a href=".$getMobileAds["url"]." target='_blank'><img src=".'../images/pubs/'.$getMobileAds['image'] . " alt='' style=\"width: 100%;\" /></a>";
+                }
+                ?></div>
         </div>
         <div class="row">
 
@@ -701,7 +719,20 @@ function switch_cat($cat)
                     </ul>
 
                 </dd>
-
+                <p class="ban ban_160-600">
+                    <?php
+                    if($pub160x600 !="") {
+                        //var_dump($pub160x600["url"]); exit;
+                        if($pub160x600["code"]==""){
+                            echo "<a href=".'http://allmarathon.net/'.$pub160x600["url"]." target='_blank'><img src=".'../images/news/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" /></a>";
+                        }
+                        else{
+                            echo $pub160x600["code"];
+                        }
+                    /*echo $pub160x600["code"] ? $pub160x600["code"] :  "<img src=".'../images/pubs/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" />";*/
+                    }
+                    ?>
+                </p>
                 
 
             </aside>

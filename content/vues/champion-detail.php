@@ -96,13 +96,13 @@ if($champ->getSexe()=="F") {$Il="Elle";} else{ $sexe="Homme"; $Il="Il";}
 if($champ->getSexe()=="F") {$sponsorise="sponsorisée";} else{ $sexe="Homme"; $sponsorise="sponsorisé";}
 $pub=new pub();
 
-$pub728x90=$pub->getBanniere728_90("resultats")['donnees'];
-$pub300x60=$pub->getBanniere300_60("resultats")['donnees'];
-$pub300x250=$pub->getBanniere300_250("resultats")['donnees'];
-$pub160x600=$pub->getBanniere160_600("resultats")['donnees'];
-$pub768x90=$pub->getBanniere768_90("accueil")['donnees'];
+$pub728x90=$pub->getBanniere728_90("athlètes")['donnees'];
+$pub300x60=$pub->getBanniere300_60("athlètes")['donnees'];
+$pub300x250=$pub->getBanniere300_250("athlètes")['donnees'];
+$pub160x600=$pub->getBanniere160_600("athlètes")['donnees'];
+$pub768x90=$pub->getBanniere768_90("athlètes")['donnees'];
 
-$getMobileAds=$pub->getMobileAds("resultats")['donnees'];
+$getMobileAds=$pub->getMobileAds("athlètes")['donnees'];
 
 // if((!empty($_SESSION['user']))&& (($champ_pop->isUserFan($id,$user_id)['donnees']) || (empty($_SESSION['plus_fan'])))){
 if((!empty($_SESSION['user']))&& ($champ_pop->isUserFan($id,$user_id)['donnees'])){
@@ -654,18 +654,20 @@ $afficher_tab_medaille=false;
                 </div>
                 <!-- <p class="ban"><a href=""><?php //echo $pub300x60; ?></a></p>
             <p class="ban"><a href=""><?php //echo $pub300x250; ?></a></p> -->
-                <p class="ban ban_160-600"><?php
-if($pub160x600 !="") {
-    //var_dump($pub160x600["url"]); exit;
-    if($pub160x600["code"]==""){
-        echo "<a href=".'http://allmarathon.net/'.$pub160x600["url"]." target='_blank'><img src=".'../images/news/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" /></a>";
-    }
-    else{
-        echo $pub160x600["code"];
-    }
-/*echo $pub160x600["code"] ? $pub160x600["code"] :  "<img src=".'../images/pubs/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" />";*/
-}
-?></a></p>
+                <p class="ban ban_160-600">
+                    <?php
+                    if($pub160x600 !="") {
+                        //var_dump($pub160x600["url"]); exit;
+                        if($pub160x600["code"]==""){
+                            echo "<a href=".'http://allmarathon.net/'.$pub160x600["url"]." target='_blank'><img src=".'../images/news/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" /></a>";
+                        }
+                        else{
+                            echo $pub160x600["code"];
+                        }
+                    /*echo $pub160x600["code"] ? $pub160x600["code"] :  "<img src=".'../images/pubs/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" />";*/
+                    }
+                    ?>
+                </p>
                 <div class="marg_bot"></div>
                 
             </aside>

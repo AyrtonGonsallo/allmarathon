@@ -205,7 +205,7 @@ function slugify($text)
         </div> <!-- End left-side -->
 
         <aside class="col-sm-4 pd-top">
-        <span class="total-marathons bureau"><?php echo count($videos["donnees"])." vidéos";?></span>
+        <span class="total-marathons bureau mb-20"><?php echo count($videos["donnees"])." vidéos";?></span>
             <p class="ban"><?php
 if($pub300x60 !="") {
 echo $pub300x60["code"] ? $pub300x60["code"] :  "<a href=". $pub300x60['url'] ." target='_blank'><img src=".'../images/pubs/'.$pub300x60['image'] . " alt='' style=\"width: 100%;\" />";

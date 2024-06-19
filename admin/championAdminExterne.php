@@ -35,6 +35,9 @@ if( isset($_POST['extern_actif'])) {
          $req4->bindValue('actif',($_POST['extern_actif'])?0:1, PDO::PARAM_INT);
          $req4->bindValue('id',$_POST['extern_id'], PDO::PARAM_INT);
          $req4->execute();
+         $req412 = $bdd->prepare("UPDATE champions SET user_id=NULL WHERE user_id=:uid");
+         $req412->bindValue('uid',$_POST['user_id'], PDO::PARAM_INT);
+         $req412->execute();
          $req41 = $bdd->prepare("UPDATE champions SET user_id=:uid WHERE ID = :id");
          $req41->bindValue('uid',$_POST['user_id'], PDO::PARAM_INT);
          $req41->bindValue('id',$_POST['champion_id'], PDO::PARAM_INT);

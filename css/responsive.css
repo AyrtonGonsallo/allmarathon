@@ -1483,6 +1483,9 @@ p.title-act-marathon {
   margin-bottom: 0px;
   padding: 10px;
 }
+.pt-d-50{
+  padding-top: 0px;
+}
 .t-align--right {
   text-align: center !important;
 }
