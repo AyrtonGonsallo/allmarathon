@@ -1,4 +1,5 @@
 <?php
+
 function slugify($text)
 {
 // Swap out Non "Letters" with a -
@@ -11,12 +12,13 @@ $text = trim($text, '-');
    return $text;
 }
 
-function get_data_sitemap_coureur(){
+function get_data_sitemap_coureur($number){
     // Récupération des données dans la base de données (MySQL)
     require_once '../database/connexion.php';
     $result1= array();
     try{
-            $req = $bdd->prepare("SELECT * FROM champions");
+            $start=($number-1)*2000;
+            $req = $bdd->prepare("SELECT * FROM champions limit $start,2000");
             $req->execute();
             
             while ( $row  = $req->fetch(PDO::FETCH_ASSOC)) {  
@@ -34,7 +36,7 @@ function display_sitemap_coureur($result1){
     // Boucle qui liste les URL
     foreach ($result1 as $res) {
         try{
-            $loc        = 'https://dev.allmarathon.fr/athlete-'.$res['ID'].'-'.slugify($res['Nom']).'.html';
+            $loc        = 'https://allmarathon.fr/athlete-'.$res['ID'].'-'.slugify($res['Nom']).'.html';
         echo '
         <url>
             <loc>'.$loc.'</loc>
@@ -69,7 +71,7 @@ function display_sitemap_news($result1){
     // Boucle qui liste les URL
     foreach ($result1 as $res) {
         $url_text=slugify($res['titre']);
-        $loc        = 'https://dev.allmarathon.fr/actualite-marathon-'.$res['ID'].'-'.$url_text.'.html';
+        $loc        = 'https://allmarathon.fr/actualite-marathon-'.$res['ID'].'-'.$url_text.'.html';
         echo '
         <url>
             <loc>'.$loc.'</loc>
@@ -100,7 +102,7 @@ function display_sitemap_videos($result1){
     // Boucle qui liste les URL
     foreach ($result1 as $res) {
         
-        $loc        = 'https://dev.allmarathon.fr/video-de-marathon-'.$res['ID'].'.html';
+        $loc        = 'https://allmarathon.fr/video-de-marathon-'.$res['ID'].'.html';
         echo '
         <url>
             <loc>'.$loc.'</loc>
@@ -131,7 +133,7 @@ function display_sitemap_evenements($result1){
     // Boucle qui liste les URL
     foreach ($result1 as $res) {
         
-        $loc        = 'https://dev.allmarathon.fr/resultats-marathon-'.$res['ID'].'-'.slugify($res['Nom']).'.html';
+        $loc        = 'https://allmarathon.fr/resultats-marathon-'.$res['ID'].'-'.slugify($res['Nom']).'.html';
         echo '
         <url>
             <loc>'.$loc.'</loc>
@@ -167,12 +169,12 @@ function display_sitemap_evenements($result1){
 
 
 
-
+$number=$_GET["number"];
 
 // Affichage
      header('Content-Type: text/xml; charset=UTF-8');
     echo '<?xml version="1.0" encoding="UTF-8"?>'."\n";
     ?>
     <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    <?php display_sitemap_coureur(get_data_sitemap_coureur()); ?>
+    <?php display_sitemap_coureur(get_data_sitemap_coureur($number)); ?>
     </urlset>

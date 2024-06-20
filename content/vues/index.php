@@ -155,7 +155,18 @@ function switch_cat($cat)
         $article=$last_news['donnees'][0];
         $tab = explode('-',$article->getDate());
         $yearNews  = $tab[0]; ?>
-        <div class="news_alune mt-77">
+         <div class="row banniere1 mobile mt-100 mb-20">
+            <div  class="col-sm-12"><?php
+                if($pub728x90 !="") {
+                echo '<a target="_blank" href="'.$pub728x90["url"].'" class="col-sm-12">';
+                    echo $pub728x90["code"] ? $pub728x90["code"] :  "<img src=".'../images/pubs/'.$pub728x90['image'] . " alt='' style=\"width: 100%;\" />";
+                    echo '</a>';
+                }else if($getMobileAds !="") {
+                echo $getMobileAds["code"] ? $getMobileAds["code"] :  "<a href=".$getMobileAds["url"]." target='_blank'><img src=".'../images/pubs/'.$getMobileAds['image'] . " alt='' style=\"width: 100%;\" /></a>";
+                }
+                ?></div>
+        </div>
+        <div class="news_alune">
             <div class="image_news">
                 <?php $alt = ($article->getLegende())?'alt="'.$article->getLegende().'"':'alt="allmarathon news image"';
                     echo '<a href="/actualite-marathon-'.$article->getId().'-'.slugify($article->getTitre()).'.html">
@@ -165,7 +176,7 @@ function switch_cat($cat)
 
                     
     <div class="container page-content homepage">
-        <div class="row banniere1">
+        <div class="row banniere1 bureau">
             <div  class="col-sm-12"><?php
                 if($pub728x90 !="") {
                 echo '<a target="_blank" href="'.$pub728x90["url"].'" class="col-sm-12">';

@@ -68,7 +68,9 @@ $years = $event->getAllYears()['donnees'];
 <body>
     <?php include_once('nv_header-integrer.php'); ?>
     <div class="container page-content page-stats-generator">
-        <div class="row banniere1">
+       
+        <section class="section-stats-generator">
+        <div class="row banniere1 ">
             <div  class="col-sm-12"><?php
                 if($pub728x90 !="") {
                 echo '<a target="_blank" href="'.$pub728x90["url"].'" class="col-sm-12">';
@@ -80,7 +82,6 @@ $years = $event->getAllYears()['donnees'];
                 ?>
             </div>
         </div>
-        <section class="section-stats-generator">
             <div class="gs-presentation">
                 <h1 class="sg-h1">Générateur de statistiques</h1>
                 <p>
