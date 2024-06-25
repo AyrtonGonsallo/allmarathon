@@ -68,7 +68,7 @@ function slugify($text)
     $text = strtolower($text);
     return $text;
 }
-
+setlocale(LC_TIME, "fr_FR","French");
 
 ?>
 
