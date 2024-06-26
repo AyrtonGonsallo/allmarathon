@@ -159,6 +159,56 @@ function array_msort($array, $cols)
 				return $res;
 	}
 
+	function display_results_8($results){
+		$pays=new pays();
+		$ev_cat_event=new evCategorieEvenement();
+				$i=0;                             
+				setlocale(LC_TIME, "fr_FR","French");
+				$res="";
+				foreach ($results as $resultat) {
+		
+					$pays_flag=$pays->getFlagByAbreviation($resultat['PaysID'])['donnees']['Flag'];
+				   $nom_res= $resultat['nom'];
+		
+					$res.= '<div class="col-sm-4 marathon-grid">
+						';
+							 
+							$img_src='/images/marathons/thumb_'.$resultat['image'];
+							$full_image_path="http://" . $_SERVER['HTTP_HOST'] .$img_src;
+							//$res.= $full_image_path;
+							
+							if($resultat['is_top_prochain_evenement']){
+								$top='<span class="mention-top"><span class="material-symbols-outlined">kid_star</span>Top</span>';
+							}else{
+								$top="";
+							}
+							$res.='<a class="page-marathon-link" href="/marathons-'.$resultat['id'].'-'.slugify($nom_res).'.html">';
+							if ($img_src)
+								{
+									$res.= '<div class="marathon-liste-image" style="background-image:url('.$img_src.')">'.$top.'</div>';
+								}else{
+									$res.= '<div class="marathon-liste-image" style="background-color:#000"></div>';
+								}
+					$res.= '</a>';
+							 if($resultat['last_linked_events_cat_id']){
+								$res.= '<a class="page-marathon-link" href="/marathons-'.$resultat['id'].'-'.slugify($nom_res).'.html">
+                                        <h4 class="page-marathon-title">'.$ev_cat_event->getEventCatEventByID($resultat['last_linked_events_cat_id'])['donnees']->getIntitule().' '.$resultat['prefixe'].' '.$nom_res.'<img class="marathon-title-flag" style="float:right" src="../../images/flags/'.$pays_flag.'" alt=""/></h4></a>';
+                                        
+								//$res.= '<div><b>'.$ev_cat_event->getEventCatEventByID($resultat['last_linked_events_cat_id'])['donnees']->getIntitule().'</b></div>';
+		
+							 }else{
+								$res.= '<h4 class="page-marathon-title">Marathon'.' '.$resultat['prefixe'].' '.$nom_res.'<img class="marathon-title-flag" style="float:right" src="../../images/flags/'.$pays_flag.'" alt=""/></h4></a>';
+		
+							 }
+							 $res.= '<div class="date-marathon">'.$resultat['date_presentation_string'].'</div>';
+		
+						
+					$res.= '</div>';
+					$i++;
+				}
+				return $res;
+	}
+
 
 	function display_results_3($results){
 		$pays=new pays();
@@ -423,15 +473,19 @@ function array_msort($array, $cols)
 	}
 
 
-	function getMarathonsbykeyword($pays_id,$debut,$fin,$offset,$par_pages,$page,$search)
+	function getMarathonsbykeyword($offset,$page,$search)
 	{
 		try {
-				  include("../database/connexion.php");
-				  
-					$req = $bdd->prepare("SELECT * FROM marathons where PaysID like :pays_id and nom like :search or lieu like :search ORDER BY nom asc");
+				  	include("../database/connexion.php");
+				  	$deb=$offset*$page;
+					$fin=$offset;
+			
+			
+					$req = $bdd->prepare("SELECT * FROM marathons where PaysID like :pays_id and nom like :search or lieu like :search ORDER BY nom asc limit :deb,:fin");
 					$req->bindValue('pays_id', '%'.$pays_id.'%', PDO::PARAM_STR);
 					$req->bindValue('search', '%'.$search.'%', PDO::PARAM_STR);
-				
+					$req->bindValue('deb', $deb, PDO::PARAM_INT); 
+					$req->bindValue('fin', $fin, PDO::PARAM_INT); 
 					$req->execute();
 					$results= array();
 					$first_events= array();
@@ -488,9 +542,9 @@ function array_msort($array, $cols)
 	             }
 				 $bdd=null;
 				// $results_sorted_by_next_event=array_msort($results, array('date_prochain_evenement'=>SORT_ASC,'nom'=>SORT_ASC));
-				 $results_sorted_by_next_event=array_slice(array_msort($results, array('date_prochain_evenement'=>SORT_ASC,'nom'=>SORT_ASC)),$offset,$par_pages);
+				// $results_sorted_by_next_event=array_slice(array_msort($results, array('date_prochain_evenement'=>SORT_ASC,'nom'=>SORT_ASC)),$offset,$par_pages);
 
-				 echo display_results_2($results_sorted_by_next_event);
+				 echo display_results_2($results);
 		}
 	       
 	        catch(Exception $e)
@@ -502,38 +556,19 @@ function array_msort($array, $cols)
 
 	
 
-	function getMarathonsbyNextEventDate($offset,$par_pages){
+	function getMarathonsbyNextEventDate($offset,$page){
 		try{
 			include("../database/connexion.php");
-
-			$req = $bdd->prepare("SELECT * FROM marathons");
+			$deb=$offset*$page;
+			$fin=$offset;
+			$req = $bdd->prepare("SELECT * FROM marathons m  order by ordre asc limit :deb,:fin");
+			$req->bindValue('deb', $deb, PDO::PARAM_INT); 
+			$req->bindValue('fin', $fin, PDO::PARAM_INT); 
 			$req->execute();
 			$results= array();
-			//$first_events= array();
-			$last_linked_events= array();
-			while ( $row  = $req->fetch(PDO::FETCH_ASSOC)) {  
-				$req2 = $bdd->prepare("SELECT * FROM evenements where marathon_id=:mar_id and Valider=1  AND (DateDebut > :today) ORDER BY DateDebut limit 1");
-				$req2->bindValue('mar_id', $row["id"], PDO::PARAM_INT);
+			
+			while ( $row  = $req->fetch(PDO::FETCH_ASSOC)) {  //ceux qui sont a venir
 				
-				$req2->bindValue('today', date('Y-m-d'), PDO::PARAM_STR); 
-				$req2->execute();
-				if($req2->rowCount()>0){
-					while ( $row2  = $req2->fetch(PDO::FETCH_ASSOC)) {
-						//var_dump($row2);exit();  
-						//array_push($first_events, $row2);
-						$row['date_prochain_evenement']=$row2['DateDebut'];
-						$row['date_prochain_evenement_nom']=$row2['Nom'];
-						$row['date_prochain_evenement_id']=$row2['ID'];
-						$row['last_linked_events_cat_id']=$row2['CategorieID'];
-						$row['is_top_prochain_evenement']=$row2['a_l_affiche'];
-					}
-				}else {
-					//array_push($first_events, NULL);
-					$row['date_prochain_evenement']='NULL';
-					$row['last_linked_events_cat_id']=NULL;
-		
-				}
-		
 				
 				
 			  array_push($results, $row);
@@ -543,8 +578,8 @@ function array_msort($array, $cols)
 			  die('Erreur : ' . $e->getMessage());
 		  }
 
-		  $results_sorted_by_next_event=array_slice(array_msort($results, array('date_prochain_evenement'=>SORT_ASC,'nom'=>SORT_ASC)),$offset,$par_pages);
-		  echo display_results_2($results_sorted_by_next_event);
+		  //$results_sorted_by_next_event=array_slice(array_msort($results, array('date_prochain_evenement'=>SORT_ASC,'nom'=>SORT_ASC)),$offset,$par_pages);
+		  echo display_results_8($results);
 	}
 
 
@@ -615,7 +650,9 @@ function array_msort($array, $cols)
 		try{
 			include("../database/connexion.php");
 
-			$req = $bdd->prepare("SELECT * FROM marathons");
+			$req = $bdd->prepare("SELECT * FROM marathons where date > :today and date like :this_month order by ordre");
+			$req->bindValue('today', date('Y-m-d'), PDO::PARAM_STR); 
+			$req->bindValue('this_month', "%-".date('m')."-%", PDO::PARAM_STR); 
 			$req->execute();
 			$results= array();
 			//$first_events= array();
@@ -653,8 +690,7 @@ function array_msort($array, $cols)
 			  die('Erreur : ' . $e->getMessage());
 		  }
 
-		  $results_sorted_by_next_event=array_slice(array_msort($results, array('affiche'=>SORT_DESC,'date_prochain_evenement'=>SORT_ASC,'nom'=>SORT_ASC)),0,8);
-		  return display_results_4($results_sorted_by_next_event);
+		  return display_results_4($results);
 	}
 
 
@@ -739,13 +775,14 @@ function array_msort($array, $cols)
 			$search=$_POST['search'];
 			$par_pages=500;//$_POST['par_pages'];
 			$page=$_POST['page'];
-			getMarathonsbykeyword($pays_id,$debut,$fin,$offset,$par_pages,$page,$search);
+			getMarathonsbykeyword($offset,$page,$search);
 			//echo '<div>'.$pays_id.' '.$offset.' '.$par_pages.' '.$page.'</div>';
 		}
 		else if($function=="getMarathonsbyNextEventDate"){
 			$par_pages=500;//$_POST['par_pages'];
 			$offset=$_POST['offset'];
-			getMarathonsbyNextEventDate($offset,$par_pages);
+			$page=$_POST['page'];
+			getMarathonsbyNextEventDate($offset,$page);
 			//echo '<div>'.$pays_id.' '.$offset.' '.$par_pages.' '.$page.'</div>';
 		}
 		

@@ -114,60 +114,16 @@ catch(Exception $e){
 try{
     include("../database/connexion.php");
 
-    $req = $bdd->prepare("SELECT * FROM marathons");
+    $req = $bdd->prepare("SELECT * FROM marathons  order by ordre asc limit 24");
     $req->execute();
-    $results= array();
-    //$first_events= array();
-    $last_linked_events= array();
-    while ( $row  = $req->fetch(PDO::FETCH_ASSOC)) {  //ceux qui sont a venir
-        $req2 = $bdd->prepare("SELECT * FROM evenements where marathon_id=:mar_id and Valider=1  AND (DateDebut > :today) ORDER BY DateDebut limit 1");
-        $req2->bindValue('mar_id', $row["id"], PDO::PARAM_INT);
-        
-        $req2->bindValue('today', date('Y-m-d'), PDO::PARAM_STR); 
-        $req2->execute();
-        if($req2->rowCount()>0){
-            while ( $row2  = $req2->fetch(PDO::FETCH_ASSOC)) {
-                //var_dump($row2);exit();  
-                //array_push($first_events, $row2);
-                $row['date_prochain_evenement']=$row2['DateDebut'];
-                $row['is_top_prochain_evenement']=$row2['a_l_affiche'];
-                $row['type_evenement']="prochain";
-                $row['date_prochain_evenement_nom']=$row2['Nom'];
-                $row['date_prochain_evenement_id']=$row2['ID'];
-                $row['last_linked_events_cat_id']=$row2['CategorieID'];
-
-            }
-        }else {//ceux qui ont une date passée
-            $req24 = $bdd->prepare("SELECT * FROM evenements where marathon_id=:mar_id and Valider=1  ORDER BY DateDebut limit 1");
-            $req24->bindValue('mar_id', $row["id"], PDO::PARAM_INT);
-            
-            $req24->execute();
-            if($req24->rowCount()>0){//ceux qui ont une date passée
-                while ( $row24  = $req24->fetch(PDO::FETCH_ASSOC)) {
-                    //var_dump($row2);exit();  
-                    //array_push($first_events, $row2);
-                    $row['date_prochain_evenement']='NULL';
-                    $row['last_linked_events_cat_id']=$row24['CategorieID'];
-                    $row['type_evenement']="dernier";
-                    $row['date_dernier_evenement']=$row24['DateDebut'];
-                    $row['date_dernier_evenement_nom']=$row24['Nom'];
-                    $row['date_dernier_evenement_id']=$row24['ID'];
+    $results_sorted_by_next_event= array();
     
-                }
-            }else{//ceux qui n'ont aucune date
-                $row['type_evenement']="aucun";
-                $row['date_prochain_evenement']='NULL';
-                $row['last_linked_events_cat_id']=7;
-            }
-            //array_push($first_events, NULL);
-            //$row['date_prochain_evenement']='NULL';
-            //$row['last_linked_events_cat_id']=NULL;
-
-        }
+    while ( $row  = $req->fetch(PDO::FETCH_ASSOC)) {  //ceux qui sont a venir
+        
 
         
         
-      array_push($results, $row);
+      array_push( $results_sorted_by_next_event, $row);
 
       
   }}
@@ -175,7 +131,6 @@ try{
   {
       die('Erreur : ' . $e->getMessage());
   }
-  $results_sorted_by_next_event=array_slice(array_msort($results, array('type_evenement'=>SORT_DESC,'date_prochain_evenement'=>SORT_ASC,'nom'=>SORT_ASC)),0,500);
   $req = $bdd->prepare("SELECT count(*) AS nbr FROM marathons");
   $req->execute();
   $nombre_de_marathons= $req->fetch(PDO::FETCH_ASSOC);
@@ -384,21 +339,8 @@ try{
                                         $res.= '<div><b>Marathon</b></div>';
                 
                                      }
-                                    if($resultat["type_evenement"]=='prochain'){
-                                        $nom_premier_even= $resultat["date_prochain_evenement_nom"];
-                                        $id= $resultat["date_prochain_evenement_id"];
-                                        $date_premier_even=strftime("%A %d %B %Y",strtotime($resultat["date_prochain_evenement"]));
-                                                
-                                        $res.= '<div class="date-marathon">'.utf8_encode($date_premier_even).'</div>';
-                                    }else if($resultat["type_evenement"]=='dernier'){
-                                        $nom_premier_even= $resultat["date_prochain_evenement_nom"];
-                                        $id= $resultat["date_prochain_evenement_id"];
-                                        $date_premier_even=strftime("%B",strtotime($resultat["date_dernier_evenement"]));
-                                                
-                                        $res.= '<div class="date-marathon">'.utf8_encode($date_premier_even).' - <span class="marathon-to-come">En attente de date</span></div>';
-                                    }else if($resultat["type_evenement"]=='aucun'){
-                                        $res.= '<div> Prochaine date À venir</div>';
-                                    }
+                                     $res.= '<div class="date-marathon">'.$resultat['date_presentation_string'].'</div>';
+                                   
                 
                                 
                             $res.= '</div>';
@@ -409,11 +351,15 @@ try{
                 </div>
                     </ul>
 
-
+                    
 
                     <div class="clearfix"></div>
-
-
+                    <div class="pager">
+                    <ul>
+                        <li><button id="back-link" >page précédente</button></li>
+                        <li><button id="next-link" >page suivante</button></li>
+                    </ul>
+                    </div>
 
 
 
@@ -498,42 +444,7 @@ try{
     
 
     $(document).ready(function() {
-        if(window.outerWidth < 740) {
-            $(".lazyblock div").slice(36).hide();
-
-            var mincount = 9;
-            var maxcount = 27;
-          
-            $(window).scroll(function () {
-                //console.log("gauche: ",$(window).scrollTop() + $(window).height())
-                //console.log("droite: ",$(document).height() - 50)
-
-                if ($(window).scrollTop() + $(window).height() >= $(document).height() - 868) {
-                    $(".lazyblock div").slice(mincount, maxcount).slideDown(200);
-
-                    mincount = mincount + 9;
-                    maxcount = maxcount + 9
-
-                }
-            });
-        }else{
-            $(".lazyblock div").slice(36).hide();
-
-            var mincount = 9;
-            var maxcount = 27;
-
-
-            $(window).scroll(function () {
-                if ($(window).scrollTop() + $(window).height() >= $(document).height() - 500) {
-                    $(".lazyblock div").slice(mincount, maxcount).slideDown(200);
-
-                    mincount = mincount + 9;
-                    maxcount = maxcount + 9;
-
-                }
-            });
-        }
-                
+        
         
         
     var type_req_courrante="getMarathonsbyNextEventDate";
@@ -544,14 +455,14 @@ try{
     var next=page+1;
     var previous=page-1;
     if(page==(nb_pages-1)){
-        style_suivant={'pointer-events': 'none' ,"background-color": "#cccccc22",  'cursor' : 'default'}
+        style_suivant={'pointer-events': 'none' ,"background-color": "#cccccc22",  'cursor' : 'default',"color": "#000"}
     } else{
-        style_suivant={'pointer-events': 'all' ,"background-color": "#fbff0b",  'cursor' : 'pointer'}
+        style_suivant={'pointer-events': 'all' ,"background-color": "#fbff0b",  'cursor' : 'pointer',"color": "#2caffe"}
     }
     if(page==0){
-        style_precedent={'pointer-events': 'none' ,"background-color": "#cccccc22", 'cursor' : 'default'}
+        style_precedent={'pointer-events': 'none' ,"background-color": "#cccccc22", 'cursor' : 'default',"color": "#000"}
     } else{
-        style_precedent={'pointer-events': 'all' ,"background-color": "#fbff0b",  'cursor' : 'pointer'}
+        style_precedent={'pointer-events': 'all' ,"background-color": "#fbff0b",  'cursor' : 'pointer',"color": "#2caffe"}
         
     }
     $("#current").text(next);
@@ -841,25 +752,26 @@ try{
             page+=1; 
             next=page+1;
             if(page==(nb_pages-1)){
-                style_suivant={'pointer-events': 'none' ,"background-color": "#cccccc22",  'cursor' : 'default'}
+                style_suivant={'pointer-events': 'none' ,"background-color": "#cccccc22",  'cursor' : 'default',"color": "#000"}
             } else{
-                style_suivant={'pointer-events': 'all' ,"background-color": "#fbff0b",  'cursor' : 'pointer'}
+                style_suivant={'pointer-events': 'all' ,"background-color": "#fbff0b",  'cursor' : 'pointer',"color": "#2caffe"}
             }
             if(page==0){
-                style_precedent={'pointer-events': 'none' ,"background-color": "#cccccc22", 'cursor' : 'default'}
+                style_precedent={'pointer-events': 'none' ,"background-color": "#cccccc22", 'cursor' : 'default',"color": "#000"}
             } else{
-               style_precedent={'pointer-events': 'all' ,"background-color": "#fbff0b",  'cursor' : 'pointer'}
+               style_precedent={'pointer-events': 'all' ,"background-color": "#fbff0b",  'cursor' : 'pointer',"color": "#2caffe"}
                
             }
             $(this).css(style_suivant)
             $("#back-link").css(style_precedent)
             $("#current").text(next);
             $("#total").text(nb_pages);
+            type_req_courrante="getMarathonsbyNextEventDate";
             console.log("page suivante de ",type_req_courrante)
-            console.log("date_deb",$("#date_debut").val())
-            console.log("date_fin",$("#date_fin").val())
+            console.log("deb",page*par_pages)
+            console.log("fin",(page+1)*par_pages)
             console.log("ordre",ordre_courrant)
-            console.log("offset",page*par_pages)
+            console.log("offset",par_pages)
             console.log("page",page)
             console.log("nbr page",nb_pages)
             console.log("pays",$("#selected_pays").val())
@@ -869,16 +781,16 @@ try{
                data: {
                    function:type_req_courrante,
                    order:ordre_courrant,
-                   offset:page*par_pages,
+                   offset:par_pages,
                    par_pages:par_pages,
                    page:page,
-                   debut:$("#date_debut").val(),
-                   fin:$("#date_fin").val(),
+                   debut:page*par_pages,
+                   fin:(page+1)*par_pages,
                    pays_id:$("#selected_pays").val(),
                },
                success: function(html) {
                    $("#liste-marathons").html(html).show();
-                   //console.log("success",html)
+                  // console.log("success",html)
                },
                error: function (jqXHR, exception) {
                     var msg = '';
@@ -902,43 +814,46 @@ try{
            });}
            )
            $("#back-link").click(function() {
+
             page-=1;
             next=page+1;
             if(page<(nb_pages-1)){
-                style_suivant={'pointer-events': 'all' ,"background-color": "#fbff0b", 'cursor' : 'pointer'}
+                style_suivant={'pointer-events': 'all' ,"background-color": "#fbff0b", 'cursor' : 'pointer',"color": "#2caffe"}
             } else{
-                style_suivant={'pointer-events': 'none' ,"background-color": "#cccccc22", 'cursor' : 'default'}
+                style_suivant={'pointer-events': 'none' ,"background-color": "#cccccc22", 'cursor' : 'default',"color": "#000"}
 
             }
             if(page==0){
-                style_precedent={'pointer-events': 'none' ,"background-color": "#cccccc22", 'cursor' : 'default'}
+                style_precedent={'pointer-events': 'none' ,"background-color": "#cccccc22", 'cursor' : 'default',"color": "#000"}
             } else{
-               style_precedent={'pointer-events': 'all' ,"background-color": "#fbff0b",  'cursor' : 'pointer'}
+               style_precedent={'pointer-events': 'all' ,"background-color": "#fbff0b",  'cursor' : 'pointer',"color": "#2caffe"}
                
             }
             $("#next-link").css(style_suivant)
             $(this).css(style_precedent)
             $("#current").text(next);
             $("#total").text(nb_pages);
-            console.log("page précedente de ",type_req_courrante)
-            console.log("date_deb",$("#date_debut").val())
-            console.log("date_fin",$("#date_fin").val())
+            type_req_courrante="getMarathonsbyNextEventDate";
+            console.log("page suivante de ",type_req_courrante)
+            console.log("deb",page*par_pages)
+            console.log("fin",(page+1)*par_pages)
             console.log("ordre",ordre_courrant)
-            console.log("offset",page*par_pages)
-            console.log("nbr page",nb_pages)
+            console.log("offset",par_pages)
             console.log("page",page)
+            console.log("nbr page",nb_pages)
             console.log("pays",$("#selected_pays").val())
-           $.ajax({
+            if(page>=0){
+                $.ajax({
                type: "POST",
                url: "content/classes/marathon.php",
                data: {
-                   function:type_req_courrante,
+                function:type_req_courrante,
                    order:ordre_courrant,
-                   offset:page*par_pages,
+                   offset:par_pages,
                    par_pages:par_pages,
                    page:page,
-                   debut:$("#date_debut").val(),
-                   fin:$("#date_fin").val(),
+                   debut:page*par_pages,
+                   fin:(page+1)*par_pages,
                    pays_id:$("#selected_pays").val(),
                },
                success: function(html) {
@@ -964,17 +879,39 @@ try{
                     }
                     console.log("error",msg)
                 },
-           });}
+           });
+            }
+           }
            )
 
            
            $("#goToSearch_Result").click(function() {
+            
+            if(type_req_courrante!="search"){
+                page=0
+            }
+            type_req_courrante="search"
+
+            if(page<(nb_pages-1)){
+                style_suivant={'pointer-events': 'all' ,"background-color": "#fbff0b", 'cursor' : 'pointer',"color": "#2caffe"}
+            } else{
+                style_suivant={'pointer-events': 'none' ,"background-color": "#cccccc22", 'cursor' : 'default',"color": "#000"}
+
+            }
+            if(page==0){
+                style_precedent={'pointer-events': 'none' ,"background-color": "#cccccc22", 'cursor' : 'default',"color": "#000"}
+            } else{
+               style_precedent={'pointer-events': 'all' ,"background-color": "#fbff0b",  'cursor' : 'pointer',"color": "#2caffe"}
+               
+            }
+            $("#next-link").css(style_suivant)
+            $("#back-link").css(style_precedent)
                 search=$("#search_val_res").val()
                 console.log("recherche de ",search)
                     console.log("date_deb",$("#date_debut").val())
                     console.log("date_fin",$("#date_fin").val())
                     console.log("ordre",ordre_courrant)
-                    console.log("offset",page*par_pages)
+                    console.log("offset",par_pages)
                     console.log("page",page)
                     console.log("nbr page",nb_pages)
                     console.log("pays",$("#selected_pays").val())
@@ -982,14 +919,14 @@ try{
                     type: "POST",
                     url: "content/classes/marathon.php",
                     data: {
-                        function:"search",
+                        function:type_req_courrante,
                         order:ordre_courrant,
                         search:search,
-                        offset:page*par_pages,
+                        offset:par_pages,
                         par_pages:par_pages,
                         page:page,
-                        debut:$("#date_debut").val(),
-                        fin:$("#date_fin").val(),
+                        debut:page*par_pages,
+                        fin:(page+1)*par_pages,
                         pays_id:$("#selected_pays").val(),
                     },
                     success: function(html) {
@@ -1023,33 +960,51 @@ try{
                 var keycode = (event.keyCode ? event.keyCode : event.which);
                 if (keycode == 13) {
                     event.preventDefault();
-                    search=$("#search_val_res").val()
-                    console.log("recherche de ",search)
-                        console.log("date_deb",$("#date_debut").val())
-                        console.log("date_fin",$("#date_fin").val())
-                        console.log("ordre",ordre_courrant)
-                        console.log("offset",page*par_pages)
-                        console.log("page",page)
-                        console.log("nbr page",nb_pages)
-                        console.log("pays",$("#selected_pays").val())
-                    $.ajax({
-                        type: "POST",
-                        url: "content/classes/marathon.php",
-                        data: {
-                            function:"search",
-                            order:ordre_courrant,
-                            search:search,
-                            offset:page*par_pages,
-                            par_pages:par_pages,
-                            page:page,
-                            debut:$("#date_debut").val(),
-                            fin:$("#date_fin").val(),
-                            pays_id:$("#selected_pays").val(),
-                        },
-                        success: function(html) {
-                            $("#liste-marathons").html(html).show();
-                            //console.log("success",html)
-                        },
+                    if(type_req_courrante!="search"){
+                        page=0
+                    }
+                    if(page<(nb_pages-1)){
+                        style_suivant={'pointer-events': 'all' ,"background-color": "#fbff0b", 'cursor' : 'pointer',"color": "#2caffe"}
+                    } else{
+                        style_suivant={'pointer-events': 'none' ,"background-color": "#cccccc22", 'cursor' : 'default',"color": "#000"}
+
+                    }
+                    if(page==0){
+                        style_precedent={'pointer-events': 'none' ,"background-color": "#cccccc22", 'cursor' : 'default',"color": "#000"}
+                    } else{
+                    style_precedent={'pointer-events': 'all' ,"background-color": "#fbff0b",  'cursor' : 'pointer',"color": "#2caffe"}
+                    
+                    }
+                    $("#next-link").css(style_suivant)
+                    $("#back-link").css(style_precedent)
+                    type_req_courrante="search"
+                        search=$("#search_val_res").val()
+                        console.log("recherche de ",search)
+                            console.log("date_deb",$("#date_debut").val())
+                            console.log("date_fin",$("#date_fin").val())
+                            console.log("ordre",ordre_courrant)
+                            console.log("offset",par_pages)
+                            console.log("page",page)
+                            console.log("nbr page",nb_pages)
+                            console.log("pays",$("#selected_pays").val())
+                        $.ajax({
+                    type: "POST",
+                    url: "content/classes/marathon.php",
+                    data: {
+                        function:type_req_courrante,
+                        order:ordre_courrant,
+                        search:search,
+                        offset:par_pages,
+                        par_pages:par_pages,
+                        page:page,
+                        debut:page*par_pages,
+                        fin:(page+1)*par_pages,
+                        pays_id:$("#selected_pays").val(),
+                    },
+                    success: function(html) {
+                        $("#liste-marathons").html(html).show();
+                        //console.log("success",html)
+                    },
                         error: function (jqXHR, exception) {
                                 var msg = '';
                                 if (jqXHR.status === 0) {

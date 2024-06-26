@@ -217,7 +217,7 @@ class video{
 				 else{
 				 	$req = $bdd->prepare("SELECT * FROM videos ORDER BY date DESC LIMIT :offset,12");
 				 }
-				 $req->bindValue('offset', $page*7, PDO::PARAM_INT);
+				 $req->bindValue('offset', $page*12, PDO::PARAM_INT);
 	             
 	             
 	             $req->execute();

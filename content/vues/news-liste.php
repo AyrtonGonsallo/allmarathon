@@ -108,7 +108,7 @@ if($key_word!=""){
 
 else{
 
-    $articles=$news->getAllArticlesDesc();
+    $articles=$news->getArticlesPerPage($page,"");
 
 }
 
@@ -506,6 +506,12 @@ include_once('nv_header-integrer.php'); ?>
                 }
 
             ?>
+            <div class="pager">
+                <ul>
+                    <li><a id="back-link" class="<?php $class_none=($page>0)?"":"none"; echo $class_none;?>" href="?page=<?php $backpage=($page>0)?($page-1):0; echo $backpage;?>">page précédente</a></li>
+                    <li><a id="next-link" href="?page=<?php $nextpage=$page+1; echo $nextpage;?>">page suivante</a></li>
+                </ul>
+            </div>
 
             </section>
 
@@ -1129,54 +1135,6 @@ if($pub160x600 !="") {
 
     </script>
 
-<script type="text/javascript">
-
-    
-
-    $(document).ready(function() {
-
-        if(window.outerWidth < 740) {
-            $(".lazyblock-mobile div").slice(12).hide();
-            $(".lazyblock-mobile article").slice(6).hide();
-
-                var mincount = 2;
-                var maxcount = 12;
-                
-
-                $(window).scroll(function () {
-                    //console.log("left: ",$(window).scrollTop() + $(window).height())
-                    //console.log("right: ",$(document).height() - 20)
-                    if ($(window).scrollTop() + $(window).height() >= 7000) {
-                        $(".lazyblock-mobile div").slice(mincount, maxcount).slideDown(100);
-                        $(".lazyblock-mobile article").slice(mincount, maxcount).slideDown(100);
-                        mincount = mincount + 2;
-                        maxcount = maxcount + 2
-
-                    }
-                });
-        }else{
-            $(".lazyblock div").slice(12).hide();
-            $(".lazyblock article").slice(6).hide();
-
-                var mincount = 2;
-                var maxcount = 12;
-                
-
-                $(window).scroll(function () {
-                    //console.log("left: ",$(window).scrollTop() + $(window).height())
-                    //console.log("right: ",$(document).height() - 20)
-                    if ($(window).scrollTop() + $(window).height() >= $(document).height() - 500) {
-                        $(".lazyblock div").slice(mincount, maxcount).slideDown(100);
-                        $(".lazyblock article").slice(mincount, maxcount).slideDown(100);
-                        mincount = mincount + 2;
-                        maxcount = maxcount + 2
-
-                    }
-                });
-        }
-       
-        })
-    </script>
     <script type='text/javascript'>
 
     function sortArticles() {

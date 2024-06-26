@@ -165,12 +165,12 @@ $tab = explode('-',$news_details->getDate());
 
     <?php include_once('nv_header-integrer.php'); ?>
 
-    <div class="mobile mt-77">
+    <div class="mobile mt-77 ">
         <?php 
             $source=($news_details->getSource()) ? "source : ".$news_details->getSource() : "";
-            echo'<h1 class="news-detail">'.$news_details->getTitre().'</h1>'; ?>
+            echo'<h1 class="news-detail ">'.$news_details->getTitre().'</h1>'; ?>
 
-        <h2 class="mini_h2"><?php echo '<span class="news-details-subtitle bureau" >'."Par : ".$news_details->getAuteur()." - "; ?>
+        <h2 class="mini_h2 "><?php echo '<span class="news-details-subtitle bureau" >'."Par : ".$news_details->getAuteur()." - "; ?>
             <?php echo changeDate($news_details->getDate()).' - '.$source.'</span>' ; ?>
             <?php echo '<span class="news-details-subtitle mobile" >'."Par : ".$news_details->getAuteur()." - "; ?>
             <?php echo changeDate($news_details->getDate()).' <br>'.$source.'</span>' ; ?>
@@ -216,7 +216,7 @@ $tab = explode('-',$news_details->getDate());
         $alt = ($news_details->getLegende())?'alt="'.$news_details->getLegende().'"':'alt="allmarathon news image"';
         if ($img_src)
             {
-                echo '<img class="sp-image" '.$alt.' width="400px" height="auto" src="'.$img_src_mobile.'"/>';
+                echo '<img class="sp-image " '.$alt.' width="400px" height="auto" src="'.$img_src_mobile.'"/>';
             }
         }
         ?>
@@ -291,15 +291,15 @@ $tab = explode('-',$news_details->getDate());
                         $alt = ($news_details->getLegende())?'alt="'.$news_details->getLegende().'"':'alt="allmarathon news image"';
                         if ($img_src)
                             {
-                                echo '<img class="sp-image bureau" '.$alt.' style="max-width: 100%;"src="'.$img_src.'"/>';
+                                echo '<img class="sp-image bureau " '.$alt.' style="max-width: 100%;"src="'.$img_src.'"/>';
                             }
                         }
                 ?>
 
                         <br>
-                        <p class="title-act-marathon">
+                        <p class="title-act-marathon ">
                             <?php echo $news_details->getChapo(); ?></p>
-                        <div class="text-act-marathon">
+                        <div class="text-act-marathon ">
                             <?php echo $news_details->getTexte(); ?>
                     </div>
                         <br />
@@ -314,7 +314,7 @@ $tab = explode('-',$news_details->getDate());
                             echo "<a href='video-de-marathon-".$vid->getId().".html'  class='icon-link mr-5  mx-auto-mobile'><span class='material-symbols-outlined'>link</span> Vidéo : ". $vid->getTitre()."</a>";
                         }?>
                         <br />
-                        <div class="row" style="margin: 10px 0;">
+                        <div class="row " style="margin: 10px 0;">
 
                         <?php include_once("shareButtons.php"); ?>
                         </div>
@@ -431,8 +431,14 @@ $tab = explode('-',$news_details->getDate());
     <script data-type="lazy" ddata-src="../../js/jquery.ui.totop.min.js"></script>
     <script data-type="lazy" ddata-src="../../js/herbyCookie.min.js"></script>
     <script data-type="lazy" ddata-src="../../js/main.js"></script>
-
-   
+    <style>
+        .text-act-marathon,. {
+            display: none; /* Cacher initialement */
+            opacity: 0;
+            transition: opacity 1s ease-in-out; /* Transition en douceur */
+        }
+    </style>
+    
 
     <?php
     if($user_id!=""){

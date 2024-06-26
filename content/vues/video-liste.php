@@ -51,7 +51,7 @@ if($key_word!=""){
     
 }
 else{
-    $videos=$vd->getAllVideos($sort);
+    $videos=$vd->getVideoPerPage($page,$sort);
     
 }
 
@@ -198,7 +198,12 @@ setlocale(LC_TIME, "fr_FR","French");
                     </ul>
 
                     <div class="clearfix"></div>
-
+                    <div class="pager">
+                        <ul>
+                            <li><a id="back-link" class="<?php $class_none=($page>0)?"":"none"; echo $class_none;?>" href="?page=<?php $backpage=($page>0)?($page-1):0; echo $backpage;?>">page précédente</a></li>
+                            <li><a id="next-link" href="?page=<?php $nextpage=$page+1; echo $nextpage;?>">page suivante</a></li>
+                        </ul>
+                    </div>
                   
                 </div>
             </div>
@@ -270,56 +275,7 @@ if($pub160x600 !="") {
 
 
 <script type="text/javascript" >
-     $(document).ready(function() {
-
-        if(window.outerWidth < 740) {
-            $(".lazyblock div").slice(12).hide();
-           // $(".lazyblock article").slice(6).hide();
-
-                var mincount = 3;
-                var maxcount = 15;
-                var percentage=60;
-
-                $(window).scroll(function () {
-                    console.log("left: ",$(window).scrollTop()*100/$(document).height())
-                    
-                    console.log($(window).scrollTop()*100/$(document).height() >=percentage)
-                    //console.log("right: ",$(document).height() - 20)
-                    if ($(window).scrollTop()*100/$(document).height() >=percentage) {
-                       
-                        $(".lazyblock div").slice(mincount, maxcount).slideDown(12);
-                      //  $(".lazyblock article").slice(mincount, maxcount).slideDown(100);
-                        mincount = mincount + 3;
-                        maxcount = maxcount + 27
-                        if(percentage<94){
-                            percentage+=2
-                        }
-                        
-                        $(window).scrollTop(500)
-                    }
-                });
-        }else{
-            $(".lazyblock div").slice(12).hide();
-            //$(".lazyblock article").slice(6).hide();
-
-                var mincount = 2;
-                var maxcount = 12;
-                
-
-                $(window).scroll(function () {
-                    //console.log("left: ",$(window).scrollTop() + $(window).height())
-                    //console.log("right: ",$(document).height() - 20)
-                    if ($(window).scrollTop() + $(window).height() >= $(document).height() - 500) {
-                        $(".lazyblock div").slice(mincount, maxcount).slideDown(100);
-                        //$(".lazyblock article").slice(mincount, maxcount).slideDown(100);
-                        mincount = mincount + 2;
-                        maxcount = maxcount + 2
-
-                    }
-                });
-        }
-
-        })
+    
     function sortVideo(){
         selected = document.getElementById('reroutage').selectedIndex;
         sort = document.getElementById('reroutage')[selected].value;

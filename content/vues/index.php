@@ -3,6 +3,12 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+// Autoriser le caching pour les pages
+header('Cache-Control: public, max-age=3600'); // Cache pendant 1 heure (3600 secondes)
+header('Expires: ' . gmdate('D, d M Y H:i:s', time() + 3600) . ' GMT'); // Expire dans 1 heure
+
+
+
 
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
@@ -170,7 +176,7 @@ function switch_cat($cat)
             <div class="image_news">
                 <?php $alt = ($article->getLegende())?'alt="'.$article->getLegende().'"':'alt="allmarathon news image"';
                     echo '<a href="/actualite-marathon-'.$article->getId().'-'.slugify($article->getTitre()).'.html">
-                    <img class="img-responsive mobile"'.$alt.'src="../../images/news/'.$yearNews.'/'.$article->getPhoto().'" /></a>' ?>
+                    <img class="img-responsive mobile"'.$alt.'src="../../images/news/'.$yearNews.'/thumb_'.$article->getPhoto().'" /></a>' ?>
             </div>            
         </div>
 
@@ -235,13 +241,14 @@ function switch_cat($cat)
                             }else{
                                 $display="";
                             }
-                            echo '<a
-
-                                                    href="/actualite-marathon-'.$article->getId().'-'.slugify($article->getTitre()).'.html"><img
-
-                                                        class="img-responsive '.$display.'"'.$alt.'
-
-                                                        src="../../images/news/'.$yearNews.'/'.$article->getPhoto().'" /></a>' ?>
+                            echo '<a href="/actualite-marathon-' . $article->getId() . '-' . slugify($article->getTitre()) . '.html">
+                                <img class="img-responsive ' . $display . '" 
+                                    alt="' . $alt . '"
+                                    srcset="/images/news/' . $yearNews . '/thumb_' . $article->getPhoto() . ' 600w, 
+                                            /images/news/' . $yearNews . '/' . $article->getPhoto() . ' 1200w"
+                                    sizes="(max-width: 600px) 100vw, 50vw"
+                                    src="/images/news/' . $yearNews . '/' . $article->getPhoto() . '" />
+                            </a>'; ?>
 
                         </div>            
 
@@ -458,7 +465,7 @@ function switch_cat($cat)
                         $yearNews  = $tab[0];
                         echo '<li><a href="/actualite-marathon-'.$article_bref->getId().'-'.slugify($article_bref->getTitre()).'.html">
                             <div class="row">
-                                <div class="vite-lu-image col-sm-6" style="background-image:url(../../images/news/'.$yearNews.'/'.$article_bref->getPhoto().')"></div>
+                                <div class="vite-lu-image col-sm-6" style="background-image:url(../../images/news/'.$yearNews.'/thumb_'.$article_bref->getPhoto().')"></div>
                                 <div class="col-sm-6 pr-0 vite-lu-title">'.$article_bref->getTitre().'</div>
                             </div>
                         </a></li>';

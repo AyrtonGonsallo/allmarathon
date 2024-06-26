@@ -230,7 +230,7 @@ a:hover{
     display: block !important;
 }
 .none {
-    display: none;
+    display: none !important;
 }
 .d--none {
     display: none;
@@ -1419,6 +1419,17 @@ table.dataTable.no-footer {
     background-color: #ff000000 !important;
     text-decoration: underline !important;
     border: none !important;
+}
+.pager li  button {
+    border-color: #ffffff00 ;
+    background-color: #ffffff00 !important;
+    text-decoration: underline;
+}
+.pager li a {
+    border-color: #ffffff00 ;
+    color: #2caffe ;
+    background-color: #ffffff00 !important;
+    text-decoration: underline;
 }
 .athletes-liste .pager li>a:focus,.athletes-liste  .pager li>a:hover {
     background-color: #ff000000 !important;

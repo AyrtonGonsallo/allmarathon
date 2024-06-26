@@ -434,7 +434,7 @@ public function getNewsByEventId($evenementID){
 				 
 				  // $condition=$nc->getNewsCategoryByIntitule($condition)['id'];
 				 
-				 	$req = $bdd->prepare("SELECT * FROM news ORDER BY date DESC");
+				 	$req = $bdd->prepare("SELECT * FROM news ORDER BY date DESC limit 0,25");
 				 
 	             
 	             $req->execute();
