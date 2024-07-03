@@ -407,8 +407,8 @@ setlocale(LC_TIME, "fr_FR","French");
 
 
                     <ul class="pager">
-                        <li class="rl-prec"><a href="#" id="back-link">Résultats suivants</a></li>
-                        <li class="rl-suiv"><a href="#" id="next-link">Résultats précédents</a></li>
+                        <li class="rl-prec"><a href="#" id="back-link">Résultats précédents</a></li>
+                        <li class="rl-suiv"><a href="#" id="next-link">Résultats suivants</a></li>
                     </ul>
                     
                     <div class="section-divider"></div>
@@ -650,15 +650,19 @@ var par_pages=39;
             })
 
 
-            $("#back-link").css({'pointer-events': 'none' ,"color": "#000", 'cursor' : 'default'});
+            $("#back-link").css({"display":"none",'pointer-events': 'none' ,"color": "#000", 'cursor' : 'default'});
 
 
             $("#next-link").click(function() {
             page+=1; 
             next=page+1;
+            if(page==0){
+                style_precedent={"display":"none",'pointer-events': 'none' ,"background-color": "#cccccc22", 'cursor' : 'default',"color": "#000"}
+            } else{
+               style_precedent={"display":"inline-block",'pointer-events': 'all' ,"background-color": "#fbff0b",  'cursor' : 'pointer',"color": "#2caffe"}
+               
+            }
             
-            
-            style_precedent={'pointer-events': 'all' ,"color": "#2caffe",  'cursor' : 'pointer'}
             
             $("#back-link").css(style_precedent)
             search_v=$("#search_val_res").val();
@@ -732,9 +736,9 @@ var par_pages=39;
                 style_suivant={'pointer-events': 'all' ,"color": "#2caffe",  'cursor' : 'pointer'}
             
             if(page==0){
-                style_precedent={'pointer-events': 'none' ,"color": "#000", 'cursor' : 'default'}
+                style_precedent={"display":"none",'pointer-events': 'none' ,"color": "#000", 'cursor' : 'default'}
             } else{
-               style_precedent={'pointer-events': 'all' ,"color": "#2caffe",  'cursor' : 'pointer'}
+               style_precedent={"display":"inline-block",'pointer-events': 'all' ,"color": "#2caffe",  'cursor' : 'pointer'}
                
             }
             $("#next-link").css(style_suivant)

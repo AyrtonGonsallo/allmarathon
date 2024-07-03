@@ -105,7 +105,7 @@ $years = $event->getAllYears()['donnees'];
                 </div>
                 <b class="form-title disp-block">Sexe</b>
                 <div>
-                    <input type="radio" id="homme" name="sexe" value="M" />
+                    <input type="radio" id="homme" name="sexe" value="M" checked/>
                     <label for="homme" class="mr-10">Homme</label>
                
                     <input type="radio" id="femme" name="sexe" value="F" />

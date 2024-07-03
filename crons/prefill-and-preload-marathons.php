@@ -35,7 +35,7 @@ try{
     //$first_events= array();
     $last_linked_events= array();
     while ( $row  = $req->fetch(PDO::FETCH_ASSOC)) {  //ceux qui sont a venir
-        $req2 = $bdd->prepare("SELECT * FROM evenements where marathon_id=:mar_id and Valider=1  AND (DateDebut > :today) ORDER BY DateDebut limit 1");
+        $req2 = $bdd->prepare("SELECT * FROM evenements where marathon_id=:mar_id and Valider=1  AND (DateDebut > :today) ORDER BY DateDebut desc limit 1");
         $req2->bindValue('mar_id', $row["id"], PDO::PARAM_INT);
         
         $req2->bindValue('today', date('Y-m-d'), PDO::PARAM_STR); 
@@ -53,9 +53,9 @@ try{
 
             }
         }else {//ceux qui ont une date passée
-            $req24 = $bdd->prepare("SELECT * FROM evenements where marathon_id=:mar_id and Valider=1  ORDER BY DateDebut limit 1");
+            $req24 = $bdd->prepare("SELECT * FROM evenements where marathon_id=:mar_id and Valider=1 AND (DateDebut < :today) ORDER BY DateDebut desc limit 1");
             $req24->bindValue('mar_id', $row["id"], PDO::PARAM_INT);
-            
+            $req24->bindValue('today', date('Y-m-d'), PDO::PARAM_STR);
             $req24->execute();
             if($req24->rowCount()>0){//ceux qui ont une date passée
                 while ( $row24  = $req24->fetch(PDO::FETCH_ASSOC)) {
@@ -64,6 +64,7 @@ try{
                     $row['date_prochain_evenement']='NULL';
                     $row['last_linked_events_cat_id']=$row24['CategorieID'];
                     $row['type_evenement']="dernier";
+                    $row['is_top_dernier_evenement']=$row2['a_l_affiche'];
                     $row['date_dernier_evenement']=$row24['DateDebut'];
                     $row['date_dernier_evenement_nom']=$row24['Nom'];
                     $row['date_dernier_evenement_id']=$row24['ID'];
@@ -103,14 +104,14 @@ $i=1;
             $date_presentation_string= utf8_encode($date_premier_even);
         }else if($resultat["type_evenement"]=='dernier'){
             
-            $eid= $resultat["date_prochain_evenement_id"];
+            $eid= $resultat["date_dernier_evenement_id"];
             $date_premier_even=strftime("%B",strtotime($resultat["date_dernier_evenement"]));
             $mdate=$resultat["date_dernier_evenement"];
-            $top=$resultat['is_top_prochain_evenement'];
+            $top=$resultat['is_top_dernier_evenement'];
             $cat=$resultat['last_linked_events_cat_id'];
             $date_presentation_string= utf8_encode($date_premier_even).' - <span class="marathon-to-come">En attente de date</span>';
         }else if($resultat["type_evenement"]=='aucun'){
-            $date_presentation_string.= 'Prochaine date À venir';
+            $date_presentation_string= 'Prochaine date À venir';
             $mdate=null;
             $eid=null;
             $top=null;

@@ -19,6 +19,9 @@ if(isset($_SESSION['admin']) && isset($_SESSION['login'])):
         <?php if($_SESSION['admin'] || $_SESSION['news']):?><li class="menuItem"><a href="news.php">News</a></li>
 
         <?php endif ?>
+        <?php if($_SESSION['admin'] || $_SESSION['news']):?><li class="menuItem"><a href="news_categorie.php">Categorie de news</a></li>
+
+        <?php endif ?>
         
         <?php if($_SESSION['admin'] || $_SESSION['mar']):?><li class="menuItem"><a href="marathon.php">Marathon</a>
         </li><?php endif ?>

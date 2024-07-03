@@ -51,49 +51,24 @@ $previous=$page-1;
 
 
 
-include("../database/connexion.php");
-$req = $bdd->prepare('SELECT COUNT(*) as total FROM champions');
-$req->execute();
-$nb_champs=$req->fetch(PDO::FETCH_ASSOC)['total'];
-
 
 try{
     include("../database/connexion.php");
-    $req = $bdd->prepare("SELECT * FROM evenements where a_l_affiche=1  and Valider=1  ORDER BY DateDebut desc");
+    $req = $bdd->prepare("SELECT * FROM marathons where is_top_prochain_evenement=1 ORDER BY ordre desc");
     $req->execute();
     $results= array();
     //$first_events= array();
-    $last_linked_events= array();
+    
     while ( $row  = $req->fetch(PDO::FETCH_ASSOC)) {  
-        $req2 = $bdd->prepare("SELECT * FROM marathons where id=:mar_id");
-        $req2->bindValue('mar_id', $row["marathon_id"], PDO::PARAM_INT);
-        $req2->execute();
-        if($req2->rowCount()>0){
-            while ( $row2  = $req2->fetch(PDO::FETCH_ASSOC)) {
-                //var_dump($row2);exit();  
-                //array_push($first_events, $row2);
-                $row2['date_prochain_evenement']=$row['DateDebut'];
-                $row2['is_top_prochain_evenement']=$row['a_l_affiche'];
-                $row2['type_evenement']="prochain";
-                $row2['date_prochain_evenement_nom']=$row['Nom'];
-                $row2['date_prochain_evenement_id']=$row['ID'];
-                $row2['last_linked_events_cat_id']=$row['CategorieID'];
-                array_push($results, $row2);
-            }
-        }
-
         
-        
-      
-
-      
+        array_push($results, $row);
+          
   }}
   catch(Exception $e)
   {
       die('Erreur : ' . $e->getMessage());
   }
- $results_sorted_by_next_event=array_msort($results, array('type_evenement'=>SORT_DESC,'date_prochain_evenement'=>SORT_ASC,'nom'=>SORT_ASC));
-//var_dump($results);exit();
+ $results_sorted_by_next_event=$results;
 ?>
 
 <!doctype html>
@@ -199,12 +174,15 @@ try{
                             }else{
                                 $marathon_par_mois_total=$total.' marathons';
                             }
-                            echo '<div class="mpp-pays-box">
-                            <a href="calendrier-marathons-'.slugify(utf8_encode(strftime("%B",strtotime($chmp['DateDebut'])))).'-'.$chmp['mois'].'-'.$chmp['annee'].'.html" class="capitalize">
-                            <div class="mpp-title-pays">'.utf8_encode(strftime("%B %Y",strtotime($chmp['DateDebut']))).'</div>
-                            <div class="mpp-nbr-mar mx-auto">'.$marathon_par_mois_total.'</div>
-                            </a>
-                            </div>';
+                            if($total!=0){
+                                echo '<div class="mpp-pays-box">
+                                <a href="calendrier-marathons-'.slugify(utf8_encode(strftime("%B",strtotime($chmp['DateDebut'])))).'-'.$chmp['mois'].'-'.$chmp['annee'].'.html" class="capitalize">
+                                <div class="mpp-title-pays">'.utf8_encode(strftime("%B %Y",strtotime($chmp['DateDebut']))).'</div>
+                                <div class="mpp-nbr-mar mx-auto">'.$marathon_par_mois_total.'</div>
+                                </a>
+                                </div>';
+                            }
+                           
                         }
                         echo '</div>';
                     
@@ -289,21 +267,7 @@ try{
                                         $res.= '<div><b>Marathon</b></div>';
                 
                                      }
-                                    if($resultat["type_evenement"]=='prochain'){
-                                        $nom_premier_even= $resultat["date_prochain_evenement_nom"];
-                                        $id= $resultat["date_prochain_evenement_id"];
-                                        $date_premier_even=strftime("%A %d %B %Y",strtotime($resultat["date_prochain_evenement"]));
-                                                
-                                        $res.= '<div class="date-marathon">'.utf8_encode($date_premier_even).'</div>';
-                                    }else if($resultat["type_evenement"]=='dernier'){
-                                        $nom_premier_even= $resultat["date_prochain_evenement_nom"];
-                                        $id= $resultat["date_prochain_evenement_id"];
-                                        $date_premier_even=strftime("%B",strtotime($resultat["date_dernier_evenement"]));
-                                                
-                                        $res.= '<div class="date-marathon">'.utf8_encode($date_premier_even).' - <span class="marathon-to-come">En attente de date</span></div>';
-                                    }else if($resultat["type_evenement"]=='aucun'){
-                                        $res.= '<div> Prochaine date À venir</div>';
-                                    }
+                                     $res.= '<div class="date-marathon">'.$resultat['date_presentation_string'].'</div>';
                 
                                 
                             $res.= '</div>';

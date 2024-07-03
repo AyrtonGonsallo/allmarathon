@@ -1420,17 +1420,6 @@ table.dataTable.no-footer {
     text-decoration: underline !important;
     border: none !important;
 }
-.pager li  button {
-    border-color: #ffffff00 ;
-    background-color: #ffffff00 !important;
-    text-decoration: underline;
-}
-.pager li a {
-    border-color: #ffffff00 ;
-    color: #2caffe ;
-    background-color: #ffffff00 !important;
-    text-decoration: underline;
-}
 .athletes-liste .pager li>a:focus,.athletes-liste  .pager li>a:hover {
     background-color: #ff000000 !important;
 }
@@ -2371,4 +2360,64 @@ font-weight: bolder;
 .ban_160-600{
     margin-top: 25px;
     text-align: center;
+}
+
+/**********************************************/
+#res-box .sg-h3 {
+    text-align: center !important;
+}
+table.dataTable tbody tr.even {
+    background-color: #95d7fe8a;
+}
+
+@media screen and (max-width: 800px) {
+.container.page-content { margin-bottom: 20px;}
+.gs-presentation {
+    text-align: center;
+    font-size: 16px;
+    padding-top: 30px;
+}
+.sg-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    border-radius: 5px;
+    padding: 36px;
+    box-shadow: 0 6px 7px #e5e5e5;
+    justify-content: space-between;
+    align-content: center;
+    align-items: start;
+    justify-items: center;}
+}
+
+@media screen and (max-width: 497px) {
+.sg-h1 { margin-top: 0px !important;}
+.gs-presentation { padding-top: 0px; padding-inline: 20px;}
+.sg-container { justify-items: start;}
+button#get_res-2 { margin-top: 20px;}
+.sg-col div { margin-top: 13px;}
+.sg-col.pt-d-50 { margin-top: -20px;}
+.sg-container { padding: 10px 36px 36px 36px;}
+.gs-presentation { font-size: 15px !important;}
+
+}
+
+@media screen and (max-width: 375px) {
+.sg-container { padding: 10px;}
+.gs-presentation { padding-inline: 0px;}
+}
+
+@media screen and (max-width: 320px) {
+select#select-pays { width: 284px;}
+
+}
+.pager li  button {
+    border-color: #ffffff00 ;
+    background-color: #ffffff00 !important;
+    text-decoration: underline;
+}
+.pager li a {
+    border-color: #ffffff00 ;
+    color: #2caffe ;
+    background-color: #ffffff00 !important;
+    text-decoration: underline;
 }

@@ -299,7 +299,7 @@ $afficher_tab_medaille=false;
                             $champ_instagram=($champ->getInstagram())?'<li><a href="'.$champ->getInstagram().'" target="_blank">Visitez le instagram de <strong>'.$champ->getNom().'</strong></a></li>':'';
                             $champ_ee=($champ->getEquipementier())?' <li><strong>Equipementier :  </strong>'.$champ->getEquipementier().'</li>':'';
                             $champ_lse=($champ->getLien_site_équipementier())?'<li><strong>Lien site équipementier :  </strong>'.$champ->getLien_site_équipementier().'</li>':'';
-                            $champ_bio=($champ->getBio())?'<li><strong>Bio : </strong>'.$champ->getBio().'</li>':'';
+                            $champ_bio=$champ->getBio();
                             $champ_taille=($champ->getTaille())?' <li><strong>Taille : </strong>'.$champ->getTaille().'</li>':'';
                             $champ_poids=($champ->getPoids())?'<li><strong>Poids : </strong>'.$champ->getPoids().'</li>':'';
                             /*$champ_=($champ->get())?'':'';
@@ -341,7 +341,9 @@ $afficher_tab_medaille=false;
                                 $texte.="- son compte <a href='".$champ->getInstagram()."' target='_blank'>Instagram</a><br>";
                             }
                             echo $texte; ?>
-
+                            <?if($champ_bio){
+                                echo "<br>".$champ_bio;
+                            }?>
                                 <?php if($afficher_tab_medaille){  ?>
                                 <table class="table table-responsive">
                                     <thead>

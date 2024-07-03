@@ -51,7 +51,7 @@ if($_GET['newsID']!=""){
                  $req4->bindValue('texte',$_POST['Texte'], PDO::PARAM_STR);
                  $req4->bindValue('photo',$fileName, PDO::PARAM_STR);
                  $req4->bindValue('liens_champions',$_POST['liens_champions'], PDO::PARAM_STR);
-                 $req4->bindValue('categorieID',$_POST['bref'], PDO::PARAM_INT);
+                 $req4->bindValue('categorieID',$_POST['categorieID'], PDO::PARAM_INT);
                  $req4->bindValue('evenementID',$_POST['evenementID'], PDO::PARAM_INT);
                  $req4->bindValue('championID',$_POST['championID'], PDO::PARAM_INT);
                  $req4->bindValue('videoID',$_POST['videoID'], PDO::PARAM_INT);
@@ -337,7 +337,27 @@ $(document).ready(function() {
         <tr><td><label for="evenementID">évènement lié : </label></td><td><input id="evenementID" type="number" name="evenementID" value="<?php echo $news['evenementID'];?>" /></td></tr>
         <tr><td><label for="championID">coureur lié : </label></td><td><input id="championID" type="number" name="championID" value="<?php echo $news['championID'];?>" /></td></tr>
         <tr><td><label for="videoID">video liée : </label></td><td><input id="videoID" type="number" name="videoID" value="<?php echo $news['videoID'];?>" /></td></tr>
-
+        <tr>
+                    <td>
+                        <label for="categorieID">catégorie : </label>
+                    </td>
+                    <td>
+                        
+                        
+                        <select name="categorieID" >
+                        <?php //while($pays = mysql_fetch_array($result4)){
+                            foreach ($result3 as $cat) {
+                                if($cat['ID']==$news['categorieID']){
+                                    echo '<option value="'.$cat['ID'].'" selected>'.$cat['Intitule'].'</option>';
+                                }
+                                else{
+                                    echo '<option value="'.$cat['ID'].'">'.$cat['Intitule'].'</option>';
+                                }
+                                    
+                            } ?>
+                        </select>
+                    </td>
+                </tr>
         
         
 

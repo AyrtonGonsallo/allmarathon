@@ -58,16 +58,10 @@ if (session_status() == PHP_SESSION_NONE) {
         if($erreur == ""){
             $fileName = $_FILES['photo']['name'];
             try {
-                if($_POST['bref']==1){
+                
                     $req4 = $bdd->prepare("INSERT INTO news (date,source,auteur,titre,chapo,texte,photo,admin,liens_champions,aLaUne,aLaDeux,categorieID,url,legende,lien1,textlien1,evenementID,championID,videoID) VALUES (:date,:source,:auteur,:titre,:chapo,:texte,:photo,:admin,:liens_champions,:aLaUne,:aLaDeux,:categorie,:url,:legende,:lien1,:textlien1,:evenementID,:championID,:videoID)");
-                }else{
-                    $req4 = $bdd->prepare("INSERT INTO news (date,source,auteur,titre,chapo,texte,photo,admin,liens_champions,aLaUne,aLaDeux,url,legende,lien1,textlien1,evenementID,championID,videoID) VALUES (:date,:source,:auteur,:titre,:chapo,:texte,:photo,:admin,:liens_champions,:aLaUne,:aLaDeux,:url,:legende,:lien1,:textlien1,:evenementID,:championID,:videoID)");
-
-                }
-                if($_POST['bref']==1){
-                    $req4->bindValue('categorie','11', PDO::PARAM_INT);
-
-                }
+                
+                
                 
                  $req4->bindValue('date',$_POST['Date'], PDO::PARAM_STR);
                  $req4->bindValue('source',$_POST['Source'], PDO::PARAM_STR);
@@ -84,6 +78,7 @@ if (session_status() == PHP_SESSION_NONE) {
                  $req4->bindValue('lien1',$_POST['Lien1'], PDO::PARAM_STR);
                  $req4->bindValue('textlien1',$_POST['TextLien1'], PDO::PARAM_STR);
                  $req4->bindValue('evenementID',$_POST['evenementID'], PDO::PARAM_INT);
+                 $req4->bindValue('categorie',$_POST['categorieID'], PDO::PARAM_INT);
                  $req4->bindValue('videoID',$_POST['videoID'], PDO::PARAM_INT);
                  $req4->bindValue('championID',$_POST['championID'], PDO::PARAM_INT);
                  $req4->bindValue('admin',$_SESSION['login'], PDO::PARAM_STR);
@@ -152,7 +147,7 @@ if (session_status() == PHP_SESSION_NONE) {
     }
 
     try{
-      $req = $bdd->prepare("SELECT * FROM news ORDER BY ID DESC");
+      $req = $bdd->prepare("SELECT n.*,c.Intitule as categorie FROM news n,newscategorie c where n.categorieID=c.ID ORDER BY ID DESC");
       $req->execute();
       $result1= array();
       while ( $row  = $req->fetch(PDO::FETCH_ASSOC)) {  
@@ -394,7 +389,23 @@ if (session_status() == PHP_SESSION_NONE) {
                             <div id="result" style="display: inline;"></div </div>
 
 
-                    </td>>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="categorieID">catégorie : </label>
+                    </td>
+                    <td>
+                        
+                        
+                        <select name="categorieID" >
+                        <?php //while($pays = mysql_fetch_array($result4)){
+                            foreach ($result3 as $cat) {
+                               
+                                    echo '<option value="'.$cat['ID'].'">'.$cat['Intitule'].'</option>';
+                            } ?>
+                        </select>
+                    </td>
                 </tr>
 
                 <tr><td><label for="evenementID">évènement lié : </label></td><td><input id="evenementID" type="number" name="evenementID" value="" /></td></tr>
@@ -438,6 +449,7 @@ if (session_status() == PHP_SESSION_NONE) {
                 <thead>
                     <tr>
                         <th>ID</th>
+                        <th>Catégorie</th>
                         <th>Titre</th>
                         <th>Une</th>
                         <th>Deux</th>
@@ -453,7 +465,7 @@ if (session_status() == PHP_SESSION_NONE) {
             $deux = ($news['aLaDeux']) ? ''.$incheck_deux.'' : ''.$uncheck_deux.'';
 			$incheck_une='<input type="checkbox" name="check_une" value="'.$news['ID'].'" checked="checked" onclick="chkit1('.$news['ID'].',this.checked);"/>';
 			$uncheck_une='<input type="checkbox" name="uncheck_une" value="'.$news['ID'].'" onclick="chkit1('.$news['ID'].',this.checked);"/>';
-            echo "<tr align=\"center\" ><td>".$news['ID']."</td><td>".$news['titre']."</td><td>",($news['aLaUne'])?"".$incheck_une."":"".$uncheck_une."","</td><td>" . $deux . "</td><td>".$news['date']."</td>
+            echo "<tr align=\"center\" ><td>".$news['ID']."</td><td>".$news['categorie']."</td><td>".$news['titre']."</td><td>",($news['aLaUne'])?"".$incheck_une."":"".$uncheck_une."","</td><td>" . $deux . "</td><td>".$news['date']."</td>
                 <td>";
             if($news['admin'] == $_SESSION['login'] || $_SESSION['admin'] == true){
                 echo "<img style=\"cursor:pointer;\" src=\"../images/edit.png\" alt=\"edit\" title=\"modifier\" onclick=\"location.href='newsDetail.php?newsID=".$news['ID']."'\" />

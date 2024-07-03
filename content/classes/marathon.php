@@ -849,65 +849,18 @@ function array_msort($array, $cols)
 		try {
 			include("../database/connexion.php");
             $results= array();
-            $req0 = $bdd->prepare("select m.* from marathons m where m.PaysID=:pays_ab1 or m.PaysID=:pays_ab2 or m.PaysID=:pays_ab3 or m.PaysID=:pays_ab4;");
+            $req0 = $bdd->prepare("select m.* from marathons m where m.PaysID=:pays_ab1 or m.PaysID=:pays_ab2 or m.PaysID=:pays_ab3 or m.PaysID=:pays_ab4 order by m.ordre asc");
             $req0->bindValue('pays_ab1',$pays_ab1, PDO::PARAM_STR);
 			$req0->bindValue('pays_ab2',$pays_ab2, PDO::PARAM_STR);
 			$req0->bindValue('pays_ab3',$pays_ab3, PDO::PARAM_STR);
 			$req0->bindValue('pays_ab4',$pays_ab4, PDO::PARAM_STR);
             $req0->execute();
             
-			$last_linked_events= array();
 			while ( $row  = $req0->fetch(PDO::FETCH_ASSOC)) {  
-				$req2 = $bdd->prepare("SELECT * FROM evenements where marathon_id=:mar_id and Valider=1  AND (DateDebut > :today) ORDER BY DateDebut limit 1");
-				$req2->bindValue('mar_id', $row["id"], PDO::PARAM_INT);
 				
-				$req2->bindValue('today', date('Y-m-d'), PDO::PARAM_STR); 
-				$req2->execute();
-				if($req2->rowCount()>0){//ceux qui sont a venir
-					while ( $row2  = $req2->fetch(PDO::FETCH_ASSOC)) {
-						//var_dump($row2);exit();  
-						//array_push($first_events, $row2);
-						$row['date_prochain_evenement']=$row2['DateDebut'];
-						$row['date_prochain_evenement_nom']=$row2['Nom'];
-						$row['is_top_prochain_evenement']=$row2['a_l_affiche'];
-                		$row['type_evenement']="prochain";
-						$row['date_prochain_evenement_id']=$row2['ID'];
-						$row['last_linked_events_cat_id']=$row2['CategorieID'];
-
-					}
-				}
-				else {
-					$req24 = $bdd->prepare("SELECT * FROM evenements where marathon_id=:mar_id and Valider=1 AND (DateDebut < :today) ORDER BY DateDebut desc limit 1");
-					$req24->bindValue('mar_id', $row["id"], PDO::PARAM_INT);
-					$req24->bindValue('today', date('Y-m-d'), PDO::PARAM_STR); 
-					$req24->execute();
-					if($req24->rowCount()>0){//ceux qui ont une date passée
-						while ( $row24  = $req24->fetch(PDO::FETCH_ASSOC)) {
-							//var_dump($row2);exit();  
-							//array_push($first_events, $row2);
-							$row['date_prochain_evenement']='NULL';
-							$row['last_linked_events_cat_id']=$row24['CategorieID'];
-							$row['type_evenement']="dernier";
-							$row['is_top_prochain_evenement']=0;
-							$row['date_dernier_evenement']=$row24['DateDebut'];
-							$row['date_dernier_evenement_nom']=$row24['Nom'];
-							$row['date_dernier_evenement_id']=$row24['ID'];
-			
-						}
-					}else{//ceux qui n'ont aucune date
-						$row['type_evenement']="aucun";
-						$row['date_prochain_evenement']='NULL';
-						$row['is_top_prochain_evenement']=0;
-						$row['last_linked_events_cat_id']=7;
-					}
-					//array_push($first_events, NULL);
-					//$row['date_prochain_evenement']='NULL';
-					//$row['last_linked_events_cat_id']=NULL;
-		
-				}
 				array_push($results, $row);
 		  }
-		 	$results_sorted_by_next_event=array_msort($results, array('date_prochain_evenement'=>SORT_ASC,'type_evenement'=>SORT_DESC,'nom'=>SORT_ASC));
+		 	$results_sorted_by_next_event=$results;
         	return array('validation'=>true,'donnees'=>$results_sorted_by_next_event,'message'=>'');
 		}
 		  catch(Exception $e)
@@ -920,68 +873,65 @@ function array_msort($array, $cols)
 	   
     function getMarathonsAgendaByMois(){
 		try {
-			include("../database/connexion.php");
-            $liste= array();
-            $req0 = $bdd->prepare("SELECT CONCAT(MONTH(DateDebut),'/',YEAR(DateDebut)) AS 'year-date',MONTH(DateDebut) as mois,YEAR(DateDebut) as annee,DateDebut FROM `evenements` where DateDebut>DATE(NOW()) GROUP by mois,annee ORDER BY annee,mois asc;");
-            
-            $req0->execute();
-            
-            while ( $row0  = $req0->fetch(PDO::FETCH_ASSOC)) {    
-                array_push($liste, $row0); 
-            }
-            $bdd=null;
-            $len = (int) count($liste);
-            
-            return array('validation'=>true,'donnees'=>$liste,'message'=>'');
-	    }
-	       
-	    catch(Exception $e){
-	        die('Erreur : ' . $e->getMessage());
-	    }
+			$currentDate = new DateTime();
+			$endDate = new DateTime();
+			$endDate->modify('+1 year')->setDate($endDate->format('Y'), 12, 31);
+			
+			$liste = array();
+			
+			while ($currentDate <= $endDate) {
+				$yearMonth = $currentDate->format('n/Y');
+				$mois = (int)$currentDate->format('n');
+				$annee = (int)$currentDate->format('Y');
+				$dateDebut = $currentDate->format('Y-m-d');
+				
+				$row = array(
+					'year-date' => $yearMonth,
+					'mois' => $mois,
+					'annee' => $annee,
+					'DateDebut' => $dateDebut
+				);
+				
+				array_push($liste, $row);
+				
+				// Passer au mois suivant
+				$currentDate->modify('+1 month');
+			}
+			
+			return array('validation' => true, 'donnees' => $liste, 'message' => '');
+		} catch (Exception $e) {
+			die('Erreur : ' . $e->getMessage());
+		}
 	}
+	
 	function getMarathonsAgendaByMoisfiltered($mois,$annee){
+
 		try {
 			include("../database/connexion.php");
-            $liste= array();
-			//a venir
-			$req0 = $bdd->prepare("select m.nom as nom,m.image,m.prefixe,m.id,e.ID as date_prochain_evenement_id,e.CategorieID as last_linked_events_cat_id,e.DateDebut,e.PaysID,e.nom as date_prochain_evenement_nom,e.a_l_affiche as is_top_prochain_evenement from marathons m,evenements e where e.marathon_id=m.id and DateDebut>DATE(NOW()) and DateDebut like :datedeb  ORDER BY DateDebut asc;");
+			$liste= array();
+			if($annee>date("Y")){
+				//a venir
+				$req0 = $bdd->prepare("select * from marathons where  date<DATE(NOW()) and date like :datedeb  ORDER BY ordre asc;");
+							
+				$req0->bindValue('datedeb','%-'.$mois.'-%', PDO::PARAM_STR);
+				$req0->execute();
+			}else{
+				//a venir
+				$req0 = $bdd->prepare("select * from marathons where  date>DATE(NOW()) and date like :datedeb  ORDER BY ordre asc;");
+							
+				$req0->bindValue('datedeb','%-'.$mois.'-%', PDO::PARAM_STR);
+				$req0->execute();
+			}
             
-			$req0->bindValue('datedeb','%'.$annee.'-'.$mois.'-%', PDO::PARAM_STR);
-            $req0->execute();
+			
             
             while ( $row0  = $req0->fetch(PDO::FETCH_ASSOC)) {    
-					$row0['type_evenement']="prochain";
-					$row0['date_prochain_evenement']=$row0['DateDebut'];
+					
 					array_push($liste, $row0); 
             }
 
-			//passés
-            $req01 = $bdd->prepare("select m.nom as nom,m.image,m.prefixe,m.id,e.ID as date_prochain_evenement_id,e.CategorieID as last_linked_events_cat_id,e.DateDebut,e.PaysID,e.nom as date_prochain_evenement_nom,e.a_l_affiche as is_top_prochain_evenement from marathons m,evenements e where e.marathon_id=m.id and DateDebut<DATE(NOW()) and DateDebut>DATE((now() - interval 2 year)) and DateDebut like :datedeb group by id ORDER BY Nom asc;");
-            
-			$req01->bindValue('datedeb','%-'.$mois.'-%', PDO::PARAM_STR);
-            $req01->execute();
-            
-            while ( $row01  = $req01->fetch(PDO::FETCH_ASSOC)) {  
-
-				$req02 = $bdd->prepare("select * from evenements e where e.marathon_id=:mid and DateDebut>DATE(NOW())  ORDER BY DateDebut limit 1;");
-				$req02->bindValue('mid',$row01["id"], PDO::PARAM_INT);
-				$req02->execute();
-            
-				if($req02->rowCount()>0){  
-						continue;
-				}else{
-					$req03 = $bdd->prepare("select * from evenements e where e.marathon_id=:mid and DateDebut<DATE(NOW()) and DateDebut like :datedeb  ORDER BY DateDebut desc limit 1;");
-					$req03->bindValue('datedeb','%-'.$mois.'-%', PDO::PARAM_STR);
-					$req03->bindValue('mid',$row01["id"], PDO::PARAM_INT);
-					$req03->execute();
-					while ( $row03  = $req03->fetch(PDO::FETCH_ASSOC)) { 
-						$row01['type_evenement']="dernier";
-						$row01['date_dernier_evenement']=$row03['DateDebut'];
-					}
-					array_push($liste, $row01); 
-				}
-					
-            }
+			
+			
             $bdd=null;
             
 
@@ -996,10 +946,19 @@ function array_msort($array, $cols)
 		try {
 			include("../database/connexion.php");
             $liste= array();
-            $req0 = $bdd->prepare("select count( DISTINCT m.id) as total, m.nom as Nom,m.id,e.DateDebut,e.PaysID from marathons m,evenements e where e.marathon_id=m.id and DateDebut like :datedeb and DateDebut>DATE((now() - interval 6 year))  ORDER BY DateDebut asc;");
-            
-			$req0->bindValue('datedeb','%-'.$mois.'-%', PDO::PARAM_STR);
-            $req0->execute();
+            if($annee>date("Y")){
+				//a venir
+				$req0 = $bdd->prepare("select count(*) as total from marathons where  date<DATE(NOW()) and date like :datedeb  ORDER BY ordre asc;");
+							
+				$req0->bindValue('datedeb','%-'.$mois.'-%', PDO::PARAM_STR);
+				$req0->execute();
+			}else{
+				//a venir
+				$req0 = $bdd->prepare("select count(*) as total from marathons where  date>DATE(NOW()) and date like :datedeb  ORDER BY ordre asc;");
+							
+				$req0->bindValue('datedeb','%-'.$mois.'-%', PDO::PARAM_STR);
+				$req0->execute();
+			}
             
             while ( $row0  = $req0->fetch(PDO::FETCH_ASSOC)) {    
                 array_push($liste, $row0); 

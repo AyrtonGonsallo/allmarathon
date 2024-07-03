@@ -460,9 +460,9 @@ try{
         style_suivant={'pointer-events': 'all' ,"background-color": "#fbff0b",  'cursor' : 'pointer',"color": "#2caffe"}
     }
     if(page==0){
-        style_precedent={'pointer-events': 'none' ,"background-color": "#cccccc22", 'cursor' : 'default',"color": "#000"}
+        style_precedent={'pointer-events': 'none','display': 'none' ,"background-color": "#cccccc22", 'cursor' : 'default',"color": "#000"}
     } else{
-        style_precedent={'pointer-events': 'all' ,"background-color": "#fbff0b",  'cursor' : 'pointer',"color": "#2caffe"}
+        style_precedent={'pointer-events': 'all',"background-color": "#fbff0b",  'cursor' : 'pointer',"color": "#2caffe"}
         
     }
     $("#current").text(next);
@@ -757,9 +757,9 @@ try{
                 style_suivant={'pointer-events': 'all' ,"background-color": "#fbff0b",  'cursor' : 'pointer',"color": "#2caffe"}
             }
             if(page==0){
-                style_precedent={'pointer-events': 'none' ,"background-color": "#cccccc22", 'cursor' : 'default',"color": "#000"}
+                style_precedent={'pointer-events': 'none',"display":"none" ,"background-color": "#cccccc22", 'cursor' : 'default',"color": "#000"}
             } else{
-               style_precedent={'pointer-events': 'all' ,"background-color": "#fbff0b",  'cursor' : 'pointer',"color": "#2caffe"}
+               style_precedent={'pointer-events': 'all',"display":"inline-block"  ,"background-color": "#fbff0b",  'cursor' : 'pointer',"color": "#2caffe"}
                
             }
             $(this).css(style_suivant)
@@ -824,7 +824,7 @@ try{
 
             }
             if(page==0){
-                style_precedent={'pointer-events': 'none' ,"background-color": "#cccccc22", 'cursor' : 'default',"color": "#000"}
+                style_precedent={"display":"none",'pointer-events': 'none' ,"background-color": "#cccccc22", 'cursor' : 'default',"color": "#000"}
             } else{
                style_precedent={'pointer-events': 'all' ,"background-color": "#fbff0b",  'cursor' : 'pointer',"color": "#2caffe"}
                

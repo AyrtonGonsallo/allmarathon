@@ -55,10 +55,7 @@ $previous=$page-1;
 
 
 
-include("../database/connexion.php");
-$req = $bdd->prepare('SELECT COUNT(*) as total FROM champions');
-$req->execute();
-$nb_champs=$req->fetch(PDO::FETCH_ASSOC)['total'];
+
 
 ?>
 
@@ -192,21 +189,7 @@ $nb_champs=$req->fetch(PDO::FETCH_ASSOC)['total'];
                                      $res.= '<div><b>Marathon</b></div>';
              
                                   }
-                                 if($resultat["type_evenement"]=='prochain'){
-                                     $nom_premier_even= $resultat["date_prochain_evenement_nom"];
-                                     $id= $resultat["date_prochain_evenement_id"];
-                                     $date_premier_even=strftime("%A %d %B %Y",strtotime($resultat["date_prochain_evenement"]));
-                                             
-                                     $res.= '<div class="date-marathon">'.utf8_encode($date_premier_even).'</div>';
-                                 }else if($resultat["type_evenement"]=='dernier'){
-                                     $nom_premier_even= $resultat["date_prochain_evenement_nom"];
-                                     $id= $resultat["date_prochain_evenement_id"];
-                                     $date_premier_even=strftime("%B",strtotime($resultat["date_dernier_evenement"]));
-                                             
-                                     $res.= '<div class="date-marathon">'.utf8_encode($date_premier_even).' - <span class="marathon-to-come">En attente de date</span></div>';
-                                 }else if($resultat["type_evenement"]=='aucun'){
-                                     $res.= '<div> Prochaine date À venir</div>';
-                                 }
+                                  $res.= '<div class="date-marathon">'.$resultat['date_presentation_string'].'</div>';
              
                              
                          $res.= '</div>';
