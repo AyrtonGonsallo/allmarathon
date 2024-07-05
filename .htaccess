@@ -73,7 +73,7 @@ RewriteRule ^test-is\.html$ /content/vues/marathons-liste-iscroll.php [L]
 RewriteRule ^toutes-les-actualites\.html$ /content/vues/news-liste-rss.php [L]
 RewriteRule ^actualite-marathon-([0-9]+)-(.*)\.html$ /content/vues/news-detail.php?newsID=$1 [L]
 RewriteRule ^actualite-marathon-([0-9]+)\.html$ /content/vues/news-detail.php?newsID=$1 [L]
-
+RewriteRule ^categorie-actualites-marathon-([0-9]*)-([0-9]*)-(.*)\.html$ /content/vues/categorie-actualites-marathon.php?newscatID=$1&intcat=$3&page=$2 [L]
 RewriteRule ^resultats-marathon-([0-9]+)-([0-9]+)\.html$ /evenement-detail.php?evenementID=$1&ong=$2 [L]
 RewriteRule ^resultats-marathon-([0-9]+)-([a-z]+)\.html$ /content/vues/evenement-detail.php?evenementID=$1&type=$2 [L]
 RewriteRule ^resultats-marathon-([0-9]+)-(.*)\.html$ /content/vues/evenement-detail.php?evenementID=$1 [L]
@@ -128,9 +128,9 @@ RewriteRule ^flux-resultas-rss.xml/?$ rss/flux-rss-allmarathon2.php
 RewriteRule ^flux-rss.xml/?$ rss/flux-rss-allmarathon.php
 RewriteRule ^api-indexation/?$ rss/api-indexation.php
 
-RewriteRule ^resultats-marathon_-1_.html$ https://www.allmarathon.fr/resultats-marathon.html [R=301,L]
-RewriteRule ^marathons.html$ https://www.allmarathon.fr/calendrier-agenda-marathons.html [R=301,L]
-RewriteRule ^marathons--.html$ https://www.allmarathon.fr/calendrier-agenda-marathons.html [R=301,L]
-RewriteRule ^videos-de-marathon----1.html$ https://www.allmarathon.fr/videos-de-marathon.html [R=301,L]
+RewriteRule ^resultats-marathon_-1_.html$ https://dev.allmarathon.fr/resultats-marathon.html [R=301,L]
+RewriteRule ^marathons.html$ https://dev.allmarathon.fr/calendrier-agenda-marathons.html [R=301,L]
+RewriteRule ^marathons--.html$ https://dev.allmarathon.fr/calendrier-agenda-marathons.html [R=301,L]
+RewriteRule ^videos-de-marathon----1.html$ https://dev.allmarathon.fr/videos-de-marathon.html [R=301,L]
 
 ErrorDocument 404 /content/vues/404.php

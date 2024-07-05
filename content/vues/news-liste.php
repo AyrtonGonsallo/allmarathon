@@ -134,9 +134,9 @@ $articles_par_page=intval($nbr_pages['COUNT(*)']/20)+1;
 
 
 
-$nc=new newscategorie();
+$newscategorie=new newscategorie();
 
-$news=$nc->getAllNewsCat();
+$newscats=$newscategorie->getAllNewsCat();
 
 
 
@@ -152,15 +152,15 @@ function slugify($text)
 
 {
 
+    $text = str_replace('é', 'e', $text); 
+    $text = str_replace('û', 'u', $text); 
     $text = preg_replace('/[^\pL\d]+/u', '-', $text); 
-
     $text = trim($text, '-');
-
     $text = strtolower($text);
-
     return $text;
 
 }
+
 
 
 
@@ -392,9 +392,45 @@ include_once('nv_header-integrer.php'); ?>
 
 
         <div class="row">
+<script src="
+https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js
+"></script>
+<link href="
+https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
+" rel="stylesheet">
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var splide = new Splide('.splide', {
+      type       : 'loop',
+      perPage    : 6,
+      perMove    : 1,
+      gap        : '1rem',
+      pagination : false,
+      arrows     : true,
+      breakpoints: {
+        640: {
+          perPage: 1,
+        },
+      },
+    });
+    splide.mount();
+  });
+</script>
 
             <div class="col-sm-8 left-side">
+                
+        <div class="splide" role="group" aria-label="Splide Basic HTML Example">
+            
+            <div class="splide__track">
 
+                   <div class="splide__list">
+                    <?php foreach($newscats['donnees'] as $index => $catnews){
+                        echo "<li class='splide__slide'><a class='a-cat-fltr' href='categorie-actualites-marathon-".slugify($catnews->getId()."-0-".$catnews->getIntitule()).".html' class='home-link mb-5 mr-5 '>".$catnews->getIntitule()."</a></li>";
+                    }?>
+                    </div>
+                </div>
+
+          </div>
 
 
             <section class="last_articles_part1 mt-0 bureau lazyblock">
@@ -478,7 +514,8 @@ include_once('nv_header-integrer.php'); ?>
                                 <div class="desc-img">
 
                                     <h2><a href="/actualite-marathon-'.$article->getId().'-'.$url_text.'.html" style="color: #000;" >'.$article->getTitre().' </a></h2>';
-
+                                    
+                                    
                                     if($article->getChampionID()){
                                         $chmp=$champion->getChampionById($article->getChampionID())["donnees"];
                                         echo "<a href='athlete-".$chmp->getId()."-".$chmp->getNom().".html' class='home-link mb-5 mr-5 '>Le palmarès de ". $chmp->getNom()."</a>";
@@ -591,7 +628,7 @@ include_once('nv_header-integrer.php'); ?>
                                 <div class="title_news mb-70">
 
                                     <h2><a href="/actualite-marathon-'.$article->getId().'-'.$url_text.'.html" style="color: #000;" >'.$article->getTitre().' </a></h2><br>';
-
+                                    
                                     if($article->getChampionID()){
                                         $chmp=$champion->getChampionById($article->getChampionID())["donnees"];
                                         echo "<a href='athlete-".$chmp->getId()."-".$chmp->getNom().".html' class='home-link mb-5 mr-5 '>Le palmarès de ". $chmp->getNom()."</a>";
@@ -702,7 +739,7 @@ include_once('nv_header-integrer.php'); ?>
                                 <div class="desc-img">
 
                                     <h2><a href="/actualite-marathon-'.$article->getId().'-'.$url_text.'.html" style="color: #000;" >'.$article->getTitre().' </a></h2>';
-
+                                    
                                     if($article->getChampionID()){
                                         $chmp=$champion->getChampionById($article->getChampionID())["donnees"];
                                         echo "<a href='athlete-".$chmp->getId()."-".$chmp->getNom().".html' class='home-link mb-5 mr-5 '>Le palmarès de ". $chmp->getNom()."</a>";
@@ -1002,7 +1039,7 @@ if($pub160x600 !="") {
                                 <div class="desc-img">
 
                                     <h2><a href="/actualite-marathon-'.$article->getId().'-'.$url_text.'.html" style="color: #000;" >'.$article->getTitre().' </a></h2>';
-
+                                    
                                     if($article->getChampionID()){
                                         $chmp=$champion->getChampionById($article->getChampionID())["donnees"];
                                         echo "<a href='athlete-".$chmp->getId()."-".$chmp->getNom().".html' class='home-link mb-5 mr-5 '>Le palmarès de ". $chmp->getNom()."</a>";

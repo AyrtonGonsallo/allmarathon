@@ -428,6 +428,34 @@ public function getNewsByEventId($evenementID){
 	        }
 	}
 
+	public function getArticlesByCategoriePerPage1($page,$categorie_id){
+		try {
+				  include("../database/connexion.php");
+				 $nc=new newscategorie();
+				  // $condition=$nc->getNewsCategoryByIntitule($condition)['id'];
+				 
+				 	$req = $bdd->prepare("SELECT * FROM news WHERE categorieID=:condition  ORDER BY date DESC LIMIT :offset,20");
+				 	$req->bindValue('condition', $categorie_id, PDO::PARAM_INT);
+				 
+				 $req->bindValue('offset', $page*20, PDO::PARAM_INT);
+	             
+	             
+	             $req->execute();
+	             $articles= array();
+	             while ( $row  = $req->fetch(PDO::FETCH_ASSOC)) {    
+					  $art = self::constructWithArray($row);
+					  array_push($articles, $art);
+	             }
+	             $bdd=null;
+	                return array('validation'=>true,'donnees'=>$articles,'message'=>'');
+	        }
+	       
+	        catch(Exception $e)
+	        {
+	            die('Erreur : ' . $e->getMessage());
+	        }
+	}
+
 	public function getAllArticlesDesc(){
 		try {
 				  include("../database/connexion.php");

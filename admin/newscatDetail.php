@@ -89,7 +89,7 @@ tinyMCE.init({
     // General options
     convert_urls : false,
     mode : "exact",
-    elements : "Texte",
+    elements : "Description",
     theme : "advanced",
     plugins : "safari,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template",
     // Theme options

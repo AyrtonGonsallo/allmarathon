@@ -3,6 +3,7 @@ class newscategorie{
 
 	private $id;
 	private $intitule;
+	private $description;
 
 	public function getId(){
 		return $this->id;
@@ -18,6 +19,14 @@ class newscategorie{
 
 	public function setIntitule($intitule){
 		$this->intitule = $intitule;
+	}
+
+	public function getDescription(){
+		return $this->description;
+	}
+
+	public function setDescription($description){
+		$this->description = $description;
 	}
 
 	public static function constructWithArray( array $donnees ) {
@@ -42,7 +51,7 @@ class newscategorie{
 			{
 				try {
 						  include("../database/connexion.php");
-						 $req = $bdd->prepare("SELECT * FROM newscategorie  WHERE id=:id");
+						 $req = $bdd->prepare("SELECT * FROM newscategorie  WHERE ID=:id");
 			             $req->execute(array('id'=>$id));
 			             $news_cat= self::constructWithArray($req->fetch(PDO::FETCH_ASSOC));
 			             $bdd=null;

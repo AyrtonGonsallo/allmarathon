@@ -235,7 +235,10 @@ a:hover{
 .d--none {
     display: none;
 }
-
+.categorie-filter{
+    display: grid;
+    grid-template-columns: repeat(6,1fr);
+}
    /* header*/
    .header {
     background: #fff;
@@ -509,7 +512,7 @@ li.menu-item-categories  li{
 section.last_articles_part1 article,
 section.last_articles_part2 article,.resultat-detail article {
     display: flex;
-    padding: 35px 15px;
+    padding: 5px 15px;
 }
 .title_news {margin: 25px 0 70px 0;line-height: 30px;}
 
@@ -542,8 +545,9 @@ section.last_articles_part1 .desc-img, section.last_articles_part2 .desc-img, .r
     display: flex;
 }
 .left-side article .desc-img h2 {
-    font-family: 'Poppins-Black';
-    font-size: 27px;
+    font-family: 'Poppins-regular';
+    font-size: 20px;
+    font-weight: 600;
     margin: 0 0 5px 0;
 }
 .title_news a, .video_title, .left-side article .desc-img h2{
@@ -2015,9 +2019,7 @@ div#copy-button:hover {
 #sidebarMenu table td[class*=col-], table th[class*=col-] {
     float: left !important;
 }
-.new-logout{
-   
-}
+
 .sidebarMenuInner{
     margin:0;
     padding:0;
@@ -2421,3 +2423,47 @@ select#select-pays { width: 284px;}
     background-color: #ffffff00 !important;
     text-decoration: underline;
 }
+@media screen and (max-width: 800px) {
+.header { position: relative !important;}
+}
+@media (max-width: 767px) {
+    .row.mt-77 {
+        margin-top: 0px !important;
+    }
+}   
+/******************catrgorie filter*******************/
+.carousel {
+    background: #fff;
+    height: 73px;
+    margin: auto;
+    padding: 10px;
+    overflow: hidden !important;
+    position: relative;
+    width: 100% !important;
+}	
+.splide__list {
+    gap: 20px !important;}
+.a-cat-fltr {
+    text-align: center;
+    
+    background-color: #FBFF0B;
+    color: #000;
+    padding: 10px;
+    /*margin-inline: 8px;*/
+    display: block;
+    width: fit-content;
+    max-width: fit-content;
+    white-space: nowrap;
+}
+.a-cat-fltr:hover {
+    background-color: #a6ddfe;
+    color: #000000;
+}
+.splide__pagination{display:none !important;}
+.splide__slide {
+    width: fit-content !important;
+    margin-right: 0px !important;
+}
+.splide { margin-bottom: 33px !important;}
+
+
