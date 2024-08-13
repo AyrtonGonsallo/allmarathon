@@ -636,10 +636,10 @@ http://www.shin-ji.com
         </td></tr>
 
 
-        <tr><td><label for="fichier1">Upload fichier1 : </label></td><td><input type="file" name="fichier1"/></td><td><?php if($event['Document1']!=null){ echo "<a href='https://dev.allmarathon.fr/uploadDocument/".$event['Document1']."' target='_blank'>Voir le document ".$event['Document1']."</a>";}?></td></tr>
+        <tr><td><label for="fichier1">Upload fichier1 : </label></td><td><input type="file" name="fichier1"/></td><td><?php if($event['Document1']!=null){ echo "<a href='https://dev.allrathon.fr/uploadDocument/".$event['Document1']."' target='_blank'>Voir le document ".$event['Document1']."</a>";}?></td></tr>
 
 
-        <tr><td><label for="fichier3">Upload fichier3 : </label></td><td><input type="file" name="fichier3"/></td><td><?php if($event['Document3']!=null){ echo "<a href='https://dev.allmarathon.fr/uploadDocument/".$event['Document3']."' target='_blank'>Voir le document ".$event['Document3']."</a>";}?></td></tr>
+        <tr><td><label for="fichier3">Upload fichier3 : </label></td><td><input type="file" name="fichier3"/></td><td><?php if($event['Document3']!=null){ echo "<a href='https://dev.allrathon.fr/uploadDocument/".$event['Document3']."' target='_blank'>Voir le document ".$event['Document3']."</a>";}?></td></tr>
         
 
         <tr ><td colspan="2"><input type="submit" name="sub" value="modifier" /></td></tr>

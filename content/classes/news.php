@@ -296,7 +296,7 @@ class news {
 	    	
 	    	try {
 				  include("../database/connexion.php");
-				 $req = $bdd->prepare("SELECT * FROM news WHERE  categorieID='11' ORDER BY date DESC LIMIT 0,5");
+				 $req = $bdd->prepare("SELECT * FROM news WHERE  bref=1 ORDER BY date DESC LIMIT 0,5");
 	             $req->execute();
 	             $news_bref = array();
 	             while ( $row  = $req->fetch(PDO::FETCH_ASSOC)) {    
@@ -344,13 +344,13 @@ public function news_home($number){
 				  include("../database/connexion.php");
 				 if($number==0)
 				 {
-				 	$lim=2;
+				 	$lim=9;
 				 	$offset=0;
 				 }
 				 else if($number==1)
 				 {
-				 	$lim=6;
-				 	$offset=2;
+				 	$lim=10;
+				 	$offset=9;
 				 }
 				 $req = $bdd->prepare("SELECT * FROM news  WHERE aLaDeux = '1' ORDER BY date DESC LIMIT :offset, :lim");
 				 $req->bindValue('lim', $lim, PDO::PARAM_INT);

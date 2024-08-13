@@ -84,7 +84,7 @@ try{
     <link rel="apple-touch-icon" href="apple-favicon.png">
     <link rel="icon" type="image/x-icon" href="../../images/favicon.ico" />
     
-    <link rel="canonical" href="https://dev.allmarathon.fr/liste-des-athletes.html" />
+    <link rel="canonical" href="https://dev.allrathon.fr/liste-des-athletes.html" />
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/font-awesome.min.css">
     <link rel="stylesheet" href="../../css/fonts.css">
@@ -121,7 +121,7 @@ try{
     <?php include_once('nv_header-integrer.php'); setlocale(LC_TIME, "fr_FR","French");?>
 
     <div class="container page-content mpp  mt-77">
-        <div class="row banniere1">
+        <div class="row banniere1 ban ban_728x90">
             <div  class="col-sm-12"><?php
                 if($pub728x90 !="") {
                 echo '<a target="_blank" href="'.$pub728x90["url"].'" class="col-sm-12">';
@@ -206,17 +206,7 @@ try{
         </div> <!-- End container page-content -->
     </div>
     <div class="container page-content">
-        <div class="row banniere1">
-            <div  class="col-sm-12"><?php
-                if($pub728x90 !="") {
-                echo '<a target="_blank" href="'.$pub728x90["url"].'" class="col-sm-12">';
-                    echo $pub728x90["code"] ? $pub728x90["code"] :  "<img src=".'../images/pubs/'.$pub728x90['image'] . " alt='' style=\"width: 100%;\" />";
-                    echo '</a>';
-                }else if($getMobileAds !="") {
-                echo $getMobileAds["code"] ? $getMobileAds["code"] :  "<a href=".$getMobileAds["url"]." target='_blank'><img src=".'../images/pubs/'.$getMobileAds['image'] . " alt='' style=\"width: 100%;\" /></a>";
-                }
-                ?></div>
-        </div>
+        
         <div class="row">
             <div class="col-sm-12 left-side align-with-grid-mpp">
 
@@ -280,6 +270,17 @@ try{
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="row banniere1 ban ban_768x90 ">
+            <div  class="col-sm-12"><?php
+                if($pub768x90 !="") {
+                echo '<a target="_blank" href="'.$pub768x90["url"].'" class="col-sm-12">';
+                    echo $pub768x90["code"] ? $pub768x90["code"] :  "<img src=".'../images/pubs/'.$pub768x90['image'] . " alt='' style=\"width: 100%;\" />";
+                    echo '</a>';
+                }else if($getMobileAds !="") {
+                echo $getMobileAds["code"] ? $getMobileAds["code"] :  "<a href=".$getMobileAds["url"]." target='_blank'><img src=".'../images/pubs/'.$getMobileAds['image'] . " alt='' style=\"width: 100%;\" /></a>";
+                }
+                ?></div>
         </div>
     </div>
     <?php include('footer.inc.php'); ?>

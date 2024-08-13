@@ -1,51 +1,6 @@
 $(function () {
-  var carousel = $(".jcarousel").jcarousel({ wrap: "circular" });
+  
 
-  $("dd.actu-video a.navig.prev").jcarouselControl({
-    target: "-=1",
-    carousel: carousel,
-  });
-  $("dd.actu-video a.navig.next").jcarouselControl({
-    target: "+=1",
-    carousel: carousel,
-  });
-
-  $("dd.offres-allmarathon a.navig.prev").jcarouselControl({
-    target: "-=1",
-    carousel: carousel,
-  });
-  $("dd.offres-allmarathon a.navig.next").jcarouselControl({
-    target: "+=1",
-    carousel: carousel,
-  });
-
-  $("div.logo-slide a.prev").jcarouselControl({
-    target: "-=1",
-    carousel: carousel,
-  });
-  $("div.logo-slide a.next").jcarouselControl({
-    target: "+=1",
-    carousel: carousel,
-  });
-
-  $("#my-slider").sliderPro({
-    autoplay: true,
-    width: "100%",
-    buttons: false,
-    loop: true,
-    arrows: true,
-    thumbnailPointer: true,
-  });
-
-  $(document).herbyCookie({
-    style: "dark",
-    btnText: "Accepter",
-    policyText: "Politique de confidentialité",
-    text: "Ce site utilise des cookies afin d'améliorer votre expérience. En continuant à naviguer sur ce site, vous serez conforme à notre ",
-    scroll: false,
-    link: "/politique-de-confidentialite.html",
-    expireDays: 365,
-  });
 
   if (window.matchMedia("(min-width: 1120px)").matches) {
     $().UItoTop({ easingType: "easeOutQuart" });
@@ -85,3 +40,53 @@ function toggleOnClass(event) {
 $(".menu li a").on("click", function () {
   $("#hamburger-menu").click();
 });
+
+
+
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    const hamburgerButton = document.getElementById("hamburger-menu");
+    const navCategory = document.querySelector(".nav-category");
+    const header = document.querySelector(".header"); // Select the header element
+
+    hamburgerButton.addEventListener("click", function() {
+        // Toggle the menu open class
+        navCategory.classList.toggle("open");
+
+        // Toggle the fixed-header class
+        if (navCategory.classList.contains("open")) {
+            header.classList.add("fixed-header");
+            document.body.classList.add("menu-open"); // Prevent scrolling
+        } else {
+            header.classList.remove("fixed-header");
+            document.body.classList.remove("menu-open"); // Allow scrolling
+        }
+    });
+
+    // Close the menu when clicking outside of it
+    document.addEventListener("click", function(event) {
+        if (!hamburgerButton.contains(event.target) && !navCategory.contains(event.target)) {
+            navCategory.classList.remove("open");
+            header.classList.remove("fixed-header");
+            document.body.classList.remove("menu-open");
+        }
+    });
+    console.log("fixed header chargé")
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

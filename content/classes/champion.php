@@ -398,6 +398,31 @@ class champion{
 
 	}
 
+	public function getChampionsPhoto($champ_id){
+		try {
+				  include("../database/connexion.php");
+				 $req = $bdd->prepare("SELECT * FROM images I LEFT OUTER JOIN galeries G ON I.Galerie_id=G.ID WHERE I.actif = '1' AND (I.Champion_id=:champ_id OR I.Champion2_id=:champ_id) limit 1");
+	             $req->bindValue('champ_id',$champ_id, PDO::PARAM_INT);
+	             $req->execute();
+	             $champions = array();
+	             while ( $row  = $req->fetch(PDO::FETCH_ASSOC)) {    
+					array_push($champions, $row);
+	             }
+	             $bdd=null;
+	                return array('validation'=>true,'donnees'=>$champions,'message'=>'');
+	            
+	             
+	        }
+	       
+	        catch(Exception $e)
+
+	        {
+
+	            die('Erreur : ' . $e->getMessage());
+	        }
+
+	}
+
 
 
     public function getChampionBirthday()

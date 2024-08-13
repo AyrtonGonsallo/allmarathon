@@ -210,7 +210,7 @@ setlocale(LC_TIME, "fr_FR","French");
     <meta name="Description" content="Les actualités du marathon en France et dans le monde. News, résultats, interviews, vidéos, comptes-rendus, brèves, sondages. | allmarathon.fr" lang="fr" xml:lang="fr">
 
     
-    <link rel="canonical" href="https://dev.allmarathon.fr/actualites-marathon.html" />
+    <link rel="canonical" href="https://dev.allrathon.fr/actualites-marathon.html" />
 
 
     <link rel="apple-touch-icon" href="apple-favicon.png">

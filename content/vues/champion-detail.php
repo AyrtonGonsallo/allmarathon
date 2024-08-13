@@ -190,14 +190,14 @@ $afficher_tab_medaille=false;
     <meta name="Description" lang="fr" content="<?php echo $champ->getNom();?> est athlète, marathonien. Pays: <?php echo $pays_intitule;?>. Record de <?php echo $champ->getNom();?> sur marathon, résultats, photos, vidéos.">
     <meta property="og:type" content="siteweb" />
     <meta property="og:title" content="<?php echo $champ->getNom();?>, coureur de marathon. Résultats, vidéos, photos, record." />
-    <meta property="og:image" content="https://dev.allmarathon.fr/images/allmarathon.png" />
-    <meta property="og:url" content="<?php echo 'https://dev.allmarathon.fr/athlete-'.$champ->getId().'-'.slugify($champ->getNom()).'.html';?>" />
+    <meta property="og:image" content="https://dev.allrathon.fr/images/allmarathon.png" />
+    <meta property="og:url" content="<?php echo 'https://dev.allrathon.fr/athlete-'.$champ->getId().'-'.slugify($champ->getNom()).'.html';?>" />
     <meta property="og:description" content="<?php echo $champ->getNom();?> est athlète, marathonien. Pays: <?php echo $pays_intitule;?>. Record de <?php echo $champ->getNom();?> sur marathon, résultats, photos, vidéos." />
 
 
     <link rel="apple-touch-icon" href="../../images/favicon.ico">
     <link rel="icon" type="image/x-icon" href="../../images/favicon.ico" />
-    <?php echo '<link rel="canonical" href="https://dev.allmarathon.fr/athlete-'.$champ->getId().'-'.slugify($champ->getNom()).'.html" />';?>
+    <?php echo '<link rel="canonical" href="https://dev.allrathon.fr/athlete-'.$champ->getId().'-'.slugify($champ->getNom()).'.html" />';?>
 
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/font-awesome.min.css">
@@ -226,7 +226,7 @@ $afficher_tab_medaille=false;
     <?php include_once('nv_header-integrer.php'); ?>
 
     <div class="container page-content athlete-detail champion-detail mt-77">
-        <div class="row banniere1">
+        <div class="row banniere1 ban ban_728x90">
             <div  class="col-sm-12"><?php
                 if($pub728x90 !="") {
                 echo '<a target="_blank" href="'.$pub728x90["url"].'" class="col-sm-12">';
@@ -593,6 +593,15 @@ $afficher_tab_medaille=false;
             </div> <!-- End left-side -->
 
             <aside class="col-sm-4">
+                <div class="ban ban_300x60 mb-30">
+                    <?php
+                        if($pub300x60 !="") {
+                        echo '<a target="_blank" href="'.$pub300x60["url"].'" >';
+                            echo $pub300x60["code"] ? $pub300x60["code"] :  "<img src=".'../images/pubs/'.$pub300x60['image'] . " alt='' style=\"width: 100%;\" />";
+                            echo '</a>';
+                        }
+                    ?>
+                </div>
             <?php if (isset($_SESSION['msg_adm_fiche'])){?>
                     
                     <div class="modal fade in" id="AddResultResponseModal" tabindex="-1" role="dialog" aria-labelledby="AddResultResponseModal" aria-hidden="true">
@@ -654,27 +663,55 @@ $afficher_tab_medaille=false;
                    
                     
                 </div>
-                <!-- <p class="ban"><a href=""><?php //echo $pub300x60; ?></a></p>
-            <p class="ban"><a href=""><?php //echo $pub300x250; ?></a></p> -->
-                <p class="ban ban_160-600">
+               
+                <div class="marg_bot"></div>
+                    <p class="ban ban_160-600">
+                        <?php
+                        if($pub160x600 !="") {
+                            //var_dump($pub160x600["url"]); exit;
+                            if($pub160x600["code"]==""){
+                                echo "<a href=".'http://dev.allrathon.net/'.$pub160x600["url"]." target='_blank'><img src=".'../images/pubs/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" /></a>";
+                            }
+                            else{
+                                echo $pub160x600["code"];
+                            }
+                        }?>
+                    </p>
+                    <div class="marg_bot"></div>
+                    <p class="ban ban_300x250 to_hide_mobile">
+                        <?php
+                        if($pub300x250 !="") {
+                            //var_dump($pub300x250["url"]); exit;
+                            if($pub300x250["code"]==""){
+                                echo "<a href=".''.$pub300x250["url"]." target='_blank'><img src=".'../images/pubs/'.$pub300x250['image'] . " alt='' style=\"width: 100%;\" /></a>";
+                            }
+                            else{
+                                echo $pub300x250["code"];
+                            }
+                        }
+                        ?>
+                    </p>
+                    
+            </aside>
+           
+        </div>
+        <div class="row banniere1 ban ban_768x90 ">
+            
+            <div class="placeholder-content">
+                 <div class="placeholder-title"> Allmarathon </div> 
+                 <div class="placeholder-subtitle">publicité</div>
+             </div>
+             
+                <div  class="col-sm-12 ads-contain">
                     <?php
-                    if($pub160x600 !="") {
-                        //var_dump($pub160x600["url"]); exit;
-                        if($pub160x600["code"]==""){
-                            echo "<a href=".'http://allmarathon.net/'.$pub160x600["url"]." target='_blank'><img src=".'../images/news/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" /></a>";
-                        }
-                        else{
-                            echo $pub160x600["code"];
-                        }
-                    /*echo $pub160x600["code"] ? $pub160x600["code"] :  "<img src=".'../images/pubs/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" />";*/
+                    if($pub768x90 !="") {
+                    echo '<a target="_blank" href="'.$pub768x90["url"].'" class="col-sm-12">';
+                        echo $pub768x90["code"] ? $pub768x90["code"] :  "<img src=".'../images/pubs/'.$pub768x90['image'] . " alt='' style=\"width: 100%;\" />";
+                        echo '</a>';
                     }
                     ?>
-                </p>
-                <div class="marg_bot"></div>
-                
-            </aside>
-        </div>
-
+                </div>
+            </div>
     </div> <!-- End container page-content -->
 
 

@@ -295,7 +295,7 @@ if (!isset($_GET["type"])) {
 
     function checkAll() {
 
-        var tab = new Array("accueil", "actualite", "resultats", "calendrier","marathon", "videos", "athlètes",
+        var tab = new Array("accueil", "actualite", "resultats", "calendrier", "videos", "marathons", "athlètes",
 
             "records", "statistiques", "outils", "autres");
 
@@ -340,20 +340,12 @@ if (!isset($_GET["type"])) {
     <fieldset style="float:left;">
 
         <br />
-
-
-        <a href="pub.php?type=banniere160x600">Bannière 160x600</a>
-        <a href="pub.php?type=banniere300x60">Bannière 300x60</a>
-        <a href="pub.php?type=banniere336x280">Bannière 336x280</a>
-        <a href="pub.php?type=banniere300x250">Bannière 300x250</a>
-
-        <a href="pub.php?type=banniere728x90">Bannière 728x90</a>
-
-        <a href="pub.php?type=banniere768x90">Bannière 768x90</a>
-
-        <a href="pub.php?type=bannieremobile">Bannière Mobile</a>
-
-
+            <a href="pub.php?type=banniere728x90" class="banniere-titre">Bannière horizontale haut</a>
+            <a href="pub.php?type=banniere768x90" class="banniere-titre">Bannière horizontale bas</a>
+            <a href="pub.php?type=banniere300x60" class="banniere-titre">Bannière horizontale côté</a>
+            <a href="pub.php?type=banniere160x600" class="banniere-titre">Bannière verticale côté</a>
+            <a href="pub.php?type=banniere300x250" class="banniere-titre">Bannière carré côté</a>
+            <a href="pub.php?type=bannieremobile" class="banniere-titre">Bannière Mobile</a>
         <br /><br /><br />
 
         <legend>Liste des publicit&eacute; <?php echo $adType; ?></legend>
@@ -463,7 +455,7 @@ foreach ($resultTechnique as $j) {
     , '<td align="center"><input type="checkbox" name="restriction' . $i . '[]" value="resultats"', (isset($restriction['resultats'])) ? ' checked="checked"' : "", '/></td>'
 
     , '<td align="center"><input type="checkbox" name="restriction' . $i . '[]" value="calendrier"', (isset($restriction['calendrier'])) ? ' checked="checked"' : "", '/></td>'
-    , '<td align="center"><input type="checkbox" name="restriction' . $i . '[]" value="marathon"', (isset($restriction['marathon'])) ? ' checked="checked"' : "", '/></td>'
+    , '<td align="center"><input type="checkbox" name="restriction' . $i . '[]" value="marathons"', (isset($restriction['marathons'])) ? ' checked="checked"' : "", '/></td>'
 
     , '<td align="center"><input type="checkbox" name="restriction' . $i . '[]" value="videos"', (isset($restriction['videos'])) ? ' checked="checked"' : "", '/></td>'
 
@@ -596,7 +588,7 @@ foreach ($resultTechnique as $j) {
 
     echo ' <tr><td><label for="url">Url : </label></td><td><input type="text" name="url" /></td></tr>';
 
-    echo ' <tr><td><label for="image">Image : </label></td><td><input type="file" name="fileToUpload" id="fileToUpload"/></td></tr>';
+    echo ' <tr><td><label for="image">Image : </label></td><td><input type="file" name="fileToUpload" id="fileToUpload" accept="image/*"/></td></tr>';
 
     echo ' <tr><td><label for="code">Code : </label></td><td><textarea name="code" id="code" cols="50" rows="8"></textarea></td></tr>';
 
@@ -728,11 +720,11 @@ foreach ($resultTechnique as $j) {
 
                                     <tr>
 
-                                        <td><label for="marathon">Marathon</label></td>
+                                        <td><label for="marathons">Marathon</label></td>
 
-                                        <td><input id="marathon" type="checkbox" name="restriction[]"
+                                        <td><input id="marathons" type="checkbox" name="restriction[]"
 
-                                                value="marathon" />
+                                                value="marathons" />
 
                                         </td>
 
@@ -752,9 +744,9 @@ foreach ($resultTechnique as $j) {
 
                                     <tr>
 
-                                        <td><label for="athletes">Athlètes</label></td>
+                                        <td><label for="athlètes">Athlètes</label></td>
 
-                                        <td><input id="athletes" type="checkbox" name="restriction[]" value="athletes" />
+                                        <td><input id="athlètes" type="checkbox" name="restriction[]" value="athlètes" />
 
                                         </td>
 
@@ -842,7 +834,7 @@ foreach ($resultTechnique as $j) {
 
     echo ' <tr><td><label for="nom">Nom : </label></td><td><input type="text" name="nom" /></td></tr>';
 
-    echo ' <tr><td><label for="image">Image : </label></td><td><input type="file" name="fileToUpload" id="fileToUpload"/></td></tr>';
+    echo ' <tr><td><label for="image">Image : </label></td><td><input type="file" name="fileToUpload" id="fileToUpload" accept="image/*"/></td></tr>';
 
     echo ' <tr><td><label for="url">Url : </label></td><td><input type="text" name="url" /></td></tr>';
 

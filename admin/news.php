@@ -59,7 +59,7 @@ if (session_status() == PHP_SESSION_NONE) {
             $fileName = $_FILES['photo']['name'];
             try {
                 
-                    $req4 = $bdd->prepare("INSERT INTO news (date,source,auteur,titre,chapo,texte,photo,admin,liens_champions,aLaUne,aLaDeux,categorieID,url,legende,lien1,textlien1,evenementID,championID,videoID) VALUES (:date,:source,:auteur,:titre,:chapo,:texte,:photo,:admin,:liens_champions,:aLaUne,:aLaDeux,:categorie,:url,:legende,:lien1,:textlien1,:evenementID,:championID,:videoID)");
+                    $req4 = $bdd->prepare("INSERT INTO news (date,source,auteur,titre,chapo,texte,photo,admin,liens_champions,aLaUne,aLaDeux,categorieID,url,legende,lien1,textlien1,evenementID,championID,videoID,bref) VALUES (:date,:source,:auteur,:titre,:chapo,:texte,:photo,:admin,:liens_champions,:aLaUne,:aLaDeux,:categorie,:url,:legende,:lien1,:textlien1,:evenementID,:championID,:videoID,:bref)");
                 
                 
                 
@@ -69,6 +69,7 @@ if (session_status() == PHP_SESSION_NONE) {
                  $req4->bindValue('titre',$_POST['Titre'], PDO::PARAM_STR);
                  $req4->bindValue('aLaUne',$_POST['aLaUne'], PDO::PARAM_STR);
                  $req4->bindValue('aLaDeux',$_POST['aLaDeux'], PDO::PARAM_STR);
+                 $req4->bindValue('bref',$_POST['bref'], PDO::PARAM_STR);
                  $req4->bindValue('liens_champions',$_POST['liens_champions'], PDO::PARAM_STR);
                  $req4->bindValue('chapo',$_POST['Chapo'], PDO::PARAM_STR);
                  $req4->bindValue('texte',$_POST['Texte'], PDO::PARAM_STR);
@@ -147,7 +148,7 @@ if (session_status() == PHP_SESSION_NONE) {
     }
 
     try{
-      $req = $bdd->prepare("SELECT n.*,c.Intitule as categorie FROM news n,newscategorie c where n.categorieID=c.ID ORDER BY ID DESC");
+      $req = $bdd->prepare("SELECT * FROM news  ORDER BY ID DESC");
       $req->execute();
       $result1= array();
       while ( $row  = $req->fetch(PDO::FETCH_ASSOC)) {  
@@ -157,6 +158,17 @@ if (session_status() == PHP_SESSION_NONE) {
     catch(Exception $e)
     {
         die('Erreur : ' . $e->getMessage());
+    }
+
+    function get_categorie($bdd,$cid){
+        if($cid==null or $cid==0){
+            return array("Intitule"=>"");
+        }
+        $req33 = $bdd->prepare("SELECT * FROM newscategorie WHERE ID=:id");
+        $req33->bindValue('id',$cid, PDO::PARAM_INT);
+        $req33->execute();
+        $cat= $req33->fetch(PDO::FETCH_ASSOC);
+        return $cat;
     }
 
     // $query1    = sprintf('SELECT * FROM news ORDER BY ID DESC');
@@ -460,12 +472,13 @@ if (session_status() == PHP_SESSION_NONE) {
                 <tbody>
                     <?php //while($news = mysql_fetch_array($result1)){<?>
                     <?php foreach ($result1 as $news) {
+                        $cat=get_categorie($bdd,$news["categorieID"]);
 			$incheck_deux='<input type="checkbox" name="check_deux" value="'.$news['ID'].'" checked="checked" onclick="chkit2('.$news['ID'].',this.checked);"/>';
 			$uncheck_deux='<input type="checkbox" name="uncheck_deux" value="'.$news['ID'].'" onclick="chkit2('.$news['ID'].',this.checked);"/>';
             $deux = ($news['aLaDeux']) ? ''.$incheck_deux.'' : ''.$uncheck_deux.'';
 			$incheck_une='<input type="checkbox" name="check_une" value="'.$news['ID'].'" checked="checked" onclick="chkit1('.$news['ID'].',this.checked);"/>';
 			$uncheck_une='<input type="checkbox" name="uncheck_une" value="'.$news['ID'].'" onclick="chkit1('.$news['ID'].',this.checked);"/>';
-            echo "<tr align=\"center\" ><td>".$news['ID']."</td><td>".$news['categorie']."</td><td>".$news['titre']."</td><td>",($news['aLaUne'])?"".$incheck_une."":"".$uncheck_une."","</td><td>" . $deux . "</td><td>".$news['date']."</td>
+            echo "<tr align=\"center\" ><td>".$news['ID']."</td><td>".$cat['Intitule']."</td><td>".$news['titre']."</td><td>",($news['aLaUne'])?"".$incheck_une."":"".$uncheck_une."","</td><td>" . $deux . "</td><td>".$news['date']."</td>
                 <td>";
             if($news['admin'] == $_SESSION['login'] || $_SESSION['admin'] == true){
                 echo "<img style=\"cursor:pointer;\" src=\"../images/edit.png\" alt=\"edit\" title=\"modifier\" onclick=\"location.href='newsDetail.php?newsID=".$news['ID']."'\" />

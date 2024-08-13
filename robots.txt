@@ -10,4 +10,4 @@ Disallow: /js/
 Disallow: /Scripts/
 Disallow: /styles/
 Disallow: /pas-toucher.html/
-Sitemap: http://dev.allmarathon.fr/sitemap.xml
+Sitemap: http://all.allmarathon.fr/sitemap.xml

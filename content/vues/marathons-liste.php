@@ -158,10 +158,10 @@ try{
     <meta property="og:description" content="Retrouvez tous les marathons dans le monde : agenda, dates, résultats, records, infos." />
     <meta property="og:locale" content="fr_FR" />
     <meta property="og:type" content="siteweb" />
-    <meta property="og:image" content="https://dev.allmarathon.fr/images/allmarathon.png" />
-    <meta property="og:url" content="https://dev.allmarathon.fr/calendrier-agenda-marathons.html" />
+    <meta property="og:image" content="https://dev.allrathon.fr/images/allmarathon.png" />
+    <meta property="og:url" content="https://dev.allrathon.fr/calendrier-agenda-marathons.html" />
 
-    <link rel="canonical" href="https://dev.allmarathon.fr/calendrier-agenda-marathons.html" />
+    <link rel="canonical" href="https://dev.allrathon.fr/calendrier-agenda-marathons.html" />
 
     <link rel="apple-touch-icon" href="apple-favicon.png">
 
@@ -232,8 +232,15 @@ try{
 
      
 
-    <div class="row banniere1">
-            <div  class="col-sm-12"><?php
+    <div class="row banniere1 ban ban_728x90">
+        
+         <div class="placeholder-content">
+                 <div class="placeholder-title"> Allmarathon </div> 
+                 <div class="placeholder-subtitle">publicité</div>
+             </div>
+        
+            <div  class="col-sm-12 ads-contain">
+            <?php
                 if($pub728x90 !="") {
                 echo '<a target="_blank" href="'.$pub728x90["url"].'" class="col-sm-12">';
                     echo $pub728x90["code"] ? $pub728x90["code"] :  "<img src=".'../images/pubs/'.$pub728x90['image'] . " alt='' style=\"width: 100%;\" />";
@@ -265,7 +272,15 @@ try{
                        
 
                         <div>
-                        <div class="marathon-sub-menu-grid">
+                        <div class="marathon-sub-menu-grid"> 
+                        <div class="div-flx-marat">
+                            <div class="button-agenda">
+                                <a href="/agenda-marathons-par-pays.html" class="home-link disp-block">Marathons par pays</a>
+                            </div>
+                            <div class="button-agenda">
+                                <a href="/agenda-marathons-par-mois.html" class="home-link disp-block">Marathons par mois</a>
+                            </div>
+                            </div>
                             <div class="search-bar">
                                 <form action="" method="post" class="form-inline" role="form">
                                     <div class="form-group" style="width:100%; white-space: nowrap; margin-bottom: 5px;">
@@ -273,12 +288,7 @@ try{
                                     </div>
                                 </form>	
                             </div>
-                            <div class="button-agenda">
-                                <a href="/agenda-marathons-par-pays.html" class="home-link disp-block">Marathons par pays</a>
-                            </div>
-                            <div class="button-agenda">
-                                <a href="/agenda-marathons-par-mois.html" class="home-link disp-block">Marathons par mois</a>
-                            </div>
+                           
                         </div>
                             
                             
@@ -387,7 +397,21 @@ try{
 
             
         </div>
-
+        <div class="row banniere1 ban ban_768x90 ">
+             <div class="placeholder-content">
+                 <div class="placeholder-title"> Allmarathon </div> 
+                 <div class="placeholder-subtitle">publicité</div>
+             </div>
+                    <div  class="col-sm-12 ads-contain">
+                    <?php
+                        if($pub768x90 !="") {
+                        echo '<a target="_blank" href="'.$pub768x90["url"].'" class="col-sm-12">';
+                            echo $pub768x90["code"] ? $pub768x90["code"] :  "<img src=".'../images/pubs/'.$pub768x90['image'] . " alt='' style=\"width: 100%;\" />";
+                            echo '</a>';
+                        }
+                        ?></div>
+                </div>
+            </div>
 
 
     </div> <!-- End container page-content -->

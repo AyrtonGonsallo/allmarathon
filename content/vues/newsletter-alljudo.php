@@ -72,7 +72,7 @@ function getPhotoUrl($date, $photo)
 
 {
 
-    return 'http://dev.allmarathon.fr/images/news/' . substr($date, 0, 4) . '/' . $photo;
+    return 'http://dev.allrathon.fr/images/news/' . substr($date, 0, 4) . '/' . $photo;
 
 }
 
@@ -82,7 +82,7 @@ function getNewsLink($id, $title)
 
 {
 
-    return 'http://dev.allmarathon.fr/actualite-marathon-' . $id . '-' . slugify($title) . '.html';
+    return 'http://dev.allrathon.fr/actualite-marathon-' . $id . '-' . slugify($title) . '.html';
 
 }
 
@@ -1090,11 +1090,11 @@ if (count($last_news) < 1) {
 
                                         align="left">
 
-                                        <a href="http://dev.allmarathon.fr/newsletter-allmarathon.html">
+                                        <a href="http://dev.allrathon.fr/newsletter-allmarathon.html">
 
                                             <img width="174" height="66"
 
-                                                 src="http://dev.allmarathon.fr/images/logo-news.png"
+                                                 src="http://dev.allrathon.fr/images/logo-news.png"
 
                                                  class="float-center"
 
@@ -1232,7 +1232,7 @@ if (count($last_news) < 1) {
 
                                         <img width="556" height="143"
 
-                                             src="http://dev.allmarathon.fr/images/pubs/<?php echo $pub['image']; ?>" 
+                                             src="http://dev.allrathon.fr/images/pubs/<?php echo $pub['image']; ?>" 
 
                                              class="float-center"
 
@@ -1416,7 +1416,7 @@ if (count($last_news) < 1) {
 
                             $nom_res=$cat_event.' '.$type_event.' '.$cat_age.' ('.$resultat['Sexe'].') - '.$resultat['Nom'].' - '.substr($resultat['DateDebut'],0,4);
 
-                            echo '<li style="float: left;width: 98.5%;padding: 5px 0; text-align:center"><a href="http://dev.allmarathon.fr/resultats-marathon-'.$resultat['ID'].'-'.slugify($nom_res).'.html" style="font-family: \'Roboto\', sans-serif;font-weight: 400;font-size: 1em;color: #0a0a0a;text-align: left;line-height: 1.3;margin: 0.5em 0 10px;padding: 0; text-decoration: underline;">'.$nom_res.'</a>
+                            echo '<li style="float: left;width: 98.5%;padding: 5px 0; text-align:center"><a href="http://dev.allrathon.fr/resultats-marathon-'.$resultat['ID'].'-'.slugify($nom_res).'.html" style="font-family: \'Roboto\', sans-serif;font-weight: 400;font-size: 1em;color: #0a0a0a;text-align: left;line-height: 1.3;margin: 0.5em 0 10px;padding: 0; text-decoration: underline;">'.$nom_res.'</a>
 
                             </li>';
 
@@ -1474,7 +1474,7 @@ if (count($last_news) < 1) {
 
                                 <td style="width:50%;'.$pad.'" align="left" valign="top">
 
-                                                    <a href="http://dev.allmarathon.fr/video-de-marathon-'.$video['ID'].'.html">
+                                                    <a href="http://dev.allrathon.fr/video-de-marathon-'.$video['ID'].'.html">
 
 
 
@@ -1562,7 +1562,7 @@ if (count($last_news) < 1) {
 
                                                                 align="left" bgcolor="#ec5840" valign="top"><a
 
-                                                                        href="http://dev.allmarathon.fr/calendrier-marathon.html"
+                                                                        href="http://dev.allrathon.fr/calendrier-marathon.html"
 
                                                                         style="color: #fefefe; font-family: 'Roboto', sans-serif !important; font-weight: 400 !important; text-align: center; line-height: 1.3; text-decoration: none; font-size: 1.1em !important; display: inline-block; border-radius: 3px; width: 100%; background: #fbff0b; margin: 0; padding: 10px 0; border: 0 solid #ec5840;text-transform: uppercase;">calendrier</a></td>
 

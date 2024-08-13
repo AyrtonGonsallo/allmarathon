@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <?php
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -127,13 +127,13 @@ function switch_cat($cat)
     <title>Suivez l’actualité du marathon : calendrier, résultats, vidéos | allmarathon.fr</title>
     <meta name="description" content="allmarathon, toutes les informations concernant les marathons en France et dans le monde. News, calendrier, résultats, vidéos. Pour les passionnés des 42 kms.">
     
-    <link rel="canonical" href="https://dev.allmarathon.fr" />
+    <link rel="canonical" href="https://dev.allrathon.fr" />
     <meta property="og:title" content=" Suivez l’actualité du marathon : calendrier, résultats, vidéos | allmarathon.fr " />
     <meta property="og:description" content="allmarathon, toutes les informations concernant les marathons en France et dans le monde. News, calendrier, résultats, vidéos. Pour les passionnés des 42 kms." />
     <meta property="og:locale" content="fr_FR" />
     <meta property="og:type" content="siteweb" />
-    <meta property="og:image" content="https://dev.allmarathon.fr/images/allmarathon.png" />
-    <meta property="og:url" content="https://dev.allmarathon.fr" />
+    <meta property="og:image" content="https://dev.allrathon.fr/images/allmarathon.png" />
+    <meta property="og:url" content="https://dev.allrathon.fr" />
     <link rel="apple-touch-icon" href="apple-favicon.png">
     <link rel="icon" type="image/x-icon" href="../../images/favicon.ico" />
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
@@ -161,8 +161,13 @@ function switch_cat($cat)
         $article=$last_news['donnees'][0];
         $tab = explode('-',$article->getDate());
         $yearNews  = $tab[0]; ?>
-         <div class="row banniere1 mobile mt-100 mb-20">
-            <div  class="col-sm-12"><?php
+         <div class="row banniere1 mobile mt-100 mb-20 ban ban_728x90">
+             <div class="placeholder-content">
+                 <div class="placeholder-title"> Allmarathon </div> 
+                 <div class="placeholder-subtitle">publicité</div>
+             </div>
+             <div  class="col-sm-12 ads-contain">
+             <?php
                 if($pub728x90 !="") {
                 echo '<a target="_blank" href="'.$pub728x90["url"].'" class="col-sm-12">';
                     echo $pub728x90["code"] ? $pub728x90["code"] :  "<img src=".'../images/pubs/'.$pub728x90['image'] . " alt='' style=\"width: 100%;\" />";
@@ -170,7 +175,8 @@ function switch_cat($cat)
                 }else if($getMobileAds !="") {
                 echo $getMobileAds["code"] ? $getMobileAds["code"] :  "<a href=".$getMobileAds["url"]." target='_blank'><img src=".'../images/pubs/'.$getMobileAds['image'] . " alt='' style=\"width: 100%;\" /></a>";
                 }
-                ?></div>
+                ?>
+             </div>
         </div>
         <div class="news_alune">
             <div class="image_news">
@@ -182,8 +188,13 @@ function switch_cat($cat)
 
                     
     <div class="container page-content homepage">
-        <div class="row banniere1 bureau">
-            <div  class="col-sm-12"><?php
+        <div class="row banniere1 bureau ban ban_728x90">
+             <div class="placeholder-content">
+                 <div class="placeholder-title"> Allmarathon </div> 
+                 <div class="placeholder-subtitle">publicité</div>
+             </div>
+             <div  class="col-sm-12 ads-contain">
+            <?php
                 if($pub728x90 !="") {
                 echo '<a target="_blank" href="'.$pub728x90["url"].'" class="col-sm-12">';
                     echo $pub728x90["code"] ? $pub728x90["code"] :  "<img src=".'../images/pubs/'.$pub728x90['image'] . " alt='' style=\"width: 100%;\" />";
@@ -445,8 +456,21 @@ function switch_cat($cat)
             </div> 
 
             <aside class="col-sm-4">
-
-
+                <div class="ban ban_300x60 width-60 mb-30">
+            <div class="placeholder-content">
+                 <div class="placeholder-title"> Allmarathon </div> 
+                 <div class="placeholder-subtitle">publicité</div>
+             </div>
+             <div  class="col-sm-12 ads-contain">
+                <?php
+                    if($pub300x60 !="") {
+                    echo '<a target="_blank" href="'.$pub300x60["url"].'" >';
+                        echo $pub300x60["code"] ? $pub300x60["code"] :  "<img src=".'../images/pubs/'.$pub300x60['image'] . " alt='' style=\"width: 100%;\" />";
+                        echo '</a>';
+                    }
+                ?>
+                </div>
+                </div>
                 <dt class="bref to_hide_mobile">
                     <h2 class="h2-aside">
                         <span class="material-symbols-outlined ">rocket_launch</span>
@@ -492,27 +516,33 @@ function switch_cat($cat)
                 <dd class="calendar to_hide_mobile ">
 
                     <div class="clearfix marathons-home">
-
-                        
-
-                        <?php
-
-                
-
-                    echo $home_events;
-
-                    
-
-                    ?>
+                        <?php echo $home_events;?>
                         <?php $today = date("Y/m/d");?>
                         <div class="mx-auto"><a href="<?php echo 'calendrier-marathons-'.utf8_encode(strftime("%B",strtotime($mois_calendrier))).'-'.intval((date("m", strtotime($mois_calendrier)))).'-'.strftime("%Y",strtotime($today)).'.html'; ?>" class="mx-auto w-fc blue-btn blue-btn">Tous les marathons de <?php echo utf8_encode(strftime("%B",strtotime($mois_calendrier)));?></a></div>
 
                     <div>
 
                 </dd>
-
+                <div class="ban ban_300x250 to_hide_mobile">
+                    <div class="placeholder-content">
+                           <div class="placeholder-title"> Allmarathon </div> 
+                           <div class="placeholder-subtitle">publicité</div>
+                    </div>
+                    <div  class="col-sm-12 ads-contain">
+                        <?php
+                        if($pub300x250 !="") {
+                            //var_dump($pub300x250["url"]); exit;
+                            if($pub300x250["code"]==""){
+                                echo "<a href=".''.$pub300x250["url"]." target='_blank'><img src=".'../images/pubs/'.$pub300x250['image'] . " alt='' style=\"width: 100%;\" /></a>";
+                            }
+                            else{
+                                echo $pub300x250["code"];
+                            }
+                        }
+                        ?>
+                    </div>
+                </div>
                 
-
                 
 
             </aside>
@@ -673,23 +703,31 @@ function switch_cat($cat)
                 <dd class="calendar mobile ">
 
                     <ul class="clearfix marathons-home">
-
                         
-
-                        <?php
-
-                
-
-                    echo $home_events;
-
-                    
-
-                    ?>
+                        <?php echo $home_events;?>
                         <?php $today = date("Y/m/d");?>
                         <li class="last mx-auto"><a href="<?php echo 'calendrier-marathons-'.utf8_encode(strftime("%B",strtotime($mois_calendrier))).'-'.intval((date("m", strtotime($mois_calendrier)))).'-'.strftime("%Y",strtotime($mois_calendrier)).'.html'; ?>" class="mx-auto w-fc blue-btn bouton-mobile">Tous les marathons de <?php echo utf8_encode(strftime("%B",strtotime($today)));?></a></li>
 
                     </ul>
-
+                    <div class="ban ban_300x250">
+                         <div class="placeholder-content">
+                           <div class="placeholder-title"> Allmarathon </div> 
+                           <div class="placeholder-subtitle">publicité</div>
+                         </div>
+                         <div  class="col-sm-12 ads-contain">
+                        <?php
+                        if($pub300x250 !="") {
+                            //var_dump($pub300x250["url"]); exit;
+                            if($pub300x250["code"]==""){
+                                echo "<a href=".''.$pub300x250["url"]." target='_blank'><img src=".'../images/pubs/'.$pub300x250['image'] . " alt='' style=\"width: 100%;\" /></a>";
+                            }
+                            else{
+                                echo $pub300x250["code"];
+                            }
+                        }
+                        ?>
+                        </div>
+                    </div>
                 </dd>
                 </aside>
             </div> 
@@ -737,28 +775,48 @@ function switch_cat($cat)
                     </ul>
 
                 </dd>
-                <p class="ban ban_160-600">
+                
+                
+                <div class="ban ban_160-600" >
+                    <div class="placeholder-content">
+                           <div class="placeholder-title"> Allmarathon </div> 
+                           <div class="placeholder-subtitle">publicité</div>
+                    </div>
+                    <div  class="col-sm-12 ads-contain">
                     <?php
                     if($pub160x600 !="") {
                         //var_dump($pub160x600["url"]); exit;
                         if($pub160x600["code"]==""){
-                            echo "<a href=".'http://allmarathon.net/'.$pub160x600["url"]." target='_blank'><img src=".'../images/news/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" /></a>";
+                            echo "<a href=".'http://dev.allrathon.net/'.$pub160x600["url"]." target='_blank'><img src=".'../images/pubs/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" /></a>";
                         }
                         else{
                             echo $pub160x600["code"];
                         }
-                    /*echo $pub160x600["code"] ? $pub160x600["code"] :  "<img src=".'../images/pubs/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" />";*/
-                    }
-                    ?>
-                </p>
-                
+                    }?>  
+                  </div>
+                </div>
 
             </aside>
 
         </div>
-
-    </div> 
+        <div class="row banniere1 ban ban_768x90 last-ad ">
+                    <div class="placeholder-content">
+                           <div class="placeholder-title"> Allmarathon </div> 
+                           <div class="placeholder-subtitle">publicité</div>
+                    </div>
+                    <div  class="col-sm-12 ads-contain">
+                <?php
+                    if($pub768x90 !="") {
+                    echo '<a target="_blank" href="'.$pub768x90["url"].'" class="col-sm-12">';
+                        echo $pub768x90["code"] ? $pub768x90["code"] :  "<img src=".'../images/pubs/'.$pub768x90['image'] . " alt='' style=\"width: 100%;\" />";
+                        echo '</a>';
+                    }
+                ?>
+            </div>
+        </div>
     </div>
+    </div> 
+    
 
     <?php include_once('footer.inc.php'); ?>
 

@@ -94,7 +94,12 @@ $pub768x90=$pub->getBanniere768_90("accueil")['donnees'];
 
     <div class="container page-content stats">
         <div class="row banniere1">
-            <a href="" class="col-sm-12"><?php
+             <div class="placeholder-content">
+                 <div class="placeholder-title"> Allmarathon </div> 
+                 <div class="placeholder-subtitle">publicité</div>
+             </div>
+            
+            <a href="" class="col-sm-12 ads-contain"><?php
 if($pub728x90 !="") {
 echo $pub728x90["code"] ? $pub728x90["code"] :  "<img src=".'../images/pubs/'.$pub728x90['image'] . " alt='' style=\"width: 100%;\" />";
 }
@@ -158,11 +163,24 @@ echo $pub728x90["code"] ? $pub728x90["code"] :  "<img src=".'../images/pubs/'.$p
 
             <aside class="col-sm-4">
                 <p class="ban"></p>
-                <p class="ban ban_160-600"><a href=""><?php
+                <div class="ban ban_160-600">
+                    
+                     <div class="placeholder-content">
+                          <div class="placeholder-title"> Allmarathon </div> 
+                          <div class="placeholder-subtitle">publicité</div>
+                    </div>
+                    
+                    <div  class="col-sm-12 ads-contain">
+                    <a href="">
+                <?php
 if($pub160x600 !="") {
 echo $pub160x600["code"] ? $pub160x600["code"] :  "<img src=".'../images/pubs/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" />";
 }
-?></a></p>
+?></a></div>
+
+              </div>
+              
+              
                 <div class="marg_bot"></div>
                 <!-- <dt class="facebook">rejoignez-nous sur facebook !</dt>
             <dd class="facebook">

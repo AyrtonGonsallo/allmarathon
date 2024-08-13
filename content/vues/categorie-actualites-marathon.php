@@ -94,13 +94,13 @@ function slugify($text)
     <?php require_once("../scripts/header_script.php") ?>
     <title><?php echo str_replace('\\', '', str_replace('"', '\'', $cat_news_details->getIntitule()));?> | allmarathon.fr </title>
     <meta name="Description" content="<?php echo str_replace('\\', '', str_replace('"', '\'', $cat_news_details->getIntitule()));?>  " lang="fr" xml:lang="fr" />
-    <?php echo '<link rel="canonical" href="https://dev.allmarathon.fr/categorie-actualites-marathon-'.$cat_news_details->getId().'-'.slugify($cat_news_details->getIntitule()).'.html" />';?>
+    <?php echo '<link rel="canonical" href="https://dev.allrathon.fr/categorie-actualites-marathon-'.$cat_news_details->getId().'-'.slugify($cat_news_details->getIntitule()).'.html" />';?>
     <meta name="robots" content="max-image-preview:large" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="<?php echo str_replace('\\', '', str_replace('"', '\'', $cat_news_details->getIntitule()));?>" />
     <meta property="og:description" content="<?php echo str_replace('\\', '', str_replace('"', '\'', $cat_news_details->getIntitule()));?>  " />
-    <meta property="og:image" content="<?php echo 'https://dev.allmarathon.fr'.$img_src; ?>" />
-    <meta property="og:url" content="<?php echo 'https://dev.allmarathon.fr/categorie-actualites-marathon-'.$cat_news_details->getId().'-'.slugify($cat_news_details->getIntitule()).'.html';?>" />
+    <meta property="og:image" content="<?php echo 'https://dev.allrathon.fr'.$img_src; ?>" />
+    <meta property="og:url" content="<?php echo 'https://dev.allrathon.fr/categorie-actualites-marathon-'.$cat_news_details->getId().'-'.slugify($cat_news_details->getIntitule()).'.html';?>" />
 
     <link rel="apple-touch-icon" href="apple-favicon.png">
     <link rel="icon" type="image/x-icon" href="../../images/favicon.ico" />
@@ -126,8 +126,8 @@ function slugify($text)
 
    
 
-    <div class="container page-content news-detail">
-        <div class="row banniere1 bureau">
+    <div class="container page-content news">
+        <div class="row banniere1 ban ban_728x90">
             <div  class="col-sm-12"><?php
                 if($pub728x90 !="") {
                 echo '<a target="_blank" href="'.$pub728x90["url"].'" class="col-sm-12">';
@@ -147,7 +147,7 @@ function slugify($text)
                     <div class="col-sm-12">
                     <h1 class="news-detail "> <?php echo $cat_news_details->getIntitule();?> </h1>
                     <div><?php echo $cat_news_details->getDescription(); ?></div>
-                    <section class="last_articles_part1 mt-0 bureau lazyblock">
+                    <section class="last_articles_part1 mt-0 lazyblock">
 
 
                     <?php
@@ -210,7 +210,7 @@ function slugify($text)
 
                                         $img_a_afficher= '<img class="img-responsive" alt="" src="'.$src_a_afficher.'"/>';
 
-                                        if($i==0){echo '<article class="row pt-10">';}else{echo '<article class="row">';}?>
+                                        if($i==0){echo '<article class="row news-mobile-box pt-10">';}else{echo '<article class="row news-mobile-box">';}?>
                                         <?
 
                                 
@@ -266,13 +266,15 @@ function slugify($text)
                 </div>
             </div>
             <aside class="col-sm-4">
-                <p class="ban"><?php
-                /*
-                if($pub300x60 !="") {
-                echo $pub300x60["code"] ? $pub300x60["code"] :  "<a href=". $pub300x60['url'] ." target='_blank'><img src=".'../images/pubs/'.$pub300x60['image'] . " alt='' style=\"width: 100%;\" />";
-                }*/
-                ?></a>
-                </p>
+                <div class="ban ban_300x60 mb-30">
+                <?php
+                    if($pub300x60 !="") {
+                    echo '<a target="_blank" href="'.$pub300x60["url"].'" >';
+                        echo $pub300x60["code"] ? $pub300x60["code"] :  "<img src=".'../images/pubs/'.$pub300x60['image'] . " alt='' style=\"width: 100%;\" />";
+                        echo '</a>';
+                    }
+                ?>
+                </div>
 
                 <dt class="bref to_hide_mobile">
                     
@@ -283,36 +285,49 @@ function slugify($text)
                     <ul class="clearfix">
 
                         
-                <p class="ban"><?php
-                    if($pub300x250 !="") {
-                    echo $pub300x250["code"] ? $pub300x250["code"] :  "<a href=". $pub300x250['url'] ." target='_blank'><img src=".'../images/pubs/'.$pub300x250['image'] . " alt='' style=\"width: 100%;\" />";
-                    }
-                    ?></a>
+                <p class="ban ban_160-600">
+                    <?php
+                    if($pub160x600 !="") {
+                        //var_dump($pub160x600["url"]); exit;
+                        if($pub160x600["code"]==""){
+                            echo "<a href=".'http://dev.allrathon.net/'.$pub160x600["url"]." target='_blank'><img src=".'../images/pubs/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" /></a>";
+                        }
+                        else{
+                            echo $pub160x600["code"];
+                        }
+                    }?>
                 </p>
                 
                
                 <div class="marg_bot"></div>
-                <p class="ban ban_160-600">
-                    <a href="">
+                <p class="ban ban_300x250 to_hide_mobile">
                         <?php
-                        if($pub160x600 !="") {
-                            //var_dump($pub160x600["url"]); exit;
-                            if($pub160x600["code"]==""){
-                                echo "<a href=".'http://dev.allmarathon.fr/'.$pub160x600["url"]." target='_blank'><img src=".'../images/news/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" /></a>";
+                        if($pub300x250 !="") {
+                            //var_dump($pub300x250["url"]); exit;
+                            if($pub300x250["code"]==""){
+                                echo "<a href=".''.$pub300x250["url"]." target='_blank'><img src=".'../images/pubs/'.$pub300x250['image'] . " alt='' style=\"width: 100%;\" /></a>";
                             }
                             else{
-                                echo $pub160x600["code"];
+                                echo $pub300x250["code"];
                             }
-                        /*echo $pub160x600["code"] ? $pub160x600["code"] :  "<img src=".'../images/pubs/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" />";*/
                         }
                         ?>
-                    </a>
-                </p>
+                    </p>
                 <div class="marg_bot"></div>
 
             </aside>
         </div>
-
+        <div class="row banniere1 ban ban_768x90 ">
+            <div  class="col-sm-12">
+                <?php
+                    if($pub768x90 !="") {
+                    echo '<a target="_blank" href="'.$pub768x90["url"].'" class="col-sm-12">';
+                        echo $pub768x90["code"] ? $pub768x90["code"] :  "<img src=".'../images/pubs/'.$pub768x90['image'] . " alt='' style=\"width: 100%;\" />";
+                        echo '</a>';
+                    }
+                ?>
+            </div>
+        </div>
     </div> <!-- End container page-content -->
 
     <?php include_once('footer.inc.php'); ?>

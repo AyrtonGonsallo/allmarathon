@@ -33,7 +33,7 @@ function get_data_sitemap_coureur(){
 function display_sitemap_coureur($result1){ 
     // Boucle qui liste les URL
     foreach ($result1 as $res) {
-        $loc        = 'https://dev.allmarathon.fr/athlete-'.$res['ID'].'-'.slugify($res['Nom']).'.html';
+        $loc        = 'https://dev.allrathon.fr/athlete-'.$res['ID'].'-'.slugify($res['Nom']).'.html';
         echo '
         <url>
             <loc>'.$loc.'</loc>
@@ -65,7 +65,7 @@ function display_sitemap_news($result1){
     // Boucle qui liste les URL
     foreach ($result1 as $res) {
         $url_text=slugify($res['titre']);
-        $loc        = 'https://dev.allmarathon.fr/actualite-marathon-'.$res['ID'].'-'.$url_text.'.html';
+        $loc        = 'https://dev.allrathon.fr/actualite-marathon-'.$res['ID'].'-'.$url_text.'.html';
         echo '
         <url>
             <loc>'.$loc.'</loc>
@@ -96,7 +96,7 @@ function display_sitemap_videos($result1){
     // Boucle qui liste les URL
     foreach ($result1 as $res) {
         
-        $loc        = 'https://dev.allmarathon.fr/video-de-marathon-'.$res['ID'].'.html';
+        $loc        = 'https://dev.allrathon.fr/video-de-marathon-'.$res['ID'].'.html';
         echo '
         <url>
             <loc>'.$loc.'</loc>
@@ -127,7 +127,7 @@ function display_sitemap_evenements($result1){
     // Boucle qui liste les URL
     foreach ($result1 as $res) {
         
-        $loc        = 'https://dev.allmarathon.fr/resultats-marathon-'.$res['ID'].'-'.slugify($res['Nom']).'.html';
+        $loc        = 'https://dev.allrathon.fr/resultats-marathon-'.$res['ID'].'-'.slugify($res['Nom']).'.html';
         echo '
         <url>
             <loc>'.$loc.'</loc>

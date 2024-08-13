@@ -73,7 +73,7 @@ $previous=$page-1;
     <link rel="apple-touch-icon" href="apple-favicon.png">
     <link rel="icon" type="image/x-icon" href="../../images/favicon.ico" />
     
-    <link rel="canonical" href="https://dev.allmarathon.fr/liste-des-athletes.html" />
+    <link rel="canonical" href="https://dev.allrathon.fr/liste-des-athletes.html" />
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/font-awesome.min.css">
     <link rel="stylesheet" href="../../css/fonts.css">
@@ -111,7 +111,7 @@ $previous=$page-1;
 
 
     <div class="container page-content athlètes mt-77">
-      <div class="row banniere1">
+      <div class="row banniere1 ban ban_728x90">
             <div  class="col-sm-12"><?php
                 if($pub728x90 !="") {
                 echo '<a target="_blank" href="'.$pub728x90["url"].'" class="col-sm-12">';
@@ -214,9 +214,20 @@ $previous=$page-1;
             <aside class="col-sm-4 pd-top">
                 
             </aside>
+
         </div>
 
-        <?php //include("produits_boutique.php"); ?>
+       <div class="row banniere1 ban ban_768x90 ">
+            <div  class="col-sm-12"><?php
+                if($pub768x90 !="") {
+                echo '<a target="_blank" href="'.$pub768x90["url"].'" class="col-sm-12">';
+                    echo $pub768x90["code"] ? $pub768x90["code"] :  "<img src=".'../images/pubs/'.$pub768x90['image'] . " alt='' style=\"width: 100%;\" />";
+                    echo '</a>';
+                }else if($getMobileAds !="") {
+                echo $getMobileAds["code"] ? $getMobileAds["code"] :  "<a href=".$getMobileAds["url"]." target='_blank'><img src=".'../images/pubs/'.$getMobileAds['image'] . " alt='' style=\"width: 100%;\" /></a>";
+                }
+                ?></div>
+        </div>
     </div> <!-- End container page-content -->
 
 

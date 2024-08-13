@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <sitemap>
-<loc>https://dev.allmarathon.fr/sitemaps/sitemap-news.xml</loc>
+<loc>https://dev.allrathon.fr/sitemaps/sitemap-news.xml</loc>
 </sitemap>
 <sitemap>
-<loc>https://dev.allmarathon.fr/sitemaps/sitemap-marathons.xml</loc>
+<loc>https://dev.allrathon.fr/sitemaps/sitemap-marathons.xml</loc>
 </sitemap>
 <sitemap>
-<loc>https://dev.allmarathon.fr/sitemaps/sitemap-evenements.xml</loc>
+<loc>https://dev.allrathon.fr/sitemaps/sitemap-evenements.xml</loc>
 </sitemap>
 <sitemap>
-<loc>https://dev.allmarathon.fr/sitemaps/sitemap-videos.xml</loc>
+<loc>https://dev.allrathon.fr/sitemaps/sitemap-videos.xml</loc>
 </sitemap>
 <sitemap>
-<loc>https://dev.allmarathon.fr/sitemaps/sitemap-coureurs.xml</loc>
+<loc>https://dev.allrathon.fr/sitemaps/sitemap-coureurs.xml</loc>
 </sitemap>
 </sitemapindex>

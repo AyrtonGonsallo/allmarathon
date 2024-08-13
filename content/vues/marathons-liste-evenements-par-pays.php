@@ -70,13 +70,13 @@ setlocale(LC_TIME, "fr_FR","French");
     <meta property="og:type" content="siteweb" />
     <meta property="og:title" content="Calendrier des marathons <?php echo $pays_datas->getPrefixe();?> <?php echo $pays_datas->getNomPays();?>" />
     <meta property="og:description" content="A vos agendas ! Le calendrier complet des marathons <?php echo $pays_datas->getPrefixe();?> <?php echo $pays_datas->getNomPays();?> " />
-    <meta property="og:image" content="https://dev.allmarathon.fr/images/allmarathon.png" />
-    <meta property="og:url" content="<?php echo 'https://dev.allmarathon.fr/calendrier-marathons-'.slugify($pays_datas->getNomPays()).'-'.$pays_datas->getId().'.html';?>" />
+    <meta property="og:image" content="https://dev.allrathon.fr/images/allmarathon.png" />
+    <meta property="og:url" content="<?php echo 'https://dev.allrathon.fr/calendrier-marathons-'.slugify($pays_datas->getNomPays()).'-'.$pays_datas->getId().'.html';?>" />
 
     <link rel="apple-touch-icon" href="apple-favicon.png">
     <link rel="icon" type="image/x-icon" href="../../images/favicon.ico" />
     
-    <link rel="canonical" href="<?php echo 'https://dev.allmarathon.fr/calendrier-marathons-'.slugify($pays_datas->getNomPays()).'-'.$pays_datas->getId().'.html';?>" />
+    <link rel="canonical" href="<?php echo 'https://dev.allrathon.fr/calendrier-marathons-'.slugify($pays_datas->getNomPays()).'-'.$pays_datas->getId().'.html';?>" />
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/font-awesome.min.css">
     <link rel="stylesheet" href="../../css/fonts.css">
@@ -114,7 +114,7 @@ setlocale(LC_TIME, "fr_FR","French");
 
 
     <div class="container page-content athlètes mt-77">
-      <div class="row banniere1">
+      <div class="row banniere1 ban ban_728x90">
             <div  class="col-sm-12"><?php
                 if($pub728x90 !="") {
                 echo '<a target="_blank" href="'.$pub728x90["url"].'" class="col-sm-12">';
@@ -198,7 +198,7 @@ setlocale(LC_TIME, "fr_FR","French");
                                     //$res.= '<div><b>'.$ev_cat_event->getEventCatEventByID($resultat['last_linked_events_cat_id'])['donnees']->getIntitule().'</b></div>';
             
                                  }else{
-                                    $res.= '<div><b>Marathon</b></div>';
+                                    $res.= '<div><b>'.$resultat['nom'].'</b></div>';
             
                                  }
                                  $res.= '<div class="date-marathon">'.$resultat['date_presentation_string'].'</div>';
@@ -228,7 +228,17 @@ setlocale(LC_TIME, "fr_FR","French");
             </aside>
         </div>
 
-        <?php //include("produits_boutique.php"); ?>
+        <div class="row banniere1 ban ban_768x90 ">
+            <div  class="col-sm-12"><?php
+                if($pub768x90 !="") {
+                echo '<a target="_blank" href="'.$pub768x90["url"].'" class="col-sm-12">';
+                    echo $pub768x90["code"] ? $pub768x90["code"] :  "<img src=".'../images/pubs/'.$pub768x90['image'] . " alt='' style=\"width: 100%;\" />";
+                    echo '</a>';
+                }else if($getMobileAds !="") {
+                echo $getMobileAds["code"] ? $getMobileAds["code"] :  "<a href=".$getMobileAds["url"]." target='_blank'><img src=".'../images/pubs/'.$getMobileAds['image'] . " alt='' style=\"width: 100%;\" /></a>";
+                }
+                ?></div>
+        </div>
     </div> <!-- End container page-content -->
 
 

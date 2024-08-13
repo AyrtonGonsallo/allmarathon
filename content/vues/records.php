@@ -29,7 +29,7 @@ $pub300x60=$pub->getBanniere300_60("records")['donnees'];
 $pub300x250=$pub->getBanniere300_250("records")['donnees'];
 $pub160x600=$pub->getBanniere160_600("records")['donnees'];
 $pub768x90=$pub->getBanniere768_90("records")['donnees'];
-
+$getMobileAds=$pub->getMobileAds("records")['donnees'];
 include("../classes/pays.php");
 $pays=new pays();
 
@@ -134,11 +134,11 @@ function slugify($text)
     <title>Records du marathon masculin : record du monde, record olympique, continentaux et nationaux
     </title>
     <meta name="description" content="Liste des records du marathon masculin. Record du monde, record olympique, meilleurs performance en Europe, et records nationaux. ">
-    <link rel="canonical" href="https://dev.allmarathon.fr/records-marathon-masculins.html" />
+    <link rel="canonical" href="https://dev.allrathon.fr/records-marathon-masculins.html" />
     <meta property="og:type" content="siteweb" />
     <meta property="og:title" content="Records du marathon masculin : record du monde, record olympique, continentaux et nationaux" />
-    <meta property="og:image" content="https://dev.allmarathon.fr/images/allmarathon.png" />
-    <meta property="og:url" content="https://dev.allmarathon.fr/records-marathon-masculins.html" />
+    <meta property="og:image" content="https://dev.allrathon.fr/images/allmarathon.png" />
+    <meta property="og:url" content="https://dev.allrathon.fr/records-marathon-masculins.html" />
     <meta property="og:description" content="Liste des records du marathon masculin. Record du monde, record olympique, meilleurs performance en Europe, et records nationaux. " />
 
     <link rel="apple-touch-icon" href="apple-favicon.png">
@@ -167,9 +167,16 @@ function slugify($text)
 
     <?php include_once('nv_header-integrer.php'); ?>
 
-    <div class="container page-content mt-77">
-    <div class="row banniere1">
-            <div  class="col-sm-12"><?php
+    <div class="container page-content mt-77 page-records">
+    <div class="row banniere1 ban ban_728x90">
+        
+            <div class="placeholder-content">
+                 <div class="placeholder-title"> Allmarathon </div> 
+                 <div class="placeholder-subtitle">publicité</div>
+             </div>
+        
+            <div  class="col-sm-12 ads-contain">
+            <?php
                 if($pub728x90 !="") {
                 echo '<a target="_blank" href="'.$pub728x90["url"].'" class="col-sm-12">';
                     echo $pub728x90["code"] ? $pub728x90["code"] :  "<img src=".'../images/pubs/'.$pub728x90['image'] . " alt='' style=\"width: 100%;\" />";
@@ -182,7 +189,7 @@ function slugify($text)
         </div>
 
         <div class="row">
-            <div class="col-sm-8 left-side resultat-detail page-records">
+            <div class="col-sm-8 left-side resultat-detail">
 
 
                 <div class="row">
@@ -346,33 +353,118 @@ function slugify($text)
     </div> <!-- End left-side -->
 
     <aside class="col-sm-4">
-        <p class="ban ban_160-600">
+        <div class="ban ban_300x60 width-60 mb-30">
+            
+             <div class="placeholder-content">
+                 <div class="placeholder-title"> Allmarathon </div> 
+                 <div class="placeholder-subtitle">publicité</div>
+             </div>
+            
+            <div  class="col-sm-12 ads-contain">
+                <?php
+                    if($pub300x60 !="") {
+                    echo '<a target="_blank" href="'.$pub300x60["url"].'" >';
+                        echo $pub300x60["code"] ? $pub300x60["code"] :  "<img src=".'../images/pubs/'.$pub300x60['image'] . " alt='' style=\"width: 100%;\" />";
+                        echo '</a>';
+                    }
+                ?>
+            </div>    
+        </div>
+        <dt class="archive"></dt>
+        <div class="ban ban_300x250 to_hide_mobile">
+            
+             <div class="placeholder-content">
+                 <div class="placeholder-title"> Allmarathon </div> 
+                 <div class="placeholder-subtitle">publicité</div>
+             </div>
+             
+            <div  class="col-sm-12 ads-contain">
+            <?php
+            if($pub300x250 !="") {
+                //var_dump($pub300x250["url"]); exit;
+                if($pub300x250["code"]==""){
+                    echo "<a href=".''.$pub300x250["url"]." target='_blank'><img src=".'../images/pubs/'.$pub300x250['image'] . " alt='' style=\"width: 100%;\" /></a>";
+                }
+                else{
+                    echo $pub300x250["code"];
+                }
+            }
+            ?>
+            </div>
+        </div>
+        <dd class="archive">
+            
+        </dd>
+        <div class="ban ban_160-600">
+            
+             <div class="placeholder-content">
+                 <div class="placeholder-title"> Allmarathon </div> 
+                 <div class="placeholder-subtitle">publicité</div>
+             </div>
+            
+            <div  class="col-sm-12 ads-contain">
             <?php
             if($pub160x600 !="") {
                 //var_dump($pub160x600["url"]); exit;
                 if($pub160x600["code"]==""){
-                    echo "<a href=".'http://allmarathon.net/'.$pub160x600["url"]." target='_blank'><img src=".'../images/news/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" /></a>";
+                    echo "<a href=".'http://dev.allrathon.net/'.$pub160x600["url"]." target='_blank'><img src=".'../images/pubs/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" /></a>";
                 }
                 else{
                     echo $pub160x600["code"];
                 }
-            /*echo $pub160x600["code"] ? $pub160x600["code"] :  "<img src=".'../images/pubs/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" />";*/
-            }
-            ?>
-        </p>
-        <dt class="archive"></dt>
-        <dd class="archive">
-            
-        </dd>
+            }?>
+         </div>
+        </div>
         <div class="marg_bot"></div>
-        <p class="ban"></p>
+         <div class="ban ban_160-600">
+            
+             <div class="placeholder-content">
+                 <div class="placeholder-title"> Allmarathon </div> 
+                 <div class="placeholder-subtitle">publicité</div>
+             </div>
+            
+            <div  class="col-sm-12 ads-contain">
+            <?php
+            if($pub160x600 !="") {
+                //var_dump($pub160x600["url"]); exit;
+                if($pub160x600["code"]==""){
+                    echo "<a href=".'http://dev.allrathon.net/'.$pub160x600["url"]." target='_blank'><img src=".'../images/pubs/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" /></a>";
+                }
+                else{
+                    echo $pub160x600["code"];
+                }
+            }?>
+         </div>
+        </div>
+        
+        
+        
+        
         <div class="marg_bot"></div>
         
 
 
     </aside>
+    
     </div>
-
+<div class="row banniere1 ban ban_768x90 ">
+    
+     <div class="placeholder-content">
+                 <div class="placeholder-title"> Allmarathon </div> 
+                 <div class="placeholder-subtitle">publicité</div>
+             </div>
+    
+    
+            <div  class="col-sm-12 ads-contain">
+                <?php
+                    if($pub768x90 !="") {
+                    echo '<a target="_blank" href="'.$pub768x90["url"].'" class="col-sm-12">';
+                        echo $pub768x90["code"] ? $pub768x90["code"] :  "<img src=".'../images/pubs/'.$pub768x90['image'] . " alt='' style=\"width: 100%;\" />";
+                        echo '</a>';
+                    }
+                ?>
+            </div>
+        </div>
     </div> 
 
 
@@ -393,7 +485,7 @@ function slugify($text)
     <script src="../../js/easing.js"></script>
     <script src="../../js/jquery.ui.totop.min.js"></script>
     <script src="../../js/herbyCookie.min.js"></script>
-    <script src="../../js/main.js"></script>
+    
 
     <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
@@ -409,6 +501,9 @@ function slugify($text)
     <script type="text/javascript" src="/js/jquery.fancybox-media.js?v=1.0.6"></script>
 
     <script type="text/javascript" src="/js/jquery.fancybox-thumbs.js?v=1.0.7"></script>
+
+    <script src="../../js/main.js"></script>
+    
     <script type="text/javascript">
     $(document).ready(function() {
         $(".fancybox").fancybox({

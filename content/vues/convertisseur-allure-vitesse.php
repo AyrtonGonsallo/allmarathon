@@ -65,7 +65,7 @@ $pub768x90=$pub->getBanniere768_90("outils")['donnees'];
 <body>
     <?php include_once('nv_header-integrer.php'); ?>
     <div class="container page-content">
-        <div class="row banniere1">
+        <div class="row banniere1 ban ban_728x90">
             <div  class="col-sm-12"><?php
                 if($pub728x90 !="") {
                 echo '<a target="_blank" href="'.$pub728x90["url"].'" class="col-sm-12">';
@@ -78,43 +78,54 @@ $pub768x90=$pub->getBanniere768_90("outils")['donnees'];
             </div>
         </div>
         <section class="page-outil">
-        <h1>Convertisseur vitesse / allure</h1>
-        <p>
-        Vous êtes coureur ? vous êtes au bon endroit ! Sur cette page vous allez pouvoir facilement convertir votre vitesse en allure et vice versa. Il vous suffit d'entrer la valeur dans l'unité de mesure appropriée (vitesse ou allure) et le convertisseur effectue la conversion.
-    Que ce soit pour calculer leur rythme pendant un entraînement, établir un plan d'entraînement ou simplement pour connaître vos performances, cet outil de conversion a été conçu pour aider les fans de course à pied.
+            <h1>Convertisseur vitesse / allure</h1>
+            <p>
+                Vous êtes coureur ? vous êtes au bon endroit ! Sur cette page vous allez pouvoir facilement convertir votre vitesse en allure et vice versa. Il vous suffit d'entrer la valeur dans l'unité de mesure appropriée (vitesse ou allure) et le convertisseur effectue la conversion.
+                Que ce soit pour calculer leur rythme pendant un entraînement, établir un plan d'entraînement ou simplement pour connaître vos performances, cet outil de conversion a été conçu pour aider les fans de course à pied.
 
-        </p>
-        <div class="mt-50"><h2>Convertissez votre vitesse (km/h) en allure (min/km)</h2></div>
-        <div>
-            <input type="number" placeholder="vitesse (km/h)" id="premier-input" />
-            <button id="button_vtoa" class="button-outils">Convertir</button>
-        </div>
-        <div id="reponse-vtoa">
+            </p>
+            <div class="mt-50"><h2>Convertissez votre vitesse (km/h) en allure (min/km)</h2></div>
+            <div>
+                <input type="number" placeholder="vitesse (km/h)" id="premier-input" />
+                <button id="button_vtoa" class="button-outils">Convertir</button>
+            </div>
+            <div id="reponse-vtoa">
+                
+            </div>
+            <div class="mt-50"><h2>Convertissez votre allure (min:sec/km) en vitesse (km/h) </h2></div>
+            <div>    
+                <input id="allure_min" type="number" placeholder="minutes" />
+                <input id="allure_sec" type="number" placeholder="secondes" />
+                <button id="button_atov" class="button-outils">Convertir</button>
+            </div>
+            <div id="reponse-atov">
+                
+            </div>
+            <div class="mt-50"><h3>Tout ce qu’il faut savoir sur la vitesse et sur l’allure en course à pieds</h3></div>
+            <h4>Quelle différence entre l’allure et la vitesse ?</h4>
+            <p>
             
-        </div>
-        <div class="mt-50"><h2>Convertissez votre allure (min:sec/km) en vitesse (km/h) </h2></div>
-        <div>    
-            <input id="allure_min" type="number" placeholder="minutes" />
-            <input id="allure_sec" type="number" placeholder="secondes" />
-            <button id="button_atov" class="button-outils">Convertir</button>
-        </div>
-        <div id="reponse-atov">
+                Souvent confondus l’allure et la vitesse de course sont deux notions proches mais différentes. 
+                La vitesse est la mesure directe du déplacement d'un coureur. Elle est généralement exprimée en unité de distance par unité de temps, comme kilomètres par heure (km/h) ou mètres par seconde (m/s). 
+                L'allure fait référence au temps moyen nécessaire pour parcourir une certaine distance. Elle est généralement exprimée en minutes par kilomètre (min/km) ou minutes par mile (min/mi) dans les pays anglophones. 
+                L'avantage de l'allure réside dans sa capacité à fournir une indication directe du rythme de course sans être influencée par les variations de distance parcourue. Par conséquent, les coureurs utilisent souvent l'allure pour se fixer des objectifs, suivre leur progression et comparer leurs performances.
+
+            </p>
+
+
             
-        </div>
-        <div class="mt-50"><h3>Tout ce qu’il faut savoir sur la vitesse et sur l’allure en course à pieds</h3></div>
-        <h4>Quelle différence entre l’allure et la vitesse ?</h4>
-        <p>
-        
-    Souvent confondus l’allure et la vitesse de course sont deux notions proches mais différentes. 
-    La vitesse est la mesure directe du déplacement d'un coureur. Elle est généralement exprimée en unité de distance par unité de temps, comme kilomètres par heure (km/h) ou mètres par seconde (m/s). 
-    L'allure fait référence au temps moyen nécessaire pour parcourir une certaine distance. Elle est généralement exprimée en minutes par kilomètre (min/km) ou minutes par mile (min/mi) dans les pays anglophones. 
-    L'avantage de l'allure réside dans sa capacité à fournir une indication directe du rythme de course sans être influencée par les variations de distance parcourue. Par conséquent, les coureurs utilisent souvent l'allure pour se fixer des objectifs, suivre leur progression et comparer leurs performances.
-
-        </p>
-
-
-        </div>
     </section>
+    <div class="row banniere1 ban ban_768x90 mb-30">
+            <div  class="col-sm-12">
+                <?php
+                    if($pub768x90 !="") {
+                    echo '<a target="_blank" href="'.$pub768x90["url"].'" class="col-sm-12">';
+                        echo $pub768x90["code"] ? $pub768x90["code"] :  "<img src=".'../images/pubs/'.$pub768x90['image'] . " alt='' style=\"width: 100%;\" />";
+                        echo '</a>';
+                    }
+                ?>
+            </div>
+        </div>
 </div>   
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.1/jquery.min.js" ></script>
 <script type="text/javascript">

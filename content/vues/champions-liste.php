@@ -124,15 +124,16 @@ catch(Exception $e)
 
     <link rel="apple-touch-icon" href="apple-favicon.png">
     <link rel="icon" type="image/x-icon" href="../../images/favicon.ico" />
-    
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
     <meta property="og:title" content="Champions de marathon, athlètes célèbres : palmarès, photos et vidéos." />
     <meta property="og:description" content="Retrouvez les palmarès de <?php echo $nb_champs;?> coureurs, ainsi  que les photos et vidéos des athlètes et marathoniens célèbres. " />
     <meta property="og:locale" content="fr_FR" />
     <meta property="og:type" content="siteweb" />
-    <meta property="og:image" content="https://dev.allmarathon.fr/images/allmarathon.png" />
-    <meta property="og:url" content="https://dev.allmarathon.fr/liste-des-athletes.html" />
+    <meta property="og:image" content="https://dev.allrathon.fr/images/allmarathon.png" />
+    <meta property="og:url" content="https://dev.allrathon.fr/liste-des-athletes.html" />
 
-    <link rel="canonical" href="https://dev.allmarathon.fr/liste-des-athletes.html" />
+    <link rel="canonical" href="https://dev.allrathon.fr/liste-des-athletes.html" />
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/font-awesome.min.css">
     <link rel="stylesheet" href="../../css/fonts.css">
@@ -170,8 +171,13 @@ catch(Exception $e)
 
 
     <div class="container page-content athlètes athletes-liste mt-77">
-      <div class="row banniere1">
-            <div  class="col-sm-12"><?php
+      <div class="row banniere1 ban ban_728x90">
+          <div class="placeholder-content">
+                 <div class="placeholder-title"> Allmarathon </div> 
+                 <div class="placeholder-subtitle">publicité</div>
+             </div>
+            <div  class="col-sm-12 ads-contain">
+            <?php
                 if($pub728x90 !="") {
                 echo '<a target="_blank" href="'.$pub728x90["url"].'" class="col-sm-12">';
                     echo $pub728x90["code"] ? $pub728x90["code"] :  "<img src=".'../images/pubs/'.$pub728x90['image'] . " alt='' style=\"width: 100%;\" />";
@@ -232,10 +238,10 @@ catch(Exception $e)
                                     <img src="../../images/flags/'.$pays_flag.'" class="float-r" alt=""/><br>
                                         '.$pays_nom.
                                     '<br>
-                                    <span>courses('.$resultat['t_res'].')</span>
-                                    <span>- news('.$resultat['t_news'].')</span>
-                                    <span>- photos('.$resultat['t_photos'].')</span>
-                                    <span>- vidéos('.$resultat['t_videos'].')</span>
+                                    <span><i class="fa-solid fa-medal"></i>('.$resultat['t_res'].')</span>
+                                    <span>- <i class="fa-solid fa-newspaper"></i>('.$resultat['t_news'].')</span>
+                                    <span>- <i class="fa-solid fa-camera"></i>('.$resultat['t_photos'].')</span>
+                                    <span>-<i class="fa-solid fa-video"></i>('.$resultat['t_videos'].')</span>
                                     </div>';
 
                                 }
@@ -250,36 +256,82 @@ catch(Exception $e)
                     </div>
                     <div class="section-divider"></div>
                     <div class="col-sm-12">
+                        
+                        
                        <?php
                             //var_dump($olympiques);
                         ?>
                         <h3>Les champions et championnes  olympiques du marathon</h3>
-                        <ul class="athletes-liste-grid">
+                        <ul class="athletes-liste-grid test-image">
 
                             <?php
 
-                            foreach ($olympiques as $key => $resultat) {
+                        /*   foreach ($olympiques as $key => $resultat) {
+    $pays_flag = $pays->getFlagByAbreviation($resultat['PaysID'])['donnees']['Flag'];
+    $pays_nom = $pays->getFlagByAbreviation($resultat['PaysID'])['donnees']['NomPays'];
+    $champion_name = slugify($resultat['Nom']);
 
-                                
-                                $pays_flag=$pays->getFlagByAbreviation($resultat['PaysID'])['donnees']['Flag'];
-                                $pays_nom=$pays->getFlagByAbreviation($resultat['PaysID'])['donnees']['NomPays'];
-                                $champion_name=slugify($resultat['Nom']);
+    // Assurez-vous de définir le chemin de l'image en fonction des données disponibles
+    $image_path = '/images/galeries/16/juan-carlos-zabala.jpg'; // Remplacez par la logique appropriée pour obtenir le chemin de l'image.
 
-                                echo '<div class="athletes-grid-element"><a href="athlete-'.$resultat['ID'].'-'.$champion_name.'.html"><strong>'.$resultat['Nom'].'</strong></a>
-                                <img src="../../images/flags/'.$pays_flag.'" class="float-r" alt=""/><br>
-                                    '.$pays_nom.
-                                '<br>
-                                <span>courses('.$resultat['t_res'].')</span>
-                                <span>- news('.$resultat['t_news'].')</span>
-                                <span>- photos('.$resultat['t_photos'].')</span>
-                                <span>- vidéos('.$resultat['t_videos'].')</span>
-                                </div>';
-
-                            }
+    echo '<div class="athletes-grid-element">
+            <img class="img-test" src="'.$image_path.'" width="116" height="auto" alt=""/>
+            <div>
+                <a href="athlete-'.$resultat['ID'].'-'.$champion_name.'.html">
+                    <strong>'.$resultat['Nom'].'</strong>
+                </a>
+                <img src="../../images/flags/'.$pays_flag.'" class="float-r" alt=""/><br>
+                '.$pays_nom.'
+                <br>
+                <span><i class="fa-solid fa-medal"></i>('.$resultat['t_res'].')</span>
+                <span>- <i class="fa-solid fa-newspaper"></i>('.$resultat['t_news'].')</span>
+                <span>- <i class="fa-solid fa-camera"></i>('.$resultat['t_photos'].')</span>
+                <span>- <i class="fa-solid fa-video"></i>('.$resultat['t_videos'].')</span>
+            </div> 
+    </div>';
+} */
 
                             // die;
+foreach ($olympiques as $key => $resultat) {
+    $pays_flag = $pays->getFlagByAbreviation($resultat['PaysID'])['donnees']['Flag'];
+    $pays_nom = $pays->getFlagByAbreviation($resultat['PaysID'])['donnees']['NomPays'];
+    $champion_name = slugify($resultat['Nom']);
+    $photos_count = $resultat['t_photos']; // Assuming 't_photos' contains the photo count
 
-                            ?>
+    // Fetch photos for the current 'resultat'
+    $photos = $champion->getChampionsPhoto($resultat['ID'])["donnees"]; // Replace with your actual function
+
+    echo '<div class="athletes-grid-element">';
+
+    // Ensure 'photos' is an array
+    if (!isset($photos) || !is_array($photos)) {
+        $photos = []; // Initialize as empty array if not set
+    }
+
+    // Conditionally add the photo if there are photos
+    if ($photos_count > 0 && is_array($photos)) {
+        foreach ($photos as $photo) {
+            if (isset($photo['Galerie_id']) && isset($photo['Nom'])) {
+                echo '<img class="img-test" src="/images/galeries/'.$photo['Galerie_id'].'/'.$photo['Nom'].'" width="116" height="auto" alt=""/>';
+            } else {
+                echo '<li>Photo details missing</li>';
+            }
+        }
+    } else {
+        echo '';
+    }
+    
+    echo '<div><a href="athlete-'.$resultat['ID'].'-'.$champion_name.'.html"><strong>'.$resultat['Nom'].'</strong></a>
+          <img src="../../images/flags/'.$pays_flag.'" class="float-r" alt=""/><br>'.$pays_nom.'<br>
+          <span><i class="fa-solid fa-medal"></i> ('.$resultat['t_res'].')</span>
+          <span>- <i class="fa-solid fa-newspaper"></i> ('.$resultat['t_news'].')</span>
+          <span>- <i class="fa-solid fa-camera"></i> ('.$photos_count.')</span>
+          <span>- <i class="fa-solid fa-video"></i> ('.$resultat['t_videos'].')</span>
+          </div>
+          </div>';
+}
+
+        ?>
 
                             </ul>
                     </div>
@@ -294,26 +346,32 @@ catch(Exception $e)
             </div> <!-- End left-side -->
 
             <aside class="col-sm-4 pd-top">
-                <p class="ban"><?php
-if($pub300x60 !="") {
-echo $pub300x60["code"] ? $pub300x60["code"] :  "<a href=". $pub300x250['url'] ." target='_blank'><img src=".'../images/pubs/'.$pub300x60['image'] . " alt='' style=\"width: 100%;\" />";
-}
-?></a></p>
-
-             
-                <p class="ban"><?php
-if($pub300x250 !="") {
-echo $pub300x250["code"] ? $pub300x250["code"] :  "<a href=". $pub300x250['url'] ." target='_blank'><img src=".'../images/pubs/'.$pub300x250['image'] . " alt='' style=\"width: 100%;\" />";
-}
-?></a></p>
+                
 
                
                 
              
 
             </aside>
+            
         </div>
-
+<div class="row banniere1 ban ban_768x90 ">
+    
+             <div class="placeholder-content">
+                 <div class="placeholder-title"> Allmarathon </div> 
+                 <div class="placeholder-subtitle">publicité</div>
+             </div>
+    
+                <div  class="col-sm-12 ads-contain">
+                    <?php
+                    if($pub768x90 !="") {
+                    echo '<a target="_blank" href="'.$pub768x90["url"].'" class="col-sm-12">';
+                        echo $pub768x90["code"] ? $pub768x90["code"] :  "<img src=".'../images/pubs/'.$pub768x90['image'] . " alt='' style=\"width: 100%;\" />";
+                        echo '</a>';
+                    }
+                    ?>
+                </div>
+            </div>
         <?php //include("produits_boutique.php"); ?>
     </div> <!-- End container page-content -->
 
@@ -332,7 +390,6 @@ echo $pub300x250["code"] ? $pub300x250["code"] :  "<a href=". $pub300x250['url']
     <script src="../../js/jquery.ui.totop.min.js"></script>
     <script src="../../js/herbyCookie.min.js"></script>
     <script src="../../js/main.js"></script>
-
     <script>
     (function(i, s, o, g, r, a, m) {
         i['GoogleAnalyticsObject'] = r;
@@ -675,7 +732,6 @@ echo $pub300x250["code"] ? $pub300x250["code"] :  "<a href=". $pub300x250['url']
     })
 
     </script>
-
     <!--Google+-->
     <script src="https://apis.google.com/js/platform.js" async defer></script>
 </body>

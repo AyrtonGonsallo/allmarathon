@@ -37,7 +37,7 @@ if($_GET['newsID']!=""){
             $fileName = ($_FILES['photo']['name']!="") ? $_FILES['photo']['name'] : $news['photo'] ;
 
              try {
-                 $req4 = $bdd->prepare("UPDATE news SET date=:date,source=:source,auteur=:auteur,titre=:titre,chapo=:chapo,texte=:texte,photo =:photo ,categorieID=:categorieID,aLaUne =:aLaUne,aLaDeux=:aLaDeux,url=:url,legende=:legende,lien1=:lien1,textlien1=:textlien1,liens_champions=:liens_champions,evenementID=:evenementID ,championID=:championID,videoID=:videoID WHERE ID=:id");
+                 $req4 = $bdd->prepare("UPDATE news SET date=:date,source=:source,bref=:bref,auteur=:auteur,titre=:titre,chapo=:chapo,texte=:texte,photo =:photo ,categorieID=:categorieID,aLaUne =:aLaUne,aLaDeux=:aLaDeux,url=:url,legende=:legende,lien1=:lien1,textlien1=:textlien1,liens_champions=:liens_champions,evenementID=:evenementID ,championID=:championID,videoID=:videoID WHERE ID=:id");
 
                  $req4->bindValue('date',$_POST['Date'], PDO::PARAM_STR);
                  $req4->bindValue('source',$_POST['Source'], PDO::PARAM_STR);
@@ -48,6 +48,7 @@ if($_GET['newsID']!=""){
                  $req4->bindValue('lien1',$_POST['Lien1'], PDO::PARAM_STR);
                  $req4->bindValue('textlien1',$_POST['TextLien1'], PDO::PARAM_STR);
                  $req4->bindValue('chapo',$_POST['Chapo'], PDO::PARAM_STR);
+                 $req4->bindValue('bref',$_POST['bref'], PDO::PARAM_STR);
                  $req4->bindValue('texte',$_POST['Texte'], PDO::PARAM_STR);
                  $req4->bindValue('photo',$fileName, PDO::PARAM_STR);
                  $req4->bindValue('liens_champions',$_POST['liens_champions'], PDO::PARAM_STR);
@@ -312,7 +313,7 @@ $(document).ready(function() {
     <table>
         <tr><td align="right"><label>A la une : </label></td><td><input type="radio" name="aLaUne" id="oui" value="1" <?php if($news['aLaUne']) echo 'checked="checked"';?>/><label for="oui">oui</label>&nbsp;&nbsp;&nbsp;<input type="radio" name="aLaUne" id="non" value="0" <?php if(!$news['aLaUne']) echo 'checked="checked"';?> /><label for="non">non</label></td></tr>
         <tr><td align="right"><label>A la deux : </label></td><td><input type="radio" name="aLaDeux" id="oui" value="1" <?php if($news['aLaDeux']) echo 'checked="checked"';?>/><label for="oui">oui</label>&nbsp;&nbsp;&nbsp;<input type="radio" name="aLaDeux" id="non" value="0" <?php if(!$news['aLaDeux']) echo 'checked="checked"';?> /><label for="non">non</label></td></tr>
-        <tr><td align="right"><label>En bref : </label></td><td><input type="radio" name="bref" id="oui" value="11" <?php if($news['categorieID']==11) echo 'checked="checked"';?>/><label for="oui">oui</label>&nbsp;&nbsp;&nbsp;<input type="radio" name="bref" id="non" value="0" <?php if($news['categorieID']!=11) echo 'checked="checked"';?> /><label for="non">non</label></td></tr>
+        <tr><td align="right"><label>En bref : </label></td><td><input type="radio" name="bref" id="oui" value="1" <?php if($news['bref']==1) echo 'checked="checked"';?>/><label for="oui">oui</label>&nbsp;&nbsp;&nbsp;<input type="radio" name="bref" id="non" value="0" <?php if($news['bref']!=1) echo 'checked="checked"';?> /><label for="non">non</label></td></tr>
 
         <tr><td  align="right"><label for="Date">Date : </label></td><td><input type="text" name="Date" id="timepicker" value="<?php echo $news['date'];?>" /></td></tr>
         <tr><td align="right"><label for="Source">Source : </label></td><td><input type="text" name="Source" value="<?php echo str_replace('\\', '',str_replace('"', '\'', $news['source']));?>" /></td></tr>

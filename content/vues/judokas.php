@@ -224,7 +224,7 @@ echo $pub300x60["code"] ? $pub300x60["code"] :  "<a href=". $pub300x60['url'] ."
 <div class="newsletter">
                     <div class="title-newsletter">NEWSLETTER</div>
                     <p class="p-newsletter">Restez informés chaque semaine et profitez d'offres exclusives sur <a href="http://www.alljudo.shop/">allmarathon shop</a>.</p>
-                    <div class="center"><a href="https://dev.allmarathon.fr/formulaire-inscription.php" class="abon-nwl">Je m'abonne</a></div>
+                    <div class="center"><a href="https://dev.allrathon.fr/formulaire-inscription.php" class="abon-nwl">Je m'abonne</a></div>
                 </div>
                 
                 <div class="newsletter">
@@ -235,7 +235,7 @@ echo $pub300x60["code"] ? $pub300x60["code"] :  "<a href=". $pub300x60['url'] ."
                             alors n'attendez-pas...</strong></p>
                     <div class="center">
                         <?php if($user_session!=''){?>
-                        <a href="https://dev.allmarathon.fr/formulaire-calendrier.php" class="abon-nwl">J'ajoute mon tournoi</a>
+                        <a href="https://dev.allrathon.fr/formulaire-calendrier.php" class="abon-nwl">J'ajoute mon tournoi</a>
                         <?php 
                             }
                             else{ ?>

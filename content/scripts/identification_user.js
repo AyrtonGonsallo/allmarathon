@@ -2,6 +2,22 @@
 
 $("#target").on('click','#register_button', function () {
 	
+	
+	
+	document.addEventListener('DOMContentLoaded', function() {
+    const adImage = document.querySelector('.ad-image');
+    const banDiv = document.querySelector('.ban');
+
+    adImage.addEventListener('load', function() {
+        banDiv.classList.add('transparent');
+    });
+});
+	
+	
+	
+	
+	
+	
     /* Check if the captcha is complete */
     if ($("#g-recaptcha").val()) {
 

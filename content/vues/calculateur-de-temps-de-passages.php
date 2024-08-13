@@ -65,7 +65,7 @@ $pub768x90=$pub->getBanniere768_90("outils")['donnees'];
 <body>
     <?php include_once('nv_header-integrer.php'); ?>
     <div class="container page-content">
-        <div class="row banniere1">
+        <div class="row banniere1 ban ban_728x90">
             <div  class="col-sm-12"><?php
                 if($pub728x90 !="") {
                 echo '<a target="_blank" href="'.$pub728x90["url"].'" class="col-sm-12">';
@@ -121,6 +121,17 @@ $pub768x90=$pub->getBanniere768_90("outils")['donnees'];
         </div>
 
     </section>
+    <div class="row banniere1 ban ban_768x90 mb-30">
+            <div  class="col-sm-12">
+                <?php
+                    if($pub768x90 !="") {
+                    echo '<a target="_blank" href="'.$pub768x90["url"].'" class="col-sm-12">';
+                        echo $pub768x90["code"] ? $pub768x90["code"] :  "<img src=".'../images/pubs/'.$pub768x90['image'] . " alt='' style=\"width: 100%;\" />";
+                        echo '</a>';
+                    }
+                ?>
+            </div>
+        </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.1/jquery.min.js" ></script>
 <script type="text/javascript">

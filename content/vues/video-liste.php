@@ -85,10 +85,10 @@ setlocale(LC_TIME, "fr_FR","French");
     <meta property="og:description" content="Allmarathon.fr, les plus belles videos de marathon : Résumé des courses, conseils entrainement marathon, interviews de marathoniens." />
     <meta property="og:locale" content="fr_FR" />
     <meta property="og:type" content="siteweb" />
-    <meta property="og:image" content="https://dev.allmarathon.fr/images/allmarathon.png" />
-    <meta property="og:url" content="https://dev.allmarathon.fr/videos-de-marathon.html" />
+    <meta property="og:image" content="https://dev.allrathon.fr/images/allmarathon.png" />
+    <meta property="og:url" content="https://dev.allrathon.fr/videos-de-marathon.html" />
 
-    <link rel="canonical" href="https://dev.allmarathon.fr/videos-de-marathon.html" />
+    <link rel="canonical" href="https://dev.allrathon.fr/videos-de-marathon.html" />
     <link rel="apple-touch-icon" href="apple-favicon.png">
     <link rel="icon" type="image/x-icon" href="../../images/favicon.ico" />
 
@@ -123,8 +123,15 @@ setlocale(LC_TIME, "fr_FR","French");
 
 
 <div class="container page-content athlètes mt-77 videos-liste">
-    <div class="row banniere1">
-            <div  class="col-sm-12"><?php
+    <div class="row banniere1 ban ban_728x90">
+        
+             <div class="placeholder-content">
+                 <div class="placeholder-title"> Allmarathon </div> 
+                 <div class="placeholder-subtitle">publicité</div>
+             </div>
+        
+            <div  class="col-sm-12 ads-contain">
+            <?php
                 if($pub728x90 !="") {
                 echo '<a target="_blank" href="'.$pub728x90["url"].'" class="col-sm-12">';
                     echo $pub728x90["code"] ? $pub728x90["code"] :  "<img src=".'../images/pubs/'.$pub728x90['image'] . " alt='' style=\"width: 100%;\" />";
@@ -135,7 +142,7 @@ setlocale(LC_TIME, "fr_FR","French");
                 ?></div>
         </div>
     <div class="row">
-        <div class="col-sm-8 left-side">
+        <div class="col-sm-8 left-side athletes">
 
             <div class="row">
 
@@ -211,37 +218,92 @@ setlocale(LC_TIME, "fr_FR","French");
 
         <aside class="col-sm-4 pd-top">
         <span class="total-marathons bureau mb-20"><?php echo count($videos["donnees"])." vidéos";?></span>
-            <p class="ban"><?php
-if($pub300x60 !="") {
-echo $pub300x60["code"] ? $pub300x60["code"] :  "<a href=". $pub300x60['url'] ." target='_blank'><img src=".'../images/pubs/'.$pub300x60['image'] . " alt='' style=\"width: 100%;\" />";
-}
-?></a></p>
+        
+            <div class="ban ban_300x60 width-60 mb-30">
+                  <div class="placeholder-content">
+                      <div class="placeholder-title"> Allmarathon </div> 
+                      <div class="placeholder-subtitle">publicité</div>
+                  </div>
+                
+                <div  class="col-sm-12 ads-contain">
+                <?php
+                    if($pub300x60 !="") {
+                        echo $pub300x60["code"] ? $pub300x60["code"] :  "<a href=". $pub300x60['url'] ." target='_blank'><img src=".'../images/pubs/'.$pub300x60['image'] . " alt='' style=\"width: 100%;\" /></a>";
+                    }
+                ?>
+                </div>
+            </div>
 
             <div class="marg_bot"></div>
-            <p class="ban"><?php
-if($pub300x250 !="") {
-echo $pub300x250["code"] ? $pub300x250["code"] :  "<a href=". $pub300x250['url'] ." target='_blank'><img src=".'../images/pubs/'.$pub300x250['image'] . " alt='' style=\"width: 100%;\" />";
-}
-?></a></p>
+            
+            <div class="ban ban_160-600">
+                
+                
+                 <div class="placeholder-content">
+                      <div class="placeholder-title"> Allmarathon </div> 
+                      <div class="placeholder-subtitle">publicité</div>
+                 </div>
+                
+                <div  class="col-sm-12 ads-contain">
+                
+                <?php
+                    if($pub160x600 !="") {
+                        //var_dump($pub160x600["url"]); exit;
+                        if($pub160x600["code"]==""){
+                            echo "<a href=".'https://dev.allrathon.fr/'.$pub160x600["url"]." target='_blank'><img src=".'../images/news/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" /></a>";
+                        }
+                        else{
+                            echo $pub160x600["code"];
+                        }
+                    /*echo $pub160x600["code"] ? $pub160x600["code"] :  "<img src=".'../images/pubs/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" />";*/
+                    }
+                ?>
+              </div>
+            </div>
+            
             <div class="marg_bot"></div>
-            <p class="ban ban_160-600"><a href=""><?php
-if($pub160x600 !="") {
-    //var_dump($pub160x600["url"]); exit;
-    if($pub160x600["code"]==""){
-        echo "<a href=".'https://dev.allmarathon.fr/'.$pub160x600["url"]." target='_blank'><img src=".'../images/news/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" /></a>";
-    }
-    else{
-        echo $pub160x600["code"];
-    }
-/*echo $pub160x600["code"] ? $pub160x600["code"] :  "<img src=".'../images/pubs/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" />";*/
-}
-?></a></p>
+            <div class="ban ban_300x250">
+                
+                 <div class="placeholder-content">
+                    <div class="placeholder-title"> Allmarathon </div> 
+                    <div class="placeholder-subtitle">publicité</div>
+                 </div>
+                
+               <div  class="col-sm-12 ads-contain"> 
+                <?php
+                    if($pub300x250 !="") {
+                        echo $pub300x250["code"] ? $pub300x250["code"] :  "<a href=". $pub300x250['url'] ." target='_blank'><img src=".'../images/pubs/'.$pub300x250['image'] . " alt='' style=\"width: 100%;\" /></a>";
+                    }
+                ?>
+              </div>
+                
+                
+                
+            </div>
+            
             <div class="marg_bot"></div>
             <div class="dailymotion-widget" data-placement="58dcd1d2a716ff001755f5f9"></div><script>(function(w,d,s,u,n,e,c){w.PXLObject = n; w[n] = w[n] || function(){(w[n].q = w[n].q || []).push(arguments);};w[n].l = 1 * new Date();e = d.createElement(s); e.async = 1; e.src = u;c = d.getElementsByTagName(s)[0]; c.parentNode.insertBefore(e,c);})(window, document, "script", "//api.dmcdn.net/pxl/client.js", "pxl");</script>
             <div class="marg_bot"></div>
             
             
         </aside>
+        
+    </div><div class="row banniere1 ban ban_768x90 ">
+        
+             <div class="placeholder-content">
+                 <div class="placeholder-title"> Allmarathon </div> 
+                 <div class="placeholder-subtitle">publicité</div>
+             </div>
+        
+            <div  class="col-sm-12 ads-contain">
+            <?php
+                if($pub768x90 !="") {
+                echo '<a target="_blank" href="'.$pub768x90["url"].'" class="col-sm-12">';
+                    echo $pub768x90["code"] ? $pub768x90["code"] :  "<img src=".'../images/pubs/'.$pub768x90['image'] . " alt='' style=\"width: 100%;\" />";
+                    echo '</a>';
+                }
+                ?></div>
+        </div>
     </div>
 
         <?php //include("produits_boutique.php"); ?>

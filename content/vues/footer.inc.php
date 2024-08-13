@@ -240,10 +240,10 @@
                         <dt>Suivez-nous</dt>
                         <dd>
                                         <ul>
-                                            <li><a href="https://www.facebook.com/dev.allmarathon.fr"
+                                            <li><a href="https://www.facebook.com/allmarathon.fr"
                                                     target="_blank">
                                                     Facebook</a></li>
-                                            <li><a href="https://www.instagram.com/dev.allmarathon.fr"
+                                            <li><a href="https://www.instagram.com/allmarathon.fr"
                                                     target="_blank">Instagram</a></li>
                                                     <li><a href="https://www.pinterest.fr/allmarathon/"
                                             target="_blank">Pinterest</a></li>

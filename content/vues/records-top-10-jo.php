@@ -145,8 +145,8 @@ catch(Exception $e)
     <meta property="og:description" content="Découvrez les 10 meilleurs performances de tous les temps réalisées sur marathon - Jeux olympiques, hommes et femmes." />
     <meta property="og:locale" content="fr_FR" />
     <meta property="og:type" content="siteweb" />
-    <meta property="og:image" content="https://dev.allmarathon.fr/images/allmarathon.png" />
-    <meta property="og:url" content="https://dev.allmarathon.fr/10-meilleures-performances-jeux-olympiques-marathon.html" />
+    <meta property="og:image" content="https://dev.allrathon.fr/images/allmarathon.png" />
+    <meta property="og:url" content="https://dev.allrathon.fr/10-meilleures-performances-jeux-olympiques-marathon.html" />
   
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/font-awesome.min.css">
@@ -170,7 +170,7 @@ catch(Exception $e)
 <?php include_once('nv_header-integrer.php'); ?>
 
 <div class="container page-content athlete-detail page-classement-top">
-    <div class="row banniere1">
+    <div class="row banniere1 ban ban_728x90">
         <div  class="col-sm-12"><?php
             if($pub728x90 !="") {
             echo '<a target="_blank" href="'.$pub728x90["url"].'" class="col-sm-12">';
@@ -339,6 +339,15 @@ catch(Exception $e)
 </div> <!-- End left-side -->
 
 <aside class="col-sm-4">
+            <div class="ban ban_300x60 mb-30">
+                <?php
+                    if($pub300x60 !="") {
+                    echo '<a target="_blank" href="'.$pub300x60["url"].'" >';
+                        echo $pub300x60["code"] ? $pub300x60["code"] :  "<img src=".'../images/pubs/'.$pub300x60['image'] . " alt='' style=\"width: 100%;\" />";
+                        echo '</a>';
+                    }
+                ?>
+            </div>
         <dt class="archive">Autres classements</dt>
         <dd class="archive">
             <ul class="clearfix">
@@ -356,23 +365,44 @@ catch(Exception $e)
                 </li>
             </ul>
         </dd>
+        <p class="ban ban_300x250 to_hide_mobile">
+            <?php
+            if($pub300x250 !="") {
+                //var_dump($pub300x250["url"]); exit;
+                if($pub300x250["code"]==""){
+                    echo "<a href=".''.$pub300x250["url"]." target='_blank'><img src=".'../images/pubs/'.$pub300x250['image'] . " alt='' style=\"width: 100%;\" /></a>";
+                }
+                else{
+                    echo $pub300x250["code"];
+                }
+            }
+            ?>
+        </p>
         <p class="ban ban_160-600">
             <?php
             if($pub160x600 !="") {
                 //var_dump($pub160x600["url"]); exit;
                 if($pub160x600["code"]==""){
-                    echo "<a href=".'http://allmarathon.net/'.$pub160x600["url"]." target='_blank'><img src=".'../images/news/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" /></a>";
+                    echo "<a href=".'http://dev.allrathon.net/'.$pub160x600["url"]." target='_blank'><img src=".'../images/pubs/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" /></a>";
                 }
                 else{
                     echo $pub160x600["code"];
                 }
-            /*echo $pub160x600["code"] ? $pub160x600["code"] :  "<img src=".'../images/pubs/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" />";*/
-            }
-            ?>
+            }?>
         </p>
 </aside>
 </div>
-
+<div class="row banniere1 ban ban_768x90 ">
+        <div  class="col-sm-12">
+            <?php
+                if($pub768x90 !="") {
+                echo '<a target="_blank" href="'.$pub768x90["url"].'" class="col-sm-12">';
+                    echo $pub768x90["code"] ? $pub768x90["code"] :  "<img src=".'../images/pubs/'.$pub768x90['image'] . " alt='' style=\"width: 100%;\" />";
+                    echo '</a>';
+                }
+            ?>
+        </div>
+    </div>
 </div> <!-- End container page-content -->
 
 

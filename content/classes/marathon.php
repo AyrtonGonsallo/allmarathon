@@ -650,9 +650,9 @@ function array_msort($array, $cols)
 		try{
 			include("../database/connexion.php");
 
-			$req = $bdd->prepare("SELECT * FROM marathons where date > :today and date like :this_month order by ordre");
+			$req = $bdd->prepare("SELECT * FROM marathons where date > :today and date like :this_month order by ordre limit 8");
 			$req->bindValue('today', date('Y-m-d'), PDO::PARAM_STR); 
-			$req->bindValue('this_month', "%-".date('m')."-%", PDO::PARAM_STR); 
+			$req->bindValue('this_month', "%".date('Y')."-".date('m')."%", PDO::PARAM_STR); 
 			$req->execute();
 			$results= array();
 			//$first_events= array();
@@ -911,8 +911,8 @@ function array_msort($array, $cols)
 			$liste= array();
 			if($annee>date("Y")){
 				//a venir
-				$req0 = $bdd->prepare("select * from marathons where  date<DATE(NOW()) and date like :datedeb  ORDER BY ordre asc;");
-							
+				$req0 = $bdd->prepare("select * from marathons where   date like :datedeb  ORDER BY ordre asc;");
+						//voir le cas ou on a pour 2026 et on cherche pour 2025	
 				$req0->bindValue('datedeb','%-'.$mois.'-%', PDO::PARAM_STR);
 				$req0->execute();
 			}else{
@@ -948,8 +948,8 @@ function array_msort($array, $cols)
             $liste= array();
             if($annee>date("Y")){
 				//a venir
-				$req0 = $bdd->prepare("select count(*) as total from marathons where  date<DATE(NOW()) and date like :datedeb  ORDER BY ordre asc;");
-							
+				$req0 = $bdd->prepare("select count(*) as total from marathons where   date like :datedeb  ORDER BY ordre asc;");
+							//voir le cas ou on a pour 2026 et on cherche pour 2025	
 				$req0->bindValue('datedeb','%-'.$mois.'-%', PDO::PARAM_STR);
 				$req0->execute();
 			}else{

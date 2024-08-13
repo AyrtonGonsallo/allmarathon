@@ -12,6 +12,16 @@
       width: 19%;
       float: left;
     }
+    .swiper-slide .form-group .col-sm-12{
+      width: 50%;
+      float: left;
+    }
+    .swiper-slide .form-group{
+      margin-bottom: 5px;
+    }
+    .swiper-slide  label {
+      line-height: 1 !important;
+  }
   }
 @media (max-width: 767px) {
   .material-symbols-outlined {
@@ -1534,7 +1544,7 @@ p.title-act-marathon {
   text-align: center;
 }
 .header li{
-  font-size: 22px !important;
+  font-size: 20px !important;
 }
 .sidebarIconToggle{
   position: relative !important;
@@ -2062,15 +2072,29 @@ p.ban.ban_160-600 {
 
 
 }
+@media (min-width: 490px) {
 
+.swiper-horizontal>.swiper-pagination-bullets, .swiper-pagination-bullets.swiper-pagination-horizontal, .swiper-pagination-custom, .swiper-pagination-fraction {
+  bottom: 151px !important;
+ 
+}
+}
 /****************Autres Mobiles******************************************/
 @media (max-width: 490px) {
+  .call-to-action {
+    padding: 23px 18px;
+}
+#sidebarMenu label {
+  margin-bottom: 18px;
+}
   .title_news a:not(.home-link) {
   font-size: 20px !important;
   line-height: normal !important;
   margin-top: 20px;
 }
-
+.swiper-horizontal>.swiper-pagination-bullets, .swiper-pagination-bullets.swiper-pagination-horizontal, .swiper-pagination-custom, .swiper-pagination-fraction {
+  bottom: 68px !important;
+}
 .left-side p, .left-side article .desc-img {
   font-size: 16px;
 }

@@ -110,11 +110,11 @@ $getMobileAds=$pub->getMobileAds("accueil")['donnees'];
     <meta name="Description" lang="fr" content="Vidéo : <?php echo $video->getTitre();?>. Durée : <?php echo $video->getDuree();?>. Thème : <?php echo $event_name;?> - <?php echo $champ_name;?>">
     <meta property="og:type" content="video" />
     <meta property="og:title" content="<?php echo $video->getTitre();?>" />
-    <meta property="og:image" content="https://dev.allmarathon.fr/images/allmarathon.png" />
-    <meta property="og:url" content="<?php echo 'https://dev.allmarathon.fr/video-de-marathon-'.$video->getId().'.html';?>" />
+    <meta property="og:image" content="https://dev.allrathon.fr/images/allmarathon.png" />
+    <meta property="og:url" content="<?php echo 'https://dev.allrathon.fr/video-de-marathon-'.$video->getId().'.html';?>" />
     <meta property="og:description" content="Vidéo : <?php echo $video->getTitre();?>. Durée : <?php echo $video->getDuree();?>. Thème : <?php echo $event_name;?> - <?php echo $champ_name;?>" />
 
-    <?php echo '<link rel="canonical" href="https://dev.allmarathon.fr/video-de-marathon-'.$video->getId().'.html" />';?>
+    <?php echo '<link rel="canonical" href="https://dev.allrathon.fr/video-de-marathon-'.$video->getId().'.html" />';?>
 
 
     <link rel="apple-touch-icon" href="apple-favicon.png">
@@ -145,7 +145,7 @@ $getMobileAds=$pub->getMobileAds("accueil")['donnees'];
 
 <div class="container page-content video-details mt-77">
     
-    <div class="row banniere1">
+    <div class="row banniere1 ban ban_728x90">
         <div  class="col-sm-12"><?php
                 if($pub728x90 !="") {
                 echo '<a target="_blank" href="'.$pub728x90["url"].'" class="col-sm-12">';
@@ -180,14 +180,14 @@ $getMobileAds=$pub->getMobileAds("accueil")['donnees'];
                      echo '<h1 class="video_title">Vidéo : '.$video->getTitre().'</h1>';
                      echo  $res_event;?>
                      <span class="comment-count-container">
-                        <a style="font-weight: bold;" href="<?php echo 'https://dev.allmarathon.fr/video-de-marathon-'.$video->getId().'.html';?>#disqus_thread"># </a>
+                        <a style="font-weight: bold;" href="<?php echo 'https://dev.allrathon.fr/video-de-marathon-'.$video->getId().'.html';?>#disqus_thread"># </a>
                         <span class="material-symbols-outlined">chat_bubble</span>
                     </span>
                     <script>
                             setTimeout(() => {
                                 (function() { // DON'T EDIT BELOW THIS LINE
                                     var d = document, s = d.createElement('script');
-                                    s.src = '//allmarathon.disqus.com/count.js';
+                                    s.src = '//dev.allrathon.disqus.com/count.js';
                                     s.setAttribute('data-timestamp', +new Date());
                                     s.setAttribute('id', "dsq-count-scr");
                                     (d.head || d.body).appendChild(s);
@@ -221,7 +221,7 @@ $getMobileAds=$pub->getMobileAds("accueil")['donnees'];
                             */
                             (function() { // DON'T EDIT BELOW THIS LINE
                             var d = document, s = d.createElement('script');
-                            s.src = 'https://allmarathon.disqus.com/embed.js';
+                            s.src = 'https://dev.allrathon.disqus.com/embed.js';
                             s.setAttribute('data-timestamp', +new Date());
                             (d.head || d.body).appendChild(s);
                             })();
@@ -235,6 +235,15 @@ $getMobileAds=$pub->getMobileAds("accueil")['donnees'];
         </div> <!-- End left-side -->
 
         <aside class="col-sm-4 bureau">
+                <div class="ban ban_300x60 mb-30">
+                    <?php
+                        if($pub300x60 !="") {
+                        echo '<a target="_blank" href="'.$pub300x60["url"].'" >';
+                            echo $pub300x60["code"] ? $pub300x60["code"] :  "<img src=".'../images/pubs/'.$pub300x60['image'] . " alt='' style=\"width: 100%;\" />";
+                            echo '</a>';
+                        }
+                    ?>
+                </div>
             <h3 class="h2-aside"><span class="material-symbols-outlined">play_circle</span>Les dernières vidéos</h3>
                 <?php
                     foreach ($last_videos['donnees'] as $vd) {
@@ -274,7 +283,7 @@ $getMobileAds=$pub->getMobileAds("accueil")['donnees'];
             if($pub160x600 !="") {
                 //var_dump($pub160x600["url"]); exit;
                 if($pub160x600["code"]==""){
-                    echo "<a href=".'https://dev.allmarathon.fr/'.$pub160x600["url"]." target='_blank'><img src=".'../images/news/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" /></a>";
+                    echo "<a href=".'https://dev.allrathon.fr/'.$pub160x600["url"]." target='_blank'><img src=".'../images/news/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" /></a>";
                 }
                 else{
                     echo $pub160x600["code"];
@@ -284,7 +293,31 @@ $getMobileAds=$pub->getMobileAds("accueil")['donnees'];
             ?>
             </p>
              <div class="marg_bot"></div>
+             <p class="ban ban_300x250">
+                        <?php
+                        if($pub300x250 !="") {
+                            //var_dump($pub300x250["url"]); exit;
+                            if($pub300x250["code"]==""){
+                                echo "<a href=".''.$pub300x250["url"]." target='_blank'><img src=".'../images/pubs/'.$pub300x250['image'] . " alt='' style=\"width: 100%;\" /></a>";
+                            }
+                            else{
+                                echo $pub300x250["code"];
+                            }
+                        }
+                        ?>
+                    </p>
         </aside>
+        
+    </div>
+    <div class="row banniere1 ban ban_768x90 ">
+            <div  class="col-sm-12"><?php
+                if($pub768x90 !="") {
+                echo '<a target="_blank" href="'.$pub768x90["url"].'" class="col-sm-12">';
+                    echo $pub768x90["code"] ? $pub768x90["code"] :  "<img src=".'../images/pubs/'.$pub768x90['image'] . " alt='' style=\"width: 100%;\" />";
+                    echo '</a>';
+                }
+                ?></div>
+        </div>
     </div>
 
 </div> <!-- End container page-content -->

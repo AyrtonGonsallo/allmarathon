@@ -222,10 +222,10 @@ setlocale(LC_TIME, "fr_FR","French");
     <meta property="og:description" content="Les actualités du marathon en France et dans le monde. News, résultats, interviews, vidéos, comptes-rendus, brèves, sondages." />
     <meta property="og:locale" content="fr_FR" />
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://dev.allmarathon.fr/images/allmarathon.png" />
-    <meta property="og:url" content="https://dev.allmarathon.fr/actualites-marathon.html" />
+    <meta property="og:image" content="https://dev.allrathon.fr/images/allmarathon.png" />
+    <meta property="og:url" content="https://dev.allrathon.fr/actualites-marathon.html" />
 
-    <link rel="canonical" href="https://dev.allmarathon.fr/actualites-marathon.html" />
+    <link rel="canonical" href="https://dev.allrathon.fr/actualites-marathon.html" />
 
 
     <link rel="apple-touch-icon" href="apple-favicon.png">
@@ -280,6 +280,78 @@ setlocale(LC_TIME, "fr_FR","French");
 
 include_once('nv_header-integrer.php'); ?>
 
+
+
+    <div class="container page-content news">
+
+        <div class="row banniere1  ban ban_728x90">
+<div class="placeholder-content">
+                 <div class="placeholder-title"> Allmarathon </div> 
+                 <div class="placeholder-subtitle">publicité</div>
+             </div>
+            <div  class="col-sm-12 ads-contain">
+            <?php
+
+                if($pub728x90 !="") {
+
+                echo '<a target="_blank" href="'.$pub728x90["url"].'" class="col-sm-12">';
+
+                    echo $pub728x90["code"] ? $pub728x90["code"] :  "<img src=".'../images/pubs/'.$pub728x90['image'] . " alt='' style=\"width: 100%;\" />";
+
+                    echo '</a>';
+
+                }else if($getMobileAds !="") {
+
+                echo $getMobileAds["code"] ? $getMobileAds["code"] :  "<a href=".$getMobileAds["url"]." target='_blank'><img src=".'../images/pubs/'.$getMobileAds['image'] . " alt='' style=\"width: 100%;\" /></a>";
+
+                }
+
+                ?></div>
+
+        </div>
+
+
+
+        <div class="row">
+<!--<script src="-->
+<!--https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js-->
+<!--"></script>-->
+<!--<link href="-->
+<!--https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css-->
+<!--" rel="stylesheet">-->
+<!--<script>-->
+<!--  document.addEventListener('DOMContentLoaded', function() {-->
+<!--    var splide = new Splide('.splide', {-->
+<!--      type       : 'loop',-->
+<!--      perPage    : 6,-->
+<!--      perMove    : 1,-->
+<!--      gap        : '1rem',-->
+<!--      pagination : false,-->
+<!--      arrows     : true,-->
+<!--      breakpoints: {-->
+<!--        640: {-->
+<!--          perPage: 1,-->
+<!--        },-->
+<!--      },-->
+<!--    });-->
+<!--    splide.mount();-->
+<!--  });-->
+<!--</script>-->
+
+            <div class="col-sm-8 left-side">
+                
+        <!--<div class="splide" role="group" aria-label="Splide Basic HTML Example">-->
+            
+            <div class="splide-col">
+
+               <div class="splide__list">
+                    <?php foreach($newscats['donnees'] as $index => $catnews){
+                        echo "<li class='splide__slide'><a class='a-cat-fltr' href='categorie-actualites-marathon-".slugify($catnews->getId()."-0-".$catnews->getIntitule()).".html' class='home-link mb-5 mr-5 '>".$catnews->getIntitule()."</a></li>";
+                    }?>
+                    </div>
+                </div>
+
+          <!--</div>-->
 
 <?php
 
@@ -365,74 +437,6 @@ include_once('nv_header-integrer.php'); ?>
                 }
 
             ?>
-    <div class="container page-content news">
-
-        <div class="row banniere1 bureau">
-
-            <div  class="col-sm-12"><?php
-
-                if($pub728x90 !="") {
-
-                echo '<a target="_blank" href="'.$pub728x90["url"].'" class="col-sm-12">';
-
-                    echo $pub728x90["code"] ? $pub728x90["code"] :  "<img src=".'../images/pubs/'.$pub728x90['image'] . " alt='' style=\"width: 100%;\" />";
-
-                    echo '</a>';
-
-                }else if($getMobileAds !="") {
-
-                echo $getMobileAds["code"] ? $getMobileAds["code"] :  "<a href=".$getMobileAds["url"]." target='_blank'><img src=".'../images/pubs/'.$getMobileAds['image'] . " alt='' style=\"width: 100%;\" /></a>";
-
-                }
-
-                ?></div>
-
-        </div>
-
-
-
-        <div class="row">
-<script src="
-https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js
-"></script>
-<link href="
-https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
-" rel="stylesheet">
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    var splide = new Splide('.splide', {
-      type       : 'loop',
-      perPage    : 6,
-      perMove    : 1,
-      gap        : '1rem',
-      pagination : false,
-      arrows     : true,
-      breakpoints: {
-        640: {
-          perPage: 1,
-        },
-      },
-    });
-    splide.mount();
-  });
-</script>
-
-            <div class="col-sm-8 left-side">
-                
-        <div class="splide" role="group" aria-label="Splide Basic HTML Example">
-            
-            <div class="splide__track">
-
-                   <div class="splide__list">
-                    <?php foreach($newscats['donnees'] as $index => $catnews){
-                        echo "<li class='splide__slide'><a class='a-cat-fltr' href='categorie-actualites-marathon-".slugify($catnews->getId()."-0-".$catnews->getIntitule()).".html' class='home-link mb-5 mr-5 '>".$catnews->getIntitule()."</a></li>";
-                    }?>
-                    </div>
-                </div>
-
-          </div>
-
-
             <section class="last_articles_part1 mt-0 bureau lazyblock">
 
 
@@ -549,7 +553,7 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                     <li><a id="next-link" href="?page=<?php $nextpage=$page+1; echo $nextpage;?>">page suivante</a></li>
                 </ul>
             </div>
-
+            
             </section>
 
             <section class="last_articles_part1 mt-0 mobile">
@@ -769,19 +773,26 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                 ?>
 
             </section>
+
+            
         </div>
         <aside class="col-sm-4">
 
-                <p class="ban"><?php
-                    /*
+        <div class="ban ban_300x60 width-60 mb-30">
+            <div class="placeholder-content">
+                 <div class="placeholder-title"> Allmarathon </div> 
+                 <div class="placeholder-subtitle">publicité</div>
+             </div>
+             <div  class="col-sm-12 ads-contain">
+                <?php
                     if($pub300x60 !="") {
-
-                    echo $pub300x60["code"] ? $pub300x60["code"] :  "<a href=". $pub300x60['url'] ." target='_blank'><img src=".'../images/pubs/'.$pub300x60['image'] . " alt='' style=\"width: 100%;\" />";
-
-                    }*/
-
-                    ?></a></p>
-
+                    echo '<a target="_blank" href="'.$pub300x60["url"].'" >';
+                        echo $pub300x60["code"] ? $pub300x60["code"] :  "<img src=".'../images/pubs/'.$pub300x60['image'] . " alt='' style=\"width: 100%;\" />";
+                        echo '</a>';
+                    }
+                ?>
+                </div>
+                </div>
 
 
                 <dt class="bref to_hide_mobile">
@@ -821,8 +832,12 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
 
                 <div class="marg_bot"></div>
 
-                <p class="ban">
-
+                <div class="ban ban_300x250">
+                     <div class="placeholder-content">
+                            <div class="placeholder-title"> Allmarathon </div> 
+                            <div class="placeholder-subtitle">publicité</div>
+                     </div>
+                  <div  class="col-sm-12 ads-contain">
                 <?php if($pub300x250 !="") {
 
                 echo $pub300x250["code"] ? $pub300x250["code"] :  "<a href=". $pub300x250['url'] ." target='_blank'><img src=".'../images/pubs/'.$pub300x250['image'] . " alt='' style=\"width: 100%;\" />";
@@ -830,8 +845,8 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                     }
 
             ?></a>
-
-            </p>
+                 </div>
+            </div>
 
                 <div class="marg_bot"></div>
 
@@ -847,7 +862,15 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
 
                 <div class="marg_bot"></div>
 
-                <p class="ban ban_160-600"><a href=""><?php
+                <div class="ban ban_160-600">
+                    
+                     <div class="placeholder-content">
+                         <div class="placeholder-title"> Allmarathon </div> 
+                         <div class="placeholder-subtitle">publicité</div>
+                     </div>
+                    <div  class="col-sm-12 ads-contain">
+                    <a href="">
+                <?php
 
 if($pub160x600 !="") {
 
@@ -855,7 +878,7 @@ if($pub160x600 !="") {
 
     if($pub160x600["code"]==""){
 
-        echo "<a href=".'http://dev.allmarathon.fr/'.$pub160x600["url"]." target='_blank'><img src=".'../images/news/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" /></a>";
+        echo "<a href=".'http://dev.allrathon.fr/'.$pub160x600["url"]." target='_blank'><img src=".'../images/news/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" /></a>";
 
     }
 
@@ -867,9 +890,9 @@ if($pub160x600 !="") {
 
 }
 
-?></a></p>
+?></a></div>
+</div>
 
-</a></p>
 
 
 
@@ -916,7 +939,27 @@ if($pub160x600 !="") {
 
 
             </aside>
+
+            
     </div>
+    <div class="row banniere1 ban ban_768x90 ">
+        
+         <div class="placeholder-content">
+                 <div class="placeholder-title"> Allmarathon </div> 
+                 <div class="placeholder-subtitle">publicité</div>
+             </div>
+        
+                    <div  class="col-sm-12 ads-contain">
+                    
+                    <?php
+                        if($pub768x90 !="") {
+                        echo '<a target="_blank" href="'.$pub768x90["url"].'" class="col-sm-12">';
+                            echo $pub768x90["code"] ? $pub768x90["code"] :  "<img src=".'../images/pubs/'.$pub768x90['image'] . " alt='' style=\"width: 100%;\" />";
+                            echo '</a>';
+                        }
+                        ?></div>
+                </div>
+            </div>
 </div>
             <aside class="mobile vite-lu-mobile-box">
 

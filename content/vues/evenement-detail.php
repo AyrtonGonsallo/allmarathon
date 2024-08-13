@@ -154,16 +154,16 @@ setlocale(LC_TIME, "fr_FR","French");
     <meta property="og:title" content="Résultats du marathon <?php echo $evById->getPrefixe();?> <?php echo str_replace('\\','',$evById->getNom());?> - <?php echo $pays->getFlagByAbreviation($evById->getPaysId())['donnees']['NomPays'];?> - <?php echo $ev_cat_event_int_titre;?> <?php echo $annee_titre;?>" />
     <meta property="og:description" content="Le <?php echo $ev_cat_event_int_titre;?> <?php echo $annee_titre;?> de <?php echo $evById->getNom();?> (<?php echo $pays->getFlagByAbreviation($evById->getPaysId())['donnees']['NomPays'];?>) a eu lieu le <?php echo changeDate($evById->getDateDebut()).'.'.$winner;?> Résultats complets, classements et temps." />
     <? if($next_date){?>
-        <meta property="og:image" content="<?php echo 'https://dev.allmarathon.fr/images/marathons/'.$next_date['image'];?>" />
+        <meta property="og:image" content="<?php echo 'https://dev.allrathon.fr/images/marathons/'.$next_date['image'];?>" />
     <? }?>
-    <meta property="og:url" content="<?php echo 'https://dev.allmarathon.fr/resultats-marathon-'.$evById->getId().'-'.slugify($ev_cat_event->getEventCatEventByID($evById->getCategorieId())['donnees']->getIntitule()).'-'.slugify($evById->getNom()).'-'.slugify(changeDate($evById->getDateDebut())).'.html';?>" />
+    <meta property="og:url" content="<?php echo 'https://dev.allrathon.fr/resultats-marathon-'.$evById->getId().'-'.slugify($ev_cat_event->getEventCatEventByID($evById->getCategorieId())['donnees']->getIntitule()).'-'.slugify($evById->getNom()).'-'.slugify(changeDate($evById->getDateDebut())).'.html';?>" />
 
 
     <link rel="apple-touch-icon" href="apple-favicon.png">
     <link rel="icon" type="image/x-icon" href="../../images/favicon.ico" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
   
-    <?php echo '<link rel="canonical" href="https://dev.allmarathon.fr/resultats-marathon-'.$evById->getId().'-'.slugify($ev_cat_event->getEventCatEventByID($evById->getCategorieId())['donnees']->getIntitule()).'-'.slugify($evById->getNom()).'-'.slugify(changeDate($evById->getDateDebut())).'.html" />';?>
+    <?php echo '<link rel="canonical" href="https://dev.allrathon.fr/resultats-marathon-'.$evById->getId().'-'.slugify($ev_cat_event->getEventCatEventByID($evById->getCategorieId())['donnees']->getIntitule()).'-'.slugify($evById->getNom()).'-'.slugify(changeDate($evById->getDateDebut())).'.html" />';?>
 
   
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
@@ -195,7 +195,7 @@ setlocale(LC_TIME, "fr_FR","French");
         <img class="parcours-modal-content" id="parcours-full-image" >
     </div>
     <div class="container page-content resultat-detail mt-77 mb-80">
-        <div class="row banniere1">
+        <div class="row banniere1 ban ban_728x90">
             <div  class="col-sm-12"><?php
                 if($pub728x90 !="") {
                 echo '<a target="_blank" href="'.$pub728x90["url"].'" class="col-sm-12">';
@@ -573,6 +573,15 @@ setlocale(LC_TIME, "fr_FR","French");
     </div> <!-- End left-side -->
 
     <aside class="col-sm-4 no-padding-right">
+        <div class="ban ban_300x60 mb-30 mt-30">
+                <?php
+                    if($pub300x60 !="") {
+                    echo '<a target="_blank" href="'.$pub300x60["url"].'" >';
+                        echo $pub300x60["code"] ? $pub300x60["code"] :  "<img src=".'../images/pubs/'.$pub300x60['image'] . " alt='' style=\"width: 100%;\" />";
+                        echo '</a>';
+                    }
+                ?>
+        </div>
     <? if($next_date){?>
         <div class="box-next-edition bureau">
             
@@ -712,6 +721,19 @@ setlocale(LC_TIME, "fr_FR","French");
                 
             </div>
         <?}?>
+        <p class="ban ban_160-600">
+                    <?php
+                    if($pub160x600 !="") {
+                        //var_dump($pub160x600["url"]); exit;
+                        if($pub160x600["code"]==""){
+                            echo "<a href=".'http://dev.allrathon.net/'.$pub160x600["url"]." target='_blank'><img src=".'../images/pubs/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" /></a>";
+                        }
+                        else{
+                            echo $pub160x600["code"];
+                        }
+                    }?>
+                </p>
+       
         <dt class="bref mt-30">
                 <h2 class="h2-aside">
                     <span class="material-symbols-outlined ">
@@ -751,10 +773,31 @@ setlocale(LC_TIME, "fr_FR","French");
                 </ul>
 
             </dd>
-            
+            <p class="ban ban_300x250">
+                        <?php
+                        if($pub300x250 !="") {
+                            //var_dump($pub300x250["url"]); exit;
+                            if($pub300x250["code"]==""){
+                                echo "<a href=".''.$pub300x250["url"]." target='_blank'><img src=".'../images/pubs/'.$pub300x250['image'] . " alt='' style=\"width: 100%;\" /></a>";
+                            }
+                            else{
+                                echo $pub300x250["code"];
+                            }
+                        }
+                        ?>
+                    </p>
         </div>
     </aside>
-
+    <div class="row banniere1 ban ban_768x90 ">
+            <div  class="col-sm-12"><?php
+                if($pub768x90 !="") {
+                echo '<a target="_blank" href="'.$pub768x90["url"].'" class="col-sm-12">';
+                    echo $pub768x90["code"] ? $pub768x90["code"] :  "<img src=".'../images/pubs/'.$pub768x90['image'] . " alt='' style=\"width: 100%;\" />";
+                    echo '</a>';
+                }
+                ?></div>
+        </div>
+    </div>
     
 
     </div> <!-- End container page-content -->

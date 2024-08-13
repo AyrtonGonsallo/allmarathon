@@ -105,13 +105,13 @@ $tab = explode('-',$news_details->getDate());
     <?php require_once("../scripts/header_script.php") ?>
     <title><?php echo str_replace('\\', '', str_replace('"', '\'', $news_details->getTitre()));?> | allmarathon.fr </title>
     <meta name="Description" content="<?php echo str_replace('\\', '', str_replace('"', '\'', $news_details->getTitre()));?>, <?php echo str_replace('\\', '', str_replace('"', '\'', $news_details->getChapo()));?> " lang="fr" xml:lang="fr" />
-    <?php echo '<link rel="canonical" href="https://dev.allmarathon.fr/actualite-marathon-'.$news_details->getId().'-'.slugify($news_details->getTitre()).'.html" />';?>
+    <?php echo '<link rel="canonical" href="https://dev.allrathon.fr/actualite-marathon-'.$news_details->getId().'-'.slugify($news_details->getTitre()).'.html" />';?>
     <meta name="robots" content="max-image-preview:large" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="<?php echo str_replace('\\', '', str_replace('"', '\'', $news_details->getTitre()));?>" />
     <meta property="og:description" content="<?php echo str_replace('\\', '', str_replace('"', '\'', $news_details->getTitre()));?>, <?php echo str_replace('\\', '', str_replace('"', '\'', $news_details->getChapo()));?> " />
-    <meta property="og:image" content="<?php echo 'https://dev.allmarathon.fr'.$img_src; ?>" />
-    <meta property="og:url" content="<?php echo 'https://dev.allmarathon.fr/actualite-marathon-'.$news_details->getId().'-'.slugify($news_details->getTitre()).'.html';?>" />
+    <meta property="og:image" content="<?php echo 'https://dev.allrathon.fr'.$img_src; ?>" />
+    <meta property="og:url" content="<?php echo 'https://dev.allrathon.fr/actualite-marathon-'.$news_details->getId().'-'.slugify($news_details->getTitre()).'.html';?>" />
 
     <link rel="apple-touch-icon" href="apple-favicon.png">
     <link rel="icon" type="image/x-icon" href="../../images/favicon.ico" />
@@ -127,7 +127,7 @@ $tab = explode('-',$news_details->getDate());
       "@type": "NewsArticle",
       "headline": "<?php echo str_replace('"',"",$news_details->getTitre()); ?>",
       "image": [
-        "<?php echo 'https://dev.allmarathon.fr'.$img_src; ?>"
+        "<?php echo 'https://dev.allrathon.fr'.$img_src; ?>"
        ],
       "datePublished": "<?php echo date(DATE_ISO8601, strtotime($news_details->getDate())); ?>",
       "dateModified": "<?php echo date(DATE_ISO8601, strtotime($news_details->getDate())); ?>",
@@ -166,6 +166,17 @@ $tab = explode('-',$news_details->getDate());
     <?php include_once('nv_header-integrer.php'); ?>
 
     <div class="mobile mt-77 ">
+        <div class="row banniere1 ban ban_728x90">
+            <div  class="col-sm-12"><?php
+                if($pub728x90 !="") {
+                echo '<a target="_blank" href="'.$pub728x90["url"].'" class="col-sm-12">';
+                    echo $pub728x90["code"] ? $pub728x90["code"] :  "<img src=".'../images/pubs/'.$pub728x90['image'] . " alt='' style=\"width: 100%;\" />";
+                    echo '</a>';
+                }else if($getMobileAds !="") {
+                echo $getMobileAds["code"] ? $getMobileAds["code"] :  "<a href=".$getMobileAds["url"]." target='_blank'><img src=".'../images/pubs/'.$getMobileAds['image'] . " alt='' style=\"width: 100%;\" /></a>";
+                }
+                ?></div>
+        </div>
         <?php 
             $source=($news_details->getSource()) ? "source : ".$news_details->getSource() : "";
             echo'<h1 class="news-detail ">'.$news_details->getTitre().'</h1>'; ?>
@@ -178,7 +189,7 @@ $tab = explode('-',$news_details->getDate());
             setTimeout(() => {
                 (function() { // DON'T EDIT BELOW THIS LINE
                     var d = document, s = d.createElement('script');
-                    s.src = '//allmarathon.disqus.com/count.js';
+                    s.src = '//dev.allrathon.disqus.com/count.js';
                     s.setAttribute('data-timestamp', +new Date());
                     s.setAttribute('id', "dsq-count-scr");
                     (d.head || d.body).appendChild(s);
@@ -187,7 +198,7 @@ $tab = explode('-',$news_details->getDate());
             
         </script>
             <span class="comment-count-container">
-                <a style="font-weight: bold;" href="<?php echo 'https://dev.allmarathon.fr/actualite-marathon-'.$news_details->getId().'-'.slugify($news_details->getTitre()).'.html';?>#disqus_thread"># </a>
+                <a style="font-weight: bold;" href="<?php echo 'https://dev.allrathon.fr/actualite-marathon-'.$news_details->getId().'-'.slugify($news_details->getTitre()).'.html';?>#disqus_thread"># </a>
                 <span class="material-symbols-outlined">chat_bubble</span>
             </span>
 
@@ -223,7 +234,7 @@ $tab = explode('-',$news_details->getDate());
     </div>
 
     <div class="container page-content news-detail">
-        <div class="row banniere1 bureau">
+        <div class="row banniere1 bureau ban ban_728x90">
             <div  class="col-sm-12"><?php
                 if($pub728x90 !="") {
                 echo '<a target="_blank" href="'.$pub728x90["url"].'" class="col-sm-12">';
@@ -253,7 +264,7 @@ $tab = explode('-',$news_details->getDate());
                             setTimeout(() => {
                                 (function() { // DON'T EDIT BELOW THIS LINE
                                     var d = document, s = d.createElement('script');
-                                    s.src = '//allmarathon.disqus.com/count.js';
+                                    s.src = '//dev.allrathon.disqus.com/count.js';
                                     s.setAttribute('data-timestamp', +new Date());
                                     s.setAttribute('id', "dsq-count-scr");
                                     (d.head || d.body).appendChild(s);
@@ -262,7 +273,7 @@ $tab = explode('-',$news_details->getDate());
                             
                         </script>
                             <span class="comment-count-container">
-                                <a style="font-weight: bold;" href="<?php echo 'https://dev.allmarathon.fr/actualite-marathon-'.$news_details->getId().'-'.slugify($news_details->getTitre()).'.html';?>#disqus_thread"># </a>
+                                <a style="font-weight: bold;" href="<?php echo 'https://dev.allrathon.fr/actualite-marathon-'.$news_details->getId().'-'.slugify($news_details->getTitre()).'.html';?>#disqus_thread"># </a>
                                 <span class="material-symbols-outlined">chat_bubble</span>
                             </span>
 
@@ -332,7 +343,7 @@ $tab = explode('-',$news_details->getDate());
                             setTimeout(() => {
                                 (function() { // DON'T EDIT BELOW THIS LINE
                                     var d = document, s = d.createElement('script');
-                                    s.src = 'https://allmarathon.disqus.com/embed.js';
+                                    s.src = 'https://dev.allrathon.disqus.com/embed.js';
                                     s.setAttribute('data-timestamp', +new Date());
                                     (d.head || d.body).appendChild(s);
                                     })();
@@ -347,13 +358,15 @@ $tab = explode('-',$news_details->getDate());
                 </div>
             </div>
             <aside class="col-sm-4">
-                <p class="ban"><?php
-                /*
-                if($pub300x60 !="") {
-                echo $pub300x60["code"] ? $pub300x60["code"] :  "<a href=". $pub300x60['url'] ." target='_blank'><img src=".'../images/pubs/'.$pub300x60['image'] . " alt='' style=\"width: 100%;\" />";
-                }*/
-                ?></a>
-                </p>
+                <div class="ban ban_300x60 mb-30">
+                    <?php
+                        if($pub300x60 !="") {
+                        echo '<a target="_blank" href="'.$pub300x60["url"].'" >';
+                            echo $pub300x60["code"] ? $pub300x60["code"] :  "<img src=".'../images/pubs/'.$pub300x60['image'] . " alt='' style=\"width: 100%;\" />";
+                            echo '</a>';
+                        }
+                    ?>
+                </div>
 
                 <dt class="bref to_hide_mobile">
                     <h2 class="h2-aside">
@@ -383,7 +396,7 @@ $tab = explode('-',$news_details->getDate());
                     }
 
                     ?>
-                <p class="ban"><?php
+                <p class="ban ban_300x250"><?php
                     if($pub300x250 !="") {
                     echo $pub300x250["code"] ? $pub300x250["code"] :  "<a href=". $pub300x250['url'] ." target='_blank'><img src=".'../images/pubs/'.$pub300x250['image'] . " alt='' style=\"width: 100%;\" />";
                     }
@@ -398,7 +411,7 @@ $tab = explode('-',$news_details->getDate());
                         if($pub160x600 !="") {
                             //var_dump($pub160x600["url"]); exit;
                             if($pub160x600["code"]==""){
-                                echo "<a href=".'http://dev.allmarathon.fr/'.$pub160x600["url"]." target='_blank'><img src=".'../images/news/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" /></a>";
+                                echo "<a href=".'http://dev.allrathon.fr/'.$pub160x600["url"]." target='_blank'><img src=".'../images/news/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" /></a>";
                             }
                             else{
                                 echo $pub160x600["code"];
@@ -411,8 +424,19 @@ $tab = explode('-',$news_details->getDate());
                 <div class="marg_bot"></div>
 
             </aside>
-        </div>
 
+            
+        </div>
+<div class="row banniere1 ban ban_768x90 ">
+                    <div  class="col-sm-12"><?php
+                        if($pub768x90 !="") {
+                        echo '<a target="_blank" href="'.$pub768x90["url"].'" class="col-sm-12">';
+                            echo $pub768x90["code"] ? $pub768x90["code"] :  "<img src=".'../images/pubs/'.$pub768x90['image'] . " alt='' style=\"width: 100%;\" />";
+                            echo '</a>';
+                        }
+                        ?></div>
+                </div>
+            </div>
     </div> <!-- End container page-content -->
 
     <?php include_once('footer.inc.php'); ?>
@@ -431,6 +455,7 @@ $tab = explode('-',$news_details->getDate());
     <script data-type="lazy" ddata-src="../../js/jquery.ui.totop.min.js"></script>
     <script data-type="lazy" ddata-src="../../js/herbyCookie.min.js"></script>
     <script data-type="lazy" ddata-src="../../js/main.js"></script>
+    <script src="../../js/main.js"></script>
     <style>
         .text-act-marathon,. {
             display: none; /* Cacher initialement */

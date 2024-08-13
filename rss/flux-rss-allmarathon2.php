@@ -59,10 +59,10 @@ $annee_titre=substr($date, 0, 4);
         $cat_event = $res['cat_event'];
         $nom_res_lien=$cat_event.' - '.$res['Nom'].' - '.utf8_encode(strftime("%A %d %B %Y",strtotime($res['DateDebut'])));
         if($res['affiche']){
-            $image_url='https://dev.allmarathon.fr/images/events/'.$res['affiche'];
+            $image_url='https://dev.allrathon.fr/images/events/'.$res['affiche'];
         }else{
-            $image_url='https://dev.allmarathon.fr/images/marathons/'.$res['image'];
-        }        $url='https://dev.allmarathon.fr/resultats-marathon-'.$res['ID'].'-'.slugify($nom_res_lien).'.html';
+            $image_url='https://dev.allrathon.fr/images/marathons/'.$res['image'];
+        }        $url='https://dev.allrathon.fr/resultats-marathon-'.$res['ID'].'-'.slugify($nom_res_lien).'.html';
         
         echo '<item>
                 <title>'.$titre.'</title>
@@ -90,8 +90,8 @@ $annee_titre=substr($date, 0, 4);
     <rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0">
     <channel>
     <title>Résultats de tous les marathons nationaux et internationaux | allmarathon.fr</title>
-    <link>https://dev.allmarathon.fr</link>
-    <atom:link href="https://dev.allmarathon.fr/flux-resultats-rss.xml" rel="self" type="application/rss+xml" />
+    <link>https://dev.allrathon.fr</link>
+    <atom:link href="https://dev.allrathon.fr/flux-resultats-rss.xml" rel="self" type="application/rss+xml" />
     <description>Résultats de tous les marathons nationaux et internationaux :  Championnats de France, Championnats d'Europe, Championnats du Monde, Jeux Olympiques, World Major</description>
     <language>fr-fr</language>
     <copyright>Copyright allmarathon.fr</copyright>

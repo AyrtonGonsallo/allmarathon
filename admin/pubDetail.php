@@ -233,9 +233,9 @@ foreach($temp as $val)
 
     function checkAll() {
 
-        var tab = new Array("accueil", "actualite", "resultats", "calendrier", "videos", "photos", "marathonkas",
+        var tab = new Array("accueil", "actualite", "resultats", "calendrier", "videos", "marathons", "athlètes",
 
-            "technique", "savoirs", "annuaires", "detente");
+            "records", "statistiques", "outils", "autres");
 
         element = document.getElementById("tous");
 
@@ -463,6 +463,20 @@ echo ' <tr><td><label for="url">Url : </label></td><td><input type="text" name="
 
                                     <tr>
 
+                                        <td><label for="marathons">Marathons</label></td>
+
+                                        <td><input id="marathons" type="checkbox" name="restriction[]"
+
+                                                value="marathons"
+
+                                                <?php echo (isset($restriction['marathons'])) ? ' checked="checked"' : ""; ?> />
+
+                                        </td>
+
+                                        </tr>
+
+                                    <tr>
+
                                         <td><label for="videos">Vid&eacute;os</label></td>
 
                                         <td><input id="videos" type="checkbox" name="restriction[]" value="videos"
@@ -473,13 +487,14 @@ echo ' <tr><td><label for="url">Url : </label></td><td><input type="text" name="
 
                                     </tr>
 
+
                                     <tr>
 
-                                        <td><label for="photos">Photos</label></td>
+                                        <td><label for="athlètes">Athlètes</label></td>
 
-                                        <td><input id="photos" type="checkbox" name="restriction[]" value="photos"
+                                        <td><input id="athlètes" type="checkbox" name="restriction[]" value="athlètes"
 
-                                                <?php echo (isset($restriction['photos'])) ? ' checked="checked"' : ""; ?> />
+                                                <?php echo (isset($restriction['athlètes'])) ? ' checked="checked"' : ""; ?> />
 
                                         </td>
 
@@ -487,23 +502,11 @@ echo ' <tr><td><label for="url">Url : </label></td><td><input type="text" name="
 
                                     <tr>
 
-                                        <td><label for="marathonkas">Marathonkas</label></td>
+                                        <td><label for="records">records</label></td>
 
-                                        <td><input id="marathonkas" type="checkbox" name="restriction[]" value="marathonkas"
+                                        <td><input id="records" type="checkbox" name="restriction[]" value="records"
 
-                                                <?php echo (isset($restriction['marathonkas'])) ? ' checked="checked"' : ""; ?> />
-
-                                        </td>
-
-                                    </tr>
-
-                                    <tr>
-
-                                        <td><label for="technique">Technique</label></td>
-
-                                        <td><input id="technique" type="checkbox" name="restriction[]" value="technique"
-
-                                                <?php echo (isset($restriction['technique'])) ? ' checked="checked"' : ""; ?> />
+                                                <?php echo (isset($restriction['records'])) ? ' checked="checked"' : ""; ?> />
 
                                         </td>
 
@@ -511,23 +514,11 @@ echo ' <tr><td><label for="url">Url : </label></td><td><input type="text" name="
 
                                     <tr>
 
-                                        <td><label for="savoirs">Savoirs</label></td>
+                                        <td><label for="statistiques">statistiques</label></td>
 
-                                        <td><input id="savoirs" type="checkbox" name="restriction[]" value="savoirs"
+                                        <td><input id="statistiques" type="checkbox" name="restriction[]" value="statistiques"
 
-                                                <?php echo (isset($restriction['savoirs'])) ? ' checked="checked"' : ""; ?> />
-
-                                        </td>
-
-                                    </tr>
-
-                                    <tr>
-
-                                        <td><label for="annuaires">Annuaires</label></td>
-
-                                        <td><input id="annuaires" type="checkbox" name="restriction[]" value="annuaires"
-
-                                                <?php echo (isset($restriction['annuaires'])) ? ' checked="checked"' : ""; ?> />
+                                                <?php echo (isset($restriction['statistiques'])) ? ' checked="checked"' : ""; ?> />
 
                                         </td>
 
@@ -535,11 +526,23 @@ echo ' <tr><td><label for="url">Url : </label></td><td><input type="text" name="
 
                                     <tr>
 
-                                        <td><label for="detente">D&eacute;tente</label></td>
+                                        <td><label for="outils">outils</label></td>
 
-                                        <td><input id="detente" type="checkbox" name="restriction[]" value="detente"
+                                        <td><input id="outils" type="checkbox" name="restriction[]" value="outils"
 
-                                                <?php echo (isset($restriction['detente'])) ? ' checked="checked"' : ""; ?> />
+                                                <?php echo (isset($restriction['outils'])) ? ' checked="checked"' : ""; ?> />
+
+                                        </td>
+
+                                    </tr>
+
+                                    <tr>
+
+                                        <td><label for="autres">Autres</label></td>
+
+                                        <td><input id="autres" type="checkbox" name="restriction[]" value="autres"
+
+                                                <?php echo (isset($restriction['autres'])) ? ' checked="checked"' : ""; ?> />
 
                                         </td>
 

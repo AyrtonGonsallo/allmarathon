@@ -206,10 +206,10 @@ setlocale(LC_TIME, "fr_FR","French");
     <meta property="og:description" content="Résultats de tous les marathons nationaux et internationaux :  Championnats de France, Championnats d'Europe, Championnats du Monde, Jeux Olympiques, World Major." />
     <meta property="og:locale" content="fr_FR" />
     <meta property="og:type" content="siteweb" />
-    <meta property="og:image" content="https://dev.allmarathon.fr/images/allmarathon.png" />
-    <meta property="og:url" content="https://dev.allmarathon.fr/resultats-marathon.html" />
+    <meta property="og:image" content="https://dev.allrathon.fr/images/allmarathon.png" />
+    <meta property="og:url" content="https://dev.allrathon.fr/resultats-marathon.html" />
     
-    <link rel="canonical" href="https://dev.allmarathon.fr/resultats-marathon.html" />
+    <link rel="canonical" href="https://dev.allrathon.fr/resultats-marathon.html" />
 
 
     <link rel="apple-touch-icon" href="apple-favicon.png">
@@ -227,6 +227,7 @@ setlocale(LC_TIME, "fr_FR","French");
     <link rel="stylesheet" href="../../css/slider-pro.min.css" />
 
     <link rel="stylesheet" href="../../css/main.css">
+    
 
     <link rel="stylesheet" href="../../css/responsive.css">
 
@@ -278,13 +279,16 @@ setlocale(LC_TIME, "fr_FR","French");
 
 
 
-    <div class="container page-content athlètes mt-77">
+    <div class="container page-content athlètes mt-77 page-resultats">
 
      
 
-        <div class="row banniere1">
-
-            <div  class="col-sm-12"><?php
+        <div class="row banniere1 ban ban_728x90">
+            <div class="placeholder-content">
+                 <div class="placeholder-title"> Allmarathon </div> 
+                 <div class="placeholder-subtitle">publicité</div>
+             </div>
+            <div  class="col-sm-12 ads-contain"><?php
 
                 if($pub728x90 !="") {
 
@@ -452,13 +456,27 @@ setlocale(LC_TIME, "fr_FR","French");
                     </ul>
                 <?php }?>
             </div>
+            <div class="row banniere1 ban ban_768x90 ">
+                <div class="placeholder-content">
+                    <div class="placeholder-title"> Allmarathon </div> 
+                    <div class="placeholder-subtitle">publicité</div>
+                </div>
+            <div  class="col-sm-12 ads-contain"><?php
+                if($pub768x90 !="") {
+                echo '<a target="_blank" href="'.$pub768x90["url"].'" class="col-sm-12">';
+                    echo $pub768x90["code"] ? $pub768x90["code"] :  "<img src=".'../images/pubs/'.$pub768x90['image'] . " alt='' style=\"width: 100%;\" />";
+                    echo '</a>';
+                }
+                ?></div>
         </div>
+    </div>
+        </div>
+        
     </section> <!-- End left-side -->
 
 
 
             
-
     <?php include('footer.inc.php'); ?>
 
 

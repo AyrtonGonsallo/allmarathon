@@ -87,7 +87,7 @@
                         $results= array();
                         foreach ($result1 as $res) {
                             $nom_res_lien_archive=$cat_event.' - '.$res['Nom'].' - '.strftime("%A %d %B %Y",strtotime($res['DateDebut']));
-                            $loc        = 'https://dev.allmarathon.fr/resultats-marathon-'.$res['ID'].'-'.slugify($nom_res_lien_archive).'.html';
+                            $loc        = 'https://dev.allrathon.fr/resultats-marathon-'.$res['ID'].'-'.slugify($nom_res_lien_archive).'.html';
                            
                             array_push($results, $loc );
                         }    
@@ -130,9 +130,9 @@
 
                     // Données à envoyer
                     $data = array(
-                        "host" => "dev.allmarathon.fr",
+                        "host" => "allmarathon.fr",
                         "key" => "86c419008d974fb98ae6b74501802971",
-                        "keyLocation" => "https://dev.allmarathon.fr/86c419008d974fb98ae6b74501802971.txt",
+                        "keyLocation" => "https://dev.allrathon.fr/86c419008d974fb98ae6b74501802971.txt",
                         "urlList" => $results_f
                     );
 
@@ -229,13 +229,13 @@ curl -X -i POST \
   https://api.indexnow.org/IndexNow \
   -H 'Content-Type: application/json; charset=utf-8' \
   -d '{
-  "host": "dev.allmarathon.fr",
+  "host": "allmarathon.fr",
   "key": "86c419008d974fb98ae6b74501802971",
-  "keyLocation": "https://dev.allmarathon.fr/86c419008d974fb98ae6b74501802971.txt",
+  "keyLocation": "https://dev.allrathon.fr/86c419008d974fb98ae6b74501802971.txt",
   "urlList": [
-    "https://dev.allmarathon.fr/calendrier-agenda-marathons.html",
-    "https://dev.allmarathon.fr/resultats-marathon.html",
-    "https://dev.allmarathon.fr/liste-des-athletes.html"
+    "https://dev.allrathon.fr/calendrier-agenda-marathons.html",
+    "https://dev.allrathon.fr/resultats-marathon.html",
+    "https://dev.allrathon.fr/liste-des-athletes.html"
   ]
 }'
 

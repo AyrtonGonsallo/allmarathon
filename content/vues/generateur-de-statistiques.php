@@ -32,7 +32,7 @@ $pub300x60=$pub->getBanniere300_60("statistiques")['donnees'];
 $pub300x250=$pub->getBanniere300_250("statistiques")['donnees'];
 $pub160x600=$pub->getBanniere160_600("statistiques")['donnees'];
 $pub768x90=$pub->getBanniere768_90("statistiques")['donnees'];
-
+$getMobileAds=$pub->getMobileAds("statistiques")['donnees'];
 $years = $event->getAllYears()['donnees'];
 
 
@@ -60,7 +60,7 @@ $years = $event->getAllYears()['donnees'];
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src='https://www.google.com/recaptcha/api.js'></script>
-
+    <script src="../../js/main.js"></script>
 
     <!--<script src="js/vendor/modernizr-2.8.3.min.js"></script>-->
 </head>
@@ -70,8 +70,12 @@ $years = $event->getAllYears()['donnees'];
     <div class="container page-content page-stats-generator">
        
         <section class="section-stats-generator">
-        <div class="row banniere1 ">
-            <div  class="col-sm-12"><?php
+        <div class="row banniere1 ban ban_728x90">
+             <div class="placeholder-content">
+                 <div class="placeholder-title"> Allmarathon </div> 
+                 <div class="placeholder-subtitle">publicité</div>
+             </div>
+            <div  class="col-sm-12 ads-contain"><?php
                 if($pub728x90 !="") {
                 echo '<a target="_blank" href="'.$pub728x90["url"].'" class="col-sm-12">';
                     echo $pub728x90["code"] ? $pub728x90["code"] :  "<img src=".'../images/pubs/'.$pub728x90['image'] . " alt='' style=\"width: 100%;\" />";
@@ -164,6 +168,24 @@ $years = $event->getAllYears()['donnees'];
     </section>
     <div id="res-box">
     </div>
+    <div class="row banniere1 ban ban_768x90 ">
+        
+         <div class="placeholder-content">
+                 <div class="placeholder-title"> Allmarathon </div> 
+                 <div class="placeholder-subtitle">publicité</div>
+             </div>
+        
+        
+            <div  class="col-sm-12 ads-contain">
+                <?php
+                    if($pub768x90 !="") {
+                    echo '<a target="_blank" href="'.$pub768x90["url"].'" class="col-sm-12">';
+                        echo $pub768x90["code"] ? $pub768x90["code"] :  "<img src=".'../images/pubs/'.$pub768x90['image'] . " alt='' style=\"width: 100%;\" />";
+                        echo '</a>';
+                    }
+                ?>
+            </div>
+        </div>
 </div>
 
 
@@ -283,6 +305,7 @@ $years = $event->getAllYears()['donnees'];
 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<script src="../../js/main.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <script>
 $(function() {

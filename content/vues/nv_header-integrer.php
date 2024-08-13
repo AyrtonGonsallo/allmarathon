@@ -82,8 +82,8 @@
     }
   </style>
 <link rel="stylesheet" href="/css/authentification.css">
-<meta name="robots" content="index, follow">
-<link rel="alternate" type="application/rss+xml" title="allmarathon.fr - RSS feed" href="https://dev.allmarathon.fr/flux-rss.xml" />
+<meta name="robots" content="noindex, nofollow">
+<link rel="alternate" type="application/rss+xml" title="allmarathon.fr - RSS feed" href="https://dev.allrathon.fr/flux-rss.xml" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300,0,0" />
 <script>
 {
@@ -171,20 +171,21 @@
 
                         <li>
                             <? if($user_id){?>
-                                <label for="openSidebarMenu" class="sidebarIconToggle mobile">
+                                <label for="openSidebarMenu" class="sidebarIconToggle2 mobile">
                                     <?php echo $signin_compte; ?>
+                                    <span class="tag_name_m">Utilisateur</span>
                                 </label>
-                                <span class="tag_name_m">Utilisateur</span>
+                                
                             <?}else{?>
-                                <a href=<?php echo $href_modal;?> data-toggle="modal" <?php echo $target_modal;?> class=" ">
+                               
 
-                                <span class="material-symbols-outlined">
-                                    account_circle
-                                    </span>
+                                
+                                <label for="openSidebarMenu" class="sidebarIconToggle2 mobile">
+                                    <?php echo $signin_compte; ?><span class="tag_name_m">se connecter</span>
+                                </label>
+                                
 
-                                <span class="tag_name_m">se connecter</span>
-
-                                </a>
+                                
                             <?}?>
                             
                             
@@ -855,7 +856,6 @@ $('.menu-item-search > a.header--nav--link').on('click', function(e) {
     e.preventDefault();
     var elm = $('#frm-search');
     elm.slideToggle(100, function() {
-        hideWhenClickedOnBody(elm, 'searchdd');
     });
     $("#header-search").focus();
 
