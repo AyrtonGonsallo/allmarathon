@@ -44,7 +44,6 @@ $(".menu li a").on("click", function () {
 
 
 
-
 document.addEventListener("DOMContentLoaded", function() {
     const hamburgerButton = document.getElementById("hamburger-menu");
     const navCategory = document.querySelector(".nav-category");
@@ -75,12 +74,79 @@ document.addEventListener("DOMContentLoaded", function() {
     console.log("fixed header chargé")
 });
 
+// ok recherche btn
+document.addEventListener('DOMContentLoaded', function() {
+    const searchButton = document.getElementById('mobile-search-button');
+    searchButton.value = 'Ok';
+});
+// supp le placeholder recherche
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('header-search');
+    searchInput.removeAttribute('placeholder');
+});
+
+//ordre alphab pour le filtre
+document.addEventListener('DOMContentLoaded', function() {
+    const splideList = document.querySelector('.splide__list');
+    const slides = Array.from(splideList.querySelectorAll('.splide__slide'));
+
+    slides.sort((a, b) => {
+        const textA = a.querySelector('.a-cat-fltr').textContent.trim().toUpperCase();
+        const textB = b.querySelector('.a-cat-fltr').textContent.trim().toUpperCase();
+        return textA.localeCompare(textB);
+    });
+
+    slides.forEach(slide => splideList.appendChild(slide));
+});
+
+
+//delete flag not found
+document.querySelectorAll('.marathon-title-flag').forEach(img => {
+    const src = img.getAttribute('src');
+    if (!src || !src.endsWith('.jpg')) {
+        img.style.display = 'none';
+    }
+});
+
+//bg transparent ads
+document.addEventListener("DOMContentLoaded", function() {
+    var banElements = document.querySelectorAll('.ban');
+
+    banElements.forEach(function(banElement) {
+        var observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.type === 'childList' || mutation.type === 'attributes') {
+                    var iframe = banElement.querySelector('iframe');
+                    // Check if the iframe has a valid src and non-zero height
+                    if (iframe && iframe.src && iframe.style.height !== '0px' && iframe.style.height !== '') {
+                        banElement.classList.add('transparent-bg');
+                        observer.disconnect(); // Stop observing once the class is added
+                    }
+                }
+            });
+        });
+
+        // Observe the .ban element for changes
+        observer.observe(banElement, { attributes: true, childList: true, subtree: true });
+
+        // Fallback to remove transparent background if the ad doesn't load
+        setTimeout(function() {
+            var iframe = banElement.querySelector('iframe');
+            if (!iframe || iframe.style.height === '0px' || iframe.style.height === '') {
+                banElement.classList.remove('transparent-bg');
+            }
+        }, 5000); // Adjust timeout as needed for your specific case
+    });
+});
 
 
 
 
 
 
+
+
+    
 
 
 

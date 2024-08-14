@@ -390,25 +390,7 @@ function slugify($text)
         <dd class="archive">
             
         </dd>
-        <div class="ban ban_160-600">
-             <div class="placeholder-content">
-                           <div class="placeholder-title"> Allmarathon </div> 
-                           <div class="placeholder-subtitle">publicité</div>
-                    </div>
-            <div  class="col-sm-12 ads-contain">
-            <?php
-            if($pub160x600 !="") {
-                //var_dump($pub160x600["url"]); exit;
-                if($pub160x600["code"]==""){
-                    echo "<a href=".'https://allmarathon.net/'.$pub160x600["url"]." target='_blank'><img src=".'../images/pubs/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" /></a>";
-                }
-                else{
-                    echo $pub160x600["code"];
-                }
-            }?>
-           </div> 
-        </div>
-        <div class="marg_bot"></div>
+       
         <div class="ban ban_160-600">
             
             <div class="placeholder-content">

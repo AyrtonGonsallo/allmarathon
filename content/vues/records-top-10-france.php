@@ -381,7 +381,7 @@ catch(Exception $e)
     </div> <!-- End left-side -->
 
     <aside class="col-sm-4">
-    <div class="ban ban_300x60 mb-30">
+    <div class="ban ban_300x60 width-60 mb-30">
         <div class="placeholder-content">
                  <div class="placeholder-title"> Allmarathon </div> 
                  <div class="placeholder-subtitle">publicité</div>

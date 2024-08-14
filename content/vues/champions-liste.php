@@ -225,30 +225,50 @@ catch(Exception $e)
                     </div>
                     <div class="col-sm-12">
                         <div  id="resultats-recherche-athletes">
-                            
+                        <ul class="athletes-liste-grid test-image">
                             <?php
-                                $res="<ul class='athletes-liste-grid'>";
-                                foreach ($results_initial as $resultat) {
-                                    
-                                    
-                                    $pays_flag=$pays->getFlagByAbreviation($resultat['PaysID'])['donnees']['Flag'];
-                                    $pays_nom=$pays->getFlagByAbreviation($resultat['PaysID'])['donnees']['NomPays'];
-                                    $champion_name=slugify($resultat['Nom']);
+                                foreach ($results_initial as  $resultat) {
+                                $pays_flag = $pays->getFlagByAbreviation($resultat['PaysID'])['donnees']['Flag'];
+                                $pays_nom = $pays->getFlagByAbreviation($resultat['PaysID'])['donnees']['NomPays'];
+                                $champion_name = slugify($resultat['Nom']);
+                                $photos_count = $resultat['t_photos']; // Assuming 't_photos' contains the photo count
 
-                                    $res.= '<div class="athletes-grid-element"><a href="athlete-'.$resultat['ID'].'-'.$champion_name.'.html"><strong>'.$resultat['Nom'].'</strong></a>
-                                    <img src="../../images/flags/'.$pays_flag.'" class="float-r" alt=""/><br>
-                                        '.$pays_nom.
-                                    '<br>
-                                    <span><i class="fa-solid fa-medal"></i>('.$resultat['t_res'].')</span>
-                                    <span>- <i class="fa-solid fa-newspaper"></i>('.$resultat['t_news'].')</span>
-                                    <span>- <i class="fa-solid fa-camera"></i>('.$resultat['t_photos'].')</span>
-                                    <span>-<i class="fa-solid fa-video"></i>('.$resultat['t_videos'].')</span>
-                                    </div>';
+                                // Fetch photos for the current 'resultat'
+                                $photos = $champion->getChampionsPhoto($resultat['ID'])["donnees"]; // Replace with your actual function
 
+                                echo '<div class="athletes-grid-element">';
+
+                                // Ensure 'photos' is an array
+                                if (!isset($photos) || !is_array($photos)) {
+                                $photos = []; // Initialize as empty array if not set
                                 }
-                                $res.= '</ul>';
-                                echo $res;
+
+                                // Conditionally add the photo if there are photos
+                                if ($photos_count > 0 && is_array($photos)) {
+                                foreach ($photos as $photo) {
+                                if (isset($photo['Galerie_id']) && isset($photo['Nom'])) {
+                                echo '<img class="img-test" src="/images/galeries/'.$photo['Galerie_id'].'/'.$photo['Nom'].'" width="116" height="auto" alt=""/>';
+                                } else {
+                                echo '<li>Photo details missing</li>';
+                                }
+                                }
+                                } else {
+                                echo '';
+                                }
+
+                                echo '<div><a href="athlete-'.$resultat['ID'].'-'.$champion_name.'.html"><strong>'.$resultat['Nom'].'</strong></a>
+                                <img src="../../images/flags/'.$pays_flag.'" class="float-r" alt=""/><br>'.$pays_nom.'<br>
+                                <span><i class="fa-solid fa-medal"></i> ('.$resultat['t_res'].')</span>
+                                <span>- <i class="fa-solid fa-newspaper"></i> ('.$resultat['t_news'].')</span>
+                                <span>- <i class="fa-solid fa-camera"></i> ('.$photos_count.')</span>
+                                <span>- <i class="fa-solid fa-video"></i> ('.$resultat['t_videos'].')</span>
+                                </div>
+                                </div>';
+                                }
+
                             ?>
+                        </ul>
+                            
                         </div>
                         <ul class="pager">
                             <li class="rl-prec" ><a href="#" id="back-link" style="color: #000;pointer-events: none;cursor: default;">Athlètes précédents</a></li>
@@ -266,75 +286,48 @@ catch(Exception $e)
                         <ul class="athletes-liste-grid test-image">
 
                             <?php
+                                foreach ($olympiques as $key => $resultat) {
+                                    $pays_flag = $pays->getFlagByAbreviation($resultat['PaysID'])['donnees']['Flag'];
+                                    $pays_nom = $pays->getFlagByAbreviation($resultat['PaysID'])['donnees']['NomPays'];
+                                    $champion_name = slugify($resultat['Nom']);
+                                    $photos_count = $resultat['t_photos']; // Assuming 't_photos' contains the photo count
 
-                        /*   foreach ($olympiques as $key => $resultat) {
-    $pays_flag = $pays->getFlagByAbreviation($resultat['PaysID'])['donnees']['Flag'];
-    $pays_nom = $pays->getFlagByAbreviation($resultat['PaysID'])['donnees']['NomPays'];
-    $champion_name = slugify($resultat['Nom']);
+                                    // Fetch photos for the current 'resultat'
+                                    $photos = $champion->getChampionsPhoto($resultat['ID'])["donnees"]; // Replace with your actual function
 
-    // Assurez-vous de définir le chemin de l'image en fonction des données disponibles
-    $image_path = '/images/galeries/16/juan-carlos-zabala.jpg'; // Remplacez par la logique appropriée pour obtenir le chemin de l'image.
+                                    echo '<div class="athletes-grid-element">';
 
-    echo '<div class="athletes-grid-element">
-            <img class="img-test" src="'.$image_path.'" width="116" height="auto" alt=""/>
-            <div>
-                <a href="athlete-'.$resultat['ID'].'-'.$champion_name.'.html">
-                    <strong>'.$resultat['Nom'].'</strong>
-                </a>
-                <img src="../../images/flags/'.$pays_flag.'" class="float-r" alt=""/><br>
-                '.$pays_nom.'
-                <br>
-                <span><i class="fa-solid fa-medal"></i>('.$resultat['t_res'].')</span>
-                <span>- <i class="fa-solid fa-newspaper"></i>('.$resultat['t_news'].')</span>
-                <span>- <i class="fa-solid fa-camera"></i>('.$resultat['t_photos'].')</span>
-                <span>- <i class="fa-solid fa-video"></i>('.$resultat['t_videos'].')</span>
-            </div> 
-    </div>';
-} */
+                                    // Ensure 'photos' is an array
+                                    if (!isset($photos) || !is_array($photos)) {
+                                        $photos = []; // Initialize as empty array if not set
+                                    }
 
-                            // die;
-foreach ($olympiques as $key => $resultat) {
-    $pays_flag = $pays->getFlagByAbreviation($resultat['PaysID'])['donnees']['Flag'];
-    $pays_nom = $pays->getFlagByAbreviation($resultat['PaysID'])['donnees']['NomPays'];
-    $champion_name = slugify($resultat['Nom']);
-    $photos_count = $resultat['t_photos']; // Assuming 't_photos' contains the photo count
+                                    // Conditionally add the photo if there are photos
+                                    if ($photos_count > 0 && is_array($photos)) {
+                                        foreach ($photos as $photo) {
+                                            if (isset($photo['Galerie_id']) && isset($photo['Nom'])) {
+                                                echo '<img class="img-test" src="/images/galeries/'.$photo['Galerie_id'].'/'.$photo['Nom'].'" width="116" height="auto" alt=""/>';
+                                            } else {
+                                                echo '<li>Photo details missing</li>';
+                                            }
+                                        }
+                                    } else {
+                                        echo '';
+                                    }
+                                    
+                                    echo '<div><a href="athlete-'.$resultat['ID'].'-'.$champion_name.'.html"><strong>'.$resultat['Nom'].'</strong></a>
+                                        <img src="../../images/flags/'.$pays_flag.'" class="float-r" alt=""/><br>'.$pays_nom.'<br>
+                                        <span><i class="fa-solid fa-medal"></i> ('.$resultat['t_res'].')</span>
+                                        <span>- <i class="fa-solid fa-newspaper"></i> ('.$resultat['t_news'].')</span>
+                                        <span>- <i class="fa-solid fa-camera"></i> ('.$photos_count.')</span>
+                                        <span>- <i class="fa-solid fa-video"></i> ('.$resultat['t_videos'].')</span>
+                                        </div>
+                                        </div>';
+                                }
 
-    // Fetch photos for the current 'resultat'
-    $photos = $champion->getChampionsPhoto($resultat['ID'])["donnees"]; // Replace with your actual function
+                            ?>
 
-    echo '<div class="athletes-grid-element">';
-
-    // Ensure 'photos' is an array
-    if (!isset($photos) || !is_array($photos)) {
-        $photos = []; // Initialize as empty array if not set
-    }
-
-    // Conditionally add the photo if there are photos
-    if ($photos_count > 0 && is_array($photos)) {
-        foreach ($photos as $photo) {
-            if (isset($photo['Galerie_id']) && isset($photo['Nom'])) {
-                echo '<img class="img-test" src="/images/galeries/'.$photo['Galerie_id'].'/'.$photo['Nom'].'" width="116" height="auto" alt=""/>';
-            } else {
-                echo '<li>Photo details missing</li>';
-            }
-        }
-    } else {
-        echo '';
-    }
-    
-    echo '<div><a href="athlete-'.$resultat['ID'].'-'.$champion_name.'.html"><strong>'.$resultat['Nom'].'</strong></a>
-          <img src="../../images/flags/'.$pays_flag.'" class="float-r" alt=""/><br>'.$pays_nom.'<br>
-          <span><i class="fa-solid fa-medal"></i> ('.$resultat['t_res'].')</span>
-          <span>- <i class="fa-solid fa-newspaper"></i> ('.$resultat['t_news'].')</span>
-          <span>- <i class="fa-solid fa-camera"></i> ('.$photos_count.')</span>
-          <span>- <i class="fa-solid fa-video"></i> ('.$resultat['t_videos'].')</span>
-          </div>
-          </div>';
-}
-
-        ?>
-
-                            </ul>
+                        </ul>
                     </div>
 
                     <?php
