@@ -225,6 +225,7 @@ catch(Exception $e)
                     </div>
                     <div class="col-sm-12">
                         <div  id="resultats-recherche-athletes">
+                            
                             <?php
                                 $res="<ul class='athletes-liste-grid'>";
                                 foreach ($results_initial as $resultat) {

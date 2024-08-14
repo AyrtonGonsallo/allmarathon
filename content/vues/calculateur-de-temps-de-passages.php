@@ -66,7 +66,13 @@ $pub768x90=$pub->getBanniere768_90("outils")['donnees'];
     <?php include_once('nv_header-integrer.php'); ?>
     <div class="container page-content">
         <div class="row banniere1 ban ban_728x90">
-            <div  class="col-sm-12"><?php
+            
+            <div class="placeholder-content">
+                 <div class="placeholder-title"> Allmarathon </div> 
+                 <div class="placeholder-subtitle">publicité</div>
+             </div>
+             <div  class="col-sm-12 ads-contain">
+                <?php
                 if($pub728x90 !="") {
                 echo '<a target="_blank" href="'.$pub728x90["url"].'" class="col-sm-12">';
                     echo $pub728x90["code"] ? $pub728x90["code"] :  "<img src=".'../images/pubs/'.$pub728x90['image'] . " alt='' style=\"width: 100%;\" />";
@@ -122,7 +128,12 @@ $pub768x90=$pub->getBanniere768_90("outils")['donnees'];
 
     </section>
     <div class="row banniere1 ban ban_768x90 mb-30">
-            <div  class="col-sm-12">
+        
+            <div class="placeholder-content">
+                 <div class="placeholder-title"> Allmarathon </div> 
+                 <div class="placeholder-subtitle">publicité</div>
+             </div>
+             <div  class="col-sm-12 ads-contain">
                 <?php
                     if($pub768x90 !="") {
                     echo '<a target="_blank" href="'.$pub768x90["url"].'" class="col-sm-12">';

@@ -196,7 +196,12 @@ setlocale(LC_TIME, "fr_FR","French");
     </div>
     <div class="container page-content resultat-detail mt-77 mb-80">
         <div class="row banniere1 ban ban_728x90">
-            <div  class="col-sm-12"><?php
+            <div class="placeholder-content">
+                 <div class="placeholder-title"> Allmarathon </div> 
+                 <div class="placeholder-subtitle">publicité</div>
+             </div>
+            <div  class="col-sm-12 ads-contain">
+            <?php
                 if($pub728x90 !="") {
                 echo '<a target="_blank" href="'.$pub728x90["url"].'" class="col-sm-12">';
                     echo $pub728x90["code"] ? $pub728x90["code"] :  "<img src=".'../images/pubs/'.$pub728x90['image'] . " alt='' style=\"width: 100%;\" />";
@@ -573,7 +578,12 @@ setlocale(LC_TIME, "fr_FR","French");
     </div> <!-- End left-side -->
 
     <aside class="col-sm-4 no-padding-right">
-        <div class="ban ban_300x60 mb-30 mt-30">
+        <div class="ban ban_300x60  width-60 mb-30 mt-30">
+            <div class="placeholder-content">
+                 <div class="placeholder-title"> Allmarathon </div> 
+                 <div class="placeholder-subtitle">publicité</div>
+             </div>
+             <div  class="col-sm-12 ads-contain">
                 <?php
                     if($pub300x60 !="") {
                     echo '<a target="_blank" href="'.$pub300x60["url"].'" >';
@@ -581,7 +591,7 @@ setlocale(LC_TIME, "fr_FR","French");
                         echo '</a>';
                     }
                 ?>
-        </div>
+        </div> </div>
     <? if($next_date){?>
         <div class="box-next-edition bureau">
             
@@ -721,7 +731,13 @@ setlocale(LC_TIME, "fr_FR","French");
                 
             </div>
         <?}?>
-        <p class="ban ban_160-600">
+        <div class="ban ban_160-600">
+            
+            <div class="placeholder-content">
+                 <div class="placeholder-title"> Allmarathon </div> 
+                 <div class="placeholder-subtitle">publicité</div>
+             </div>
+             <div  class="col-sm-12 ads-contain">
                     <?php
                     if($pub160x600 !="") {
                         //var_dump($pub160x600["url"]); exit;
@@ -732,7 +748,7 @@ setlocale(LC_TIME, "fr_FR","French");
                             echo $pub160x600["code"];
                         }
                     }?>
-                </p>
+                </div></div>
        
         <dt class="bref mt-30">
                 <h2 class="h2-aside">
@@ -773,7 +789,13 @@ setlocale(LC_TIME, "fr_FR","French");
                 </ul>
 
             </dd>
-            <p class="ban ban_300x250">
+            <div class="ban ban_300x250">
+                
+                <div class="placeholder-content">
+                 <div class="placeholder-title"> Allmarathon </div> 
+                 <div class="placeholder-subtitle">publicité</div>
+             </div>
+             <div  class="col-sm-12 ads-contain">
                         <?php
                         if($pub300x250 !="") {
                             //var_dump($pub300x250["url"]); exit;
@@ -785,11 +807,17 @@ setlocale(LC_TIME, "fr_FR","French");
                             }
                         }
                         ?>
-                    </p>
+                    </div></div>
         </div>
     </aside>
     <div class="row banniere1 ban ban_768x90 ">
-            <div  class="col-sm-12"><?php
+        <div class="placeholder-content">
+                 <div class="placeholder-title"> Allmarathon </div> 
+                 <div class="placeholder-subtitle">publicité</div>
+             </div>
+             <div  class="col-sm-12 ads-contain">
+            
+            <?php
                 if($pub768x90 !="") {
                 echo '<a target="_blank" href="'.$pub768x90["url"].'" class="col-sm-12">';
                     echo $pub768x90["code"] ? $pub768x90["code"] :  "<img src=".'../images/pubs/'.$pub768x90['image'] . " alt='' style=\"width: 100%;\" />";

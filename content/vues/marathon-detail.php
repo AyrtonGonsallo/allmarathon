@@ -207,7 +207,12 @@ if($pays_datas){
     </div>
     <div class="container page-content athlete-detail marathon-detail  mt-77">
         <div class="row banniere1 ban ban_728x90">
-            <div  class="col-sm-12">
+            <div class="placeholder-content">
+                 <div class="placeholder-title"> Allmarathon </div> 
+                 <div class="placeholder-subtitle">publicité</div>
+             </div>
+             <div  class="col-sm-12 ads-contain">
+            
                 <?php
                     if($pub728x90 !="") {
                     echo '<a target="_blank" href="'.$pub728x90["url"].'" class="col-sm-12">';
@@ -784,7 +789,13 @@ if($pays_datas){
                     </div> <!-- End container page-content -->
                 </div>
                 <aside class="col-sm-4 no-padding-right">
-                    <div class="ban ban_300x60 mb-30 mt-30">
+                    <div class="ban ban_300x60 width-60 mb-30 mt-30">
+                        <div class="placeholder-content">
+                 <div class="placeholder-title"> Allmarathon </div> 
+                 <div class="placeholder-subtitle">publicité</div>
+             </div>
+             <div  class="col-sm-12 ads-contain">
+
                         <?php
                             if($pub300x60 !="") {
                             echo '<a target="_blank" href="'.$pub300x60["url"].'" >';
@@ -792,7 +803,7 @@ if($pays_datas){
                                 echo '</a>';
                             }
                         ?>
-                    </div>
+                    </div></div>
                     <div class="box-next-edition bureau">
                         <?php echo $proch_date; ?>
                         <?php echo $lien_site; ?>
@@ -802,7 +813,13 @@ if($pays_datas){
                             <?php echo $lien_youtube;?>
                         </div>
                     </div>
-                    <p class="ban ban_160-600">
+                    <div class="ban ban_160-600">
+                        
+                        <div class="placeholder-content">
+                 <div class="placeholder-title"> Allmarathon </div> 
+                 <div class="placeholder-subtitle">publicité</div>
+             </div>
+             <div  class="col-sm-12 ads-contain">
                         <?php
                         if($pub160x600 !="") {
                             //var_dump($pub160x600["url"]); exit;
@@ -815,25 +832,36 @@ if($pays_datas){
                         /*echo $pub160x600["code"] ? $pub160x600["code"] :  "<img src=".'../images/pubs/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" />";*/
                         }
                         ?>
-                    </p>
-                    <p class="ban ban_300x250">
-                            <?php
-                            if($pub300x250 !="") {
-                                //var_dump($pub300x250["url"]); exit;
-                                if($pub300x250["code"]==""){
-                                    echo "<a href=".''.$pub300x250["url"]." target='_blank'><img src=".'../images/pubs/'.$pub300x250['image'] . " alt='' style=\"width: 100%;\" /></a>";
-                                }
-                                else{
-                                    echo $pub300x250["code"];
-                                }
+                    </div> </div>
+                <div class="ban ban_300x250 to_hide_mobile">
+                    <div class="placeholder-content">
+                           <div class="placeholder-title"> Allmarathon </div> 
+                           <div class="placeholder-subtitle">publicité</div>
+                    </div>
+                    <div  class="col-sm-12 ads-contain">
+                        <?php
+                        if($pub300x250 !="") {
+                            //var_dump($pub300x250["url"]); exit;
+                            if($pub300x250["code"]==""){
+                                echo "<a href=".''.$pub300x250["url"]." target='_blank'><img src=".'../images/pubs/'.$pub300x250['image'] . " alt='' style=\"width: 100%;\" /></a>";
                             }
-                            ?>
-                        </p>
+                            else{
+                                echo $pub300x250["code"];
+                            }
+                        }
+                        ?>
+                    </div>
+                </div>
                 </aside>
             </div>
             
                 <div class="row banniere1 ban ban_768x90 ">
-                    <div  class="col-sm-12">
+                    <div class="placeholder-content">
+                 <div class="placeholder-title"> Allmarathon </div> 
+                 <div class="placeholder-subtitle">publicité</div>
+             </div>
+                 <div  class="col-sm-12 ads-contain">
+                    
                         <?php
                         if($pub768x90 !="") {
                         echo '<a target="_blank" href="'.$pub768x90["url"].'" class="col-sm-12">';

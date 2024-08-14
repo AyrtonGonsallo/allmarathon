@@ -146,7 +146,14 @@ $getMobileAds=$pub->getMobileAds("accueil")['donnees'];
 <div class="container page-content video-details mt-77">
     
     <div class="row banniere1 ban ban_728x90">
-        <div  class="col-sm-12"><?php
+        
+        
+        <div class="placeholder-content">
+                 <div class="placeholder-title"> Allmarathon </div> 
+                 <div class="placeholder-subtitle">publicité</div>
+             </div>
+             <div  class="col-sm-12 ads-contain">
+             <?php
                 if($pub728x90 !="") {
                 echo '<a target="_blank" href="'.$pub728x90["url"].'" class="col-sm-12">';
                     echo $pub728x90["code"] ? $pub728x90["code"] :  "<img src=".'../images/pubs/'.$pub728x90['image'] . " alt='' style=\"width: 100%;\" />";
@@ -235,7 +242,12 @@ $getMobileAds=$pub->getMobileAds("accueil")['donnees'];
         </div> <!-- End left-side -->
 
         <aside class="col-sm-4 bureau">
-                <div class="ban ban_300x60 mb-30">
+                <div class="ban ban_300x60 width-60 mb-30">
+                    <div class="placeholder-content">
+                 <div class="placeholder-title"> Allmarathon </div> 
+                 <div class="placeholder-subtitle">publicité</div>
+             </div>
+             <div  class="col-sm-12 ads-contain">
                     <?php
                         if($pub300x60 !="") {
                         echo '<a target="_blank" href="'.$pub300x60["url"].'" >';
@@ -243,7 +255,7 @@ $getMobileAds=$pub->getMobileAds("accueil")['donnees'];
                             echo '</a>';
                         }
                     ?>
-                </div>
+                </div></div>
             <h3 class="h2-aside"><span class="material-symbols-outlined">play_circle</span>Les dernières vidéos</h3>
                 <?php
                     foreach ($last_videos['donnees'] as $vd) {
@@ -271,15 +283,13 @@ $getMobileAds=$pub->getMobileAds("accueil")['donnees'];
                             </ul>';
                     }
                 ?>
-            <p class="ban">
-                <?php
-                            /*
-                if($pub300x250 !="") {
-                echo $pub300x250["code"] ? $pub300x250["code"] :  "<a href=". $pub300x250['url'] ." target='_blank'><img src=".'../images/pubs/'.$pub300x250['image'] . " alt='' style=\"width: 100%;\" />";
-                }*/
-                ?>
-            </p>
-            <p class="ban ban_160-600"><a href=""><?php
+            <div class="ban ban_160-600">
+                <div class="placeholder-content">
+                 <div class="placeholder-title"> Allmarathon </div> 
+                 <div class="placeholder-subtitle">publicité</div>
+             </div>
+             <div  class="col-sm-12 ads-contain">
+            <?php
             if($pub160x600 !="") {
                 //var_dump($pub160x600["url"]); exit;
                 if($pub160x600["code"]==""){
@@ -291,9 +301,14 @@ $getMobileAds=$pub->getMobileAds("accueil")['donnees'];
             /*echo $pub160x600["code"] ? $pub160x600["code"] :  "<img src=".'../images/pubs/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" />";*/
             }
             ?>
-            </p>
+            </div></div>
              <div class="marg_bot"></div>
-             <p class="ban ban_300x250">
+             <div class="ban ban_300x250">
+                 <div class="placeholder-content">
+                 <div class="placeholder-title"> Allmarathon </div> 
+                 <div class="placeholder-subtitle">publicité</div>
+             </div>
+             <div  class="col-sm-12 ads-contain">
                         <?php
                         if($pub300x250 !="") {
                             //var_dump($pub300x250["url"]); exit;
@@ -305,12 +320,17 @@ $getMobileAds=$pub->getMobileAds("accueil")['donnees'];
                             }
                         }
                         ?>
-                    </p>
+                    </div></div>
         </aside>
         
     </div>
     <div class="row banniere1 ban ban_768x90 ">
-            <div  class="col-sm-12"><?php
+            <div class="placeholder-content">
+                 <div class="placeholder-title"> Allmarathon </div> 
+                 <div class="placeholder-subtitle">publicité</div>
+             </div>
+             <div  class="col-sm-12 ads-contain">
+             <?php
                 if($pub768x90 !="") {
                 echo '<a target="_blank" href="'.$pub768x90["url"].'" class="col-sm-12">';
                     echo $pub768x90["code"] ? $pub768x90["code"] :  "<img src=".'../images/pubs/'.$pub768x90['image'] . " alt='' style=\"width: 100%;\" />";

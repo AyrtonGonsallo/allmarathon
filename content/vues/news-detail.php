@@ -167,7 +167,12 @@ $tab = explode('-',$news_details->getDate());
 
     <div class="mobile mt-77 ">
         <div class="row banniere1 ban ban_728x90">
-            <div  class="col-sm-12"><?php
+             <div class="placeholder-content">
+                 <div class="placeholder-title"> Allmarathon </div> 
+                 <div class="placeholder-subtitle">publicité</div>
+             </div>
+            <div  class="col-sm-12 ads-contain">
+            <?php
                 if($pub728x90 !="") {
                 echo '<a target="_blank" href="'.$pub728x90["url"].'" class="col-sm-12">';
                     echo $pub728x90["code"] ? $pub728x90["code"] :  "<img src=".'../images/pubs/'.$pub728x90['image'] . " alt='' style=\"width: 100%;\" />";
@@ -235,7 +240,12 @@ $tab = explode('-',$news_details->getDate());
 
     <div class="container page-content news-detail">
         <div class="row banniere1 bureau ban ban_728x90">
-            <div  class="col-sm-12"><?php
+             <div class="placeholder-content">
+                 <div class="placeholder-title"> Allmarathon </div> 
+                 <div class="placeholder-subtitle">publicité</div>
+             </div>
+            <div  class="col-sm-12 ads-contain">
+            <?php
                 if($pub728x90 !="") {
                 echo '<a target="_blank" href="'.$pub728x90["url"].'" class="col-sm-12">';
                     echo $pub728x90["code"] ? $pub728x90["code"] :  "<img src=".'../images/pubs/'.$pub728x90['image'] . " alt='' style=\"width: 100%;\" />";
@@ -358,7 +368,12 @@ $tab = explode('-',$news_details->getDate());
                 </div>
             </div>
             <aside class="col-sm-4">
-                <div class="ban ban_300x60 mb-30">
+                <div class="ban ban_300x60 mb-30 width-60">
+                    <div class="placeholder-content">
+                 <div class="placeholder-title"> Allmarathon </div> 
+                 <div class="placeholder-subtitle">publicité</div>
+             </div>
+             <div  class="col-sm-12 ads-contain">
                     <?php
                         if($pub300x60 !="") {
                         echo '<a target="_blank" href="'.$pub300x60["url"].'" >';
@@ -367,7 +382,7 @@ $tab = explode('-',$news_details->getDate());
                         }
                     ?>
                 </div>
-
+</div>
                 <dt class="bref to_hide_mobile">
                     <h2 class="h2-aside">
                         <span class="material-symbols-outlined ic-15">rocket_launch</span>
@@ -396,17 +411,30 @@ $tab = explode('-',$news_details->getDate());
                     }
 
                     ?>
-                <p class="ban ban_300x250"><?php
+                <div class="ban ban_300x250">
+                <div class="placeholder-content">
+                           <div class="placeholder-title"> Allmarathon </div> 
+                           <div class="placeholder-subtitle">publicité</div>
+                    </div>
+                    <div  class="col-sm-12 ads-contain">
+                <?php
                     if($pub300x250 !="") {
                     echo $pub300x250["code"] ? $pub300x250["code"] :  "<a href=". $pub300x250['url'] ." target='_blank'><img src=".'../images/pubs/'.$pub300x250['image'] . " alt='' style=\"width: 100%;\" />";
                     }
                     ?></a>
-                </p>
+                    </div>
+                </div>
                 
                
                 <div class="marg_bot"></div>
-                <p class="ban ban_160-600">
-                    <a href="">
+                <div class="ban ban_160-600">
+                    
+                    <div class="placeholder-content">
+                           <div class="placeholder-title"> Allmarathon </div> 
+                           <div class="placeholder-subtitle">publicité</div>
+                    </div>
+                    <div  class="col-sm-12 ads-contain">
+                    
                         <?php
                         if($pub160x600 !="") {
                             //var_dump($pub160x600["url"]); exit;
@@ -419,8 +447,9 @@ $tab = explode('-',$news_details->getDate());
                         /*echo $pub160x600["code"] ? $pub160x600["code"] :  "<img src=".'../images/pubs/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" />";*/
                         }
                         ?>
-                    </a>
-                </p>
+                   
+                  </div>
+                </div>
                 <div class="marg_bot"></div>
 
             </aside>
@@ -428,7 +457,12 @@ $tab = explode('-',$news_details->getDate());
             
         </div>
 <div class="row banniere1 ban ban_768x90 ">
-                    <div  class="col-sm-12"><?php
+                    <div class="placeholder-content">
+                           <div class="placeholder-title"> Allmarathon </div> 
+                           <div class="placeholder-subtitle">publicité</div>
+                    </div>
+                    <div  class="col-sm-12 ads-contain">
+                    <?php
                         if($pub768x90 !="") {
                         echo '<a target="_blank" href="'.$pub768x90["url"].'" class="col-sm-12">';
                             echo $pub768x90["code"] ? $pub768x90["code"] :  "<img src=".'../images/pubs/'.$pub768x90['image'] . " alt='' style=\"width: 100%;\" />";
