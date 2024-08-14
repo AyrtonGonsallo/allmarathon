@@ -115,7 +115,7 @@ if(isset($_POST['folder'])){
         }
 
         echo '<br>le nombre de fichier enregistré est : '.$i;
-        header('Location: https://dev.allrathon.fr/admin/galerieDetail.php?galerieID='.$galID);
+        header('Location: https://dev.allmarathon.fr/admin/galerieDetail.php?galerieID='.$galID);
         die();
     }
 

@@ -130,10 +130,10 @@ catch(Exception $e)
     <meta property="og:description" content="Retrouvez les palmarès de <?php echo $nb_champs;?> coureurs, ainsi  que les photos et vidéos des athlètes et marathoniens célèbres. " />
     <meta property="og:locale" content="fr_FR" />
     <meta property="og:type" content="siteweb" />
-    <meta property="og:image" content="https://dev.allrathon.fr/images/allmarathon.png" />
-    <meta property="og:url" content="https://dev.allrathon.fr/liste-des-athletes.html" />
+    <meta property="og:image" content="https://dev.allmarathon.fr/images/allmarathon.png" />
+    <meta property="og:url" content="https://dev.allmarathon.fr/liste-des-athletes.html" />
 
-    <link rel="canonical" href="https://dev.allrathon.fr/liste-des-athletes.html" />
+    <link rel="canonical" href="https://dev.allmarathon.fr/liste-des-athletes.html" />
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/font-awesome.min.css">
     <link rel="stylesheet" href="../../css/fonts.css">

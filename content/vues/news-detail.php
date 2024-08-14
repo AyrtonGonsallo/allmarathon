@@ -105,13 +105,13 @@ $tab = explode('-',$news_details->getDate());
     <?php require_once("../scripts/header_script.php") ?>
     <title><?php echo str_replace('\\', '', str_replace('"', '\'', $news_details->getTitre()));?> | allmarathon.fr </title>
     <meta name="Description" content="<?php echo str_replace('\\', '', str_replace('"', '\'', $news_details->getTitre()));?>, <?php echo str_replace('\\', '', str_replace('"', '\'', $news_details->getChapo()));?> " lang="fr" xml:lang="fr" />
-    <?php echo '<link rel="canonical" href="https://dev.allrathon.fr/actualite-marathon-'.$news_details->getId().'-'.slugify($news_details->getTitre()).'.html" />';?>
+    <?php echo '<link rel="canonical" href="https://dev.allmarathon.fr/actualite-marathon-'.$news_details->getId().'-'.slugify($news_details->getTitre()).'.html" />';?>
     <meta name="robots" content="max-image-preview:large" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="<?php echo str_replace('\\', '', str_replace('"', '\'', $news_details->getTitre()));?>" />
     <meta property="og:description" content="<?php echo str_replace('\\', '', str_replace('"', '\'', $news_details->getTitre()));?>, <?php echo str_replace('\\', '', str_replace('"', '\'', $news_details->getChapo()));?> " />
-    <meta property="og:image" content="<?php echo 'https://dev.allrathon.fr'.$img_src; ?>" />
-    <meta property="og:url" content="<?php echo 'https://dev.allrathon.fr/actualite-marathon-'.$news_details->getId().'-'.slugify($news_details->getTitre()).'.html';?>" />
+    <meta property="og:image" content="<?php echo 'https://dev.allmarathon.fr'.$img_src; ?>" />
+    <meta property="og:url" content="<?php echo 'https://dev.allmarathon.fr/actualite-marathon-'.$news_details->getId().'-'.slugify($news_details->getTitre()).'.html';?>" />
 
     <link rel="apple-touch-icon" href="apple-favicon.png">
     <link rel="icon" type="image/x-icon" href="../../images/favicon.ico" />
@@ -127,7 +127,7 @@ $tab = explode('-',$news_details->getDate());
       "@type": "NewsArticle",
       "headline": "<?php echo str_replace('"',"",$news_details->getTitre()); ?>",
       "image": [
-        "<?php echo 'https://dev.allrathon.fr'.$img_src; ?>"
+        "<?php echo 'https://dev.allmarathon.fr'.$img_src; ?>"
        ],
       "datePublished": "<?php echo date(DATE_ISO8601, strtotime($news_details->getDate())); ?>",
       "dateModified": "<?php echo date(DATE_ISO8601, strtotime($news_details->getDate())); ?>",
@@ -203,7 +203,7 @@ $tab = explode('-',$news_details->getDate());
             
         </script>
             <span class="comment-count-container">
-                <a style="font-weight: bold;" href="<?php echo 'https://dev.allrathon.fr/actualite-marathon-'.$news_details->getId().'-'.slugify($news_details->getTitre()).'.html';?>#disqus_thread"># </a>
+                <a style="font-weight: bold;" href="<?php echo 'https://dev.allmarathon.fr/actualite-marathon-'.$news_details->getId().'-'.slugify($news_details->getTitre()).'.html';?>#disqus_thread"># </a>
                 <span class="material-symbols-outlined">chat_bubble</span>
             </span>
 
@@ -283,7 +283,7 @@ $tab = explode('-',$news_details->getDate());
                             
                         </script>
                             <span class="comment-count-container">
-                                <a style="font-weight: bold;" href="<?php echo 'https://dev.allrathon.fr/actualite-marathon-'.$news_details->getId().'-'.slugify($news_details->getTitre()).'.html';?>#disqus_thread"># </a>
+                                <a style="font-weight: bold;" href="<?php echo 'https://dev.allmarathon.fr/actualite-marathon-'.$news_details->getId().'-'.slugify($news_details->getTitre()).'.html';?>#disqus_thread"># </a>
                                 <span class="material-symbols-outlined">chat_bubble</span>
                             </span>
 

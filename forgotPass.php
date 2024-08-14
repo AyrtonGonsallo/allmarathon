@@ -86,7 +86,7 @@ if ($responseData->success && $_POST["mail"] != "") {//&& $resp->is_valid
             $_SESSION['mail'] = "forgot";
             echo ("<SCRIPT LANGUAGE='JavaScript'>
             window.alert('une erreur est survenue !')
-            window.location.href='https://dev.allrathon.fr';
+            window.location.href='https://dev.allmarathon.fr';
             </SCRIPT>");
         }
         else {

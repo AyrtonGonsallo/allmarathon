@@ -135,14 +135,14 @@ function slugify($text)
     <meta name="description" content="Liste des records du marathon féminin. Record du monde, record olympique, meilleurs performance en Europe, et records nationaux.">
     <meta property="og:type" content="siteweb" />
     <meta property="og:title" content="Records du marathon féminin : record du monde, record olympique, continentaux et nationaux" />
-    <meta property="og:image" content="https://dev.allrathon.fr/images/allmarathon.png" />
-    <meta property="og:url" content="https://dev.allrathon.fr/records-marathon-feminins.html" />
+    <meta property="og:image" content="https://dev.allmarathon.fr/images/allmarathon.png" />
+    <meta property="og:url" content="https://dev.allmarathon.fr/records-marathon-feminins.html" />
     <meta property="og:description" content="Liste des records du marathon féminin. Record du monde, record olympique, meilleurs performance en Europe, et records nationaux." />
 
 
     <link rel="apple-touch-icon" href="apple-favicon.png">
     <link rel="icon" type="image/x-icon" href="../../images/favicon.ico" />
-    <link rel="canonical" href="https://dev.allrathon.fr/records-marathon-feminins.html" />
+    <link rel="canonical" href="https://dev.allmarathon.fr/records-marathon-feminins.html" />
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/font-awesome.min.css">
     <link rel="stylesheet" href="../../css/fonts.css">
@@ -400,7 +400,7 @@ function slugify($text)
             if($pub160x600 !="") {
                 //var_dump($pub160x600["url"]); exit;
                 if($pub160x600["code"]==""){
-                    echo "<a href=".'http://dev.allrathon.net/'.$pub160x600["url"]." target='_blank'><img src=".'../images/pubs/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" /></a>";
+                    echo "<a href=".'https://allmarathon.net/'.$pub160x600["url"]." target='_blank'><img src=".'../images/pubs/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" /></a>";
                 }
                 else{
                     echo $pub160x600["code"];
@@ -420,7 +420,7 @@ function slugify($text)
             if($pub160x600 !="") {
                 //var_dump($pub160x600["url"]); exit;
                 if($pub160x600["code"]==""){
-                    echo "<a href=".'http://dev.allrathon.net/'.$pub160x600["url"]." target='_blank'><img src=".'../images/pubs/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" /></a>";
+                    echo "<a href=".'https://allmarathon.net/'.$pub160x600["url"]." target='_blank'><img src=".'../images/pubs/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" /></a>";
                 }
                 else{
                     echo $pub160x600["code"];

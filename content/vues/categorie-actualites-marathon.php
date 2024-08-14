@@ -94,13 +94,13 @@ function slugify($text)
     <?php require_once("../scripts/header_script.php") ?>
     <title><?php echo str_replace('\\', '', str_replace('"', '\'', $cat_news_details->getIntitule()));?> | allmarathon.fr </title>
     <meta name="Description" content="<?php echo str_replace('\\', '', str_replace('"', '\'', $cat_news_details->getIntitule()));?>  " lang="fr" xml:lang="fr" />
-    <?php echo '<link rel="canonical" href="https://dev.allrathon.fr/categorie-actualites-marathon-'.$cat_news_details->getId().'-'.slugify($cat_news_details->getIntitule()).'.html" />';?>
+    <?php echo '<link rel="canonical" href="https://dev.allmarathon.fr/categorie-actualites-marathon-'.$cat_news_details->getId().'-'.slugify($cat_news_details->getIntitule()).'.html" />';?>
     <meta name="robots" content="max-image-preview:large" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="<?php echo str_replace('\\', '', str_replace('"', '\'', $cat_news_details->getIntitule()));?>" />
     <meta property="og:description" content="<?php echo str_replace('\\', '', str_replace('"', '\'', $cat_news_details->getIntitule()));?>  " />
-    <meta property="og:image" content="<?php echo 'https://dev.allrathon.fr'.$img_src; ?>" />
-    <meta property="og:url" content="<?php echo 'https://dev.allrathon.fr/categorie-actualites-marathon-'.$cat_news_details->getId().'-'.slugify($cat_news_details->getIntitule()).'.html';?>" />
+    <meta property="og:image" content="<?php echo 'https://dev.allmarathon.fr'.$img_src; ?>" />
+    <meta property="og:url" content="<?php echo 'https://dev.allmarathon.fr/categorie-actualites-marathon-'.$cat_news_details->getId().'-'.slugify($cat_news_details->getIntitule()).'.html';?>" />
 
     <link rel="apple-touch-icon" href="apple-favicon.png">
     <link rel="icon" type="image/x-icon" href="../../images/favicon.ico" />
@@ -309,7 +309,7 @@ function slugify($text)
                     if($pub160x600 !="") {
                         //var_dump($pub160x600["url"]); exit;
                         if($pub160x600["code"]==""){
-                            echo "<a href=".'http://dev.allrathon.net/'.$pub160x600["url"]." target='_blank'><img src=".'../images/pubs/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" /></a>";
+                            echo "<a href=".'https://allmarathon.net/'.$pub160x600["url"]." target='_blank'><img src=".'../images/pubs/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" /></a>";
                         }
                         else{
                             echo $pub160x600["code"];

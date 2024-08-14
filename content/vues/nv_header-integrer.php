@@ -83,7 +83,7 @@
   </style>
 <link rel="stylesheet" href="/css/authentification.css">
 <meta name="robots" content="noindex, nofollow">
-<link rel="alternate" type="application/rss+xml" title="allmarathon.fr - RSS feed" href="https://dev.allrathon.fr/flux-rss.xml" />
+<link rel="alternate" type="application/rss+xml" title="allmarathon.fr - RSS feed" href="https://dev.allmarathon.fr/flux-rss.xml" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300,0,0" />
 <script>
 {

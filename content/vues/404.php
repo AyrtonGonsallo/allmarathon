@@ -11,12 +11,12 @@
     <meta name="description" content="">
     
     <link rel="apple-touch-icon" href="apple-favicon.png">
-    <link rel="stylesheet" href="https://dev.allrathon.fr/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://dev.allrathon.fr/css/main.css">
-    <link rel="stylesheet" href="https://dev.allrathon.fr/css/authentification.css">
+    <link rel="stylesheet" href="https://dev.allmarathon.fr/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://dev.allmarathon.fr/css/main.css">
+    <link rel="stylesheet" href="https://dev.allmarathon.fr/css/authentification.css">
     
-    <link rel="stylesheet" href="https://dev.allrathon.fr/css/fonts.css">
-    <link rel="stylesheet" href="https://dev.allrathon.fr/css/responsive.css">
+    <link rel="stylesheet" href="https://dev.allmarathon.fr/css/fonts.css">
+    <link rel="stylesheet" href="https://dev.allmarathon.fr/css/responsive.css">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src='https://www.google.com/recaptcha/api.js'></script>
     <style type="text/css">
@@ -46,7 +46,7 @@
                 <div class="row marg_top">
 
                     <div class="col-sm-12 center">
-                    <img class="sp-image" alt="https://dev.allrathon.fr/images/allmarathon-404.jpg" style="max-width: 100%;" src="https://dev.allrathon.fr/images/allmarathon-404.jpg">
+                    <img class="sp-image" alt="https://dev.allmarathon.fr/images/allmarathon-404.jpg" style="max-width: 100%;" src="https://dev.allmarathon.fr/images/allmarathon-404.jpg">
                         <h1>Oups, vous êtes hors parcours</h1>
                         <span>
                         La page que vous cherchez a peut-être été déplacée, renommée ou supprimée temporairement.
@@ -54,7 +54,7 @@
 
                             <br /> </span>
 
-                            <a href="https://dev.allrathon.fr/" class="btn_auth button__red">Accueil</a >
+                            <a href="https://dev.allmarathon.fr/" class="btn_auth button__red">Accueil</a >
 
 
                     </div>

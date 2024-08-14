@@ -127,13 +127,13 @@ function switch_cat($cat)
     <title>Suivez l’actualité du marathon : calendrier, résultats, vidéos | allmarathon.fr</title>
     <meta name="description" content="allmarathon, toutes les informations concernant les marathons en France et dans le monde. News, calendrier, résultats, vidéos. Pour les passionnés des 42 kms.">
     
-    <link rel="canonical" href="https://dev.allrathon.fr" />
+    <link rel="canonical" href="https://dev.allmarathon.fr" />
     <meta property="og:title" content=" Suivez l’actualité du marathon : calendrier, résultats, vidéos | allmarathon.fr " />
     <meta property="og:description" content="allmarathon, toutes les informations concernant les marathons en France et dans le monde. News, calendrier, résultats, vidéos. Pour les passionnés des 42 kms." />
     <meta property="og:locale" content="fr_FR" />
     <meta property="og:type" content="siteweb" />
-    <meta property="og:image" content="https://dev.allrathon.fr/images/allmarathon.png" />
-    <meta property="og:url" content="https://dev.allrathon.fr" />
+    <meta property="og:image" content="https://dev.allmarathon.fr/images/allmarathon.png" />
+    <meta property="og:url" content="https://dev.allmarathon.fr" />
     <link rel="apple-touch-icon" href="apple-favicon.png">
     <link rel="icon" type="image/x-icon" href="../../images/favicon.ico" />
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
@@ -367,7 +367,13 @@ function switch_cat($cat)
                                     $nom_res='<strong>'.$cat_event.' - '.$evenement->getNom().'</strong> - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
                                     $nom_res_lien=$cat_event.' - '.$evenement->getNom().' - '.utf8_encode(strftime("%A %d %B %Y",strtotime($evenement->getDateDebut())));
                                     $marathon= $event->getMarathon($evenement->getmarathon_id())['donnees'];
+                                 if($marathon){
                                     echo "<a href='/resultats-marathon-".$evenement->getId()."-".slugify($nom_res_lien).".html' class='home-link mb-5 mr-5 '>Résultats du marathon ".$marathon["prefixe"]." ".$marathon["nom"]." ".strftime("%Y",strtotime($evenement->getDateDebut()))."</a>";
+
+                                 }else{
+                                    echo "<a href='/resultats-marathon-".$evenement->getId()."-".slugify($nom_res_lien).".html' class='home-link mb-5 mr-5 '>Résultats ".$cat_event." ".$evenement->getNom()." ".strftime("%Y",strtotime($evenement->getDateDebut()))."</a>";
+
+                                 }
                                 }
                                 echo '</div>
                             </article>';
@@ -787,7 +793,7 @@ function switch_cat($cat)
                     if($pub160x600 !="") {
                         //var_dump($pub160x600["url"]); exit;
                         if($pub160x600["code"]==""){
-                            echo "<a href=".'http://dev.allrathon.net/'.$pub160x600["url"]." target='_blank'><img src=".'../images/pubs/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" /></a>";
+                            echo "<a href=".'https://allmarathon.net/'.$pub160x600["url"]." target='_blank'><img src=".'../images/pubs/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" /></a>";
                         }
                         else{
                             echo $pub160x600["code"];

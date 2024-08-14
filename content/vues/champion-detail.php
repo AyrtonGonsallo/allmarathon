@@ -190,14 +190,14 @@ $afficher_tab_medaille=false;
     <meta name="Description" lang="fr" content="<?php echo $champ->getNom();?> est athlète, marathonien. Pays: <?php echo $pays_intitule;?>. Record de <?php echo $champ->getNom();?> sur marathon, résultats, photos, vidéos.">
     <meta property="og:type" content="siteweb" />
     <meta property="og:title" content="<?php echo $champ->getNom();?>, coureur de marathon. Résultats, vidéos, photos, record." />
-    <meta property="og:image" content="https://dev.allrathon.fr/images/allmarathon.png" />
-    <meta property="og:url" content="<?php echo 'https://dev.allrathon.fr/athlete-'.$champ->getId().'-'.slugify($champ->getNom()).'.html';?>" />
+    <meta property="og:image" content="https://dev.allmarathon.fr/images/allmarathon.png" />
+    <meta property="og:url" content="<?php echo 'https://dev.allmarathon.fr/athlete-'.$champ->getId().'-'.slugify($champ->getNom()).'.html';?>" />
     <meta property="og:description" content="<?php echo $champ->getNom();?> est athlète, marathonien. Pays: <?php echo $pays_intitule;?>. Record de <?php echo $champ->getNom();?> sur marathon, résultats, photos, vidéos." />
 
 
     <link rel="apple-touch-icon" href="../../images/favicon.ico">
     <link rel="icon" type="image/x-icon" href="../../images/favicon.ico" />
-    <?php echo '<link rel="canonical" href="https://dev.allrathon.fr/athlete-'.$champ->getId().'-'.slugify($champ->getNom()).'.html" />';?>
+    <?php echo '<link rel="canonical" href="https://dev.allmarathon.fr/athlete-'.$champ->getId().'-'.slugify($champ->getNom()).'.html" />';?>
 
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/font-awesome.min.css">
@@ -686,7 +686,7 @@ $afficher_tab_medaille=false;
                         if($pub160x600 !="") {
                             //var_dump($pub160x600["url"]); exit;
                             if($pub160x600["code"]==""){
-                                echo "<a href=".'http://dev.allrathon.net/'.$pub160x600["url"]." target='_blank'><img src=".'../images/pubs/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" /></a>";
+                                echo "<a href=".'https://allmarathon.net/'.$pub160x600["url"]." target='_blank'><img src=".'../images/pubs/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" /></a>";
                             }
                             else{
                                 echo $pub160x600["code"];

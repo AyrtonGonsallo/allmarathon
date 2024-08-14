@@ -175,10 +175,10 @@ if($pays_datas){
     <meta property="og:type" content="siteweb" />
     <meta property="og:title" content="<?php echo $categorie;?> <?php echo $marathon['prefixe'];?> <?php echo $marathon['nom'];?>  | allmarathon.fr" />
     <meta property="og:description" content="Toutes les informations sur le marathon <?php echo $marathon['prefixe'];?> <?php echo $marathon['nom'];?> : prochaine édition, résultats des éditions précédentes, records... " />
-    <meta property="og:image" content="<?php echo 'https://dev.allrathon.fr/images/marathons/'.$marathon['image'];?>" />
-    <meta property="og:url" content="<?php echo 'https://dev.allrathon.fr/marathons-'.$marathon['id'].'-'.slugify($marathon['nom']).'.html';?>" />
+    <meta property="og:image" content="<?php echo 'https://dev.allmarathon.fr/images/marathons/'.$marathon['image'];?>" />
+    <meta property="og:url" content="<?php echo 'https://dev.allmarathon.fr/marathons-'.$marathon['id'].'-'.slugify($marathon['nom']).'.html';?>" />
 
-    <?php echo '<link rel="canonical" href="https://dev.allrathon.fr/marathons-'.$marathon['id'].'-'.slugify($marathon['nom']).'.html" />';?>
+    <?php echo '<link rel="canonical" href="https://dev.allmarathon.fr/marathons-'.$marathon['id'].'-'.slugify($marathon['nom']).'.html" />';?>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
   
  
@@ -824,7 +824,7 @@ if($pays_datas){
                         if($pub160x600 !="") {
                             //var_dump($pub160x600["url"]); exit;
                             if($pub160x600["code"]==""){
-                                echo "<a href=".'http://dev.allrathon.net/'.$pub160x600["url"]." target='_blank'><img src=".'../images/pubs/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" /></a>";
+                                echo "<a href=".'https://allmarathon.net/'.$pub160x600["url"]." target='_blank'><img src=".'../images/pubs/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" /></a>";
                             }
                             else{
                                 echo $pub160x600["code"];

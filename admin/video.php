@@ -132,7 +132,7 @@ try{
     }
     function fillPathPicture(){
        if(document.getElementById('vignette').value == "")
-        document.getElementById('vignette').value = (document.getElementById('objet').value != "")? "https://dev.allrathon.fr/images/logo-news.png":"" ;
+        document.getElementById('vignette').value = (document.getElementById('objet').value != "")? "https://dev.allmarathon.fr/images/logo-news.png":"" ;
     }
 </script>
 <script type="text/javascript" src="../Scripts/tiny_mce/tiny_mce.js"></script>

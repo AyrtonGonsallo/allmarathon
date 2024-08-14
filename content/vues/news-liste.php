@@ -222,10 +222,10 @@ setlocale(LC_TIME, "fr_FR","French");
     <meta property="og:description" content="Les actualités du marathon en France et dans le monde. News, résultats, interviews, vidéos, comptes-rendus, brèves, sondages." />
     <meta property="og:locale" content="fr_FR" />
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://dev.allrathon.fr/images/allmarathon.png" />
-    <meta property="og:url" content="https://dev.allrathon.fr/actualites-marathon.html" />
+    <meta property="og:image" content="https://dev.allmarathon.fr/images/allmarathon.png" />
+    <meta property="og:url" content="https://dev.allmarathon.fr/actualites-marathon.html" />
 
-    <link rel="canonical" href="https://dev.allrathon.fr/actualites-marathon.html" />
+    <link rel="canonical" href="https://dev.allmarathon.fr/actualites-marathon.html" />
 
 
     <link rel="apple-touch-icon" href="apple-favicon.png">
