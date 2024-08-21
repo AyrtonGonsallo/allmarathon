@@ -82,7 +82,13 @@ function array_msort($array, $cols)
 						}
 					}
 				} else {
-					$res.= '';
+					if($resultat['Sexe']=="M"){
+						$res.= '<img class="img-test" src="/images/homme.svg" width="116" height="auto" alt=""/>';
+
+					}else{
+						$res.= '<img class="img-test" src="/images/femme.svg" width="116" height="auto" alt=""/>';
+
+					}
 				}
 				
 				$res.= '<div><a href="athlete-'.$resultat['ID'].'-'.$champion_name.'.html"><strong>'.$resultat['Nom'].'</strong></a>

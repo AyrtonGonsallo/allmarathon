@@ -110,7 +110,7 @@ $tab = explode('-',$news_details->getDate());
     <meta property="og:type" content="article" />
     <meta property="og:title" content="<?php echo str_replace('\\', '', str_replace('"', '\'', $news_details->getTitre()));?>" />
     <meta property="og:description" content="<?php echo str_replace('\\', '', str_replace('"', '\'', $news_details->getTitre()));?>, <?php echo str_replace('\\', '', str_replace('"', '\'', $news_details->getChapo()));?> " />
-    <meta property="og:image" content="<?php echo 'https://dev.allmarathon.fr'.$img_src; ?>" />
+    <meta property="og:image" content="<?php echo 'https://allmarathon.fr'.$img_src; ?>" />
     <meta property="og:url" content="<?php echo 'https://dev.allmarathon.fr/actualite-marathon-'.$news_details->getId().'-'.slugify($news_details->getTitre()).'.html';?>" />
 
     <link rel="apple-touch-icon" href="apple-favicon.png">
@@ -127,7 +127,7 @@ $tab = explode('-',$news_details->getDate());
       "@type": "NewsArticle",
       "headline": "<?php echo str_replace('"',"",$news_details->getTitre()); ?>",
       "image": [
-        "<?php echo 'https://dev.allmarathon.fr'.$img_src; ?>"
+        "<?php echo 'https://allmarathon.fr'.$img_src; ?>"
        ],
       "datePublished": "<?php echo date(DATE_ISO8601, strtotime($news_details->getDate())); ?>",
       "dateModified": "<?php echo date(DATE_ISO8601, strtotime($news_details->getDate())); ?>",

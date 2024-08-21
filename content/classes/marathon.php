@@ -875,7 +875,7 @@ function array_msort($array, $cols)
 		try {
 			$currentDate = new DateTime();
 			$endDate = new DateTime();
-			$endDate->modify('+1 year')->setDate($endDate->format('Y'), 12, 31);
+			$endDate->modify('+11 month');
 			
 			$liste = array();
 			

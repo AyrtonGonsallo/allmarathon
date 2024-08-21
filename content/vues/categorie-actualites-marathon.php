@@ -99,7 +99,7 @@ function slugify($text)
     <meta property="og:type" content="article" />
     <meta property="og:title" content="<?php echo str_replace('\\', '', str_replace('"', '\'', $cat_news_details->getIntitule()));?>" />
     <meta property="og:description" content="<?php echo str_replace('\\', '', str_replace('"', '\'', $cat_news_details->getIntitule()));?>  " />
-    <meta property="og:image" content="<?php echo 'https://dev.allmarathon.fr'.$img_src; ?>" />
+    <meta property="og:image" content="<?php echo 'https://allmarathon.fr'.$img_src; ?>" />
     <meta property="og:url" content="<?php echo 'https://dev.allmarathon.fr/categorie-actualites-marathon-'.$cat_news_details->getId().'-'.slugify($cat_news_details->getIntitule()).'.html';?>" />
 
     <link rel="apple-touch-icon" href="apple-favicon.png">

@@ -90,7 +90,7 @@ $annee_titre=substr($date, 0, 4);
     <rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0">
     <channel>
     <title>Résultats de tous les marathons nationaux et internationaux | allmarathon.fr</title>
-    <link>https://dev.allmarathon.fr</link>
+    <link>https://allmarathon.fr</link>
     <atom:link href="https://dev.allmarathon.fr/flux-resultats-rss.xml" rel="self" type="application/rss+xml" />
     <description>Résultats de tous les marathons nationaux et internationaux :  Championnats de France, Championnats d'Europe, Championnats du Monde, Jeux Olympiques, World Major</description>
     <language>fr-fr</language>

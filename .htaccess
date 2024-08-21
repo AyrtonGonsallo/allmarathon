@@ -63,6 +63,11 @@ RewriteRule ^liste-des-athletes-([^-]*)\.html$ /content/vues/champions-liste.php
 #RewriteRule ^liste-des-athletes-([0-9]*)-([a-z]*)\.html$ /content/vues/champions-liste.php?page=$1&order=$2&search=3$ [L]
 RewriteRule ^liste-des-athletes-([0-9]*)-(.*)\.html$ /content/vues/champions-liste.php?page=$1&order=$2 [L]
 RewriteRule ^liste-des-athletes\.html$ /content/vues/champions-liste.php [L]
+RewriteRule ^liste-des-athletes-par-pays\.html$ /content/vues/champions-liste-total-par-pays.php [L]
+RewriteRule ^athletes-par-pays-([a-zA-ZéïÎîëàèÉ\-]*)-([0-9]+)\.html$ /content/vues/champions-liste-par-pays.php?paysID=$2[L]
+
+
+
 
 RewriteRule ^galerie-photos-de-marathon-([0-9]+)\.html$ /galerie-detail.php?galerieID=$1 [L]
 RewriteRule ^photos-de-marathon\.html$ /galerie-liste.php [L]

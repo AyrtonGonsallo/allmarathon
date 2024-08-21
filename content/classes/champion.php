@@ -567,6 +567,110 @@ class champion{
 	        }
 	}
 
+	
+	public function getTotalChampionsParPays()
+	{
+		try {
+				include("../database/connexion.php");
+				//$req = $bdd->prepare('SELECT distinct c.PaysID,c.ID,c.Nom FROM `champions` c,evresultats r where c.ID=r.ChampionID and r.Rang<=3 ORDER BY `c`.`PaysID` ASC');
+				//SELECT distinct p.ID,p.NomPays,c.ID,c.Nom FROM `champions` c,evresultats r,pays p where c.ID=r.ChampionID and (p.Abreviation=c.PaysID or p.Abreviation_2=c.PaysID or p.Abreviation_3=c.PaysID or p.Abreviation_4=c.PaysID or p.Abreviation_5=c.PaysID) and r.Rang<=3 ORDER BY p.NomPays ASC;
+				//SELECT count(p.ID) as total,p.NomPays FROM `champions` c,evresultats r,pays p where c.ID=r.ChampionID and (p.Abreviation=c.PaysID or p.Abreviation_2=c.PaysID or p.Abreviation_3=c.PaysID or p.Abreviation_4=c.PaysID or p.Abreviation_5=c.PaysID) and r.Rang<=3 group by p.ID ORDER BY p.NomPays ASC;
+				$req = $bdd->prepare('SELECT count( DISTINCT c.ID) as total,p.NomPays,p.ID FROM `champions` c,evresultats r,pays p where c.ID=r.ChampionID and (p.Abreviation=c.PaysID or p.Abreviation_2=c.PaysID or p.Abreviation_3=c.PaysID or p.Abreviation_4=c.PaysID or p.Abreviation_5=c.PaysID) and r.Rang<=3 group by p.ID ORDER BY p.NomPays ASC;;');
+				$req->execute();
+				$res = array();
+				
+				while ( $row  = $req->fetch(PDO::FETCH_ASSOC)) {  
+					array_push($res, $row);
+				}
+				$bdd=null;
+				return array('validation'=>true,'donnees'=>$res,'message'=>'');
+	        }
+	       
+	        catch(Exception $e)
+	        {
+	            die('Erreur : ' . $e->getMessage());
+	        }
+	}
+	
+	public function getListChampionsParPays($paysab1,$paysab2,$paysab3,$paysab4,$paysab5)
+	{
+		
+		function array_msort($array, $cols)
+	{
+		$colarr = array();
+		foreach ($cols as $col => $order) {
+			$colarr[$col] = array();
+			foreach ($array as $k => $row) { $colarr[$col]['_'.$k] = strtolower($row[$col]); }
+		}
+		$eval = 'array_multisort(';
+		foreach ($cols as $col => $order) {
+			$eval .= '$colarr[\''.$col.'\'],'.$order.',';
+		}
+		$eval = substr($eval,0,-1).');';
+		eval($eval);
+		$ret = array();
+		foreach ($colarr as $col => $arr) {
+			foreach ($arr as $k => $v) {
+				$k = substr($k,1);
+				if (!isset($ret[$k])) $ret[$k] = $array[$k];
+				$ret[$k][$col] = $array[$k][$col];
+			}
+		}
+		return $ret;
+
+	}
+		try {
+				include("../database/connexion.php");
+				//$req = $bdd->prepare('SELECT distinct c.PaysID,c.ID,c.Nom FROM `champions` c,evresultats r where c.ID=r.ChampionID and r.Rang<=3 ORDER BY `c`.`PaysID` ASC');
+								
+				$req = $bdd->prepare('SELECT distinct c.*  FROM `champions` c,evresultats r where c.ID=r.ChampionID and (c.PaysID=:pays1 or c.PaysID=:pays2 or c.PaysID=:pays3 or c.PaysID=:pays4 or c.PaysID=:pays5) and r.Rang<=3  ORDER BY `c`.`PaysID` ASC;');
+				$req->bindValue('pays1',$paysab1, PDO::PARAM_STR);
+				$req->bindValue('pays2',$paysab2, PDO::PARAM_STR);
+				$req->bindValue('pays3',$paysab3, PDO::PARAM_STR);
+				$req->bindValue('pays4',$paysab4, PDO::PARAM_STR);
+				$req->bindValue('pays5',$paysab5, PDO::PARAM_STR);
+				$req->execute();
+				$res = array();
+				
+				while ( $row  = $req->fetch(PDO::FETCH_ASSOC)) {  
+					$req1 = $bdd->prepare('SELECT COUNT(*) as total FROM `evresultats` WHERE ChampionID=:cid');
+					$req1->bindValue('cid',$row["ID"], PDO::PARAM_INT);
+					$req1->execute();
+					$row1  = $req1->fetch(PDO::FETCH_ASSOC);
+
+					$req12 = $bdd->prepare('SELECT COUNT(*) as total FROM `images` WHERE Champion_id=:cid or Champion2_id=:cid');
+					$req12->bindValue('cid',$row["ID"], PDO::PARAM_INT);
+					$req12->execute();
+					$row12  = $req12->fetch(PDO::FETCH_ASSOC);
+
+					$req13 = $bdd->prepare('SELECT COUNT(*) as total FROM `videos` WHERE Champion_id=:cid');
+					$req13->bindValue('cid',$row["ID"], PDO::PARAM_INT);
+					$req13->execute();
+					$row13  = $req13->fetch(PDO::FETCH_ASSOC);
+
+
+					$req14 = $bdd->prepare('SELECT COUNT(*) as total FROM `news` WHERE championID=:cid');
+					$req14->bindValue('cid',$row["ID"], PDO::PARAM_INT);
+					$req14->execute();
+					$row14  = $req14->fetch(PDO::FETCH_ASSOC);
+
+					$row["t_videos"]=$row13["total"];
+					$row["t_photos"]=$row12["total"];
+					$row["t_res"]=$row1["total"];
+					$row["t_news"]=$row14["total"];
+					array_push($res, $row);
+				}
+				$bdd=null;
+				$sorted_by_medailles=array_msort($res, array('t_res'=>SORT_DESC,'Nom'=>SORT_ASC));
+				return array('validation'=>true,'donnees'=>$sorted_by_medailles,'message'=>'');
+	        }
+	       
+	        catch(Exception $e)
+	        {
+	            die('Erreur : ' . $e->getMessage());
+	        }
+	}
+
 	public function getNumberPage($i)
 	{
 		try {

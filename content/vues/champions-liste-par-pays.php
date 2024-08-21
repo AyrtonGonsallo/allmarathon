@@ -19,7 +19,7 @@ $user_session=$_SESSION['user'];
 $erreur_auth='';
 }  else $user_session='';
 
-
+$paysID=$_GET['paysID'];
 include("../classes/champion.php");
 include("../classes/pays.php");
 include("../classes/pub.php");
@@ -35,7 +35,9 @@ $getMobileAds=$pub->getMobileAds("accueil")['donnees'];
 $champion=new champion();
 
 $pays=new pays();
-
+$pays_element=$pays->getPaysById($paysID)["donnees"];
+$results_initial=$champion->getListChampionsParPays($pays_element->getAbreviation(),$pays_element->getAbreviation2(),$pays_element->getAbreviation3(),$pays_element->getAbreviation4(),$pays_element->getAbreviation5())["donnees"];
+                                
 $order = 'a';
 if(isset($_GET['order']))  $order = $_GET['order'];
 
@@ -59,56 +61,8 @@ $text = trim($text, '-');
    $text = strtolower($text);
    return $text;
 }
-$liste_pays= $pays->getAll()["donnees"];
-include("../database/connexion.php");
-$req = $bdd->prepare('SELECT COUNT(*) as total FROM champions');
-$req->execute();
-$nb_champs=$req->fetch(PDO::FETCH_ASSOC)['total'];
-
-try {
-    include("../database/connexion.php");
-    $req = $bdd->prepare("select c.* from champions c where not c.Nom like '' order by UPPER(c.Nom) asc LIMIT 39;");
-
-   
-    $req->execute();
-    $results_initial= array();
-    while ( $row  = $req->fetch(PDO::FETCH_ASSOC)) {  
-          $champ_id =  $row["ID"];
-          $req1 = $bdd->prepare('SELECT COUNT(*) as total FROM `evresultats` WHERE ChampionID=:cid');
-          $req1->bindValue('cid',$champ_id, PDO::PARAM_INT);
-          $req1->execute();
-          $row1  = $req1->fetch(PDO::FETCH_ASSOC);
-
-          $req12 = $bdd->prepare('SELECT COUNT(*) as total FROM `images` WHERE Champion_id=:cid or Champion2_id=:cid');
-          $req12->bindValue('cid',$champ_id, PDO::PARAM_INT);
-          $req12->execute();
-          $row12  = $req12->fetch(PDO::FETCH_ASSOC);
-
-          $req13 = $bdd->prepare('SELECT COUNT(*) as total FROM `videos` WHERE Champion_id=:cid');
-          $req13->bindValue('cid',$champ_id, PDO::PARAM_INT);
-          $req13->execute();
-          $row13  = $req13->fetch(PDO::FETCH_ASSOC);
 
 
-          $req14 = $bdd->prepare('SELECT COUNT(*) as total FROM `news` WHERE championID=:cid');
-          $req14->bindValue('cid',$champ_id, PDO::PARAM_INT);
-          $req14->execute();
-          $row14  = $req14->fetch(PDO::FETCH_ASSOC);
-
-          $row["t_videos"]=$row13["total"];
-          $row["t_photos"]=$row12["total"];
-          $row["t_res"]=$row1["total"];
-          $row["t_news"]=$row14["total"];
-          array_push( $results_initial, $row);
-    }
-     $bdd=null;
-     
-}
-
-catch(Exception $e)
-{
-  die('Erreur : ' . $e->getMessage());
-}
 ?>
 
 
@@ -171,139 +125,36 @@ catch(Exception $e)
 
 
     <div class="container page-content athlètes athletes-liste mt-77">
-      <div class="row banniere1 ban ban_728x90">
-          <div class="placeholder-content">
+        <div class="row banniere1 ban ban_728x90">
+            <div class="placeholder-content">
                  <div class="placeholder-title"> Allmarathon </div> 
                  <div class="placeholder-subtitle">publicité</div>
-             </div>
+            </div>
             <div  class="col-sm-12 ads-contain">
-            <?php
-                if($pub728x90 !="") {
-                echo '<a target="_blank" href="'.$pub728x90["url"].'" class="col-sm-12">';
-                    echo $pub728x90["code"] ? $pub728x90["code"] :  "<img src=".'../images/pubs/'.$pub728x90['image'] . " alt='' style=\"width: 100%;\" />";
-                    echo '</a>';
-                }else if($getMobileAds !="") {
-                echo $getMobileAds["code"] ? $getMobileAds["code"] :  "<a href=".$getMobileAds["url"]." target='_blank'><img src=".'../images/pubs/'.$getMobileAds['image'] . " alt='' style=\"width: 100%;\" /></a>";
-                }
-                ?></div>
+                <?php
+                    if($pub728x90 !="") {
+                    echo '<a target="_blank" href="'.$pub728x90["url"].'" class="col-sm-12">';
+                        echo $pub728x90["code"] ? $pub728x90["code"] :  "<img src=".'../images/pubs/'.$pub728x90['image'] . " alt='' style=\"width: 100%;\" />";
+                        echo '</a>';
+                    }else if($getMobileAds !="") {
+                    echo $getMobileAds["code"] ? $getMobileAds["code"] :  "<a href=".$getMobileAds["url"]." target='_blank'><img src=".'../images/pubs/'.$getMobileAds['image'] . " alt='' style=\"width: 100%;\" /></a>";
+                    }
+                    ?>
+            </div>
         </div>
         <div class="row">
             <div class="col-sm-12 left-side">
-
                 <div class="row">
-
                     <div class="col-sm-12">
-
-                        <h1 class="float-l">Athlètes, marathoniens célèbres</h1>
-                        <span class="total-marathons bureau"><?php echo $nb_champs." athlètes";?></span>
-                        <h2 class="clear-b">Trouvez et parcourez les palmarès des meilleurs coureurs de marathon.</h2>
-                        <div class="div-flx-marat mb-30">
-                            <div class="button-agenda">
-                                <a href="/liste-des-athletes-par-pays.html" class="home-link disp-block">Athlètes par pays</a>
-                            </div>
-                        </div>
-                        <div class="input-zone-box mw-600">
-                            <select name="PaysID" id="select-pays">
-                                <option value="all">Nationalité</option>
-                                <?php 
-                                    foreach ($liste_pays as $pays) {
-                                        echo '<option value="'.$pays->getAbreviation().'">'.$pays->getNomPays().'</option>';
-                                    } ?>
-                            </select>
-                            <form action="" method="post" class="form-inline" role="form">
-
-                                <div class="form-group" style="width:100%; white-space: nowrap;">
-
-                                    <input type="search" id="search_val_res" placeholder="Recherche" class="form-control"
-
-                                        style="width: 93%" />
-
-                                    <button id="goToSearch_Result" type="button"  class="btn btn-primary"><i
-
-                                            class="fa fa-search"></i></button>
-
-                                </div>
-
-                            </form>
-                        </div>
-                        
+                        <a href="/liste-des-athletes.html" class="float-l">Liste des athlètes</a> > <a href="/iste-des-athletes-par-pays.html">Athlètes par pays</a> > <?php echo $pays_element->getNomPays();?>
+                        <span class="total-marathons bureau"><?php echo count($results_initial)." athlètes";?></span>
+                        <h1 class="clear-b">Athlètes, marathoniens célèbres <?php echo $pays_element->getPrefixe()." ".$pays_element->getNomPays();?></h1>
                     </div>
                     <div class="col-sm-12">
                         <div  id="resultats-recherche-athletes">
-                        <ul class="athletes-liste-grid test-image">
-                            <?php
-                                foreach ($results_initial as  $resultat) {
-                                $pays_flag = $pays->getFlagByAbreviation($resultat['PaysID'])['donnees']['Flag'];
-                                $pays_nom = $pays->getFlagByAbreviation($resultat['PaysID'])['donnees']['NomPays'];
-                                $champion_name = slugify($resultat['Nom']);
-                                $photos_count = $resultat['t_photos']; // Assuming 't_photos' contains the photo count
-
-                                // Fetch photos for the current 'resultat'
-                                $photos = $champion->getChampionsPhoto($resultat['ID'])["donnees"]; // Replace with your actual function
-
-                                echo '<div class="athletes-grid-element">';
-
-                                // Ensure 'photos' is an array
-                                if (!isset($photos) || !is_array($photos)) {
-                                $photos = []; // Initialize as empty array if not set
-                                }
-
-                                // Conditionally add the photo if there are photos
-                                if ($photos_count > 0 && is_array($photos)) {
-                                foreach ($photos as $photo) {
-                                if (isset($photo['Galerie_id']) && isset($photo['Nom'])) {
-                                echo '<img class="img-test" src="/images/galeries/'.$photo['Galerie_id'].'/'.$photo['Nom'].'" width="116" height="auto" alt=""/>';
-                                } else {
-                                    if($resultat['Sexe']=="M"){
-                                        echo '<img class="img-test" src="/images/homme.svg" width="116" height="auto" alt=""/>';
-
-                                    }else{
-                                        echo '<img class="img-test" src="/images/femme.svg" width="116" height="auto" alt=""/>';
-
-                                    }
-                                }
-                                }
-                                } else {
-                                    if($resultat['Sexe']=="M"){
-                                        echo '<img class="img-test" src="/images/homme.svg" width="116" height="auto" alt=""/>';
-
-                                    }else{
-                                        echo '<img class="img-test" src="/images/femme.svg" width="116" height="auto" alt=""/>';
-
-                                    }
-                                }
-
-                                echo '<div><a href="athlete-'.$resultat['ID'].'-'.$champion_name.'.html"><strong>'.$resultat['Nom'].'</strong></a>
-                                <img src="../../images/flags/'.$pays_flag.'" class="float-r" alt=""/><br>'.$pays_nom.'<br>
-                                <span><i class="fa-solid fa-medal"></i> ('.$resultat['t_res'].')</span>
-                                <span>- <i class="fa-solid fa-newspaper"></i> ('.$resultat['t_news'].')</span>
-                                <span>- <i class="fa-solid fa-camera"></i> ('.$photos_count.')</span>
-                                <span>- <i class="fa-solid fa-video"></i> ('.$resultat['t_videos'].')</span>
-                                </div>
-                                </div>';
-                                }
-
-                            ?>
-                        </ul>
-                            
-                        </div>
-                        <ul class="pager">
-                            <li class="rl-prec" ><a href="#" id="back-link" style="color: #000;pointer-events: none;cursor: default;">Athlètes précédents</a></li>
-                            <li class="rl-suiv"><a href="#" id="next-link">Athlètes suivants</a></li>
-                        </ul>
-                    </div>
-                    <div class="section-divider"></div>
-                    <div class="col-sm-12">
-                        
-                        
-                       <?php
-                            //var_dump($olympiques);
-                        ?>
-                        <h3>Les champions et championnes  olympiques du marathon</h3>
-                        <ul class="athletes-liste-grid test-image">
-
-                            <?php
-                                foreach ($olympiques as $key => $resultat) {
+                            <ul class="athletes-liste-grid test-image">
+                                <?php
+                                    foreach ($results_initial as  $resultat) {
                                     $pays_flag = $pays->getFlagByAbreviation($resultat['PaysID'])['donnees']['Flag'];
                                     $pays_nom = $pays->getFlagByAbreviation($resultat['PaysID'])['donnees']['NomPays'];
                                     $champion_name = slugify($resultat['Nom']);
@@ -314,55 +165,54 @@ catch(Exception $e)
 
                                     echo '<div class="athletes-grid-element">';
 
-                                    // Ensure 'photos' is an array
-                                    if (!isset($photos) || !is_array($photos)) {
+                                        // Ensure 'photos' is an array
+                                        if (!isset($photos) || !is_array($photos)) {
                                         $photos = []; // Initialize as empty array if not set
-                                    }
+                                        }
 
-                                    // Conditionally add the photo if there are photos
-                                    if ($photos_count > 0 && is_array($photos)) {
+                                        // Conditionally add the photo if there are photos
+                                        if ($photos_count > 0 && is_array($photos)) {
                                         foreach ($photos as $photo) {
-                                            if (isset($photo['Galerie_id']) && isset($photo['Nom'])) {
-                                                echo '<img class="img-test" src="/images/galeries/'.$photo['Galerie_id'].'/'.$photo['Nom'].'" width="116" height="auto" alt=""/>';
-                                            } else {
-                                                if($resultat['Sexe']=="M"){
-                                                    echo '<img class="img-test" src="/images/homme.svg" width="116" height="auto" alt=""/>';
+                                        if (isset($photo['Galerie_id']) && isset($photo['Nom'])) {
+                                        echo '<img class="img-test" src="/images/galeries/'.$photo['Galerie_id'].'/'.$photo['Nom'].'" width="116" height="auto" alt=""/>';
+                                        } else {
+                                            if($resultat['Sexe']=="M"){
+                                                echo '<img class="img-test" src="/images/homme.svg" width="116" height="auto" alt=""/>';
 
-                                                }else{
-                                                    echo '<img class="img-test" src="/images/femme.svg" width="116" height="auto" alt=""/>';
+                                            }else{
+                                                echo '<img class="img-test" src="/images/femme.svg" width="116" height="auto" alt=""/>';
 
-                                                }
                                             }
                                         }
-                                    } else {
-                                        if($resultat['Sexe']=="M"){
-                                            echo '<img class="img-test" src="/images/homme.svg" width="116" height="auto" alt=""/>';
-
-                                        }else{
-                                            echo '<img class="img-test" src="/images/femme.svg" width="116" height="auto" alt=""/>';
-
                                         }
+                                        } else {
+                                            if($resultat['Sexe']=="M"){
+                                                echo '<img class="img-test" src="/images/homme.svg" width="116" height="auto" alt=""/>';
+
+                                            }else{
+                                                echo '<img class="img-test" src="/images/femme.svg" width="116" height="auto" alt=""/>';
+
+                                            }
+                                        }
+
+                                        echo '<div>
+                                            <a href="athlete-'.$resultat['ID'].'-'.$champion_name.'.html"><strong>'.$resultat['Nom'].'</strong></a>
+                                            <img src="../../images/flags/'.$pays_flag.'" class="float-r" alt=""/><br>'.$pays_nom.'<br>
+                                            <span><i class="fa-solid fa-medal"></i> ('.$resultat['t_res'].')</span>
+                                            <span>- <i class="fa-solid fa-newspaper"></i> ('.$resultat['t_news'].')</span>
+                                            <span>- <i class="fa-solid fa-camera"></i> ('.$photos_count.')</span>
+                                            <span>- <i class="fa-solid fa-video"></i> ('.$resultat['t_videos'].')</span>
+                                            </div>
+                                    </div>';
                                     }
-                                    
-                                    echo '<div><a href="athlete-'.$resultat['ID'].'-'.$champion_name.'.html"><strong>'.$resultat['Nom'].'</strong></a>
-                                        <img src="../../images/flags/'.$pays_flag.'" class="float-r" alt=""/><br>'.$pays_nom.'<br>
-                                        <span><i class="fa-solid fa-medal"></i> ('.$resultat['t_res'].')</span>
-                                        <span>- <i class="fa-solid fa-newspaper"></i> ('.$resultat['t_news'].')</span>
-                                        <span>- <i class="fa-solid fa-camera"></i> ('.$photos_count.')</span>
-                                        <span>- <i class="fa-solid fa-video"></i> ('.$resultat['t_videos'].')</span>
-                                        </div>
-                                        </div>';
-                                }
 
-                            ?>
-
-                        </ul>
+                                ?>
+                            </ul>
+                            
+                        </div>
+                        
                     </div>
-
-                    <?php
-              
-                ?>
-                </div>
+                    
 
                 <div class="clearfix"></div>
 
@@ -378,27 +228,29 @@ catch(Exception $e)
             </aside>
             
         </div>
-<div class="row banniere1 ban ban_768x90 ">
+    </div>
+    <div class="container">
+        <div class="row banniere1 ban ban_768x90 ">
     
-             <div class="placeholder-content">
-                 <div class="placeholder-title"> Allmarathon </div> 
-                 <div class="placeholder-subtitle">publicité</div>
-             </div>
-    
-                <div  class="col-sm-12 ads-contain">
-                    <?php
-                    if($pub768x90 !="") {
-                    echo '<a target="_blank" href="'.$pub768x90["url"].'" class="col-sm-12">';
-                        echo $pub768x90["code"] ? $pub768x90["code"] :  "<img src=".'../images/pubs/'.$pub768x90['image'] . " alt='' style=\"width: 100%;\" />";
-                        echo '</a>';
-                    }
-                    ?>
-                </div>
+            <div class="placeholder-content">
+                <div class="placeholder-title"> Allmarathon </div> 
+                <div class="placeholder-subtitle">publicité</div>
             </div>
-        <?php //include("produits_boutique.php"); ?>
+    
+            <div  class="col-sm-12 ads-contain">
+                <?php
+                if($pub768x90 !="") {
+                echo '<a target="_blank" href="'.$pub768x90["url"].'" class="col-sm-12">';
+                    echo $pub768x90["code"] ? $pub768x90["code"] :  "<img src=".'../images/pubs/'.$pub768x90['image'] . " alt='' style=\"width: 100%;\" />";
+                    echo '</a>';
+                }
+                ?>
+            </div>
+        </div>
+            
     </div> <!-- End container page-content -->
 
-
+    </div>
     <?php include('footer.inc.php'); ?>
 
     <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>

@@ -8,6 +8,7 @@ class pays{
 	private $continent;
 	private $texte;
 	private $Abreviation_4;
+	private $Abreviation_5;
 	private $NomPays;
 	private $Flag;
 
@@ -31,9 +32,24 @@ class pays{
 	public function getAbreviation4(){
 		return $this->Abreviation_4;
 	}
+	public function getAbreviation5(){
+		return $this->Abreviation_5;
+	}
 
 	public function setAbreviation($Abreviation){
 		$this->Abreviation = $Abreviation;
+	}
+	public function setAbreviation_2($Abreviation_2){
+		$this->Abreviation_2 = $Abreviation_2;
+	}
+	public function setAbreviation_3($Abreviation_3){
+		$this->Abreviation_3 = $Abreviation_3;
+	}
+	public function setAbreviation_4($Abreviation_4){
+		$this->Abreviation_4 = $Abreviation_4;
+	}
+	public function setAbreviation_5($Abreviation_5){
+		$this->Abreviation_5 = $Abreviation_5;
 	}
 
 
@@ -160,6 +176,26 @@ public function getPaysById($id){
 	             if($req->rowCount() > 0){
 		             $pays=self::constructWithArray($req->fetch(PDO::FETCH_ASSOC));
 		             return array('validation'=>true,'donnees'=>$pays,'message'=>'');
+	             }
+	             $bdd=null;
+	        }
+	       
+	        catch(Exception $e)
+	        {
+	            die('Erreur : ' . $e->getMessage());
+	        }
+}
+
+public function getPaysById2($id){
+
+	try {
+				 require('../database/connexion.php');
+				 $req = $bdd->prepare("SELECT * FROM pays  WHERE ID=:id");
+				 $req->bindValue('id',$id, PDO::PARAM_INT);
+	             $req->execute();
+	             if($req->rowCount() > 0){
+		             
+		             return array('validation'=>true,'donnees'=>$req->fetch(PDO::FETCH_ASSOC),'message'=>'');
 	             }
 	             $bdd=null;
 	        }
