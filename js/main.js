@@ -85,19 +85,6 @@ document.addEventListener('DOMContentLoaded', function() {
     searchInput.removeAttribute('placeholder');
 });
 
-//ordre alphab pour le filtre
-document.addEventListener('DOMContentLoaded', function() {
-    const splideList = document.querySelector('.splide__list');
-    const slides = Array.from(splideList.querySelectorAll('.splide__slide'));
-
-    slides.sort((a, b) => {
-        const textA = a.querySelector('.a-cat-fltr').textContent.trim().toUpperCase();
-        const textB = b.querySelector('.a-cat-fltr').textContent.trim().toUpperCase();
-        return textA.localeCompare(textB);
-    });
-
-    slides.forEach(slide => splideList.appendChild(slide));
-});
 
 
 //delete flag not found

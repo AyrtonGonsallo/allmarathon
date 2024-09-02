@@ -42,6 +42,19 @@ if( isset($_POST['extern_actif'])) {
          $req41->bindValue('uid',$_POST['user_id'], PDO::PARAM_INT);
          $req41->bindValue('id',$_POST['champion_id'], PDO::PARAM_INT);
          $req41->execute();
+
+         $req412 = $bdd->prepare("select * from champions WHERE ID = :id");
+         $req412->bindParam('id',$_POST['champion_id'], PDO::PARAM_INT);
+         $req412->execute();
+         $champion = $req412->fetch(PDO::FETCH_ASSOC);
+           // var_dump($champion);
+         $req43 = $bdd->prepare("UPDATE users SET nom=:nom,prenom=:prenom,date_naissance=:date_naissance WHERE id = :uid");
+         $req43->bindValue('prenom',$champion['Nom'], PDO::PARAM_STR);
+         $req43->bindValue('date_naissance',$champion['DateNaissance'], PDO::PARAM_STR);
+         $req43->bindValue('nom',$champion['Nom'], PDO::PARAM_STR);
+         $req43->bindValue('uid',$_POST['user_id'], PDO::PARAM_INT);
+         $req43->execute();
+
          if(!$_POST['extern_actif']){
             $req5 = $bdd->prepare("INSERT INTO champion_admin_externe_journal (type, user_id, champion_id) VALUES ('new_admin', :user_id, :champion_id)");
             $req5->bindValue('user_id',$_POST['user_id'], PDO::PARAM_STR);
@@ -198,7 +211,7 @@ catch(Exception $e)
 
    <table class="tablesorter" id="tbl1">
     <thead>
-        <tr><th>Champion</th><th>Utilisateur</th><th>Nom</th><th>Prenom</th><th>Mail</th><th>Message</th><th>Justificatif</th><th>Action</th></tr>
+        <tr><th>Champion</th><th>Utilisateur</th><th>Nom</th><th>Prenom</th><th>Mail</th><th>Situation</th><th>Message</th><th>Justificatif</th><th>Action</th></tr>
     </thead>
     <tbody>
                         <?php 
@@ -210,8 +223,16 @@ catch(Exception $e)
                                 <td><?php echo $l['u_pname'] ?></td>
                                
                                 <td><a href="mailto:<?php echo $l['email'] ?>"><?php echo $l['email'] ?></a></td>
+                                <td><?php echo $l['situation'] ?></td>
                                 <td><?php echo $l['Message'] ?></td>
-                                <td><a href="../uploadDocument/<?php echo $l['Justificatif'] ?>" target="_blank" title="<?php echo $l['Justificatif'] ?>">voir le fichier</a></td>
+                                <td>
+                                    <?php if($l['Justificatif']){?>
+                                    <a href="../uploadDocument/<?php echo $l['Justificatif'] ?>" target="_blank" title="<?php echo $l['Justificatif'] ?>">voir le fichier</a>
+
+                                    <?php } else{?>
+                                        pas de fichier
+                                    <?php }?>
+                                </td>
 
                                 <td>
                                     <form action="" method="post" style="float: left;">

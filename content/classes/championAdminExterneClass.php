@@ -239,7 +239,7 @@ class championAdminExterne{
 	{
 		try {
 				 require('../database/connexion.php');
-				 $req = $bdd->prepare('SELECT * FROM champion_admin_externe   WHERE user_id=:user');
+				 $req = $bdd->prepare('SELECT * FROM champion_admin_externe   WHERE user_id=:user and actif=1');
 	             $req->bindValue('user',$user, PDO::PARAM_INT);
 	             $req->execute();
 	             $champions = array();
@@ -255,6 +255,7 @@ class championAdminExterne{
 	            die('Erreur : ' . $e->getMessage());
 	        }
 	}
+	
 
 	
 }

@@ -815,6 +815,32 @@ function array_msort($array, $cols)
 	    }
 	}
 
+	function getMarathonsAgendaByContinents(){
+		try {
+			include("../database/connexion.php");
+            $liste= array();
+            $req0 = $bdd->prepare("SELECT DISTINCT pays.continent FROM `evenements`,pays where not pays.continent is null and evenements.PaysID=pays.Abreviation order by pays.continent asc;");
+            
+            $req0->execute();
+            
+            while ( $row0  = $req0->fetch(PDO::FETCH_ASSOC)) {    
+                array_push($liste, $row0); 
+            }
+            $bdd=null;
+            $len = (int) count($liste);
+			/*
+            $firsthalf = array_slice($liste, 0, $len / 2);
+            $secondhalf = array_slice($liste, $len / 2);
+            return array('validation'=>true,'donnees_1'=>$firsthalf ,'donnees_2'=>$secondhalf,'message'=>'');
+			*/
+			return array('validation'=>true,'donnees'=>$liste,'message'=>'');
+	    }
+	       
+	    catch(Exception $e){
+	        die('Erreur : ' . $e->getMessage());
+	    }
+	}
+
 	function gettotalMarathonsByPays($pays_ab1,$pays_ab2,$pays_ab3,$pays_ab4){
 		try {
 			include("../database/connexion.php");
@@ -824,6 +850,32 @@ function array_msort($array, $cols)
 			$req0->bindValue('pays_ab2',$pays_ab2, PDO::PARAM_STR);
 			$req0->bindValue('pays_ab3',$pays_ab3, PDO::PARAM_STR);
 			$req0->bindValue('pays_ab4',$pays_ab4, PDO::PARAM_STR);
+            $req0->execute();
+            
+            while ( $row0  = $req0->fetch(PDO::FETCH_ASSOC)) {    
+                array_push($liste, $row0); 
+            }
+            $bdd=null;
+           
+			/*
+            $firsthalf = array_slice($liste, 0, $len / 2);
+            $secondhalf = array_slice($liste, $len / 2);
+            return array('validation'=>true,'donnees_1'=>$firsthalf ,'donnees_2'=>$secondhalf,'message'=>'');
+			*/
+			return array('validation'=>true,'donnees'=>$liste,'message'=>'');
+	    }
+	       
+	    catch(Exception $e){
+	        die('Erreur : ' . $e->getMessage());
+	    }
+	}
+
+	function gettotalMarathonsByContinents($cont){
+		try {
+			include("../database/connexion.php");
+            $liste= array();
+            $req0 = $bdd->prepare("select count(*) as total from marathons m,pays p where (m.PaysID=p.Abreviation or m.PaysID=p.Abreviation_2 or m.PaysID=p.Abreviation_3 or m.PaysID=p.Abreviation_4) and p.continent=:continent;");
+            $req0->bindValue('continent',$cont, PDO::PARAM_STR);
             $req0->execute();
             
             while ( $row0  = $req0->fetch(PDO::FETCH_ASSOC)) {    
@@ -854,6 +906,29 @@ function array_msort($array, $cols)
 			$req0->bindValue('pays_ab2',$pays_ab2, PDO::PARAM_STR);
 			$req0->bindValue('pays_ab3',$pays_ab3, PDO::PARAM_STR);
 			$req0->bindValue('pays_ab4',$pays_ab4, PDO::PARAM_STR);
+            $req0->execute();
+            
+			while ( $row  = $req0->fetch(PDO::FETCH_ASSOC)) {  
+				
+				array_push($results, $row);
+		  }
+		 	$results_sorted_by_next_event=$results;
+        	return array('validation'=>true,'donnees'=>$results_sorted_by_next_event,'message'=>'');
+		}
+		  catch(Exception $e)
+		  {
+			  die('Erreur : ' . $e->getMessage());
+		  }
+
+	}
+
+
+	function getMarathonsAgendaByContinentsflitered($continent){
+		try {
+			include("../database/connexion.php");
+            $results= array();
+            $req0 = $bdd->prepare("select m.* from marathons m,pays p where (m.PaysID=p.Abreviation or m.PaysID=p.Abreviation_2 or m.PaysID=p.Abreviation_3 or m.PaysID=p.Abreviation_4) and p.continent=:continent order by m.ordre asc");
+            $req0->bindValue('continent',$continent, PDO::PARAM_STR);
             $req0->execute();
             
 			while ( $row  = $req0->fetch(PDO::FETCH_ASSOC)) {  

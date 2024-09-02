@@ -20,6 +20,7 @@ $user=$us->getUserByUsername($login,$login)['donnees'];
 if(isset($login) && isset($password))
 {
 		if(sizeof($user)!=0 && decrypt($password,$user->getPassword())){
+			setcookie("wrong_credentials", "", time() - 3600, "/");
 			$_SESSION['user']    =$user->getUsername();
 		    $_SESSION['user_id'] = $user->getId();
 		    // header("Location: http://localhost/allmarathon_nv/www/");
@@ -42,6 +43,7 @@ if(isset($login) && isset($password))
 		else{
 			//$_SESSION['auth_error'] = "Login ou mot de passe incorrect ! <br>".$login." ".$password;
 			$_SESSION['auth_error'] = "Login ou mot de passe incorrect ! <br>";
+			setcookie("wrong_credentials", "yes", time()+600, "/");
 			header("Location:".$_POST['previous_url']);
 			// header("Location: http://localhost/allmarathon_nv/www/");
 			// header('Location:'.$_SERVER['HTTP_REFERER']);

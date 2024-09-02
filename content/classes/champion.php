@@ -661,7 +661,7 @@ class champion{
 					array_push($res, $row);
 				}
 				$bdd=null;
-				$sorted_by_medailles=array_msort($res, array('t_res'=>SORT_DESC,'Nom'=>SORT_ASC));
+				$sorted_by_medailles=array_msort($res, array('Nom'=>SORT_ASC));
 				return array('validation'=>true,'donnees'=>$sorted_by_medailles,'message'=>'');
 	        }
 	       
@@ -756,6 +756,8 @@ class champion{
 				 if($req->rowCount() > 0){
 					$champ=self::constructWithArray($req->fetch(PDO::FETCH_ASSOC));
 					return array('validation'=>true,'donnees'=>$champ,'message'=>'');
+				}else{
+					return array('validation'=>true,'donnees'=>null,'message'=>'');
 				}
 	             $bdd=null;
 	        }
@@ -794,7 +796,9 @@ class champion{
 	             if($req->rowCount() > 0){
 		             $champ=self::constructWithArray($req->fetch(PDO::FETCH_ASSOC));
 		             return array('validation'=>true,'donnees'=>$champ,'message'=>'');
-	             }
+	             }else{
+					return array('validation'=>true,'donnees'=>null,'message'=>'');
+				 }
 	             $bdd=null;
 	         }
 	     catch(Exception $e)

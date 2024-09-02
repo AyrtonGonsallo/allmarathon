@@ -24,7 +24,33 @@ include("../classes/champion.php");
 include("../classes/marathon.php");
 include("../classes/pub.php");
 $ev_cat_event=new evCategorieEvenement();
-$paysID=$_GET['paysID'];
+function getContinentFromSlug($slug){
+    switch ($slug) {
+        case 'amerique-du-nord':
+            return "Amérique du Nord";
+            break;
+        case 'afrique':
+            return "Afrique";
+            break;
+        case 'asie':
+            return "Asie";
+            break;
+        case 'europe':
+            return "Europe";
+            break;
+        case 'oceanie':
+            return "Océanie";
+            break;
+        case 'amerique-du-sud':
+            return "Amérique du Sud";
+            break;
+        
+        default:
+            # code...
+            break;
+    }
+}
+$continent=getContinentFromSlug($_GET['continent']);
 $pub=new pub();
 
 $pub728x90=$pub->getBanniere728_90("athlètes")['donnees'];
@@ -37,7 +63,7 @@ $getMobileAds=$pub->getMobileAds("accueil")['donnees'];
 $champion=new champion();
 
 $pays=new pays();
-$pays_datas=$pays->getPaysById($paysID)['donnees'];
+
 $order = 'a';
 if(isset($_GET['order']))  $order = $_GET['order'];
 
@@ -65,18 +91,18 @@ setlocale(LC_TIME, "fr_FR","French");
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport"><meta http-equiv="x-ua-compatible" content="ie=edge">
     <?php require_once("../scripts/header_script.php") ?>
-    <title>Calendrier des marathons <?php echo $pays_datas->getPrefixe();?> <?php echo $pays_datas->getNomPays();?></title>
-    <meta name="Description" lang="fr" content="A vos agendas ! Le calendrier complet des marathons <?php echo $pays_datas->getPrefixe();?> <?php echo $pays_datas->getNomPays();?> ">
+    <title>Calendrier des marathons en <?php echo $$continent;?></title>
+    <meta name="Description" lang="fr" content="A vos agendas ! Le calendrier complet des marathons en <?php echo $continent;?> ">
     <meta property="og:type" content="siteweb" />
-    <meta property="og:title" content="Calendrier des marathons <?php echo $pays_datas->getPrefixe();?> <?php echo $pays_datas->getNomPays();?>" />
-    <meta property="og:description" content="A vos agendas ! Le calendrier complet des marathons <?php echo $pays_datas->getPrefixe();?> <?php echo $pays_datas->getNomPays();?> " />
-    <meta property="og:image" content="https://allmarathon.fr/images/allmarathon.png" />
-    <meta property="og:url" content="<?php echo 'https://allmarathon.fr/calendrier-marathons-'.slugify($pays_datas->getNomPays()).'-'.$pays_datas->getId().'.html';?>" />
+    <meta property="og:title" content="Calendrier des marathons en <?php echo $continent;?>" />
+    <meta property="og:description" content="A vos agendas ! Le calendrier complet des marathons en <?php echo $continent;?> " />
+    <meta property="og:image" content="https://dev.allmarathon.fr/images/allmarathon.png" />
+    <meta property="og:url" content="<?php echo 'https://dev.allmarathon.fr/calendrier-marathons-par-continents-'.slugify($continent).'.html';?>" />
 
     <link rel="apple-touch-icon" href="apple-favicon.png">
     <link rel="icon" type="image/x-icon" href="../../images/favicon.ico" />
     
-    <link rel="canonical" href="<?php echo 'https://allmarathon.fr/calendrier-marathons-'.slugify($pays_datas->getNomPays()).'-'.$pays_datas->getId().'.html';?>" />
+    <link rel="canonical" href="<?php echo 'https://dev.allmarathon.fr/calendrier-marathons-par-continents-'.slugify($continent).'.html';?>" />
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/font-awesome.min.css">
     <link rel="stylesheet" href="../../css/fonts.css">
@@ -131,9 +157,9 @@ setlocale(LC_TIME, "fr_FR","French");
                 <div class="row">
 
                     <div class="col-sm-12">
-                    <a href="/calendrier-agenda-marathons.html" class="float-l">Marathons</a> > <a href="/agenda-marathons-par-pays.html">Marathons par pays</a> > <?php echo $pays_datas->getNomPays();?>
+                    <a href="/calendrier-agenda-marathons.html" class="float-l">Marathons</a> > <a href="/agenda-marathons-par-continents.html">Marathons par continents</a> > <?php echo $continent;?>
                     <span class="total-marathons bureau"><?php 
-                        $total=gettotalMarathonsByPays($pays_datas->getAbreviation(),$pays_datas->getAbreviation2(),$pays_datas->getAbreviation3(),$pays_datas->getAbreviation4())['donnees'][0]["total"];
+                        $total=gettotalMarathonsByContinents($continent)['donnees'][0]["total"];
                         if($total==1){
                             $marathon_par_pays_total=$total.' marathon';
                         }else{
@@ -141,13 +167,13 @@ setlocale(LC_TIME, "fr_FR","French");
                         }
                         echo $marathon_par_pays_total;?>
                     </span>
-                        <h1 class="clear-b">Calendrier des marathons  <?php echo $pays_datas->getPrefixe();?> <?php echo $pays_datas->getNomPays();?></h1>
+                        <h1 class="clear-b">Calendrier des marathons  en <?php echo $continent;?></h1>
                         
                        
                     </div>
                     <div class="col-sm-12">
 
-                        <?php echo $pays_datas->getTexte();?>
+                       
 
                        
                     </div>
@@ -166,7 +192,7 @@ setlocale(LC_TIME, "fr_FR","French");
                         $i=0;                             
                         setlocale(LC_TIME, "fr_FR","French");
                         $res="";
-                        $part=getMarathonsAgendaByPaysflitered($pays->getPaysById($paysID)['donnees']->getAbreviation(),$pays->getPaysById($paysID)['donnees']->getAbreviation2(),$pays->getPaysById($paysID)['donnees']->getAbreviation3(),$pays->getPaysById($paysID)['donnees']->getAbreviation4())['donnees'];
+                        $part=getMarathonsAgendaByContinentsflitered($continent)['donnees'];
                         foreach ($part as $key => $resultat) {
                 
                             $pays_flag=$pays->getFlagByAbreviation($resultat['PaysID'])['donnees']['Flag'];

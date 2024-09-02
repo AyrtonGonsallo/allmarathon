@@ -128,6 +128,7 @@ $i=1;
         $reqf->bindValue('ep',$eid , PDO::PARAM_INT); 
         $reqf->execute();
         $i+=1;
+        $date_presentation_string="";
         
     }
       

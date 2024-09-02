@@ -85,7 +85,7 @@ class newscategorie{
 		public function getAllNewsCat(){
 			try {
 						  include("../database/connexion.php");
-						 $req = $bdd->prepare("SELECT * FROM newscategorie");
+						 $req = $bdd->prepare("SELECT * FROM newscategorie order by Intitule asc");
 			             $req->execute();
 			             $news_cat= array();
 			             while ( $row  = $req->fetch(PDO::FETCH_ASSOC)) {    

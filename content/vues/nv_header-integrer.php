@@ -125,8 +125,15 @@
             $champion=new champion();
             $user=new user();
             $profil = $user->getUserById($user_id)['donnees'];
+            //var_dump($profil);
             $added_res = $user->getAddedResults($profil->getUsername())['donnees'];
             $user_champ=($user_id)?$champion->getUserChampion($user_id)['donnees']:null;
+            if($profil->getProfile_pic()){
+                //$signin_compte='<span class="user-connect"><i class="fa fa-user user_compte"></i></span>';
+                $signin_compte='<span class="user-connect"><img src="'.$profil->getProfile_pic().'" style="border-radius:20px" width="30"></span>'; 
+            }
+            //echo "pic: ".$profil->getProfile_pic();
+            
         }
 
         else{
@@ -738,6 +745,7 @@ window.jQuery || document.write('<script src="../../js/vendor/jquery-1.12.0.min.
 </script>
 <script src="/js/bootstrap.min.js" ></script>
 <script type="text/javascript">
+    
 $('.bootpopup').click(function() {
 
     var frametarget = $(this).attr('href');
@@ -879,6 +887,20 @@ $(document).ready(function() {
             expires = "; expires=" + date.toUTCString();
         }
         document.cookie = name + "=" + (value || "") + expires + "; path=/";
+    }
+
+    function getCookieValue(name) {
+        // Create a regular expression to search for the cookie name
+        const cookieValue = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+        return cookieValue ? cookieValue.pop() : '';
+    }
+
+    //verifier si l'auth a echouée
+    const failed_auth = getCookieValue('wrong_credentials');
+    if (failed_auth) {
+        console.log('failed_auth cookie exists:', failed_auth);
+        $('input[type="checkbox"].openSidebarMenu').prop( "checked", true );
+        // Do something with the cookie value
     }
 
     // Ajouter un gestionnaire d'événements au clic sur .sidebarIconToggle

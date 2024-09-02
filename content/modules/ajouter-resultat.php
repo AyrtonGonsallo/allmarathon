@@ -5,7 +5,7 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 (!empty($_SESSION['user_id'])) ? $user_id=$_SESSION['user_id'] : $user_id='';
 try {
-    $page=$_COOKIE["page_when_adding_result"];
+    $page=($_COOKIE["page_when_adding_result"])?($_COOKIE["page_when_adding_result"]):"/membre-profil.php";
     $fileName = $_FILES['j']['name'];
     $destination_path = "../../uploadDocument/";
     

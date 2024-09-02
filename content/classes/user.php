@@ -11,6 +11,7 @@ class user{
 	private $pays;
 	private $grade;
 	private $club;
+	private $profile_pic;
 	private $password;
 	private $newsletter;
 	private $offres;
@@ -130,6 +131,14 @@ class user{
 
 	public function setOffres($offres){
 		$this->offres = $offres;
+	}
+
+	public function getProfile_pic(){
+		return $this->profile_pic;
+	}
+
+	public function setProfile_pic($profile_pic){
+		$this->profile_pic = $profile_pic;
 	}
 
 	public function getUser_ip(){

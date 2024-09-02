@@ -151,6 +151,11 @@ $text = trim($text, '-');
                         <h1 class="clear-b">Athlètes, marathoniens célèbres <?php echo $pays_element->getPrefixe()." ".$pays_element->getNomPays();?></h1>
                     </div>
                     <div class="col-sm-12">
+                    <div id="pagination-container"></div>
+                    <div id="resultats-recherche-athletes">
+                        <ul id="athletes-liste" class="athletes-liste-grid test-image"></ul>
+                    </div>
+
                         <div  id="resultats-recherche-athletes">
                             <ul class="athletes-liste-grid test-image">
                                 <?php
@@ -284,327 +289,28 @@ $text = trim($text, '-');
 
 <script type="text/javascript">
    
-    var par_pages=39;
-    var nb_pages=0;
-    var page=0;
-    var next=page+1;
-    var previous=page-1;
-    function load_pager(){
-       // $("#back-link").css({'pointer-events': 'none' ,"color": "#000", 'cursor' : 'default'});
-
-       
-        $("#next-link").click(function() {
-        page+=1; 
-        next=page+1;
-        if(page==(nb_pages-1)){
-            style_suivant={'pointer-events': 'none' ,"color": "#000",  'cursor' : 'default'}
-        } else{
-            style_suivant={'pointer-events': 'all' ,"color": "#2caffe",  'cursor' : 'pointer'}
+   $(document).ready(function() {
+    $('#pagination-container').pagination({
+        dataSource: athletesData,
+        pageSize: 10, // Nombre d'éléments par page
+        callback: function(data, pagination) {
+            var html = '';
+            $.each(data, function(index, athlete) {
+                html += '<div class="athletes-grid-element">';
+                html += '<img class="img-test" src="' + athlete.photo_src + '" width="116" height="auto" alt=""/>';
+                html += '<div>';
+                html += '<a href="athlete-' + athlete.id + '-' + athlete.champion_name + '.html"><strong>' + athlete.name + '</strong></a>';
+                html += '<img src="../../images/flags/' + athlete.pays_flag + '" class="float-r" alt=""/><br>' + athlete.pays_nom + '<br>';
+                html += '<span><i class="fa-solid fa-medal"></i> (' + athlete.t_res + ')</span>';
+                html += '<span>- <i class="fa-solid fa-newspaper"></i> (' + athlete.t_news + ')</span>';
+                html += '<span>- <i class="fa-solid fa-camera"></i> (' + athlete.t_photos + ')</span>';
+                html += '<span>- <i class="fa-solid fa-video"></i> (' + athlete.t_videos + ')</span>';
+                html += '</div></div>';
+            });
+            $('#athletes-liste').html(html);
         }
-        if(page==0){
-            style_precedent={'pointer-events': 'none' ,"color": "#000", 'cursor' : 'default'}
-        } else{
-        style_precedent={'pointer-events': 'all' ,"color": "#2caffe",  'cursor' : 'pointer'}
-        
-        }
-        $(this).css(style_suivant)
-        $("#back-link").css(style_precedent)
-        search_v=$("#search_val_res").val();
-        pays_v=$('#select-pays').val();
-        console.log("page: ",page)
-        console.log("de: ",page*par_pages," a ",(page+1)*par_pages)
-        if(search_v){
-            if(pays_v=="all"){
-                console.log("suivant par keyword")
-            }else{
-                console.log("suivant par keyword et par pays")
-            }
-        }else{
-            if(pays_v=="all"){
-                console.log("suivant sans filtre")
-            }else{
-                console.log("suivant par pays")
-                
-            }
-        }
-        $.ajax({
-        type: "POST",
-        url: "content/classes/athletes-liste-ajax.php",
-        data: {
-            function:"getNextChampions",
-            offset:page*par_pages,
-            par_pages:par_pages,
-            page:page,
-            search:search_v,
-            pays_id:pays_v,
-        },
-        success: function(html) {
-                $("#resultats-recherche-athletes").html(html).show();
-                
-                if(!html){
-                    $("#next-link").css({'pointer-events': 'none' ,"color": "#000", 'cursor' : 'default'});
-                    console.log("plus de suivants")
-                }
-                //load_pager()
-            //console.log("success",html)
-        },
-        error: function (jqXHR, exception) {
-                var msg = '';
-                if (jqXHR.status === 0) {
-                    msg = 'Not connect.\n Verify Network.';
-                } else if (jqXHR.status == 404) {
-                    msg = 'Requested page not found. [404]';
-                } else if (jqXHR.status == 500) {
-                    msg = 'Internal Server Error [500].';
-                } else if (exception === 'parsererror') {
-                    msg = 'Requested JSON parse failed.';
-                } else if (exception === 'timeout') {
-                    msg = 'Time out error.';
-                } else if (exception === 'abort') {
-                    msg = 'Ajax request aborted.';
-                } else {
-                    msg = 'Uncaught Error.\n' + jqXHR.responseText;
-                }
-                console.log("error",msg)
-            },
-        });}
-        )
-
-
-        $("#back-link").click(function() {
-        page-=1; 
-        next=page-1;
-        if(page==0){
-            style_precedent={'pointer-events': 'none' ,"color": "#000", 'cursor' : 'default'}
-        } else{
-        style_precedent={'pointer-events': 'all' ,"color": "#2caffe",  'cursor' : 'pointer'}
-        
-        }
-        $(this).css(style_precedent)
-        style_suivant={'pointer-events': 'all' ,"color": "#2caffe",  'cursor' : 'pointer'}
-        
-        
-        //$(this).css(style_suivant)
-        $("#next-link").css(style_suivant)
-        search_v=$("#search_val_res").val();
-        pays_v=$('#select-pays').val();
-        console.log("page: ",page)
-        console.log("de: ",page*par_pages," a ",(page+1)*par_pages)
-        if(search_v){
-            if(pays_v=="all"){
-                console.log("suivant par keyword")
-            }else{
-                console.log("suivant par keyword et par pays")
-            }
-        }else{
-            if(pays_v=="all"){
-                console.log("suivant sans filtre")
-            }else{
-                console.log("suivant par pays")
-                
-            }
-        }
-        $.ajax({
-        type: "POST",
-        url: "content/classes/athletes-liste-ajax.php",
-        data: {
-            function:"getNextChampions",
-            offset:page*par_pages,
-            par_pages:par_pages,
-            page:page,
-            search:search_v,
-            pays_id:pays_v,
-        },
-        success: function(html) {
-                $("#resultats-recherche-athletes").html(html).show();
-                
-                //load_pager()
-            //console.log("success",html)
-        },
-        error: function (jqXHR, exception) {
-                var msg = '';
-                if (jqXHR.status === 0) {
-                    msg = 'Not connect.\n Verify Network.';
-                } else if (jqXHR.status == 404) {
-                    msg = 'Requested page not found. [404]';
-                } else if (jqXHR.status == 500) {
-                    msg = 'Internal Server Error [500].';
-                } else if (exception === 'parsererror') {
-                    msg = 'Requested JSON parse failed.';
-                } else if (exception === 'timeout') {
-                    msg = 'Time out error.';
-                } else if (exception === 'abort') {
-                    msg = 'Ajax request aborted.';
-                } else {
-                    msg = 'Uncaught Error.\n' + jqXHR.responseText;
-                }
-                console.log("error",msg)
-            },
-        });}
-        )
-    }
-    $(document).ready(function() {
-
-
-
-         //requette ajax
-         $('#select-pays').change( function() {
-            page=0
-            var next=page+1;
-            var previous=page-1;
-            //remise_a_zero()
-             type_req_courrante="getChampionsbyPays";
-
-            var sel_pays_id=$(this).val();
-            console.log("recherche sur ",sel_pays_id)
-            $.ajax({
-               type: "POST",
-               url: "content/classes/athletes-liste-ajax.php",
-               data: {
-                   function: "getChampionsbyPays",
-                   pays_id:sel_pays_id,
-                   offset:page*par_pages,
-                   par_pages:par_pages,
-                   page:page,
-               },
-               success: function(html) {
-                   $("#resultats-recherche-athletes").html(html).show();
-                  
-                   //load_pager()
-                  // console.log("success",html)
-               },
-               error: function (jqXHR, exception) {
-                    var msg = '';
-                    if (jqXHR.status === 0) {
-                        msg = 'Not connect.\n Verify Network.';
-                    } else if (jqXHR.status == 404) {
-                        msg = 'Requested page not found. [404]';
-                    } else if (jqXHR.status == 500) {
-                        msg = 'Internal Server Error [500].';
-                    } else if (exception === 'parsererror') {
-                        msg = 'Requested JSON parse failed.';
-                    } else if (exception === 'timeout') {
-                        msg = 'Time out error.';
-                    } else if (exception === 'abort') {
-                        msg = 'Ajax request aborted.';
-                    } else {
-                        msg = 'Uncaught Error.\n' + jqXHR.responseText;
-                    }
-                    console.log("error",msg)
-                },
-           })
-        });
-
-        $("#goToSearch_Result").click(function() {
-            page=0
-            var next=page+1;
-            var previous=page-1;
-                search=$("#search_val_res").val()
-                console.log("recherche de ",search)
-                    
-                $.ajax({
-                    type: "POST",
-                    url: "content/classes/athletes-liste-ajax.php",
-                    data: {
-                        function:"getChampionsbySearch",
-                        
-                        search:search,
-                        offset:page*par_pages,
-                        par_pages:par_pages,
-                        page:page,
-                        
-                    },
-                    success: function(html) {
-                        if(html.includes("Pas de")){
-                                $(".pager").hide()
-                            }else{
-                                $(".pager").show()
-                            }
-                        $("#resultats-recherche-athletes").html(html).show();
-                        
-                        //load_pager()
-                        //console.log("success",html)
-                    },
-                    error: function (jqXHR, exception) {
-                            var msg = '';
-                            if (jqXHR.status === 0) {
-                                msg = 'Not connect.\n Verify Network.';
-                            } else if (jqXHR.status == 404) {
-                                msg = 'Requested page not found. [404]';
-                            } else if (jqXHR.status == 500) {
-                                msg = 'Internal Server Error [500].';
-                            } else if (exception === 'parsererror') {
-                                msg = 'Requested JSON parse failed.';
-                            } else if (exception === 'timeout') {
-                                msg = 'Time out error.';
-                            } else if (exception === 'abort') {
-                                msg = 'Ajax request aborted.';
-                            } else {
-                                msg = 'Uncaught Error.\n' + jqXHR.responseText;
-                            }
-                            console.log("error",msg)
-                        },
-                });
-            })
-
-            $("#search_val_res").keydown(function(event){ 
-                page=0
-            var next=page+1;
-            var previous=page-1;
-                var keycode = (event.keyCode ? event.keyCode : event.which);
-                if (keycode == 13) {
-                    event.preventDefault();
-                    search=$("#search_val_res").val()
-                   
-                    $.ajax({
-                        type: "POST",
-                        url: "content/classes/athletes-liste-ajax.php",
-                        data: {
-                            function:"getChampionsbySearch",
-                           
-                            search:search,
-                            offset:page*par_pages,
-                            par_pages:par_pages,
-                            page:page,
-                           
-                        },
-                        success: function(html) {
-                            if(html.includes("Pas de")){
-                                $(".pager").hide()
-                            }else{
-                                $(".pager").show()
-                            }
-                            $("#resultats-recherche-athletes").html(html).show();
-                           
-                            //load_pager()
-                            //console.log("success",html)
-                        },
-                        error: function (jqXHR, exception) {
-                                var msg = '';
-                                if (jqXHR.status === 0) {
-                                    msg = 'Not connect.\n Verify Network.';
-                                } else if (jqXHR.status == 404) {
-                                    msg = 'Requested page not found. [404]';
-                                } else if (jqXHR.status == 500) {
-                                    msg = 'Internal Server Error [500].';
-                                } else if (exception === 'parsererror') {
-                                    msg = 'Requested JSON parse failed.';
-                                } else if (exception === 'timeout') {
-                                    msg = 'Time out error.';
-                                } else if (exception === 'abort') {
-                                    msg = 'Ajax request aborted.';
-                                } else {
-                                    msg = 'Uncaught Error.\n' + jqXHR.responseText;
-                                }
-                                console.log("error",msg)
-                            },
-                    });
-                }
-            })
-
-            load_pager()
-            
-    })
+    });
+});
 
     </script>
     <!--Google+-->

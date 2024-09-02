@@ -2028,10 +2028,11 @@ div#copy-button:hover {
     max-width: 700px;
     margin-left: auto;
     background: white;
-    margin-top: 200px;
+    margin-top: 120px;
     margin-right: auto;
     padding: 30px;
 }
+
 .add-result-box form{
     text-align: start;
 }
@@ -2580,7 +2581,7 @@ body.menu-open { overflow: hidden;}
 /********************************/
 
 .modal-open .modal{
-    background-color: rgb(255, 255, 255) !important;
+    background-color: rgb(255 255 255 / 13%) !important
 }
 
 
@@ -3197,11 +3198,19 @@ body .ban.transparent-bg {
 .ban.transparent-bg {
     animation: setTransparentBg 1s forwards; /* Attendre 1s avant de rendre le fond transparent */
 }
+.fa.fa-user.user_compte{
+font-size: 26px;
+  color: #2caffe;
+}
 
 
 
-
-
+.membre-profil a:hover{
+    text-decoration: underline !important ;
+}
+#result-suggestion input[type=radio]{
+    margin-right: 10px;
+}
 
 
 

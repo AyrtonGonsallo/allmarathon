@@ -45,7 +45,6 @@ $resultsPerso=$champion_admin_externe_palmares->getResultsPerso($id)['donnees'];
 
 $champAdmin=new championAdminExterne();
 $isAdmin=$champAdmin->isAdmin($user_id,$id)['donnees'];
-
 $ev_cat_age=new evcategorieage();
 $ev_cat_event=new evCategorieEvenement();
 $champ_pop=new championPopularite();
@@ -205,7 +204,7 @@ $afficher_tab_medaille=false;
     <link rel="stylesheet" href="../../css/slider-pro.min.css" />
     <link rel="stylesheet" href="../../css/main.css">
     <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css"> -->
-    <link href="http://cdn.datatables.net/responsive/1.0.1/css/dataTables.responsive.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/responsive/1.0.1/css/dataTables.responsive.css" rel="stylesheet">
     <link rel="stylesheet" href="../../css/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
     <link rel="stylesheet" href="../../css/jquery.fancybox-buttons.css?v=1.0.5" type="text/css" media="screen" />
     <link rel="stylesheet" href="../../css/jquery.fancybox-thumbs.css?v=1.0.7" type="text/css" media="screen" />
@@ -216,7 +215,7 @@ $afficher_tab_medaille=false;
 
 <body>
     <!--[if lt IE 8]>
-<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 <![endif]-->
 
     <!-- Add your site or application content here -->
@@ -633,9 +632,21 @@ $afficher_tab_medaille=false;
                             <input type="hidden" name="u" id="u_id" value="<?php echo  $user_id; ?>" />
                             
                             <div class="form-group">
-                                <label for="justificatif" class="col-sm-3">Justificatif <span style="color: red;">*</span></label>
+                                <label for="situation" class="col-sm-3">Votre situation par rapport à cet athlète <span style="color: red;">*</span></label>
                                 <div class="col-sm-9">
-                                    <input type="file" id="justificatif" name="j" accept="image/png, image/jpeg, application/pdf" required/>
+                                    <select name="situation" id="situation" required>
+                                        <option value="moi">C'est moi</option>
+                                        <option value="parent">Parent</option>
+                                        <option value="ami">Ami</option>
+                                        <option value="entraineur">Entraîneur</option>
+                                        <option value="autre">Autre</option>
+                                    </select>                                
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="justificatif" class="col-sm-3">Justificatif </label>
+                                <div class="col-sm-9">
+                                    <input type="file" id="justificatif" name="j" accept="image/png, image/jpeg, application/pdf" />
                                 </div>
                             </div>
                             <div class="form-group">
@@ -656,25 +667,26 @@ $afficher_tab_medaille=false;
                         </form>
                     </div>
                 </div>
-                <div class="box-next-edition ">
-                    <div class="mx-auto" style="width:80%">
-                       Vous êtes le coureur présenté sur cette page ?
-                    </div>
-                    <div>
-                        <?php if(empty($_SESSION['user_id'])){?>
-                            <a  id="connecter-et-revendiquer" href="#"  class="call-to-action mx-auto">
-                                Revendiquer cette fiche
-                            </a>
-                        <? }else{?>
-                            <a  href="#" data-toggle="modal" data-target="#revendicationFicheModal" class="call-to-action mx-auto">
-                                Revendiquer cette fiche
-                            </a>
-                        <? }?>
-                    </div>
-                   
+                <?php if(!$isAdmin){?>
+                    <div class="box-next-edition ">
+                        <div class="mx-auto" style="width:80%">
+                        Vous êtes le coureur présenté sur cette page ?
+                        </div>
+                        <div>
+                            <?php if(empty($_SESSION['user_id'])){?>
+                                <a  id="connecter-et-revendiquer" href="#"  class="call-to-action mx-auto">
+                                    Revendiquer cette fiche
+                                </a>
+                            <? }else{?>
+                                <a id="deja-connecte-et-revendiquer" href="#" data-toggle="modal" data-target="#revendicationFicheModal" class="call-to-action mx-auto">
+                                    Revendiquer cette fiche
+                                </a>
+                            <? }?>
+                        </div>
                     
-                </div>
-               
+                        
+                    </div>
+                <?php }?>
                 <div class="marg_bot"></div>
                     <div class="ban ban_160-600">
                         <div class="placeholder-content">
@@ -820,31 +832,51 @@ $afficher_tab_medaille=false;
 
 
     <script type="text/javascript">
+        function deleteCookie(cname) {
+            document.cookie = cname + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            console.log("Cookie supprimé: " + cname);
+        }
+         function getCookieValue(name) {
+            // Create a regular expression to search for the cookie name
+            const cookieValue = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+            return cookieValue ? cookieValue.pop() : '';
+        }
     $(document).ready(function() {
-        $(window).load(function() {
-    setTimeout(function(e){ $('#AddResultResponseModal').modal('show'); }, 2000);
-
-});
-        $('#connecter-et-revendiquer').on('click',function(e){
-                $('input[type="checkbox"].openSidebarMenu').prop( "checked", true );
-                cname="page_when_logging_to_rev_fiche"
-                cvalue=window.location.href
-                exdays=1
-                //e.preventDefault();
-                const d = new Date();
-                d.setTime(d.getTime() + (exdays*24*60*60*1000));
-                let expires = "expires="+ d.toUTCString();
-                document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-                console.log("Création du cookie: "+cname + "=" + cvalue + ";" + expires)
-            });
+                $(window).load(function() {
+                    setTimeout(function(e){ $('#AddResultResponseModal').modal('show'); }, 2000);
+                });
+                $('#deja-connecte-et-revendiquer').on('click',function(e){
+                    cname="page_when_logging_to_rev_fiche"
+                    cvalue=window.location.href
+                    exdays=1
+                    //e.preventDefault();
+                    const d = new Date();
+                    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+                    let expires = "expires="+ d.toUTCString();
+                    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+                    console.log("Création du cookie: "+cname + "=" + cvalue + ";" + expires)
+                });
+                $('#connecter-et-revendiquer').on('click',function(e){
+                    $('input[type="checkbox"].openSidebarMenu').prop( "checked", true );
+                    cname="page_when_logging_to_rev_fiche"
+                    cvalue=window.location.href
+                    exdays=1
+                    //e.preventDefault();
+                    const d = new Date();
+                    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+                    let expires = "expires="+ d.toUTCString();
+                    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+                    console.log("Création du cookie: "+cname + "=" + cvalue + ";" + expires)
+                });
             
             // Lire le cookie "open_rev_fiche_modal"
-            var open_rev_fiche_modal = getCookie("open_rev_fiche_modal");
+            var open_rev_fiche_modal = getCookieValue("open_rev_fiche_modal");
 
             // Vérifier si le cookie existe et afficher sa valeur
-            if (open_rev_fiche_modal !== undefined) {
+            if (open_rev_fiche_modal ) {
                 console.log("La valeur du open_rev_fiche_modal monCookie est : " + open_rev_fiche_modal);
                 $('#revendicationFicheModal').modal('show');
+                deleteCookie("open_rev_fiche_modal")
             } else {
                 console.log("Le cookie open_rev_fiche_modal n'existe pas.");
             }

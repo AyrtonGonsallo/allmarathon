@@ -22,7 +22,6 @@ else {
     exit();
     
 }
-
 include("../classes/pub.php");
 include("../classes/user.php");
 include("../classes/championAdminExterneClass.php");
@@ -38,6 +37,10 @@ include("../classes/partenaire.php");
 include("../classes/commentaire.php");
 
 
+$pub=new pub();
+
+$pub728x90=$pub->getBanniere728_90("accueil")['donnees'];
+$pub768x90=$pub->getBanniere768_90("accueil")['donnees'];
 
 
 $evCategorieEvenement=new evCategorieEvenement();
@@ -75,12 +78,7 @@ $commentsByUser=$comments->getCommentairesByUser($user_id)['donnees'];
 
 
 
-$pub=new pub();
-$pub728x90=$pub->getBanniere728_90("resultats")['donnees'];
-$pub300x60=$pub->getBanniere300_60("resultats")['donnees'];
-$pub300x250=$pub->getBanniere300_250("resultats")['donnees'];
-$pub160x600=$pub->getBanniere160_600("resultats")['donnees'];
-$pub768x90=$pub->getBanniere768_90("accueil")['donnees'];
+
 
 function slugify($text)
 {
@@ -211,16 +209,25 @@ $login_url = $client->createAuthUrl();
     <?php include_once('nv_header-integrer.php'); ?>
 
     <div class="container page-content athlete-detail membre-profil">
-        <div class="row banniere1">
-            <a href="" class="col-sm-12"><?php
-if($pub728x90 !="") {
-echo $pub728x90["code"] ? $pub728x90["code"] :  "<img src=".'../images/pubs/'.$pub728x90['image'] . " alt='' style=\"width: 100%;\" />";
-}
-?></a>
+     
+        <div class="row banniere1 bureau ban ban_728x90">
+             <div class="placeholder-content">
+                 <div class="placeholder-title"> Allmarathon </div> 
+                 <div class="placeholder-subtitle">publicité</div>
+             </div>
+             <div  class="col-sm-12 ads-contain">
+            <?php
+                if($pub728x90 !="") {
+                echo '<a target="_blank" href="'.$pub728x90["url"].'" class="col-sm-12">';
+                    echo $pub728x90["code"] ? $pub728x90["code"] :  "<img src=".'../images/pubs/'.$pub728x90['image'] . " alt='' style=\"width: 100%;\" />";
+                    echo '</a>';
+                }else if($getMobileAds !="") {
+                echo $getMobileAds["code"] ? $getMobileAds["code"] :  "<a href=".$getMobileAds["url"]." target='_blank'><img src=".'../images/pubs/'.$getMobileAds['image'] . " alt='' style=\"width: 100%;\" /></a>";
+                }
+                ?></div>
         </div>
-
         <div class="row">
-            <div class="col-sm-8 left-side resultat-detail">
+            <div class="col-sm-12 left-side resultat-detail">
 
                 <div class="row">
                     <div class="col-sm-12">
@@ -228,13 +235,13 @@ echo $pub728x90["code"] ? $pub728x90["code"] :  "<img src=".'../images/pubs/'.$p
                         <ul class="nav nav-tabs" role="tablist">
                             <li class="active"><a href="#tab1" role="tab" data-toggle="tab">Profil</a></li>
                             <li><a href="#tab2" role="tab" data-toggle="tab">Vos actions</a></li>
-                            <?php if($added_res){?>
+                            <?php if($user_champ){?>
                                 <li><a href="#tab7" role="tab" data-toggle="tab">Résultats</a></li>
                             <? }?>
-                            <? if(sizeof($athlete_adminitres)==0) {?>
-                            <li><a href="#tab4" role="tab" data-toggle="tab">Fiche athlète</a></li>
+                            <? if(sizeof($athlete_adminitres)!=0 && 0) {?>
+                            <li><a href="#tab8" role="tab" data-toggle="tab">Fiche revendiquée</a></li>
                             <? }?>
-                            <li><a href="#tab8" role="tab" data-toggle="tab">Votre fiche athlète</a></li>
+                            <li><a href="#tab4" role="tab" data-toggle="tab">Fiche athlète</a></li>
                             <li><a href="#tab5" role="tab" data-toggle="tab">Mot de passe</a></li>
                             <li><a href="#tab6" role="tab" data-toggle="tab">Google</a></li>
                         </ul>
@@ -253,8 +260,13 @@ echo $pub728x90["code"] ? $pub728x90["code"] :  "<img src=".'../images/pubs/'.$p
                         if($profil->getVille() != ""){
                             echo '<br/><strong>Ville : </strong>'.$profil->getVille();
                         }
-
-                        if($profil->getPays() != ""){
+                        if($user_champ){
+                            $flag=$pays->getFlagByAbreviation($user_champ->getPaysID())['donnees']['Flag'];
+                            $pays_flag= ($flag!='') ? '<span><img  class="flag_membre" src="/images/flags/'.$flag.'" alt=""/></span>':"";
+                            echo '<br/> <strong>Pays : '.$pays_flag.' </strong>'.$pays->getFlagByAbreviation($user_champ->getPaysID())['donnees']['NomPays'];
+                        
+                        }
+                        else{
                             $flag=$pays->getFlagByAbreviation($profil->getPays())['donnees']['Flag'];
                             $pays_flag= ($flag!='') ? '<span><img  class="flag_membre" src="/images/flags/'.$flag.'" alt=""/></span>':"";
                             echo '<br/> <strong>Pays : '.$pays_flag.' </strong>'.$pays->getFlagByAbreviation($profil->getPays())['donnees']['NomPays'];
@@ -337,192 +349,243 @@ echo $pub728x90["code"] ? $pub728x90["code"] :  "<img src=".'../images/pubs/'.$p
                             ?>
                                 </ul>
                             </div>
-                            <? if(sizeof($athlete_adminitres)==0) {?>
+                            
                             <div class="tab-pane fade" id="tab4">
+
+                            
                                 <br>
                                 <!--  -->
-                                <ul>
-                                    <?php 
-                            if(isset($_SESSION['update_profile_msg'])){
-                                echo $_SESSION['update_profile_msg'];
-                                unset($_SESSION['update_profile_msg']);
-                            }
-                            
-                            ?>
+                                <?php if(!$user_champ){?>
+                                    <a  id="creer_fiche" href="#"  class="call-to-action mx-auto">
+                                        Je souhaite créer une fiche athlète
+                                    </a>
+                                    <form id="creer_fiche_form_part1">
 
-<form
-                                        action="/content/modules/update_profile.php?profilID=<?php echo $profil->getId(); ?>"
-                                        method="post">
+                                                <table style="font-size: 0.9em;">
+                                                    <tr class="row">
+                                                        <td class="col-md-3" align="left">
+                                                            <label for="nom_form_part1">Nom * : </label>
+                                                        </td>
+                                                        <td class="col-md-7" align="left">
+                                                            <input type="text" align="left" class="update_athlète_input" required
+                                                                name="nom_form_part1" id="nom_form_part1" value="" />
+                                                        </td>
+                                                        <td class="col-md-2"></td>
+                                                    </tr>
+                                                
 
-                                        <table style="font-size: 0.9em;">
-                                            <tr class="row">
-                                                <td class="col-md-3" align="left">
-                                                    <label for="nom">Nom * : </label>
-                                                </td>
-                                                <td class="col-md-7" align="left">
-                                                    <input type="text" align="left" class="update_athlète_input" required
-                                                        name="nom" id="nom" value="<?php echo $profil->getNom(); ?>" />
-                                                </td>
-                                                <td class="col-md-2"></td>
-                                            </tr>
-                                            <tr class="row">
-                                                <td class="col-md-3" align="left">
-                                                    <label for="Sexe">Sexe : </label>
-                                                </td>
-                                                <td class="col-md-7" align="left">
-                                                    <input type="radio" name="Sexe" value="M" <?php if($user_champ->getSexe()=="M") echo 'checked="checked"';?> />
-                                                    <span>homme</span>
-                                                    <input type="radio" name="Sexe" value="F" <?php if($user_champ->getSexe()=="F") echo 'checked="checked"';?> />
-                                                    <span >femme</span>
-                                                </td>
-                                            </tr>
+                                                    <tr class="row">
+                                                        <td class="col-md-3" align="left">
+                                                            <label for="prenom_form_part1">Prénom * : </label>
+                                                        </td>
+                                                        <td class="col-md-7" align="left">
+                                                            <input type="text" class="update_athlète_input"
+                                                                class="update_athlète_input" required name="prenom_form_part1" id="prenom_form_part1"
+                                                                value="" />
+                                                        </td>
+                                                    </tr>
+                                                
 
-                                            <tr class="row">
-                                                <td class="col-md-3" align="left">
-                                                    <label for="prenom">Prénom * : </label>
-                                                </td>
-                                                <td class="col-md-7" align="left">
-                                                    <input type="text" class="update_athlète_input"
-                                                        class="update_athlète_input" required name="prenom" id="prenom"
-                                                        value="<?php echo $profil->getPrenom(); ?>" />
-                                                </td>
-                                            </tr>
-                                            <tr class="row">
-                                                <td class="col-md-3" align="left">
-                                                    <label for="email">E-mail * : </label>
-                                                </td>
-                                                <td class="col-md-7" align="left">
-                                                    <input type="text" class="update_athlète_input" name="email"
-                                                        id="email" required
-                                                        value="<?php echo $profil->getEmail(); ?>" />
-                                                </td>
-                                            </tr>
-                                            <input type="hidden" name="c_id" id="c_id" value="<?php echo $user_champ->getID(); ?>" />
+                                                    <tr class="row">
+                                                        <td class="col-md-3" align="left"></td>
+                                                        <td class="pull-right">
+                                                            <!-- <input type="submit" class="btn_custom" name="sub" value ="Modifier"/> -->
+                                                            <button type="submit" name="sub"
+                                                                class="btn_custom">Chercher</button>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </form>
+                                            <div id="result-suggestion"></div>
+                                <?php }?>
+                                    <ul>
+                                        <?php 
+                                            if(isset($_SESSION['update_profile_msg'])){
+                                                echo $_SESSION['update_profile_msg'];
+                                                unset($_SESSION['update_profile_msg']);
+                                            }
+                                        
+                                        ?>
+                                        
 
-                                            <tr class="row">
-                                                <td class="col-md-3" align="left">
-                                                    <label for="date_de_naissance">Date de naissance : </label>
-                                                </td>
-                                                <td class="col-md-7" align="left">
-                                                    <input type="text" class="update_athlète_input"
-                                                        id="date_de_naissance" name="date_de_naissance"
-                                                        value="<?php echo $profil->getDate_naissance(); ?>" />
-                                                </td>
-                                            </tr>
-                                            <tr class="row">
-                                                <td class="col-md-3" align="left">
-                                                    <label for="pays">Pays : </label>
-                                                </td>
-                                                <td class="col-md-7" align="left">
-                                                    <select name="pays" class="update_athlète_input" id="pays">
-                                                        <?php
-                                                foreach ($liste_pays as $p) {
-                                                    $selected=($p->getAbreviation()==$user_champ->getPaysID()) ? "selected":"";
-                                                    echo '<option value="' .$p->getID(). '"'.$selected.'>' .$p->getNomPays(). '</option>';
-                                                }
-                                                ?>
-                                                    </select>
-                                                </td>
-                                            </tr>
-                                            <tr class="row">
-                                                <td class="col-md-3" align="left">
-                                                    <label for="LieuNaissance">Lieu de Naissance : </label>
-                                                </td>
-                                                <td class="col-md-7" align="left">
-                                                    <input type="text" class="update_athlète_input"  name="LieuNaissance" id="LieuNaissance" value="<?php echo $user_champ->getLieuNaissance(); ?>" />
-                                                </td>
-                                            </tr>
-                                            <tr class="row">
-                                                <td class="col-md-3" align="left">
-                                                    <label for="Equipementier">Equipementier : </label>
-                                                </td>
-                                                <td class="col-md-7" align="left">
-                                                    <input type="text" class="update_athlète_input"  name="Equipementier" id="Equipementier" value="<?php echo $user_champ->getEquipementier(); ?>" />
-                                                </td>
-                                            </tr>
-                                            <tr class="row">
-                                                <td class="col-md-3" align="left">
-                                                    <label for="lien_equip">Lien site équipementier : </label>
-                                                </td>
-                                                <td class="col-md-7" align="left">
-                                                    <input type="text" class="update_athlète_input"  name="lien_equip" id="lien_equip" value="<?php echo $user_champ->getLien_site_équipementier(); ?>" />
-                                                </td>
-                                            </tr>
-                                            <tr class="row">
-                                                <td class="col-md-3" align="left">
-                                                    <label for="Instagram">Instagram : </label>
-                                                </td>
-                                                <td class="col-md-7" align="left">
-                                                    <input type="text" class="update_athlète_input"  name="Instagram" id="Instagram" value="<?php echo $user_champ->getInstagram(); ?>" />
-                                                </td>
-                                            </tr>
-                                            <tr class="row">
-                                                <td class="col-md-3" align="left">
-                                                    <label for="poids">poids : </label>
-                                                </td>
-                                                <td class="col-md-7" align="left">
-                                                    <input type="text" class="update_athlète_input"  name="poids" id="poids" value="<?php echo $user_champ->getPoids(); ?>" />
-                                                </td>
-                                            </tr>
-                                            <tr class="row">
-                                                <td class="col-md-3" align="left">
-                                                    <label for="taille">taille : </label>
-                                                </td>
-                                                <td class="col-md-7" align="left">
-                                                    <input type="text" class="update_athlète_input"  name="taille" id="taille" value="<?php echo $user_champ->getTaille(); ?>" />
-                                                </td>
-                                            </tr>
+                                        <form id="creer_fiche_form_part2"
+                                            action="/content/modules/update_profile.php?profilID=<?php echo $profil->getId(); ?>"
+                                            method="post">
 
-                                            <tr class="row">
-                                                <td class="col-md-3" align="left">
-                                                    <label for="Facebook">Facebook : </label>
-                                                </td>
-                                                <td class="col-md-7" align="left">
-                                                    <input type="text" class="update_athlète_input"  name="Facebook" id="Facebook" value="<?php echo $user_champ->getFacebook(); ?>" />
-                                                </td>
-                                            </tr>
-                                            <tr class="row">
-                                                <td class="col-md-3" align="left">
-                                                    <label for="Bio">Bio : </label>
-                                                </td>
-                                                <td class="col-md-7" align="left">
-                                                    <textarea name="Bio" id="Bio" cols="50" rows="20"><?php echo $user_champ->getBio(); ?></textarea>
-                                                </td>
-                                            </tr>
-                                            
-                                            <tr class="row">
-                                                <td class="col-md-3" align="right">
-                                                    <input type="checkbox" name="newsletter" value="1"
-                                                        <?php if ($profil->getNewsletter()==1): ?>checked<?php endif ?>>
-                                                </td>
-                                                <td class="col-md-7">j'accepte de recevoir la newsletter hebdomadaire de
-                                                    allmarathon</td>
-                                            </tr>
+                                            <table style="font-size: 0.9em;">
+                                                <tr class="row">
+                                                    <td class="col-md-3" align="left">
+                                                        <label for="nom_form_part2">Nom * : </label>
+                                                    </td>
+                                                    <td class="col-md-7" align="left">
+                                                        <input type="text" align="left" class="update_athlète_input" required
+                                                            name="nom_form_part2" id="nom_form_part2" value="<?php echo $profil->getNom(); ?>" />
+                                                    </td>
+                                                    <td class="col-md-2"></td>
+                                                </tr>
+                                                <tr class="row">
+                                                    <td class="col-md-3" align="left">
+                                                        <label for="Sexe_form_part2">Sexe : </label>
+                                                    </td>
+                                                    <td class="col-md-7" align="left">
+                                                        <input type="radio" name="Sexe_form_part2" value="M" <?php if($user_champ && $user_champ->getSexe()=="M") echo 'checked="checked"';?> />
+                                                        <span>homme</span>
+                                                        <input type="radio" name="Sexe_form_part2" value="F" <?php if($user_champ &&  $user_champ->getSexe()=="F") echo 'checked="checked"';?> />
+                                                        <span >femme</span>
+                                                    </td>
+                                                </tr>
 
-                                            <tr class="row">
-                                                <td class="col-md-3" align="right">
-                                                    <input type="checkbox" name="offres" value="1"
-                                                        <?php if ($profil->getOffres()==1): ?>checked<?php endif ?>>
-                                                </td>
-                                                <td class="col-md-7">j'accepte de recevoir des offres commerciales des
-                                                    partenaires de allmarathon</td>
-                                            </tr>
+                                                <tr class="row">
+                                                    <td class="col-md-3" align="left">
+                                                        <label for="prenom_form_part2">Prénom * : </label>
+                                                    </td>
+                                                    <td class="col-md-7" align="left">
+                                                        <input type="text" class="update_athlète_input"
+                                                            class="update_athlète_input" required name="prenom_form_part2" id="prenom_form_part2"
+                                                            value="<?php echo $profil->getPrenom(); ?>" />
+                                                    </td>
+                                                </tr>
+                                                <tr class="row">
+                                                    <td class="col-md-3" align="left">
+                                                        <label for="email_form_part2">E-mail * : </label>
+                                                    </td>
+                                                    <td class="col-md-7" align="left">
+                                                        <input type="text" class="update_athlète_input" name="email_form_part2"
+                                                            id="email_form_part2" required
+                                                            value="<?php echo $profil->getEmail(); ?>" />
+                                                    </td>
+                                                </tr>
+                                                <input type="hidden" name="c_id_form_part2" id="c_id_form_part2" value="<?php if($user_champ){echo $user_champ->getID();} ?>" />
 
-                                            <tr class="row">
-                                                <td class="col-md-3" align="left"></td>
-                                                <td class="pull-right">
-                                                    <!-- <input type="submit" class="btn_custom" name="sub" value ="Modifier"/> -->
-                                                    <button type="submit" name="sub"
-                                                        class="btn_custom">Modifier</button>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </form>
+                                                <tr class="row">
+                                                    <td class="col-md-3" align="left">
+                                                        <label for="date_de_naissance_form_part2">Date de naissance : </label>
+                                                    </td>
+                                                    <td class="col-md-7" align="left">
+                                                        <input type="text" class="update_athlète_input"
+                                                            id="date_de_naissance_form_part2" name="date_de_naissance_form_part2"
+                                                            value="<?php echo $profil->getDate_naissance(); ?>" />
+                                                    </td>
+                                                </tr>
+                                                <tr class="row">
+                                                    <td class="col-md-3" align="left">
+                                                        <label for="pays_form_part2">Pays : </label>
+                                                    </td>
+                                                    <td class="col-md-7" align="left">
+                                                        <select name="pays_form_part2" class="update_athlète_input" id="pays_form_part2">
+                                                            <?php
+                                                                foreach ($liste_pays as $p) {
+                                                                    $selected="";
+                                                                    if($user_champ){
+                                                                        $selected=($p->getAbreviation()==$user_champ->getPaysID()) ? "selected":"";
+                                                                    }
+                                                                    
+                                                                    echo '<option value="' .$p->getAbreviation(). '"'.$selected.'>' .$p->getNomPays(). '</option>';
+                                                                }
+                                                                ?>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                <tr class="row">
+                                                    <td class="col-md-3" align="left">
+                                                        <label for="LieuNaissance_form_part2">Lieu de Naissance : </label>
+                                                    </td>
+                                                    <td class="col-md-7" align="left">
+                                                        <input type="text" class="update_athlète_input"  name="LieuNaissance_form_part2" id="LieuNaissance_form_part2" value="<?php if($user_champ){echo $user_champ->getLieuNaissance();} ?>" />
+                                                    </td>
+                                                </tr>
+                                                <tr class="row">
+                                                    <td class="col-md-3" align="left">
+                                                        <label for="Equipementier_form_part2">Equipementier : </label>
+                                                    </td>
+                                                    <td class="col-md-7" align="left">
+                                                        <input type="text" class="update_athlète_input"  name="Equipementier_form_part2" id="Equipementier_form_part2" value="<?php if($user_champ){echo $user_champ->getEquipementier();} ?>" />
+                                                    </td>
+                                                </tr>
+                                                <tr class="row">
+                                                    <td class="col-md-3" align="left">
+                                                        <label for="lien_equip_form_part2">Lien site équipementier : </label>
+                                                    </td>
+                                                    <td class="col-md-7" align="left">
+                                                        <input type="text" class="update_athlète_input"  name="lien_equip_form_part2" id="lien_equip_form_part2" value="<?php if($user_champ){echo $user_champ->getLien_site_équipementier();} ?>" />
+                                                    </td>
+                                                </tr>
+                                                <tr class="row">
+                                                    <td class="col-md-3" align="left">
+                                                        <label for="Instagram_form_part2">Instagram : </label>
+                                                    </td>
+                                                    <td class="col-md-7" align="left">
+                                                        <input type="text" class="update_athlète_input"  name="Instagram_form_part2" id="Instagram_form_part2" value="<?php if($user_champ){ echo $user_champ->getInstagram();} ?>" />
+                                                    </td>
+                                                </tr>
+                                                <tr class="row">
+                                                    <td class="col-md-3" align="left">
+                                                        <label for="poids_form_part2">poids : </label>
+                                                    </td>
+                                                    <td class="col-md-7" align="left">
+                                                        <input type="text" class="update_athlète_input"  name="poids_form_part2" id="poids_form_part2" value="<?php if($user_champ){ echo $user_champ->getPoids();} ?>" />
+                                                    </td>
+                                                </tr>
+                                                <tr class="row">
+                                                    <td class="col-md-3" align="left">
+                                                        <label for="taille_form_part2">taille : </label>
+                                                    </td>
+                                                    <td class="col-md-7" align="left">
+                                                        <input type="text" class="update_athlète_input"  name="taille_form_part2" id="taille_form_part2" value="<?php if($user_champ){ echo $user_champ->getTaille();} ?>" />
+                                                    </td>
+                                                </tr>
 
-                                </ul>
+                                                <tr class="row">
+                                                    <td class="col-md-3" align="left">
+                                                        <label for="Facebook_form_part2">Facebook : </label>
+                                                    </td>
+                                                    <td class="col-md-7" align="left">
+                                                        <input type="text" class="update_athlète_input"  name="Facebook_form_part2" id="Facebook_form_part2" value="<?php if($user_champ){ echo $user_champ->getFacebook();} ?>" />
+                                                    </td>
+                                                </tr>
+                                                <tr class="row">
+                                                    <td class="col-md-3" align="left">
+                                                        <label for="Bio_form_part2">Bio : </label>
+                                                    </td>
+                                                    <td class="col-md-7" align="left">
+                                                        <textarea name="Bio_form_part2" id="Bio_form_part2" cols="50" rows="20"><?php if($user_champ){ echo $user_champ->getBio(); }?></textarea>
+                                                    </td>
+                                                </tr>
+                                                
+                                                <tr class="row">
+                                                    <td class="col-md-3" align="right">
+                                                        <input type="checkbox" name="newsletter_form_part2" value="1"
+                                                            <?php if ($profil->getNewsletter()==1): ?>checked<?php endif ?>>
+                                                    </td>
+                                                    <td class="col-md-7">j'accepte de recevoir la newsletter hebdomadaire de
+                                                        allmarathon</td>
+                                                </tr>
+
+                                                <tr class="row">
+                                                    <td class="col-md-3" align="right">
+                                                        <input type="checkbox" name="offres_form_part2" value="1"
+                                                            <?php if ($profil->getOffres()==1): ?>checked<?php endif ?>>
+                                                    </td>
+                                                    <td class="col-md-7">j'accepte de recevoir des offres commerciales des
+                                                        partenaires de allmarathon</td>
+                                                </tr>
+
+                                                <tr class="row">
+                                                    <td class="col-md-3" align="left"></td>
+                                                    <td class="pull-right">
+                                                        <!-- <input type="submit" class="btn_custom" name="sub" value ="Modifier"/> -->
+                                                        <button type="submit" name="sub"
+                                                            class="btn_custom">Modifier</button>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </form>
+
+                                    </ul>
+                                
                             </div>
-                            <? }?>
-                            <? if(sizeof($athlete_adminitres)!=0) {?>
+                           
+                            <? if(sizeof($athlete_adminitres)!=0 && 0) {?>
                             <div class="tab-pane fade pt-10" id="tab8">
                                 <ul class="nav nav-tabs" role="tablist">
                                     <li class="active"><a href="#tab8-1" role="tab" data-toggle="tab">Infos</a></li>
@@ -844,16 +907,84 @@ echo $pub728x90["code"] ? $pub728x90["code"] :  "<img src=".'../images/pubs/'.$p
                                 ?>
                                 
                             </div>
-                            <?php if($added_res){?>
+                            <?php if($user_champ){?>
                                 <div class="tab-pane fade" id="tab7">
-                                    <ul>
-                                    <?php foreach ($added_res as $key) { 
-                                        $status=(!$key["Status"])?"En attente de validation":"Validé";
-                                        $rang_termi=($key["Rang"]>1)?" ème" :" er";
-                                        echo "<li>".$key["Rang"].$rang_termi." en ".$key["Temps"]." au marathon ".$key["prefixe"]." ".str_replace('\\','',$key["Nom"])." ".strftime("%Y",strtotime($key["DateDebut"]))." (".$key["Sexe"].")."." ".$status." </li>";
-                                    }
-                                    ?>
-                                    </ul>
+                                    <br>
+                                    <?php if($added_res){?>
+                                        <ul>
+                                        <?php foreach ($added_res as $key) { 
+                                            $status=(!$key["Status"])?"En attente de validation":"Validé";
+                                            $rang_termi=($key["Rang"]>1)?" ème" :" er";
+                                            echo "<li>".$key["Rang"].$rang_termi." en ".$key["Temps"]." au marathon ".$key["prefixe"]." ".str_replace('\\','',$key["Nom"])." ".strftime("%Y",strtotime($key["DateDebut"]))." (".$key["Sexe"].")."." ".$status." </li>";
+                                        }
+                                        ?>
+                                        </ul>
+                                    <?php }?>
+                                    <div class="">
+                        <?php echo '<h1>Ajouter un résultat</h1>';?>
+                        <form action="/content/modules/ajouter-resultat.php" enctype="multipart/form-data" method="post" class="form-horizontal"
+                            id="target">
+                            <label for="search_event">Rechercher un évenement :</label>
+                            <input name="e" id="search_event" type="text">
+                            <input type="hidden" name="c" id="c_id" value="<?php echo $user_champ->getID(); ?>" />
+                           
+                            <input type="hidden" name="u" id="u_id" value="<?php echo  $profil->getUsername(); ?>" />
+                            <?php if(!$user_champ->getSexe()){?>
+                                <div class="form-group">
+                                    <label for="naissance" class="col-sm-5">Sexe * </label>
+                                    <div class="col-sm-7">
+                                        <input type="radio" name="s"  required  value="M" class="mr-5"/><span class="mr-10">homme</span><input class="mr-5" type="radio" name="s" value="F"  /><span class="mr-10">femme</span>
+                                    </div>
+                                </div>
+                            <?php }else{?>
+                                <input type="hidden" name="s"  value="<?php echo $user_champ->getSexe();?>" />
+                            <?php }?>
+                            <?php if(!$user_champ->getPaysID()){?>
+                                <div class="form-group">
+                                    <label for="pays" class="col-sm-5">Nationalité *</label>
+                                    <div class="col-sm-7">
+                                        <select name="p" id="pays" class="form-control"  required>
+                                            <?php
+                                            foreach ($liste_pays as $p) {
+                                                $selected = ($p->getAbreviation()=='FRA') ? "selected" : "";
+                                                echo '<option value="'.$p->getAbreviation().'"'.$selected.'>'.$p->getNomPays().'</option>';
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
+                            <?php }else{?>
+                                <input type="hidden" name="p"  value="<?php echo $user_champ->getPaysID();?>" />
+                            <?php } ?>
+                           
+                            <div class="form-group">
+                                <label for="marathon" class="col-sm-5">Rang *</label>
+                                <div class="col-sm-7">
+                                    <input id="rang" type="number" name="r" value=""  required/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="marathon" class="col-sm-5">Temps *</label>
+                                <div class="col-sm-7">
+                                    <input id="temps" type="time" name="t" step="1"  required/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="marathon" class="col-sm-5">Justificatif</label>
+                                <div class="col-sm-7">
+                                    <input type="file" id="justificatif" name="j" accept="image/png, image/jpeg, application/pdf," required/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                            <div class="col-sm-5">
+                                </div>
+                                <div class="col-sm-7">
+                                <input id="ajouter-resultat"  type="submit" class="call-to-action" value="envoyer">
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
                                 </div>
                             <?php }?>
                         </div>
@@ -862,29 +993,23 @@ echo $pub728x90["code"] ? $pub728x90["code"] :  "<img src=".'../images/pubs/'.$p
 
             </div> <!-- End left-side -->
 
-            <aside class="col-sm-4">
-                <div class="marg_bot"></div>
-                <p class="ban"><a href=""><?php
-if($pub300x250 !="") {
-echo $pub300x250["code"] ? $pub300x250["code"] :  "<img src=".'../images/pubs/'.$pub300x250['image'] . " alt='' style=\"width: 100%;\" />";
-}
-?></a></p>
-
-                
-                <?php
-if($pub160x600 !="") {
-echo $pub160x600["code"] ? $pub160x600["code"] :  "<img src=".'../images/pubs/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" />";
-}
-?></a></p> 
-                <div class="marg_bot"></div>
-               
-                </dd>
-                <div class="marg_bot"></div>
-
-
-            </aside>
+            
         </div>
-
+        <div class="row banniere1 ban ban_768x90 last-ad ">
+                    <div class="placeholder-content">
+                           <div class="placeholder-title"> Allmarathon </div> 
+                           <div class="placeholder-subtitle">publicité</div>
+                    </div>
+                    <div  class="col-sm-12 ads-contain">
+                <?php
+                    if($pub768x90 !="") {
+                    echo '<a target="_blank" href="'.$pub768x90["url"].'" class="col-sm-12">';
+                        echo $pub768x90["code"] ? $pub768x90["code"] :  "<img src=".'../images/pubs/'.$pub768x90['image'] . " alt='' style=\"width: 100%;\" />";
+                        echo '</a>';
+                    }
+                ?>
+            </div>
+        </div>
     </div> <!-- End container page-content -->
 
     <?php include_once('footer.inc.php'); ?>
@@ -904,79 +1029,211 @@ echo $pub160x600["code"] ? $pub160x600["code"] :  "<img src=".'../images/pubs/'.
     <script src="https://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
     <script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js">
     </script>
-    <script type="text/javascript">
-    $.datepicker.setDefaults($.datepicker.regional['fr']);
-    $("#date_de_naissance").datepicker();
-    $('#date_de_naissance').datepicker('option', {
-        closeText: 'Fermer',
-        prevText: 'Précédent',
-        nextText: 'Suivant',
-        currentText: 'Aujourd\'hui',
-        monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre',
-            'Octobre', 'Novembre', 'Décembre'
-        ],
-        monthNamesShort: ['Janv.', 'Févr.', 'Mars', 'Avril', 'Mai', 'Juin', 'Juil.', 'Août', 'Sept.', 'Oct.',
-            'Nov.', 'Déc.'
-        ],
-        dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
-        dayNamesShort: ['Dim.', 'Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.'],
-        dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
-        weekHeader: 'Sem.',
-        dateFormat: 'yy-mm-dd'
-    });
 
-    $("#date_de_naissance").datepicker("setDate", "<?php echo $athlete_adminitre->getDateNaissance() ?>");
 
-    $("#DateChangementNat").datepicker();
-    $('#DateChangementNat').datepicker('option', {
-        closeText: 'Fermer',
-        prevText: 'Précédent',
-        nextText: 'Suivant',
-        currentText: 'Aujourd\'hui',
-        monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre',
-            'Octobre', 'Novembre', 'Décembre'
-        ],
-        monthNamesShort: ['Janv.', 'Févr.', 'Mars', 'Avril', 'Mai', 'Juin', 'Juil.', 'Août', 'Sept.', 'Oct.',
-            'Nov.', 'Déc.'
-        ],
-        dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
-        dayNamesShort: ['Dim.', 'Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.'],
-        dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
-        weekHeader: 'Sem.',
-        dateFormat: 'yy-mm-dd'
-    });
-
-    $("#DateChangementNat").datepicker("setDate", "<?php echo $athlete_adminitre->getDateChangementNat() ?>");
-    </script>
 
     <script type="text/javascript">
-    $('#form_password').validate();
+        function slugify(text) {
+            // Remplacer les caractères spécifiques
+            text = text.replace(/é/g, 'e');
+            text = text.replace(/û/g, 'u');
+
+            // Remplacer tous les caractères non alphabétiques ou numériques par des tirets
+            text = text.replace(/[^\p{L}\d]+/gu, '-');
+
+            // Supprimer les tirets en début et fin de chaîne
+            text = text.trim('-');
+
+            // Convertir en minuscules
+            text = text.toLowerCase();
+
+            return text;
+        }
+        $('#form_password').validate();
+        $(document).ready(function() {
+            $('#creer_fiche_form_part1').hide();
+            var user_champ = <?php echo ($user_champ ? 'true' : 'false'); ?>;
+    
+            // Check if user_champ is false
+            if (!user_champ) {
+                console.log("Utilisateur sans fiche", user_champ);
+                $('#creer_fiche_form_part2').hide();
+            } else {
+                console.log("Utilisateur avec fiche", user_champ);
+            }
+            $('#creer_fiche').on('click',function(e){
+                $('#creer_fiche_form_part1').show();
+                    
+            });
+            $('#creer_fiche_form_part1').on('submit', function(event){
+                event.preventDefault(); // Empêche l'envoi du formulaire classique
+
+                // Récupérer les valeurs du formulaire
+                var nom = $('#nom_form_part1').val();
+                var prenom = $('#prenom_form_part1').val();
+
+                // Envoi des données en AJAX
+                $.ajax({
+                    url: '/content/modules/update_profile_ajax.php',
+                    type: 'POST',
+                    data: {
+                        function: "check_if_exist",
+                        nom: nom,
+                        prenom: prenom
+                    },
+                    success: function(response){
+                        // Gestion de la réponse du serveur
+                        console.log('Résultat: ' + response);
+                        // Transformer la réponse JSON en objet
+                        var athletes = JSON.parse(response);
+
+                        // Initialiser le formulaire de suggestion
+                        var formHtml = (athletes.length>0)?"<h3>Êtes-vous un des athlètes suivants ? </h3><br>":"<h3>Aucun athlète ne correspond </h3><br>";
+                        formHtml += "<form id='athleteSelectionForm'>";
+                        // Construire les options du formulaire avec les résultats
+                        athletes.forEach(function(athlete) {
+                            formHtml += "<label>";
+                            formHtml += "<input type='radio' name='selectedAthlete' value='" + athlete.ID + "'>";
+                            formHtml += athlete.Nom+" (<a href='athlete-"+athlete.ID+"-"+slugify(athlete.Nom)+".html' target='_blank'><b>voir la fiche</b></a>)";
+                            formHtml += "</label><br>";
+                        });
+                        
+                        // Ajouter l'option pour ne pas être parmi eux
+                        formHtml += "<label>";
+                        formHtml += "<input type='radio' name='selectedAthlete' value='none'>";
+                        formHtml += "Je ne suis pas référencé sur allmarathon";
+                        formHtml += "</label><br>";
+
+                        // Ajouter un bouton de soumission
+                        formHtml += "<button type='submit'>Éditer la fiche</button>";
+                        formHtml += "</form>";
+
+                        // Insérer le formulaire dans une div (par exemple)
+                        $('#result-suggestion').html(formHtml);
+
+                        // Ajouter un gestionnaire d'événements pour le formulaire de sélection
+                        $('#athleteSelectionForm').on('submit', function(event){
+                            event.preventDefault();
+
+                            // Récupérer les athlètes sélectionnés
+                            var selectedAthlete = $("input[name='selectedAthlete']:checked").val();
+
+                            // Traiter la sélection (redirection, affichage de message, etc.)
+                            if (selectedAthlete === "none") {
+                                console.log("Vous avez indiqué que vous n'êtes pas parmi les athlètes proposés.");
+                            } else {
+                                console.log("Vous avez sélectionné l'athlète avec l'ID: " + selectedAthlete);
+                            }
+
+                            // Ici, vous pouvez également effectuer d'autres actions comme rediriger l'utilisateur
+                            // ou envoyer les données au serveur pour un traitement supplémentaire.
+                            
+                            $.ajax({
+                                url: '/content/modules/update_profile_ajax.php',
+                                type: 'POST',
+                                data: {
+                                    function: "get_athlete_datas",
+                                    selected_id: selectedAthlete,
+                                    user_id:<?php echo $user_id;?>
+                                },
+                                success: function(response){
+                                    // Gestion de la réponse du serveur
+                                    console.log('Résultat: ' + response);
+                                    //$('#creer_fiche_form_part').hide();
+                                    //$('#result-suggestion').hide();
+                                    $('#creer_fiche_form_part2').show();
+                                    if (selectedAthlete === "none") {
+                                        var athlete = JSON.parse(response);
+                                        $('#nom_form_part2').val(athlete.Nom)
+                                        $('#prenom_form_part2').val(athlete.Nom)
+                                        $('#date_de_naissance_form_part2').val(athlete.DateNaissance)
+                                        $('#LieuNaissance_form_part2').val(athlete.LieuNaissance)
+                                        $('#Equipementier_form_part2').val(athlete.DateNaissance)
+                                        $('#pays_form_part2').val(athlete.PaysID);
+                                        $('#lien_equip_form_part2').val(athlete["Lien_site_\u00e9quipementier"])
+                                        $('#Instagram_form_part2').val(athlete.Instagram)
+                                        $('#poids_form_part2').val(athlete.Poids)
+                                        $('#taille_form_part2').val(athlete.Taille)
+                                        $('#Facebook_form_part2').val(athlete.Facebook)
+                                        $('#Bio_form_part2').val(athlete.Bio)
+                                    } else {
+                                        var athlete = JSON.parse(response);
+                                        $('#nom_form_part2').val(athlete.Nom)
+                                        $('#prenom_form_part2').val(athlete.Nom)
+                                        $('#date_de_naissance_form_part2').val(athlete.DateNaissance)
+                                        $('#LieuNaissance_form_part2').val(athlete.LieuNaissance)
+                                        $('#Equipementier_form_part2').val(athlete.DateNaissance)
+                                        $('#pays_form_part2').val(athlete.PaysID);
+                                        $('#lien_equip_form_part2').val(athlete["Lien_site_\u00e9quipementier"])
+                                        $('#Instagram_form_part2').val(athlete.Instagram)
+                                        $('#poids_form_part2').val(athlete.Poids)
+                                        $('#taille_form_part2').val(athlete.Taille)
+                                        $('#Facebook_form_part2').val(athlete.Facebook)
+                                        $('#Bio_form_part2').val(athlete.Bio)
+                                    }
+
+                                },
+                                error: function(xhr, status, error){
+                                    // Gestion des erreurs
+                                    console.log('Statut de la requête:', status);
+                                    console.log('Erreur:', error);
+                                    console.log('Code de statut HTTP:', xhr.status);
+                                    console.log('Texte du statut:', xhr.statusText);
+                                    console.log('Réponse du serveur:', xhr.responseText);
+                                }
+                            });
+                        });
+
+                    },
+                    error: function(xhr, status, error){
+                        // Gestion des erreurs
+                        console.log('Erreur: ' + error);
+                    }
+                });
+            });
+
+            
+            $("#search_event").autocomplete({
+    source: function(request, response) {
+        if(request.term.length >= 5) { // Se déclenche après 5 caractères
+            $.ajax({
+                url: "/content/modules/update_profile_ajax.php", // URL de votre script PHP
+                type: "GET",
+                dataType: "json",
+                data: {
+                    search_event: request.term
+                },
+                success: function(data) {
+
+                    console.log(data)
+                    response($.map(data, function(item) {
+                        return {
+                            label: "marathon "+item.prefixe+" "+item.Nom+" "+item.annee, // Assurez-vous que la clé 'Nom' correspond bien à la réponse du PHP
+                            value: item.ID, // Rempli dans le champ de saisie
+                            id: item.ID // Optionnel, pour stocker des valeurs supplémentaires
+                        };
+                    }));
+                },
+                error: function(xhr, status, error) {
+                    console.log('Statut de la requête:', status);
+                                    console.log('Erreur:', error);
+                                    console.log('Code de statut HTTP:', xhr.status);
+                                    console.log('Texte du statut:', xhr.statusText);
+                                    console.log('Réponse du serveur:', xhr.responseText);
+                }
+            });
+        }
+    },
+    minLength: 5 // Nombre minimum de caractères avant de déclencher l'auto-complétion
+});
+
+
+                console.log("script creer fiche chargé")
+
+        })
+       
     </script>
 
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-    <script>
-    /*
-     (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-     function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-     e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-     e.src='https://www.google-analytics.com/analytics.js';
-     r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-     ga('create','UA-XXXXX-X','auto');ga('send','pageview');
-     */
-    </script>
-    <!--FaceBook-->
-    <script>
-    (function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s);
-        js.id = id;
-        js.src = "//connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v2.5";
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-    </script>
-    <!--Google+-->
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
 </body>
 
 </html>
