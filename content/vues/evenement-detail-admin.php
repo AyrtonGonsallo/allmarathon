@@ -66,8 +66,8 @@ function slugify($text)
 
 
 $champion=new champion();
-$tab_user_champ=$champion->getUserChampion($user_auth->getNom(),$user_auth->getPrenom(),$user_auth->getDate_naissance(),$user_auth->getPays());
-$user_champ=($tab_user_champ)?$tab_user_champ['donnees']:NULL;
+$tab_user_champ=$champion->getUserChampions($user_auth->getNom(),$user_auth->getPrenom(),$user_auth->getDate_naissance(),$user_auth->getPays());
+$user_champs=($tab_user_champ)?$tab_user_champ['donnees']:NULL;
 
 
 $active_tab1="active";
@@ -218,7 +218,7 @@ echo $pub728x90["code"] ? $pub728x90["code"] :  "<img src=".'../images/pubs/'.$p
                                     </div>
                                     <br />
                                     <input style="display:none;" id="USER" name="USER" type="text" value="<?php echo $user_auth->getUsername();?>" />
-                                    <input style="display:none;" id="champion" name="championID" type="text" value="<?php echo $user_champ->getID();?>" />      
+                                    <input style="display:none;" id="champion" name="championID" type="text" value="<?php echo $user_champs->getID();?>" />      
                                     <input style="display:none;" id="evID" name="evID" type="text" value="<?php echo $id; ?>" />
 
                                    

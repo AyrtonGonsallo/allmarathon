@@ -455,7 +455,7 @@ try{
 
     <script data-type='lazy' ddata-src="../../js/herbyCookie.min.js"></script>
 
-    <script data-type='lazy' ddata-src="../../js/main.js"></script>
+    <script src="../../js/main.js"></script>
 
 
 

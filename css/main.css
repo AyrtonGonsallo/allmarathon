@@ -2650,7 +2650,7 @@ td.sorting_1 {
     
 .header--nav--link {font-size: 23px;}
 .hamburger-menu-button-open { margin-top: 25px;}
-.header li { line-height: 0;  height: 44px;}
+.header li:not(.header--edition-dropdown ) { line-height: 0;  height: 44px;}
 input.form-control.search_header{ margin-top: 6px !important;}
 nav.header--nav>ul { display: block !important;}
 .header nav.header--nav ul li:first-child{order:1!important;}
@@ -3178,6 +3178,12 @@ body .test-image .athletes-grid-element{
 @media (max-width:800px) {
 body .test-image .athletes-grid-element { flex-direction: column;}
 .test-image .img-test { width: 100% !important;margin-bottom:10px;object-position: top center;}
+.box-next-edition { background-color: #fff;}
+.athlete-detail .col-sm-8.left-side.resultat-detail.no-padding-left { width: 100% !important;  margin: auto !important;}
+.athlete-detail .col-sm-8.left-side.resultat-detail.no-padding-left iframe { width: 100%;}
+
+
+
 }
 @media (max-width:497px) {
 .test-image .img-test { height: 127px;}
@@ -3211,18 +3217,33 @@ font-size: 26px;
 #result-suggestion input[type=radio]{
     margin-right: 10px;
 }
+#ui-id-1 {
+    border: 1px solid #000000 !important;
+    max-height: 400px !important;
+    overflow-y: scroll !important;
+}
+#ui-id-1 .ui-menu-item {
+    border-bottom: solid black 1px !important;
+}
+
+.form-add-res .col-sm-7 input{
+    width: 80%;
+}
+.box-next-edition.mobile img{font-size: 18px !important; width: 20px !important;}
 
 
-
-
-
-
-
-
-
-
-
-
+.form-row{
+    display: flex;
+    align-items: center;
+}
+.warning-box{
+    background-color: red;
+    text-align: center;
+    padding: 5px;
+    font-size: 17px;
+    color: white;
+    margin: 10px 15px;
+}
 
 
 

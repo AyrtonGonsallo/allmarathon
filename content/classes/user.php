@@ -324,12 +324,12 @@ class user{
 		}
 	}
 
-	public function getAddedResults($username)
+	public function getAddedResults($uid)
 	{
 		try {
 			require('../database/connexion.php');
-			$req = $bdd->prepare('SELECT p.*,e.Nom,e.DateDebut,m.prefixe FROM `champion_admin_externe_palmares` p,evenements e,marathons m WHERE `utilisateur` = :username and e.ID=p.EvenementID and m.id=e.marathon_id');
-			$req->bindValue('username', $username, PDO::PARAM_STR);
+			$req = $bdd->prepare('SELECT p.*,e.Nom,e.DateDebut,m.prefixe FROM `champion_admin_externe_palmares` p,evenements e,marathons m WHERE `userID` = :uid and e.ID=p.EvenementID and m.id=e.marathon_id');
+			$req->bindValue('uid', $uid, PDO::PARAM_INT);
 			$req->execute();
 			$res= array();
 		    while ( $row  = $req->fetch(PDO::FETCH_ASSOC)) { 
@@ -417,6 +417,64 @@ class user{
 
 			        }
 	}
+
+	public function updateSimpleUserById(
+		$nom,
+		$prenom,
+		$username,
+		$email,
+		$date_naissance,
+		$pays,
+		$newsletter,
+		$offres,
+		$membre_id,
+		$code_postale,
+		$ville
+	) {
+		try {
+			require('../database/connexion.php');
+	
+			// Préparation de la requête SQL
+			$req = $bdd->prepare("
+				UPDATE users 
+				SET nom = :nom, 
+					prenom = :prenom, 
+					username = :username, 
+					email = :email, 
+					date_naissance = :date_naissance, 
+					pays = :pays, 
+					newsletter = :newsletter, 
+					offres = :offres, 
+					code_postale = :code_postale, 
+					ville = :ville 
+				WHERE id = :membre_id
+			");
+	
+			// Liaison des paramètres
+			$req->bindValue(':nom', $nom, PDO::PARAM_STR);
+			$req->bindValue(':prenom', $prenom, PDO::PARAM_STR);
+			$req->bindValue(':username', $username, PDO::PARAM_STR);
+			$req->bindValue(':email', $email, PDO::PARAM_STR);
+			$req->bindValue(':date_naissance', $date_naissance, PDO::PARAM_STR);
+			$req->bindValue(':pays', $pays, PDO::PARAM_STR);
+			$req->bindValue(':newsletter', (int)$newsletter, PDO::PARAM_INT);
+			$req->bindValue(':offres', (int)$offres, PDO::PARAM_INT);
+			$req->bindValue(':code_postale', $code_postale, PDO::PARAM_STR);
+			$req->bindValue(':ville', $ville, PDO::PARAM_STR);
+			$req->bindValue(':membre_id', $membre_id, PDO::PARAM_INT);
+	
+			// Exécution de la requête
+			$req->execute();
+	
+			return array('validation' => true, 'message' => 'Membre mis à jour avec succès.');
+		} catch (Exception $e) {
+			return array('validation' => false, 'message' => 'Erreur : ' . $e->getMessage());
+		} finally {
+			// Toujours fermer la connexion, même en cas d'erreur
+			$bdd = null;
+		}
+	}
+	
 
 
 
@@ -630,7 +688,7 @@ class user{
 			             $req->execute();
 			             $id=$bdd->lastInsertId();
 			             
-
+/*
 						 //CREEER LE CHAMPION
 						 $req4 = $bdd->prepare("INSERT INTO champions (Nom,user_id) VALUES (:Nom,:uid)");
 	   
@@ -638,7 +696,7 @@ class user{
 						$req4->bindValue('uid',$id, PDO::PARAM_INT);
 						
 						$statut=$req4->execute();
-
+*/
 
 			            return array('validation'=>true,'id'=>$id,'message'=>'');
 						$bdd=null;

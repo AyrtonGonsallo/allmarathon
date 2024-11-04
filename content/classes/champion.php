@@ -16,7 +16,7 @@ class champion{
 	private $MainDirectrice;
 	private $Activite;
 	private $Forces;
-	
+	private $Visible;
 	private $DateChangementNat;
 	private $NvPaysID;
 	
@@ -327,7 +327,13 @@ class champion{
 	public function setSite($Site){
 		$this->Site = $Site;
 	}
+	public function getVisible(){
+		return $this->Visible;
+	}
 
+	public function setVisible($Visible){
+		$this->Visible = $Visible;
+	}
 	public static function constructWithArray( array $donnees ) {
 	        $instance = new champion();
 	        $instance->hydrate($donnees);
@@ -806,6 +812,32 @@ class champion{
 			 	die('Erreur : ' . $e->getMessage());
 	         }
 	}
+
+	public function getUserChampions($uid)
+	{
+		try {
+				  include("../database/connexion.php");
+				 $req = $bdd->prepare('SELECT * FROM champions WHERE user_id=:uid');
+				 $champions = array();
+				 $req->bindValue('uid',$uid, PDO::PARAM_INT);
+	             $req->execute();
+				 if($req->rowCount() > 0){
+					while ( $row  = $req->fetch(PDO::FETCH_ASSOC)) {   
+						$champ=self::constructWithArray($row);
+						array_push($champions, $champ);
+					}
+					return array('validation'=>true,'donnees'=>$champions,'message'=>'');
+				}
+				 else{
+					return array('validation'=>true,'donnees'=>null,'message'=>'');
+				 }
+	             $bdd=null;
+	         }
+	     catch(Exception $e)
+			 {
+			 	die('Erreur : ' . $e->getMessage());
+	         }
+	}
 	public function getChampionResults($champ_id)
 	{
 		try {
@@ -930,6 +962,116 @@ class champion{
 			            die('Erreur : ' . $e->getMessage());
 			        }
 	}
+
+	public function addchampion($uid,$nom, $sexe, $pays, $dateNaissance, $lieuNaissance, $taille, $poids, $site, $nvpays, $dateChangementNat, $lien_equip, $facebook, $equipementier, $instagram, $bio)
+{
+    try {
+        require('../database/connexion.php');
+
+        // Prepare the SQL insert statement
+        $req = $bdd->prepare("INSERT INTO champions (Nom, Sexe,user_id, PaysID, DateNaissance, LieuNaissance, Taille, Poids, Site, NvPaysID, DateChangementNat, Lien_site_équipementier	, Facebook, Equipementier, Instagram, Bio,Visible) 
+                               VALUES (:nom, :sexe,:user_id, :pays, :dateNaissance, :lieuNaissance, :taille, :poids, :site,  :nvpays, :dateChangementNat, :lien_equip, :facebook, :equipementier, :instagram, :bio,0)");
+
+        // Bind the parameters
+        $req->bindValue('nom', $nom, PDO::PARAM_STR);
+        $req->bindValue('sexe', $sexe, PDO::PARAM_STR);
+        $req->bindValue('pays', $pays, PDO::PARAM_STR);
+		$req->bindValue('user_id', $uid, PDO::PARAM_INT);
+        $req->bindValue('dateNaissance', $dateNaissance, PDO::PARAM_STR);
+        $req->bindValue('lieuNaissance', $lieuNaissance, PDO::PARAM_STR);
+        $req->bindValue('taille', $taille, PDO::PARAM_INT);
+        $req->bindValue('poids', $poids, PDO::PARAM_INT);
+        $req->bindValue('site', $site, PDO::PARAM_STR);
+        $req->bindValue('nvpays', $nvpays, PDO::PARAM_STR);
+        $req->bindValue('dateChangementNat', $dateChangementNat, PDO::PARAM_STR);
+        $req->bindValue('lien_equip', $lien_equip, PDO::PARAM_STR);
+        $req->bindValue('facebook', $facebook, PDO::PARAM_STR);
+        $req->bindValue('equipementier', $equipementier, PDO::PARAM_STR);
+        $req->bindValue('instagram', $instagram, PDO::PARAM_STR);
+        $req->bindValue('bio', $bio, PDO::PARAM_STR);
+
+        // Execute the query
+        $req->execute();
+
+		$champID = $bdd->lastInsertId();
+
+		$req5 = $bdd->prepare("INSERT INTO champion_admin_externe_journal (type, user_id, champion_id) VALUES ('ajout', :user_id, :champion_id)");
+            $req5->bindValue('user_id',$uid, PDO::PARAM_STR);
+            $req5->bindValue('champion_id',$champID, PDO::PARAM_INT);
+            $req5->execute();
+        // Return success message
+        return array('validation' => true, 'message' => 'Champion added successfully.');
+
+        // Close the database connection
+        $bdd = null;
+    } catch (Exception $e) {
+        // Handle errors
+        return array('validation' => false, 'message' => 'Error: ' . $e->getMessage());
+    }
+}
+
+
+public function updatechampion($cid,$uid,$nom, $sexe, $pays, $dateNaissance, $lieuNaissance, $taille, $poids, $site, $nvpays, $dateChangementNat, $lien_equip, $facebook, $equipementier, $instagram, $bio)
+{
+    try {
+        require('../database/connexion.php');
+
+        $req = $bdd->prepare("UPDATE champions SET 
+            Nom = :nom,
+            Sexe = :sexe,
+            PaysID = :pays,
+            DateNaissance = :dateNaissance,
+            LieuNaissance = :lieuNaissance,
+            Taille = :taille,
+            Poids = :poids,
+            Site = :site,
+            NvPaysID = :nvpays,
+            DateChangementNat = :dateChangementNat,
+            Lien_site_équipementier = :lien_equip,
+            Facebook = :facebook,
+            Equipementier = :equipementier,
+            Instagram = :instagram,
+            Bio = :bio,
+            Visible = 0
+            WHERE ID = :champion_id");
+
+        // Bind the parameters
+        $req->bindValue(':nom', $nom, PDO::PARAM_STR);
+        $req->bindValue(':sexe', $sexe, PDO::PARAM_STR);
+        $req->bindValue(':pays', $pays, PDO::PARAM_STR);
+        $req->bindValue(':dateNaissance', $dateNaissance, PDO::PARAM_STR);
+        $req->bindValue(':lieuNaissance', $lieuNaissance, PDO::PARAM_STR);
+        $req->bindValue(':taille', $taille, PDO::PARAM_INT);
+        $req->bindValue(':poids', $poids, PDO::PARAM_INT);
+        $req->bindValue(':site', $site, PDO::PARAM_STR);
+        $req->bindValue(':nvpays', $nvpays, PDO::PARAM_STR);
+        $req->bindValue(':dateChangementNat', $dateChangementNat, PDO::PARAM_STR);
+        $req->bindValue(':lien_equip', $lien_equip, PDO::PARAM_STR);
+        $req->bindValue(':facebook', $facebook, PDO::PARAM_STR);
+        $req->bindValue(':equipementier', $equipementier, PDO::PARAM_STR);
+        $req->bindValue(':instagram', $instagram, PDO::PARAM_STR);
+        $req->bindValue(':bio', $bio, PDO::PARAM_STR);
+        $req->bindValue(':champion_id', $cid, PDO::PARAM_INT);
+
+        // Execute the query
+        $req->execute();
+
+        // Log the update in champion_admin_externe_journal
+        $req5 = $bdd->prepare("INSERT INTO champion_admin_externe_journal (type, user_id, champion_id) VALUES ('mise_a_jour', :user_id, :champion_id)");
+        $req5->bindValue(':user_id', $uid, PDO::PARAM_STR);
+        $req5->bindValue(':champion_id', $cid, PDO::PARAM_INT);
+        $req5->execute();
+
+        return array('validation' => true, 'message' => 'Champion updated successfully.');
+
+        // Close the database connection
+        $bdd = null;
+    } catch (Exception $e) {
+        // Handle errors
+        return array('validation' => false, 'message' => 'Error: ' . $e->getMessage());
+    }
+}
+
 
 	public function getNumberChampions()
 	{

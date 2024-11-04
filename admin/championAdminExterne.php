@@ -35,9 +35,10 @@ if( isset($_POST['extern_actif'])) {
          $req4->bindValue('actif',($_POST['extern_actif'])?0:1, PDO::PARAM_INT);
          $req4->bindValue('id',$_POST['extern_id'], PDO::PARAM_INT);
          $req4->execute();
-         $req412 = $bdd->prepare("UPDATE champions SET user_id=NULL WHERE user_id=:uid");
+         //retirer le precedent
+        /*  $req412 = $bdd->prepare("UPDATE champions SET user_id=NULL WHERE user_id=:uid");
          $req412->bindValue('uid',$_POST['user_id'], PDO::PARAM_INT);
-         $req412->execute();
+         $req412->execute(); */
          $req41 = $bdd->prepare("UPDATE champions SET user_id=:uid WHERE ID = :id");
          $req41->bindValue('uid',$_POST['user_id'], PDO::PARAM_INT);
          $req41->bindValue('id',$_POST['champion_id'], PDO::PARAM_INT);
@@ -48,12 +49,7 @@ if( isset($_POST['extern_actif'])) {
          $req412->execute();
          $champion = $req412->fetch(PDO::FETCH_ASSOC);
            // var_dump($champion);
-         $req43 = $bdd->prepare("UPDATE users SET nom=:nom,prenom=:prenom,date_naissance=:date_naissance WHERE id = :uid");
-         $req43->bindValue('prenom',$champion['Nom'], PDO::PARAM_STR);
-         $req43->bindValue('date_naissance',$champion['DateNaissance'], PDO::PARAM_STR);
-         $req43->bindValue('nom',$champion['Nom'], PDO::PARAM_STR);
-         $req43->bindValue('uid',$_POST['user_id'], PDO::PARAM_INT);
-         $req43->execute();
+        
 
          if(!$_POST['extern_actif']){
             $req5 = $bdd->prepare("INSERT INTO champion_admin_externe_journal (type, user_id, champion_id) VALUES ('new_admin', :user_id, :champion_id)");
@@ -61,12 +57,59 @@ if( isset($_POST['extern_actif'])) {
             $req5->bindValue('champion_id',$_POST['champion_id'], PDO::PARAM_INT);
             $req5->execute();
          }
-         $req_add2 = $bdd->prepare("select email from users where id = :u");
+         $req_add2 = $bdd->prepare("select email,nom,prenom from users where id = :u");
          $req_add2->bindValue('u',$_POST['user_id'], PDO::PARAM_INT);
          $req_add2->execute();
          $mail2= $req_add2->fetch(PDO::FETCH_ASSOC);
          $mail=$mail2["email"];
-         $message="Votre demande d'administration sur la fiche de :<br>".$_POST['c_name']." a été validée.";
+         $nom_complet=$mail2["nom"].' '.$mail2["prenom"];
+         $message="<html>
+    <head>
+    <style>
+            a{color:#000 !important;text-decoration:none !important;}
+            a:hover { color: #FBFF06 !important; }
+            .home-link:hover { background-color: #95d7fe !important; color: #000 !important; }
+            .icon-hov:hover img{filter: invert(98%) sepia(24%) saturate(6709%) hue-rotate(357deg) brightness(108%) contrast(107%)!important;}
+        </style>
+    </head>
+    <body style='font-family: Arial, sans-serif;'>
+        <div style='margin: 20px;'>
+        <h1 style='color: #95d7fe;font-family: 'Montserrat';font-weight: 900;'>Bonjour ".$nom_complet.",</h1>
+         
+         Votre demande d'administration sur la fiche de ".$_POST['c_name']." a été validée.
+         Vous pouvez désormais modifier les informations personnelles concernant ".$_POST['c_name']." et ajouter des résultats en vous rendant dans votre espace membre.<br><br>
+        Très Cordialement<br>
+        L'équipe de allmarathon.fr<br><br><br><br>
+        <!-- Footer -->
+            <div style='background-color: #95D7FE; padding: 20px; border-radius: 5px; font-size: 12px;'>
+                <div style='text-align: center;'>
+                    <a href='https://www.facebook.com/allmarathon.fr' class='icon-hov'>
+                        <img src='https://dev.allmarathon.fr/images/facebook.png' alt='Facebook' style='width: 13px; margin: 0 5px;'>
+                    </a>
+                    <a href='https://www.instagram.com/allmarathon.fr' class='icon-hov'>
+                        <img src='https://dev.allmarathon.fr/images/instagra.png' alt='Instagram' style='width: 23px; margin: 0 5px;'>
+                    </a>
+                    <a href='https://www.pinterest.fr/allmarathon/' class='icon-hov'>
+                        <img src='https://dev.allmarathon.fr/images/pinterest.png' alt='Pinterest' style='width: 20px; margin: 0 5px;'>
+                    </a>
+                    
+                </div>
+                <div style='text-align: center; margin-top: 10px;'>
+                    <a href='https://dev.allmarathon.fr/contact.html' style='color: #000; text-decoration: none;'>Contact</a> |
+                    <a href='https://dev.allmarathon.fr/politique-de-confidentialite.html' style='color: #000; text-decoration: none;'>Politique de confidentialité</a>
+                </div>
+                <div style='text-align: center; margin-top: 10px;'>
+                     
+                    <a href='https://allmarathon.fr'>www.allmarathon.fr</a>
+                </div>
+                <div style='border-top: 1px solid #fff !important;margin-top:10px;'></div>
+                <div style='text-align: center;  background-color:#fff;    padding: 14px 10px 9px 10px;border-radius:5px;width:fit-content;    margin: auto;margin-top: 19px;'>
+                    <a href='https://dev.allmarathon.fr/contact.html'><img src='https://dev.allmarathon.fr/images/logo-allmarathon.png' alt='logo' style='width: 140px;'></a>
+                </div>
+            </div>
+        </div>
+    </body>
+    </html>";
          $res=envoyerEmail($mail,'Demande d\'administration acceptée sur allmarathon',$message,'This is a plain-text message body');
 
      }
@@ -137,6 +180,22 @@ catch(Exception $e)
     die('Erreur : ' . $e->getMessage());
 }
 
+
+try{
+    $req = $bdd->prepare("SELECT c.Nom as c_name, u.nom as u_name, u.prenom as u_pname,u.username,u.email, j.* FROM champion_admin_externe_journal j INNER JOIN champions c ON c.ID = j.champion_id INNER JOIN users u ON u.id=j.user_id where j.type='ajout' ORDER BY j.date DESC");
+    $req->execute();
+    $result12= array();
+    while ( $row  = $req->fetch(PDO::FETCH_ASSOC)) {  
+      array_push($result12, $row);
+  }
+  
+  
+  
+  }
+  catch(Exception $e)
+  {
+      die('Erreur : ' . $e->getMessage());
+  }
 
 
 ?>
@@ -247,6 +306,55 @@ catch(Exception $e)
                                         <input type="hidden" name="extern_refus_id" value="<?php echo $l['id']?>"/>
                                         <input name="extern_refus" type="image" src="../images/refus.png" style="width: 20px" title="refuser la demande" />
                                     </form>
+                                </td>
+                            </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                </div>
+            </fieldset>
+
+
+            <fieldset style="float:left;">
+        <legend>Liste des champions à valider</legend>
+        <div align="center">
+
+            <div id="pager" class="pager">
+             <form>
+              <img src="../fonction/tablesorter/first.png" class="first"/>
+              <img src="../fonction/tablesorter/prev.png" class="prev"/>
+              <input type="text" class="pagedisplay"/>
+              <img src="../fonction/tablesorter/next.png" class="next"/>
+              <img src="../fonction/tablesorter/last.png" class="last"/>
+              <select class="pagesize">
+               <option selected="selected"  value="10">10</option>
+
+               <option value="20">20</option>
+               <option value="30">30</option>
+               <option  value="40">40</option>
+           </select>
+       </form>
+   </div>
+   <br />
+
+   <table class="tablesorter" id="tbl1">
+    <thead>
+        <tr><th>Champion</th><th>Utilisateur</th><th>Nom</th><th>Prenom</th><th>Mail</th><th>Action</th></tr>
+    </thead>
+    <tbody>
+                        <?php 
+                            foreach ($result12 as $l) {?>
+                            <tr>
+                                <td><a href="../athlete-<?php echo $l['champion_id'] ?>.html"><?php echo $l['c_name'] ?></a></td>
+                                <td><?php echo $l['username'] ?></td>
+                                <td><?php echo $l['u_name'] ?></td>
+                                <td><?php echo $l['u_pname'] ?></td>
+                               
+                                <td><a href="mailto:<?php echo $l['email'] ?>"><?php echo $l['email'] ?></a></td>
+                                
+
+                                <td>
+                                    <a target="_blank" href="/admin/championDetail.php?championID=<?php echo $l['champion_id'] ?>">voir la fiche</a>
                                 </td>
                             </tr>
                             <?php } ?>

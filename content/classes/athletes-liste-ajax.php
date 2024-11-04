@@ -122,13 +122,13 @@ function array_msort($array, $cols)
 				  
 					
 					if($pays_id=="all"){
-						$req = $bdd->prepare("select c.* from champions c order by c.Nom asc LIMIT :offset,$par_pages;");
+						$req = $bdd->prepare("select c.* from champions c where and c.Visible=1 order by c.Nom asc LIMIT :offset,$par_pages;");
 
 						$req->bindValue('offset', $offset, PDO::PARAM_INT);
 						$req->execute();
 						$results= array();
 					}else{
-						$req = $bdd->prepare("select c.* from champions c where c.PaysID like :pays_id  order by c.Nom asc LIMIT :offset,$par_pages;");
+						$req = $bdd->prepare("select c.* from champions c where c.PaysID like :pays_id and c.Visible=1 order by c.Nom asc LIMIT :offset,$par_pages;");
 
 						$req->bindValue('pays_id', '%'.$pays_id.'%', PDO::PARAM_STR);
 						$req->bindValue('offset', $offset, PDO::PARAM_INT);
@@ -179,7 +179,7 @@ function array_msort($array, $cols)
 	{
 		try {
 				  include("../database/connexion.php");
-				  $req = $bdd->prepare("select c.* from champions c where c.Nom like :search and c.Nom like :search order by c.Nom asc LIMIT :offset,$par_pages;");
+				  $req = $bdd->prepare("select c.* from champions c where c.Nom like :search and c.Visible=1 and c.Nom like :search order by c.Nom asc LIMIT :offset,$par_pages;");
 
 				  $req->bindValue('search', '%'.$search.'%', PDO::PARAM_STR);
 				  $req->bindValue('offset', $offset, PDO::PARAM_INT);
@@ -234,7 +234,7 @@ function array_msort($array, $cols)
 				  $fin=$par_pages;
 				  if($search){
 					if($pays_id=="all"){
-						$req = $bdd->prepare("select c.* from champions c where c.Nom like :search order by c.Nom asc LIMIT :offset,$par_pages;");
+						$req = $bdd->prepare("select c.* from champions c where c.Nom like :search and c.Visible=1 order by c.Nom asc LIMIT :offset,$par_pages;");
 
 						$req->bindValue('search', '%'.$search.'%', PDO::PARAM_STR);
 	  
@@ -242,7 +242,7 @@ function array_msort($array, $cols)
 						$req->execute();
 						$results= array();
 					}else{
-						$req = $bdd->prepare("select c.* from champions c where c.Nom like :search and c.PaysID like :pays_id  order by c.Nom asc LIMIT :offset,$par_pages;");
+						$req = $bdd->prepare("select c.* from champions c where c.Nom like :search and c.Visible=1 and c.PaysID like :pays_id  order by c.Nom asc LIMIT :offset,$par_pages;");
 
 						//$req = $bdd->prepare("SELECT e.CategorieageID,e.CategorieID,e.Nom,e.DateDebut,e.PaysID,e.ID,e.Sexe  FROM evenements e,marathons m WHERE e.PaysID like :pays_id and m.id=e.marathon_id and e.Visible='1' and (e.PaysID like :search or e.Nom like :search or m.nom like :search) ORDER BY e.DateDebut desc LIMIT :offset,$fin");
 						$req->bindValue('search', '%'.$search.'%', PDO::PARAM_STR);
@@ -254,14 +254,14 @@ function array_msort($array, $cols)
 					}
 				  }else{
 					if($pays_id=="all"){
-						$req = $bdd->prepare("select c.* from champions c  order by c.Nom asc  LIMIT :offset,$par_pages;");
+						$req = $bdd->prepare("select c.* from champions c where c.Visible=1 order by c.Nom asc  LIMIT :offset,$par_pages;");
 
 						//$req = $bdd->prepare("SELECT CategorieageID,CategorieID,Nom,DateDebut,PaysID,ID,Sexe  FROM evenements WHERE Visible='1'  ORDER BY DateDebut desc LIMIT :offset,$fin");
 						$req->bindValue('offset', $offset, PDO::PARAM_INT);
 						$req->execute();
 						$results= array();
 					}else{
-						$req = $bdd->prepare("select c.* from champions c where c.PaysID like :pays_id  order by c.Nom asc LIMIT :offset,$par_pages;");
+						$req = $bdd->prepare("select c.* from champions c where c.PaysID like :pays_id and c.Visible=1 order by c.Nom asc LIMIT :offset,$par_pages;");
 
 						//$req = $bdd->prepare("SELECT CategorieageID,CategorieID,Nom,DateDebut,PaysID,ID,Sexe  FROM evenements WHERE Visible='1' and PaysID like :pays_id ORDER BY DateDebut desc LIMIT :offset,$fin");
 						$req->bindValue('pays_id', '%'.$pays_id.'%', PDO::PARAM_STR);

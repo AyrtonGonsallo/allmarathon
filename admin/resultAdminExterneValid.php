@@ -38,12 +38,65 @@ if (isset($_POST['valider'])) {
 
 
          $req_add->execute();
-         $req_add2 = $bdd->prepare("select email from users where username like :u");
+         
+         $req_add2 = $bdd->prepare("select email,nom,prenom from users where username like :u");
          $req_add2->bindValue('u','%'.$_POST['utilisateur'].'%', PDO::PARAM_STR);
          $req_add2->execute();
          $mail2= $req_add2->fetch(PDO::FETCH_ASSOC);
          $mail=$mail2["email"];
-         $message="Votre résultat:<br> Rang:".$_POST['rang']." - temps: ".$_POST['Temps']." - evenement: ".$_POST['EvenementID']." a été validé";
+         $nom_complet=$mail2["nom"].' '.$mail2["prenom"];
+         $req_add3 = $bdd->prepare("select e.ID,m.prefixe,m.Nom,Year(e.DateDebut) as annee from `evenements` e,marathons m WHERE m.id=e.marathon_id and  e.id = :id");
+         $req_add3->bindValue('id',$_POST['EvenementID'], PDO::PARAM_INT);
+         $req_add3->execute();
+         $mail3= $req_add3->fetch(PDO::FETCH_ASSOC);
+         $nom_event="Marathon ".(($mail3["prefixe"])?$mail3["prefixe"]:'')." ".$mail3["Nom"]." ".$mail3["annee"];
+         $message="<html>
+    <head>
+    <style>
+            a{color:#000 !important;text-decoration:none !important;}
+            a:hover { color: #FBFF06 !important; }
+            .home-link:hover { background-color: #95d7fe !important; color: #000 !important; }
+            .icon-hov:hover img{filter: invert(98%) sepia(24%) saturate(6709%) hue-rotate(357deg) brightness(108%) contrast(107%)!important;}
+        </style>
+    </head>
+    <body style='font-family: Arial, sans-serif;'>
+        <div style='margin: 20px;'>
+        <h1 style='color: #95d7fe;font-family: 'Montserrat';font-weight: 900;'>Bonjour ".$_POST['utilisateur'].",</h1>
+         
+         Le résultat que vous nous avez soumis a été validé :<br>".$nom_complet." - ".$_POST['rang']."e - ".$nom_event." - ".$_POST['Temps']."<br><br>
+            Merci pour votre contribution,<br><br>
+            Très Cordialement<br>
+            L'équipe de allmarathon.fr<br><br><br><br>
+            <!-- Footer -->
+            <div style='background-color: #95D7FE; padding: 20px; border-radius: 5px; font-size: 12px;'>
+                <div style='text-align: center;'>
+                    <a href='https://www.facebook.com/allmarathon.fr' class='icon-hov'>
+                        <img src='https://dev.allmarathon.fr/images/facebook.png' alt='Facebook' style='width: 13px; margin: 0 5px;'>
+                    </a>
+                    <a href='https://www.instagram.com/allmarathon.fr' class='icon-hov'>
+                        <img src='https://dev.allmarathon.fr/images/instagra.png' alt='Instagram' style='width: 23px; margin: 0 5px;'>
+                    </a>
+                    <a href='https://www.pinterest.fr/allmarathon/' class='icon-hov'>
+                        <img src='https://dev.allmarathon.fr/images/pinterest.png' alt='Pinterest' style='width: 20px; margin: 0 5px;'>
+                    </a>
+                   
+                </div>
+                <div style='text-align: center; margin-top: 10px;'>
+                    <a href='https://dev.allmarathon.fr/contact.html' style='color: #000; text-decoration: none;'>Contact</a> |
+                    <a href='https://dev.allmarathon.fr/politique-de-confidentialite.html' style='color: #000; text-decoration: none;'>Politique de confidentialité</a>
+                </div>
+                <div style='text-align: center; margin-top: 10px;'>
+                    
+                    <a href='https://allmarathon.fr'>www.allmarathon.fr</a>
+                </div>
+                <div style='border-top: 1px solid #fff !important;margin-top:10px;'></div>
+                <div style='text-align: center;  background-color:#fff;    padding: 14px 10px 9px 10px;border-radius:5px;width:fit-content;    margin: auto;margin-top: 19px;'>
+                    <a href='https://dev.allmarathon.fr/contact.html'><img src='https://dev.allmarathon.fr/images/logo-allmarathon.png' alt='logo' style='width: 140px;'></a>
+                </div>
+            </div>
+        </div>
+    </body>
+    </html>";
          $res=envoyerEmail($mail,'Validation de résultat sur allmarathon',$message,'This is a plain-text message body');
 
 

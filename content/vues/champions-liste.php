@@ -67,7 +67,7 @@ $nb_champs=$req->fetch(PDO::FETCH_ASSOC)['total'];
 
 try {
     include("../database/connexion.php");
-    $req = $bdd->prepare("select c.* from champions c where not c.Nom like '' order by UPPER(c.Nom) asc LIMIT 39;");
+    $req = $bdd->prepare("select c.* from champions c where not c.Nom like '' order by UPPER(c.Nom) and c.Visible=1 asc LIMIT 39;");
 
    
     $req->execute();

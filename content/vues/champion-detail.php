@@ -52,7 +52,7 @@ $event=new evenement();
 $user=new user();
 $news=new news();
 $actus=$news->getNewsByChampId($id)['donnees'];
-$admins=$champAdmin->getAdminExterneByChampion($id)['donnees'];
+$admins=$champAdmin->getAdminsExterneByChampion($id)['donnees'];
 $liste_admin="";
 if(sizeof($admins)!=0) {
     $liste_admin ="Fiche administrée par : ";
@@ -86,7 +86,7 @@ $video=new video();
 $videos=$video->getVideosByChamp($id)['donnees'];
 
 $pays=new pays();
-$pays_intitule=('9999-12-31'!=$champ->getDateChangementNat())?$pays->getFlagByAbreviation($champ->getNvPaysID())['donnees']['NomPays']:$pays->getFlagByAbreviation($champ->getPaysID())['donnees']['NomPays'];
+$pays_intitule=('9999-12-31'!=$champ->getDateChangementNat() && '0000-00-00'!=$champ->getDateChangementNat() )?$pays->getFlagByAbreviation($champ->getNvPaysID())['donnees']['NomPays']:$pays->getFlagByAbreviation($champ->getPaysID())['donnees']['NomPays'];
 $pays_prefixe=$pays->getFlagByAbreviation($champ->getPaysID())['donnees']['prefixe'];
 
 if($champ->getSexe()=="F") {$sexe="Femme"; $ne="née";} else{ $sexe="Homme"; $ne="né";}
@@ -250,7 +250,7 @@ $afficher_tab_medaille=false;
                     <div class="col-sm-12">
                         
                             <?php 
-                            $pays_datas=('9999-12-31'!=$champ->getDateChangementNat())?$pays->getFlagByAbreviation($champ->getNvPaysID())['donnees']:$pays->getFlagByAbreviation($champ->getPaysID())['donnees'];
+                            $pays_datas=('9999-12-31'!=$champ->getDateChangementNat() && '0000-00-00'!=$champ->getDateChangementNat())?$pays->getFlagByAbreviation($champ->getNvPaysID())['donnees']:$pays->getFlagByAbreviation($champ->getPaysID())['donnees'];
                             if($pays_datas){
                                 $flag=$pays_datas['Flag'];  
                                 ($flag!='NULL') ? $pays_flag='<img src="../../images/flags/'.$flag.'" alt=""/>':$pays_flag="";
@@ -623,9 +623,15 @@ $afficher_tab_medaille=false;
                 <?php }?>
             <div class="modal fade" id="revendicationFicheModal" tabindex="-1" role="dialog" aria-labelledby="revendicationFicheModal" aria-hidden="true">
                     <div class="add-result-box">
-                    Si vous avez découvert la fiche d'un coureur que vous connaissez et souhaitez revendiquer cette fiche, nous vous invitons à suivre les étapes ci-dessous pour nous fournir les justificatifs nécessaires.
-                    Expliquez brièvement votre relation avec l'athlète (ex. : membre de la famille, entraîneur, ami proche) et pourquoi vous souhaitez revendiquer sa fiche.
-                    Téléchargez les documents nécessaires pour prouver votre lien avec l'athlète. Cela peut inclure des photos, des certificats, ou tout autre document pertinent. <br><br>
+                        <h2>Revendication de la fiche de <?php echo $champ->getNom();?></h2>
+                    <ul class="mb-30">
+                        <li>
+                        <b>1.</b>  Pour revendiquer la fiche de <?php echo $champ->getNom();?>, remplissez le formulaire ci-dessous.
+                        </li>
+                        <li>
+                        <b>2.</b>  Si votre demande est acceptée, vous pourrez alors modifier les informations personnelles concernant <?php echo $champ->getNom();?> et ajouter des résultats en vous rendant dans votre Espace Compte.
+                        </li>
+                    </ul>
                         <form action="/content/modules/administrer-fiche.php" enctype="multipart/form-data" method="post" class="form-horizontal"
                             id="target">
                             <input type="hidden" name="c" id="c_id" value="<?php echo $champ->getID(); ?>" />
@@ -650,9 +656,9 @@ $afficher_tab_medaille=false;
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="message" class="col-sm-3">Message <span style="color: red;">*</span></label>
+                                <label for="message" class="col-sm-3">Message</label>
                                 <div class="col-sm-9">
-                                    <textarea cols="50" rows="4" name="message" required></textarea>
+                                    <textarea cols="50" rows="4" name="message" ></textarea>
                                 </div>
                             </div>
 

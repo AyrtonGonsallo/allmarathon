@@ -188,14 +188,15 @@ if (isset($_POST)) {
                 <body>
                 Bonjour ' . $username . ',<br>
 
-                Merci pour votre inscription sur allmarathon, voici vos identifiants de connection :<br>
-                Pseudo : ' . $username . '<br>
-                Votre mot de passe est celui que vous avez renseign&eacute; lors de l\'inscription.<br><br>
-                Pour vous connecter veuillez cliquer sur ce lien  : <a href="/index.php"> Votre compte</a>
-                L\'&eacute;quipe allmarathon est heureuse de vous compter parmi ses membres.<br><br>
-
-
-                Cordialement
+                Merci pour votre inscription, nous sommes ravis de vous compter parmi la communauté de allmarathon.fr<br>
+                Votre compte vous permet de vous abonner à notre newsletter, de revendiquer et d\'administrer la fiche d\'un coureur (infos personnelles, résultats).<br>
+                Si vous rencontrez des difficultés n\'hésitez pas à nous en faire part en réponse à ce mail.<br>
+                Vous pouvez également nous retrouver sur les réseaux sociaux :<br>
+                Instagram : https://www.instagram.com/allmarathon.fr<br>
+                Facebook : https://www.facebook.com/allmarathon.fr<br>
+                Pinterest : https://www.pinterest.fr/allmarathon/<br>
+                Très Cordialement<br>
+                L\'équipe de allmarathon.fr<br>
                 </body></html>';
                 $headers = 'MIME-Version: 1.0' . "\r\n";
                 $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";

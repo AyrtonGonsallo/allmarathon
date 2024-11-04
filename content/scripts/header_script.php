@@ -1,7 +1,7 @@
 <?php //session_start(); 
 ?>
 <!-- Google tag (gtag.js) -->
-<script  data-type='lazy' ddata-src="https://www.googletagmanager.com/gtag/js?id=G-NS51R0YPPE"></script>
+<script  src="https://www.googletagmanager.com/gtag/js?id=G-NS51R0YPPE"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}

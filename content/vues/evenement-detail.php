@@ -592,7 +592,7 @@ setlocale(LC_TIME, "fr_FR","French");
                     }
                 ?>
         </div> </div>
-    <? if($next_date){?>
+    <? if($next_date ){?>
         <div class="box-next-edition bureau">
             
                 <div class="center">Vous avez participé au <strong>marathon <? echo $next_date["prefixe"].' '.$evById->getNom().' '.$annee.'</strong> ?';?> </div>
@@ -613,75 +613,68 @@ setlocale(LC_TIME, "fr_FR","French");
                         
                     </div>
                 </div>
-                <?php }?>
-                <div class="modal fade" id="AddResultModal" tabindex="-1" role="dialog" aria-labelledby="AddResultModal" aria-hidden="true">
-                    <div class="add-result-box">
-                        <?php echo '<h1>Ajouter votre résultat au '.$ev_cat_event_int.' '.$next_date["prefixe"].' '.$evById->getNom().' '.$annee.'</h1>';?>
-                        <form action="/content/modules/ajouter-resultat.php" enctype="multipart/form-data" method="post" class="form-horizontal"
-                            id="target">
-                            <input type="hidden" name="c" id="c_id" value="<?php echo $user_champ->getID(); ?>" />
-                            <input type="hidden" name="e" id="e_id" value="<?php echo $id; ?>" />
-                            <input type="hidden" name="u" id="u_id" value="<?php echo  $profil->getUsername(); ?>" />
-                            <?php if(!$user_champ->getSexe()){?>
+                <?php }
+                if($user_champs){?>
+                    <div class="modal fade" id="AddResultModal" tabindex="-1" role="dialog" aria-labelledby="AddResultModal" aria-hidden="true">
+                        <div class="add-result-box">
+                            <?php echo '<h1>Ajouter votre résultat au '.$ev_cat_event_int.' '.$next_date["prefixe"].' '.$evById->getNom().' '.$annee.'</h1>';?>
+                            <form action="/content/modules/ajouter-resultat.php" enctype="multipart/form-data" method="post" class="form-horizontal"
+                                id="target">
+                                <label for="c_id">Champion:</label>
+                                <select name="c" id="c_id">
+                                    <?php foreach ($user_champs as $user_champ): ?>
+                                        <option value="<?php echo $user_champ->getID(); ?>" >
+                                            <?php echo $user_champ->getNom(); ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <input type="hidden" name="e" id="e_id" value="<?php echo $id; ?>" />
+                                <input type="hidden" name="u" id="u_id" value="<?php echo  $profil->getUsername(); ?>" />
+                                
+                                    
+                               
+                            
                                 <div class="form-group">
-                                    <label for="naissance" class="col-sm-5">Sexe * </label>
+                                    <label for="marathon" class="col-sm-5">Rang *</label>
                                     <div class="col-sm-7">
-                                        <input type="radio" name="s"  required  value="M" class="mr-5"/><span class="mr-10">homme</span><input class="mr-5" type="radio" name="s" value="F"  /><span class="mr-10">femme</span>
+                                        <input id="rang" type="number" name="r" value=""  required/>
                                     </div>
                                 </div>
-                            <?php }else{?>
-                                <input type="hidden" name="s"  value="<?php echo $user_champ->getSexe();?>" />
-                            <?php }?>
-                            <?php if(!$user_champ->getPaysID()){?>
                                 <div class="form-group">
-                                    <label for="pays" class="col-sm-5">Nationalité *</label>
+                                    <label for="marathon" class="col-sm-5">Temps *</label>
                                     <div class="col-sm-7">
-                                        <select name="p" id="pays" class="form-control"  required>
-                                            <?php
-                                            foreach ($liste_pays as $p) {
-                                                $selected = ($p->getAbreviation()=='FRA') ? "selected" : "";
-                                                echo '<option value="'.$p->getAbreviation().'"'.$selected.'>'.$p->getNomPays().'</option>';
-                                            }
-                                            ?>
-                                        </select>
+                                        <input id="temps" type="time" name="t" step="1"  required/>
                                     </div>
                                 </div>
-                            <?php }else{?>
-                                <input type="hidden" name="p"  value="<?php echo $user_champ->getPaysID();?>" />
-                            <?php } ?>
-                           
-                            <div class="form-group">
-                                <label for="marathon" class="col-sm-5">Rang *</label>
-                                <div class="col-sm-7">
-                                    <input id="rang" type="number" name="r" value=""  required/>
+                                <div class="form-group">
+                                    <label for="marathon" class="col-sm-5">Justificatif</label>
+                                    <div class="col-sm-7">
+                                        <input type="file" id="justificatif" name="j" accept="image/png, image/jpeg, application/pdf," />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="marathon" class="col-sm-5">Temps *</label>
-                                <div class="col-sm-7">
-                                    <input id="temps" type="time" name="t" step="1"  required/>
+                                <div class="form-group">
+                                <div class="col-sm-5">
+                                    </div>
+                                    <div class="col-sm-7">
+                                    <input id="ajouter-resultat"  type="submit" class="call-to-action" value="envoyer">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="marathon" class="col-sm-5">Justificatif</label>
-                                <div class="col-sm-7">
-                                    <input type="file" id="justificatif" name="j" accept="image/png, image/jpeg, application/pdf," required/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                            <div class="col-sm-5">
-                                </div>
-                                <div class="col-sm-7">
-                                <input id="ajouter-resultat"  type="submit" class="call-to-action" value="envoyer">
-                                </div>
-                            </div>
 
-                        </form>
+                            </form>
+                        </div>
                     </div>
-                </div>
-                <a id="" href="#" data-toggle="modal" data-target="#AddResultModal" class="call-to-action mx-auto">
-                    Enregistrez votre résultat !
-                </a>
+                    
+                    <a id="" href="#" data-toggle="modal" data-target="#AddResultModal" class="call-to-action mx-auto">
+                        Enregistrez votre résultat !
+                    </a>
+                <?php } else { ?>
+                    <div class="warning-box">
+                        <span class="material-symbols-outlined" style="color:white">
+                            warning
+                        </span>
+                        Vous n'administrez aucun athlète pour le moment. Rendez-vous sur la fiche d'un athlète et faites une demande d'administration.
+                    </div>
+                <?php }?>
             <?php }?>
                 
                 

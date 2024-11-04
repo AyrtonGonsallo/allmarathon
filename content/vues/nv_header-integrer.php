@@ -126,8 +126,8 @@
             $user=new user();
             $profil = $user->getUserById($user_id)['donnees'];
             //var_dump($profil);
-            $added_res = $user->getAddedResults($profil->getUsername())['donnees'];
-            $user_champ=($user_id)?$champion->getUserChampion($user_id)['donnees']:null;
+            $added_res = $user->getAddedResults($user_id)['donnees'];
+            $user_champs=($user_id)?$champion->getUserChampions($user_id)['donnees']:null;
             if($profil->getProfile_pic()){
                 //$signin_compte='<span class="user-connect"><i class="fa fa-user user_compte"></i></span>';
                 $signin_compte='<span class="user-connect"><img src="'.$profil->getProfile_pic().'" style="border-radius:20px" width="30"></span>'; 
@@ -443,7 +443,7 @@ search
                                                     <form action="/content/modules/verification-user.php" method="post" class="form-horizontal"
                                                         id="target">
                                                     
-                                                        <div class="form-group text-left">
+                                                        <div class="form-group text-left form-row">
                                                             <label for="nom" class="col-sm-12">Nom *</label>
                                                             <div class="col-sm-12">
                                                                 <input type="text" class="form-control input_auth" id="nom" required
@@ -451,14 +451,14 @@ search
                                                             </div>
                                                         </div>
 
-                                                        <div class="form-group text-left">
+                                                        <div class="form-group text-left form-row">
                                                             <label for="prenom" class="col-sm-12">Prénom *</label>
                                                             <div class="col-sm-12">
                                                                 <input type="text" class="form-control input_auth" id="prenom"
                                                                     data-msg-required="Ce champ est obligatoire!" required name="prenom">
                                                             </div>
                                                         </div>
-                                                        <div class="form-group  text-left">
+                                                        <div class="form-group  text-left form-row">
                                                             <label for="email" class="col-sm-12">E-mail *</label>
                                                             <div class="col-sm-12">
                                                                 <input type="email" class="form-control input_auth" id="email" required
@@ -467,7 +467,7 @@ search
                                                             </div>
                                                         </div>
 
-                                                        <div class="form-group  text-left">
+                                                        <div class="form-group  text-left form-row">
                                                             <label for="Mot_de_passe" class="col-sm-12">Mot de passe *</label>
                                                             <div class="col-sm-12">
                                                                 <input type="password" class="form-control input_auth" name="mot_de_passe" id="password"
@@ -475,7 +475,7 @@ search
                                                             </div>
                                                         </div>
 
-                                                        <div class="form-group text-left">
+                                                        <div class="form-group text-left form-row">
                                                             <label for="confirmePW" class="col-sm-12">Confirmation du mot de passe *</label>
                                                             <div class="col-sm-12">
                                                                 <input type="password" class="form-control input_auth" name="confirmePW" required
@@ -485,7 +485,6 @@ search
                                                         </div>
 
                                                         <!-- <div class="g-recaptcha" id="g-recaptcha-response" name="g-recaptcha-response" data-sitekey="6Lc-wRsTAAAAAP8A0DXsgrJhboYw05SPxJlWYuRY"></div> -->
-                                                        <div class="g-recaptcha" id="g-recaptcha" data-sitekey="6LdcITUpAAAAAJNe_-kxs-4q4Xy9_HrQnk3FvTkx"></div>
                                                         <br>
                                                         <div class="form-group">
                                                             <div class="col-sm-12" style="top:-20px">
@@ -671,9 +670,7 @@ search
 
                                             <?php if(!in_array($_SERVER['REQUEST_URI'], $uri)){ ?>
 
-                                            <div class='g-recaptcha left'
-
-                                                data-sitekey='6LdcITUpAAAAAJNe_-kxs-4q4Xy9_HrQnk3FvTkx'></div>
+                                         
 
                                             <?php } ?>
 

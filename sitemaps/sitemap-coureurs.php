@@ -36,7 +36,7 @@ function display_sitemap_coureur($result1){
     // Boucle qui liste les URL
     foreach ($result1 as $res) {
         try{
-            $loc        = 'https://dev.allmarathon.fr/athlete-'.$res['ID'].'-'.slugify($res['Nom']).'.html';
+            $loc        = 'https://alljudo.net/athlete-'.$res['ID'].'-'.slugify($res['Nom']).'.html';
         echo '
         <url>
             <loc>'.$loc.'</loc>
@@ -71,7 +71,7 @@ function display_sitemap_news($result1){
     // Boucle qui liste les URL
     foreach ($result1 as $res) {
         $url_text=slugify($res['titre']);
-        $loc        = 'https://dev.allmarathon.fr/actualite-marathon-'.$res['ID'].'-'.$url_text.'.html';
+        $loc        = 'https://alljudo.net/actualite-judo-'.$res['ID'].'-'.$url_text.'.html';
         echo '
         <url>
             <loc>'.$loc.'</loc>
@@ -102,7 +102,7 @@ function display_sitemap_videos($result1){
     // Boucle qui liste les URL
     foreach ($result1 as $res) {
         
-        $loc        = 'https://dev.allmarathon.fr/video-de-marathon-'.$res['ID'].'.html';
+        $loc        = 'https://alljudo.net/video-de-judo-'.$res['ID'].'.html';
         echo '
         <url>
             <loc>'.$loc.'</loc>
@@ -133,7 +133,7 @@ function display_sitemap_evenements($result1){
     // Boucle qui liste les URL
     foreach ($result1 as $res) {
         
-        $loc        = 'https://dev.allmarathon.fr/resultats-marathon-'.$res['ID'].'-'.slugify($res['Nom']).'.html';
+        $loc        = 'https://alljudo.net/resultats-judo-'.$res['ID'].'-'.slugify($res['Nom']).'.html';
         echo '
         <url>
             <loc>'.$loc.'</loc>
@@ -178,3 +178,9 @@ $number=$_GET["number"];
     <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <?php display_sitemap_coureur(get_data_sitemap_coureur($number)); ?>
     </urlset>
+
+    marqueur.o2switch.net
+    nordsudmanagement@nordsudmanagement.com
+    $Mv9dD3-g6*AwNk
+    adm_nsm
+    @0s%3%BLSV

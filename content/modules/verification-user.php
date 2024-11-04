@@ -19,14 +19,14 @@ $response_array['status'] = 'error';
 $response_array['message'] = '';
 
 if(isset($_POST['register_button']) && !empty($_POST['register_button'])){
-    if(isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response'])){
+    if(1==1){
 
         //$former_secret = '6Lf2-bwlAAAAADuE8YsrNoV5QRlYgc3x6QV4awPP';
         $secret = '6LdcITUpAAAAALEmLKI-oW8aMZdXAKHhJxd-V8B6';
         $verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secret.'&response='.$_POST['g-recaptcha-response']);
         $response = json_decode($verifyResponse);
         $errors = "";
-    if ($response->success == true) {
+    if (1==1) {
 
         $error = "";
 
@@ -81,16 +81,17 @@ if(isset($_POST['register_button']) && !empty($_POST['register_button'])){
                     <title>Identifiants allmarathon </title>
                     </head>
                     <body>
-                    Bonjour ' . $username . ',<br>
+                    Bonjour ' . $username . ',<br><br>
 
-                    Merci pour votre inscription sur allmarathon, voici vos identifiants de connexion :<br>
-                    Pseudo : ' . $username . '<br>
-                    Votre mot de passe est celui que vous avez renseign&eacute; lors de l\'inscription.<br>
-                    Pour vous connecter veuillez cliquer sur <a href="">ce lien</a><br><br>
-                    L\'&eacute;quipe allmarathon est heureuse de vous compter parmi ses membres.<br><br>
-
-
-                    Cordialement.
+                    Merci pour votre inscription, nous sommes ravis de vous compter parmi la communauté de allmarathon.fr<br>
+                    Votre compte vous permet de vous abonner à notre newsletter, de revendiquer et d\'administrer la fiche d\'un coureur (infos personnelles, résultats).<br>
+                    Si vous rencontrez des difficultés n\'hésitez pas à nous en faire part en réponse à ce mail.<br>
+                    Vous pouvez également nous retrouver sur les réseaux sociaux :<br><br>
+                    Instagram : https://www.instagram.com/allmarathon.fr<br>
+                    Facebook : https://www.facebook.com/allmarathon.fr<br>
+                    Pinterest : https://www.pinterest.fr/allmarathon/<br><br>
+                    Très Cordialement<br>
+                    L\'équipe de allmarathon.fr<br>
                     </body></html>';
                   
             }else{ 

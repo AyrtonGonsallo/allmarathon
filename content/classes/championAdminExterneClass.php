@@ -214,7 +214,7 @@ class championAdminExterne{
 				die('Erreur : ' . $e->getMessage());
 	        }
 	}
-	public function getAdminExterneByChampion($champion_id)
+	public function getAdminsExterneByChampion($champion_id)
 	{
 		try {
 				 require('../database/connexion.php');
@@ -234,6 +234,7 @@ class championAdminExterne{
 	            die('Erreur : ' . $e->getMessage());
 	        }
 	}
+
 
 	public function getChampionsByUser($user)
 	{

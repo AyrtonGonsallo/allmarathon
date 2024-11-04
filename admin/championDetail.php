@@ -22,14 +22,15 @@ if(isset($_GET['championID'])) {
     if( isset($_POST['sub']) ){
         if($_POST['Nom']=="")
             $erreur .= "Erreur nom.<br />";
-        $poid   = ($_POST['Poids']=='')?'NULL': $_POST['Poids'];
-        $taille = ($_POST['Taille']=='')?'NULL': $_POST['Taille'];
-        $date   = ($_POST['DateNaissance']=='')?'NULL': $_POST['DateNaissance'];
-        $datechang   = ($_POST['DateChangementNat']=='')?'NULL': $_POST['DateChangementNat'];
+            $poid = empty($_POST['Poids']) ? null : $_POST['Poids'];
+            $taille = empty($_POST['Taille']) ? null : $_POST['Taille'];
+            $date = empty($_POST['DateNaissance']) ? null : $_POST['DateNaissance'];
+            $datechang = empty($_POST['DateChangementNat']) ? null : $_POST['DateChangementNat'];
+            
         if($erreur == ""){
 
          try {
-             $req4 = $bdd->prepare("UPDATE champions SET Nom=:Nom ,Poids=:poids ,Taille=:taille ,Sexe=:Sexe ,PaysID=:PaysID,NvPaysID=:NvPaysID,DateChangementNat=:DateChangementNat ,DateNaissance=:DateNaissance ,LieuNaissance=:LieuNaissance ,Lien_site_équipementier=:lien_equip,Instagram=:Instagram,Facebook=:Facebook, Bio=:Bio WHERE ID=:id");
+             $req4 = $bdd->prepare("UPDATE champions SET Nom=:Nom ,Poids=:poids ,Taille=:taille ,Sexe=:Sexe ,PaysID=:PaysID,NvPaysID=:NvPaysID,DateChangementNat=:DateChangementNat ,DateNaissance=:DateNaissance ,LieuNaissance=:LieuNaissance ,Lien_site_équipementier=:lien_equip,Instagram=:Instagram,Facebook=:Facebook, Bio=:Bio,Visible=:visible WHERE ID=:id");
 
              $req4->bindValue('Nom',$_POST['Nom'], PDO::PARAM_STR);
              $req4->bindValue('Sexe',$_POST['Sexe'], PDO::PARAM_STR);
@@ -44,7 +45,7 @@ if(isset($_GET['championID'])) {
              $req4->bindValue('taille',$_POST['taille'], PDO::PARAM_STR);
              $req4->bindValue('Facebook',$_POST['Facebook'], PDO::PARAM_STR);
              $req4->bindValue('Bio',$_POST['Bio'], PDO::PARAM_STR);
-            
+             $req4->bindValue('visible',$_POST['Visible'], PDO::PARAM_INT);
              $req4->bindValue('id',$_GET['championID'], PDO::PARAM_INT);
              $statut=$req4->execute();
 
@@ -236,7 +237,8 @@ catch(Exception $e)
                     <tr><td  align="right"><label for="Instagram">Instagram : </label></td><td><input type="text" name="Instagram" id="Instagram" value="<?php echo $champion['Instagram'];?>" /></td></tr>
                     <tr><td  align="right"><label for="lien_equip">Lien site équipementier :  </label></td><td><input type="text" name="lien_equip" id="lien_equip" value="<?php echo $champion['Lien_site_équipementier'];?>" /></td></tr>
                     <tr><td  align="right"><label for="Bio">Bio : </label></td><td><textarea name="Bio" id="Bio" cols="50" rows="20"><?php echo str_replace('\\', '',str_replace('"', '\'', $champion['Bio']));?></textarea></td></tr>
-                    
+                    <tr><td align="right"><label>Visible : </label></td><td><input type="radio" name="Visible" id="oui" value="1" <?php if($champion['Visible']) echo 'checked="checked"';?>/><label for="oui">oui</label>&nbsp;&nbsp;&nbsp;<input type="radio" name="Visible" id="non" value="0" <?php if(!$champion['Visible']) echo 'checked="checked"';?> /><label for="non">non</label></td></tr>
+
 
                     <tr align="center"><td colspan="2"><input type="submit" name="sub" value="modifier" /></td></tr>
                 </table>

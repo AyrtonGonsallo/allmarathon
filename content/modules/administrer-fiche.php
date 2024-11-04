@@ -57,14 +57,23 @@ try {
     // Préparer et exécuter la requête d'insertion
     $req3 = $bdd->prepare("INSERT INTO `champion_admin_externe`(`Justificatif`, `Message`, `user_id`, `champion_id`, `date_creation`, `actif`,situation) 
     VALUES (:j, :m, :u, :c,  :d, 0,:s )");
-
-    $req3->bindValue('m', $_POST["message"], PDO::PARAM_STR);
+    $message=($_POST["message"])?$_POST["message"]:"";
+    $req3->bindValue('m', $message, PDO::PARAM_STR);
     $req3->bindValue('c', $_POST["c"], PDO::PARAM_INT);
     $req3->bindValue('u', $_POST["u"], PDO::PARAM_INT);
-    $req3->bindValue('d', date("Y-m-d"), PDO::PARAM_STR);
+    $req3->bindValue('d', date("Y-m-d H:i:s"), PDO::PARAM_STR);
     $req3->bindValue('j', $fichierName , PDO::PARAM_STR);
     $req3->bindValue('s', $_POST["situation"] , PDO::PARAM_STR);
     $req3->execute();
+
+
+    $req4 = $bdd->prepare("INSERT INTO `champion_admin_externe_journal`(`date`, `type`, `user_id`, `champion_id`) 
+    VALUES (:d, :t, :u, :c )");
+    $req4->bindValue('t', "revendication", PDO::PARAM_STR);
+    $req4->bindValue('c', $_POST["c"], PDO::PARAM_INT);
+    $req4->bindValue('u', $_POST["u"], PDO::PARAM_INT);
+    $req4->bindValue('d', date("Y-m-d H:i:s"), PDO::PARAM_STR);
+    $req4->execute();
 
     // Récupérer les informations de l'utilisateur
     $req5 = $bdd->prepare("select * from users where id=:c");
