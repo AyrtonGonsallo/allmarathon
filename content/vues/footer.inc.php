@@ -43,6 +43,61 @@
     text-decoration: underline;
     color: #2BB2FC;
   }
+  
+ /*mews letter form*/
+div#sib-container {  max-width: 70%!important;  margin: auto !important;}
+.sib-form-block p{ text-align: center!important;}
+.sib-text-form-block p{    font-size: 15px!important;
+    text-align: center!important;
+    font-family: "Poppins-regular", sans-serif!important;
+    color: #3C4858!important;}
+.flx-input {
+    display: flex;
+    flex-direction: row;
+}
+.inpt-div{width:50%;}
+#sib-form .g-recaptcha {
+    display: flex!important;
+    justify-content: center!important;
+}
+.sib-form__declaration .declaration-block-icon { width: 47px !important;}
+.sib-form .entry__choice { margin-bottom: 0px !important;}
+label.entry__error.entry__error--primary { display: none !important;}
+.sib-form-block__button-with-loader { background-color: #82cdf7 !important;} 
+#sib-form .entry__choice label p { margin-left: 51px !important;}
+.sib-form-block__button:hover { color: #000 !important;}
+label.entry__specification { margin-top: 0px !important;}
+ #sib-form .entry__choice label p {margin-left: 23px !important;}
+.sib-form .entry__choice { line-height: 0;}
+
+  
+  
+@media (max-width:1024px) {
+   div#sib-container { max-width: 100% !important;}  
+   #sib-form span p, label.entry__specification{font-size:10px !important;}
+}  
+@media (max-width:600px) { 
+#sib-form .entry__choice label p {  margin-left: 0px !important;} 
+    #sib-form span:nth-child(2) {  top: 3px !important; }
+label.entry__specification, #sib-form span { margin-top: 0px !important;}
+
+
+.flx-input input[type="text"]{  width: 100%;}
+
+
+}
+
+@media (max-width:497px) { 
+.flx-input { flex-direction: column;}
+.inpt-div { width: 100%;}
+.g-recaptcha.sib-visible-recaptcha { transform: scale(1) !important;  -webkit-transform: scale(1);}
+}
+
+
+
+
+ 
+  
 </style>
 <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
 <!--  END - We recommend to place the above code in head tag of your website html -->
@@ -87,7 +142,8 @@
             </div>
           </div>
         </div>
-        <div style="padding: 8px 0;">
+        <div class="flx-input">
+        <div style="padding: 8px 0;" class="inpt-div">
           <div class="sib-input sib-form-block">
             <div class="form__entry entry_block">
               <div class="form__label-row ">
@@ -102,7 +158,7 @@
             </div>
           </div>
         </div>
-        <div style="padding: 8px 0;">
+        <div style="padding: 8px 0;" class="inpt-div">
           <div class="sib-input sib-form-block">
             <div class="form__entry entry_block">
               <div class="form__label-row ">
@@ -117,6 +173,7 @@
             </div>
           </div>
         </div>
+        </div>
         <div style="padding: 8px 0;">
           <div class="sib-captcha sib-form-block">
             <div class="form__entry entry_block">
@@ -127,8 +184,7 @@
                     document.getElementById('sib-captcha').dispatchEvent(event);
                   }
                 </script>
-                <div class="g-recaptcha sib-visible-recaptcha" id="sib-captcha" data-sitekey="6LdcITUpAAAAAJNe_-kxs-4q4Xy9_HrQnk3FvTkx" data-callback="handleCaptchaResponse" style="direction:ltr"></div>
-              </div>
+               
               <label class="entry__error entry__error--primary" style="font-size:16px; text-align:left; font-family:Helvetica, sans-serif; color:#661d1d; background-color:#ffeded; border-radius:3px; border-color:#ff4949;">
               </label>
             </div>
@@ -143,25 +199,15 @@
                     <input type="checkbox" class="input_replaced" value="1" id="OPT_IN" name="OPT_IN" />
                     <span class="checkbox checkbox_tick_positive"
             style="margin-left:"
-            ></span><span style="font-size:9px; text-align:left; font-family:Helvetica, sans-serif; color:#3C4858; background-color:transparent;"><p>J'accepte de recevoir vos e-mails et confirme avoir pris connaissance de votre politique de confidentialité et mentions légales.</p></span> </label>
+            ></span><span style="font-size:12px; text-align:left; font-family:Helvetica, sans-serif;color:#8390A4; background-color:transparent;"><p>J'accepte de recevoir vos e-mails et confirme avoir pris connaissance de votre politique de confidentialité et mentions légales.</p></span> </label>
                 </div>
               </div>
               <label class="entry__error entry__error--primary" style="font-size:16px; text-align:left; font-family:Helvetica, sans-serif; color:#661d1d; background-color:#ffeded; border-radius:3px; border-color:#ff4949;">
               </label>
-              <label class="entry__specification" style="font-size:12px; text-align:left; font-family:Helvetica, sans-serif; color:#8390A4; text-align:left">
+              <label class="entry__specification" style="margin-top:20px;max-width: 100%;width:100%;font-size:12px; text-align:left; font-family:Helvetica, sans-serif; color:#8390A4; text-align:left">
                 Vous pouvez vous désinscrire à tout moment en cliquant sur le lien présent dans nos emails.
               </label>
             </div>
-          </div>
-        </div>
-        <div style="padding: 8px 0;">
-          <div class="sib-form-block" style="text-align: center">
-            <button class="sib-form-block__button sib-form-block__button-with-loader" style="font-size:16px; text-align:center; font-weight:700; font-family:Helvetica, sans-serif; color:#FFFFFF; background-color:#fcb614; border-radius:3px; border-width:0px;" form="sib-form" type="submit">
-              <svg class="icon clickable__icon progress-indicator__icon sib-hide-loader-icon" viewBox="0 0 512 512">
-                <path d="M460.116 373.846l-20.823-12.022c-5.541-3.199-7.54-10.159-4.663-15.874 30.137-59.886 28.343-131.652-5.386-189.946-33.641-58.394-94.896-95.833-161.827-99.676C261.028 55.961 256 50.751 256 44.352V20.309c0-6.904 5.808-12.337 12.703-11.982 83.556 4.306 160.163 50.864 202.11 123.677 42.063 72.696 44.079 162.316 6.031 236.832-3.14 6.148-10.75 8.461-16.728 5.01z" />
-              </svg>
-              S&#039;INSCRIRE
-            </button>
           </div>
         </div>
         <div style="padding: 8px 0;">
@@ -183,6 +229,19 @@
             </div>
           </div>
         </div>
+         <div class="g-recaptcha sib-visible-recaptcha" id="sib-captcha" data-sitekey="6LdcITUpAAAAAJNe_-kxs-4q4Xy9_HrQnk3FvTkx" data-callback="handleCaptchaResponse" style="direction:ltr"></div>
+              </div>
+        <div style="padding: 8px 0;display:flex;justify-content: center;">
+          <div class="sib-form-block" style="text-align: center">
+            <button class="sib-form-block__button sib-form-block__button-with-loader" style="font-size:16px; text-align:center; font-weight:700; font-family:Helvetica, sans-serif; color:#FFFFFF; background-color:#fcb614; border-radius:3px; border-width:0px;" form="sib-form" type="submit">
+              <svg class="icon clickable__icon progress-indicator__icon sib-hide-loader-icon" viewBox="0 0 512 512">
+                <path d="M460.116 373.846l-20.823-12.022c-5.541-3.199-7.54-10.159-4.663-15.874 30.137-59.886 28.343-131.652-5.386-189.946-33.641-58.394-94.896-95.833-161.827-99.676C261.028 55.961 256 50.751 256 44.352V20.309c0-6.904 5.808-12.337 12.703-11.982 83.556 4.306 160.163 50.864 202.11 123.677 42.063 72.696 44.079 162.316 6.031 236.832-3.14 6.148-10.75 8.461-16.728 5.01z" />
+              </svg>
+              Je m'abonne
+            </button>
+          </div>
+        </div>
+        
 
         <input type="text" name="email_address_check" value="" class="input--hidden">
         <input type="hidden" name="locale" value="fr">
@@ -216,7 +275,7 @@
 </script>
 
 <script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
-
+<script async src="https://static.linguise.com/script-js/switcher.bundle.js?d=pk_VU5C4h0YOZqUtZn2ha54fz8fJjLGIsPz"></script>
 <script src="https://www.google.com/recaptcha/api.js?hl=fr"></script>
 
 <!-- END - We recommend to place the above code in footer or bottom of your website html  -->

@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             {
                 die('Erreur : ' . $e->getMessage());
             }
-            header('Location: /athlete-'.$_GET['championID'].'.html'); 
+            header('Location: /membre-profil.php?tab=adm_fiche'); 
         
 } else {
     echo "Erreur : Le formulaire de téléchargement doit être soumis en utilisant la méthode POST.";

@@ -44,6 +44,11 @@ if( isset($_POST['extern_actif'])) {
          $req41->bindValue('id',$_POST['champion_id'], PDO::PARAM_INT);
          $req41->execute();
 
+         $req_journal = $bdd->prepare("INSERT INTO champion_admin_externe_journal (type, user_id, champion_id) VALUES ('revendication-ok', :user_id, :champion_id)");
+             $req_journal->bindValue('user_id',$_POST['user_id'], PDO::PARAM_INT);
+             $req_journal->bindValue('champion_id',$_POST['champion_id'], PDO::PARAM_STR);
+             $req_journal->execute();
+
          $req412 = $bdd->prepare("select * from champions WHERE ID = :id");
          $req412->bindParam('id',$_POST['champion_id'], PDO::PARAM_INT);
          $req412->execute();
@@ -316,7 +321,7 @@ try{
 
 
             <fieldset style="float:left;">
-        <legend>Liste des champions à valider</legend>
+        <legend>Liste des champions ajoutés par des utilisateurs externes</legend>
         <div align="center">
 
             <div id="pager" class="pager">

@@ -669,10 +669,7 @@ setlocale(LC_TIME, "fr_FR","French");
                     </a>
                 <?php } else { ?>
                     <div class="warning-box">
-                        <span class="material-symbols-outlined" style="color:white">
-                            warning
-                        </span>
-                        Vous n'administrez aucun athlète pour le moment. Rendez-vous sur la fiche d'un athlète et faites une demande d'administration.
+                        Pour pouvoir administrer un résultat vous devez être administrateur d'une fiche athlète. Rendez-vous dans votre espace membre onglet "athlètes administrés".
                     </div>
                 <?php }?>
             <?php }?>

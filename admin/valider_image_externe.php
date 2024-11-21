@@ -24,7 +24,7 @@ try{
             $req2->bindValue('cid', $champion_id, PDO::PARAM_INT);
             $req2->execute();
 
-            $req3 = $bdd->prepare("delete FROM champion_admin_externe_journal where ID=:id");
+            $req3 = $bdd->prepare("update champion_admin_externe_journal set type='image-valid' where ID=:id");
             $req3->bindValue('id',$id, PDO::PARAM_INT);
             $req3->execute();
         } else {

@@ -126,8 +126,9 @@ else if (isset($_GET['search_event'])) {
     $search = $_GET['search_event'];
     try {
         include("../database/connexion.php");
-        $stmt = $bdd->prepare("SELECT e.ID,m.prefixe,m.Nom,Year(e.DateDebut) as annee FROM `evenements` e,marathons m WHERE m.id=e.marathon_id and LOWER(m.Nom) LIKE LOWER(:search) order by e.DateDebut asc");
+        $stmt = $bdd->prepare("SELECT e.ID,m.prefixe,m.Nom,Year(e.DateDebut) as annee FROM `evenements` e,marathons m WHERE e.DateDebut<:today and m.id=e.marathon_id and LOWER(m.Nom) LIKE LOWER(:search) order by e.DateDebut asc");
         $stmt->bindValue(':search', '%' . $search . '%', PDO::PARAM_STR);
+        $stmt->bindValue('today', date('Y-m-d'), PDO::PARAM_STR); 
         $stmt->execute();
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         // Encode les résultats en JSON et les renvoie

@@ -87,7 +87,7 @@ $videos=$video->getVideosByChamp($id)['donnees'];
 
 $pays=new pays();
 $pays_intitule=('9999-12-31'!=$champ->getDateChangementNat() && '0000-00-00'!=$champ->getDateChangementNat() )?$pays->getFlagByAbreviation($champ->getNvPaysID())['donnees']['NomPays']:$pays->getFlagByAbreviation($champ->getPaysID())['donnees']['NomPays'];
-$pays_prefixe=$pays->getFlagByAbreviation($champ->getPaysID())['donnees']['prefixe'];
+$pays_prefixe=('9999-12-31'!=$champ->getDateChangementNat() && '0000-00-00'!=$champ->getDateChangementNat() )?$pays->getFlagByAbreviation($champ->getNvPaysID())['donnees']['prefixe']:$pays->getFlagByAbreviation($champ->getPaysID())['donnees']['prefixe'];
 
 if($champ->getSexe()=="F") {$sexe="Femme"; $ne="née";} else{ $sexe="Homme"; $ne="né";}
 if($champ->getSexe()=="F") {$il="elle";} else{ $sexe="Homme"; $il="il";}

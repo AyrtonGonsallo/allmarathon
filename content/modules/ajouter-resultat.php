@@ -69,7 +69,7 @@ try {
             $req5->execute();
             $user= $req5->fetch(PDO::FETCH_ASSOC);
 
-            $_SESSION['msg_ajout_resultat']="Votre résultat est en cours de validation, vous receverez un message lorsque celui-ci aura été validé.<br>";
+            $_SESSION['msg_ajout_resultat']="<span style='color:green; font-size:0.8em'>Votre résultat est en cours de validation, vous receverez un message lorsque celui-ci aura été validé.</span><br>";
             if($user["newsletter"]==0){
                 $_SESSION['msg_ajout_resultat'].=" Pour ne rien manquer de l'actualité du marathon abonnez-vous à notre newsletter<br><a href='/content/modules/update_profile.php?subscribe_to_newsletter=1' class='call-to-action mx-auto'>Oui, je m'abonne</a>";
             }

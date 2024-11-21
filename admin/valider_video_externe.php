@@ -59,7 +59,7 @@
                              $req4->bindValue('top_ippon',$top_ippon2, PDO::PARAM_STR);
                              $req4->execute();
 
-                             $req = $bdd->prepare("delete FROM champion_admin_externe_journal where ID=:id");
+                             $req = $bdd->prepare("update champion_admin_externe_journal set type='video-valid' where ID=:id");
                              $req->bindValue('id',$_POST['jid'], PDO::PARAM_INT);
                              $req->execute();
 

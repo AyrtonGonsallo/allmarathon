@@ -1340,13 +1340,14 @@ input[type=search]::placeholder {
 .nav-tabs>li>a {
     font-family: "Poppins-Light";
     text-align: center;
-    background-color: #e8e9ea;
+    background-color: #95d7fe75;
     color: #000;
     width: fit-content;
     padding: 5px 15px;
     font-size: 16px !important;
     border-radius: 5px;
 }
+.nav-tabs>li:hover>a{background-color: #fbff0b;}
 .res-by-gender,.results-buttons{    
     justify-content: center;
     align-items: center;
@@ -1483,16 +1484,20 @@ table.dataTable.no-footer {
     position: relative;
 }
 #sib-form span {
+    font-size: 11px !important;
     float: unset;
     margin-left: 2px;
     font-size: 18px;
     position: absolute;
     top: -11px;
 }
+#sib-form label.entry__specification {
+    font-size: 11px !important;
+}
 #sib-form span:nth-child(2) {
     float: unset;
     margin-left: 0px;
-    position: absolute;
+    position: relative;
     top: -20px;
 }
 .sib-form .entry__choice {
@@ -2596,7 +2601,7 @@ body.menu-open { overflow: hidden;}
 .gs-presentation h1.sg-h1 { margin-top: 41px;}
 .page-records, .videos-liste, .athletes-liste, .marathons, .news{margin-top:135px !important;}
 .page-resultats{margin-top:135px !important;}
-.resultat-detail{margin-top:30px !important;}
+.resultat-detail{margin-top:84px !important;}
 .athletes.left-side { padding-top: 54px;}
 .page-resultats #olympics-marathons {margin-bottom: 20px!important;}
 .marathons ul.resultats {
@@ -2618,14 +2623,18 @@ td.sorting_1 {
     color: #000 !important; margin-right:5px;
 }
 
-
+#sidebarMenu i.fa.fa-sign-out { margin-top: 5px !important;}
 /*****************respo*******************/
 @media (max-width: 1440px) {
 .marathons .marathon-grid {min-height: 216px;}
 .article-img img, .image_news img {object-fit: cover !important;width: 100%;}
-
+#sidebarMenu i.fa.fa-sign-out {margin-top: 4px !important;}
 
 }
+@media (max-width: 1414px) {
+    #sidebarMenu i.fa.fa-sign-out { margin-top: 1px !important; }
+}
+
 @media (max-width: 1280px) {
 .header--nav--link {font-size: 15px;}
 .header--logo { margin: 0 20px 0 20px;}
@@ -2640,12 +2649,20 @@ td.sorting_1 {
 }
 
 @media (max-width: 1116px) {
-    #form label { margin-bottom: 17px;}
+    /*#form label { margin-bottom: 17px;}
     .call-to-action { padding: 25px 18px;  margin-top: 38px;}
     .input_auth {margin-bottom: 26px;}
-    #sidebarMenu { margin-top: 71px;}
+    #sidebarMenu { margin-top: 24px;}
     .swiper-pagination.swiper-pagination-clickable.swiper-pagination-bullets.swiper-pagination-horizontal { bottom: 100px !important;}
-    input#password_auth { margin-bottom: 25px;}
+    input#password_auth { margin-bottom: 25px;}*/
+.col-md-12.form-wrapper.text-left { line-height: 01.8 !important}
+  .auth--body .call-to-action { line-height: 2.5 !important; margin-bottom: 0px!important;}
+    .google .btn { margin: 0px 0px 20px !important;}
+    #sidebarMenu { margin-top: 25px;}
+
+    
+    
+    
     
     
 .header--nav--link {font-size: 23px;}
@@ -2656,7 +2673,7 @@ nav.header--nav>ul { display: block !important;}
 .header nav.header--nav ul li:first-child{order:1!important;}
 .menu-item-search {width: 32%;order: 2!important;}
 li.menu-item-categories { order: 3!important;}
-.sidebarIconToggle {  top: 21px!important;  right: 53px!important;}
+.sidebarIconToggle {  top: -11px!important;  right: 53px!important;}
 .header li { font-size: 62px;}
 .nav-mn-li {
     margin-top: 106px !important;
@@ -2668,10 +2685,17 @@ li.menu-item-categories { order: 3!important;}
 
 
 
+}
+
+@media (max-width: 1112px) {
+#sidebarMenu a.call-to-action.mx-auto {line-height: 1.9;}
+#sidebarMenu i.fa.fa-sign-out { margin-top: 8px !important; }
 
 
 
 }
+
+
 @media (max-width: 1107px) {
     
 .menu-item-search.active, .menu-item-search a:hover {
@@ -2840,8 +2864,14 @@ overflow-y: scroll;  width: 100%;}
 
 @media (max-width: 600px) {
     
+    #sidebarMenu i.fa.fa-sign-out { margin-top: 2px !important; }
+
+    #sidebarMenu {  margin-top: 61px;  }
+    .google.button-social { margin-top: 12px;}
+    .nav-category.open .fa.fa-user.user_compte { font-size: 21px;margin-top: -10px;width: 20px;}
     
-   
+    
+    
     
     
     .dernieres-video .splide__pagination__page {
@@ -2974,7 +3004,7 @@ overflow-y: scroll;  width: 100%;}
 }
 
 @media (max-width:497px) {
-    
+        .auth--body .call-to-action {line-height: unset !important;}
     
     .resultat-detail table.dataTable tbody th, .resultat-detail table.dataTable tbody td { padding: 8px 4px;}
     
@@ -3206,7 +3236,7 @@ body .ban.transparent-bg {
 }
 .fa.fa-user.user_compte{
 font-size: 26px;
-  color: #2caffe;
+  color: #99d5f6;
 }
 
 
@@ -3217,7 +3247,7 @@ font-size: 26px;
 #result-suggestion input[type=radio]{
     margin-right: 10px;
 }
-#ui-id-1 {
+.ui-autocomplete#ui-id-1 {
     border: 1px solid #000000 !important;
     max-height: 400px !important;
     overflow-y: scroll !important;
@@ -3226,8 +3256,8 @@ font-size: 26px;
     border-bottom: solid black 1px !important;
 }
 
-.form-add-res .col-sm-7 input{
-    width: 80%;
+.form-add-res input#ajouter-resultat{
+width: fit-content !important;
 }
 .box-next-edition.mobile img{font-size: 18px !important; width: 20px !important;}
 
@@ -3237,13 +3267,49 @@ font-size: 26px;
     align-items: center;
 }
 .warning-box{
-    background-color: red;
+    background-color: #fbff0b !important;
     text-align: center;
     padding: 5px;
     font-size: 17px;
-    color: white;
+    color: rgb(0, 0, 0);
     margin: 10px 15px;
 }
+.swiper-pagination { position: relative !important;}
+.profil-video-datas{
+    font-size: 13px;
+}
+.profil-video-grid-tab{
+    width: 116px;
+    float: left;
+}
+.sib-form  button.sib-form-block__button.sib-form-block__button-with-loader{   color: #000 !important;}  
+#sib-form .entry__choice { margin-bottom: -17px !important;}
+#sib-form { line-height: 0 !important;}
+
+
+.btn-cancel {
+    font-size: 16px;
+    text-align: center;
+    font-weight: 700;
+    font-family: "Poppins-regular", sans-serif;
+    color: #000000;
+    background-color: #edf0f2;
+    border-radius: 3px;
+    border-width: 0px;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+}
+
+.accordion-toogle{
+    float: right;
+    position: relative;
+    top: -3px;
+    font-weight: bolder !important;
+    font-size: 27px !important;
+}
+
+
+
 
 
 

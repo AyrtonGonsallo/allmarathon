@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             {
                 die('Erreur : ' . $e->getMessage());
             }
-            header('Location: /athlete-'.$_GET['championID'].'.html'); 
+            header('Location: /membre-profil.php?tab=adm_fiche'); 
         } else {
             echo "Erreur : Un problème est survenu lors de l'upload du fichier.";
         }
