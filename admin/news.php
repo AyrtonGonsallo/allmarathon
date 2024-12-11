@@ -59,11 +59,12 @@ if (session_status() == PHP_SESSION_NONE) {
             $fileName = $_FILES['photo']['name'];
             try {
                 
-                    $req4 = $bdd->prepare("INSERT INTO news (date,source,auteur,titre,chapo,texte,photo,admin,liens_champions,aLaUne,aLaDeux,categorieID,url,legende,lien1,textlien1,evenementID,championID,videoID,bref) VALUES (:date,:source,:auteur,:titre,:chapo,:texte,:photo,:admin,:liens_champions,:aLaUne,:aLaDeux,:categorie,:url,:legende,:lien1,:textlien1,:evenementID,:championID,:videoID,:bref)");
+                    $req4 = $bdd->prepare("INSERT INTO news (date,date_apparition,source,auteur,titre,chapo,texte,photo,admin,liens_champions,aLaUne,aLaDeux,categorieID,url,legende,lien1,textlien1,evenementID,championID,videoID,bref) VALUES (:date,:date_apparition,:source,:auteur,:titre,:chapo,:texte,:photo,:admin,:liens_champions,:aLaUne,:aLaDeux,:categorie,:url,:legende,:lien1,:textlien1,:evenementID,:championID,:videoID,:bref)");
                 
                 
                 
                  $req4->bindValue('date',$_POST['Date'], PDO::PARAM_STR);
+                 $req4->bindValue('date_apparition',$_POST['Date_apparition'], PDO::PARAM_STR);
                  $req4->bindValue('source',$_POST['Source'], PDO::PARAM_STR);
                  $req4->bindValue('auteur',$_POST['auteur'], PDO::PARAM_STR);
                  $req4->bindValue('titre',$_POST['Titre'], PDO::PARAM_STR);
@@ -351,9 +352,27 @@ if (session_status() == PHP_SESSION_NONE) {
                             checked="checked" /><label for="non">non</label></td>
                 </tr>
                 <tr>
-                    <td align="right"><label for="Date">Date : </label></td>
-                    <td><input type="text" name="Date" id="timepicker" value="<?php echo date("Y-m-d G:i:s")?>" /></td>
-                </tr>
+    <td align="right"><label for="Date">Date :</label></td>
+    <td>
+        <input 
+            type="datetime-local" 
+            name="Date" 
+            id="Date" 
+            value="<?php echo htmlspecialchars(date("Y-m-d\TH:i")); ?>" 
+        />
+    </td>
+</tr>
+<tr>
+    <td align="right"><label for="Date_apparition">Date d'apparition :</label></td>
+    <td>
+        <input 
+            type="datetime-local" 
+            name="Date_apparition" 
+            id="Date_apparition" 
+            value="<?php echo htmlspecialchars(date("Y-m-d\TH:i")); ?>" 
+        />
+    </td>
+</tr>
                 <tr>
                     <td align="right"><label for="Source">Source : </label></td>
                     <td><input type="text" name="Source" value="" /></td>

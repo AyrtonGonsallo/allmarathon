@@ -96,13 +96,13 @@ setlocale(LC_TIME, "fr_FR","French");
     <meta property="og:type" content="siteweb" />
     <meta property="og:title" content="Calendrier des marathons en <?php echo $continent;?>" />
     <meta property="og:description" content="A vos agendas ! Le calendrier complet des marathons en <?php echo $continent;?> " />
-    <meta property="og:image" content="https://dev.allmarathon.fr/images/allmarathon.png" />
-    <meta property="og:url" content="<?php echo 'https://dev.allmarathon.fr/calendrier-marathons-par-continents-'.slugify($continent).'.html';?>" />
+    <meta property="og:image" content="https://allmarathon.fr/images/allmarathon.png" />
+    <meta property="og:url" content="<?php echo 'https://allmarathon.fr/calendrier-marathons-par-continents-'.slugify($continent).'.html';?>" />
 
     <link rel="apple-touch-icon" href="apple-favicon.png">
     <link rel="icon" type="image/x-icon" href="../../images/favicon.ico" />
     
-    <link rel="canonical" href="<?php echo 'https://dev.allmarathon.fr/calendrier-marathons-par-continents-'.slugify($continent).'.html';?>" />
+    <link rel="canonical" href="<?php echo 'https://allmarathon.fr/calendrier-marathons-par-continents-'.slugify($continent).'.html';?>" />
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/font-awesome.min.css">
     <link rel="stylesheet" href="../../css/fonts.css">
@@ -281,7 +281,6 @@ setlocale(LC_TIME, "fr_FR","French");
     <script src="../../js/easing.js"></script>
     <script src="../../js/jquery.ui.totop.min.js"></script>
     <script src="../../js/herbyCookie.min.js"></script>
-    <script src="../../js/main.js"></script>
 
     <script>
     (function(i, s, o, g, r, a, m) {
@@ -331,6 +330,7 @@ setlocale(LC_TIME, "fr_FR","French");
     </script>
     <!--Google+-->
     <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="../../js/main.js"></script>
 </body>
 
 </html>

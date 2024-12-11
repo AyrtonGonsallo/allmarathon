@@ -242,7 +242,7 @@ function slugify($text)
                                                 <?php echo 'Date : '.utf8_encode(strftime("%A %d %B %Y",strtotime($france_best['DateDebut']))).' - Lieu : '.$france_best['evenement'].' ('.$nom.')';?>
                                                 <br>
                                                 <div class="record-title-colored">
-                                                    <a href="10-meilleures-performances-françaises-marathon.html" class="record-link">Les 10 meilleures performances</a>
+                                                    <a href="10-meilleures-performances-francaises-marathon.html" class="record-link">Les 10 meilleures performances</a>
                                                 </div>
                                             </td>
                                             </tr>

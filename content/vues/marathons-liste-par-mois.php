@@ -141,14 +141,16 @@ try{
                    
 
                         <h1>Calendrier des marathons <?php echo date("Y");?>/<?php echo date("Y")+1;?> par mois</h1>
-                        <div class="marathon-par-pays-sub-menu-grid">
+                        <div class="div-flx-marat">
                             <div class="button-agenda">
                                 <a href="/calendrier-agenda-marathons.html" class="home-link">Liste complète des marathons</a>
                             </div>
                             <div class="button-agenda">
                                 <a href="/agenda-marathons-par-pays.html" class="home-link">Marathons par pays</a>
                             </div>
-                            
+                            <div class="button-agenda">
+                                <a href="/agenda-marathons-par-continents.html" class="home-link">Marathons par continents</a>
+                            </div>
                         </div>
                        
                     </div>

@@ -16,6 +16,7 @@ class news {
 		private $url;
 		private $legende;
 		private $lien1;
+		private $date_apparition;
 		private $textlien1;
 		private $lien2;
 		private $textlien2;
@@ -64,6 +65,14 @@ class news {
 
 		public function setDate($date){
 			$this->date = $date;
+		}
+
+		public function getDate_apparition(){
+			return $this->date_apparition;
+		}
+
+		public function setDate_apparition($date_apparition){
+			$this->date_apparition = $date_apparition;
 		}
 
 		public function getSource(){
@@ -266,7 +275,7 @@ class news {
 
 	        try {
 				  include("../database/connexion.php");
-				 $req = $bdd->prepare('SELECT * FROM news WHERE date < :date_pub AND aLaUne=\'1\' ORDER BY date DESC LIMIT 0,2');
+				 $req = $bdd->prepare('SELECT * from news where (date_apparition <= NOW() OR date_apparition IS NULL) AND date < :date_pub AND aLaUne=\'1\' ORDER BY date DESC LIMIT 0,2');
 				 $req->bindValue('date_pub', $this->changeDate(), PDO::PARAM_STR);
 				 // $req->bindValue('part', $part, PDO::PARAM_INT);
 	             $req->execute();
@@ -296,7 +305,7 @@ class news {
 	    	
 	    	try {
 				  include("../database/connexion.php");
-				 $req = $bdd->prepare("SELECT * FROM news WHERE  bref=1 ORDER BY date DESC LIMIT 0,5");
+				 $req = $bdd->prepare("SELECT * from news where (date_apparition <= NOW() OR date_apparition IS NULL) AND  bref=1 ORDER BY date DESC LIMIT 0,5");
 	             $req->execute();
 	             $news_bref = array();
 	             while ( $row  = $req->fetch(PDO::FETCH_ASSOC)) {    
@@ -319,7 +328,7 @@ class news {
 	    	
 	    	try {
 				  include("../database/connexion.php");
-				 $req = $bdd->prepare("(SELECT * FROM news WHERE aLaDeux = '1' ORDER BY date DESC limit 4) UNION ALL (SELECT * FROM news WHERE categorieID='11' and aLaDeux != '1' ORDER BY date DESC limit 4) ORDER BY  date DESC   ");
+				 $req = $bdd->prepare("(SELECT * from news where (date_apparition <= NOW() OR date_apparition IS NULL) AND aLaDeux = '1' ORDER BY date DESC limit 4) UNION ALL (SELECT * from news where (date_apparition <= NOW() OR date_apparition IS NULL) AND categorieID='11' and aLaDeux != '1' ORDER BY date DESC limit 4) ORDER BY  date DESC   ");
 	             $req->execute();
 	             $news_both = array();
 	             while ( $row  = $req->fetch(PDO::FETCH_ASSOC)) {    
@@ -403,11 +412,11 @@ public function getNewsByEventId($evenementID){
 				  // $condition=$nc->getNewsCategoryByIntitule($condition)['id'];
 				 if($condition!='')
 				 {
-				 	$req = $bdd->prepare("SELECT * FROM news WHERE categorieID=:condition  ORDER BY date DESC LIMIT :offset,20");
+				 	$req = $bdd->prepare("SELECT * from news where (date_apparition <= NOW() OR date_apparition IS NULL) AND categorieID=:condition  ORDER BY date DESC LIMIT :offset,20");
 				 	$req->bindValue('condition', $condition, PDO::PARAM_STR);
 				 }
 				 else{
-				 	$req = $bdd->prepare("SELECT * FROM news ORDER BY date DESC LIMIT :offset,20");
+				 	$req = $bdd->prepare("SELECT * from news where (date_apparition <= NOW() OR date_apparition IS NULL)  ORDER BY date DESC LIMIT :offset,20");
 				 }
 				 $req->bindValue('offset', $page*20, PDO::PARAM_INT);
 	             
@@ -434,7 +443,7 @@ public function getNewsByEventId($evenementID){
 				 $nc=new newscategorie();
 				  // $condition=$nc->getNewsCategoryByIntitule($condition)['id'];
 				 
-				 	$req = $bdd->prepare("SELECT * FROM news WHERE categorieID=:condition  ORDER BY date DESC LIMIT :offset,20");
+				 	$req = $bdd->prepare("SELECT * from news where (date_apparition <= NOW() OR date_apparition IS NULL) AND categorieID=:condition  ORDER BY date DESC LIMIT :offset,20");
 				 	$req->bindValue('condition', $categorie_id, PDO::PARAM_INT);
 				 
 				 $req->bindValue('offset', $page*20, PDO::PARAM_INT);
@@ -462,7 +471,7 @@ public function getNewsByEventId($evenementID){
 				 
 				  // $condition=$nc->getNewsCategoryByIntitule($condition)['id'];
 				 
-				 	$req = $bdd->prepare("SELECT * FROM news ORDER BY date DESC limit 0,25");
+				 	$req = $bdd->prepare("SELECT * from news where (date_apparition <= NOW() OR date_apparition IS NULL)  ORDER BY date DESC limit 0,25");
 				 
 	             
 	             $req->execute();
@@ -486,7 +495,7 @@ public function getNewsByEventId($evenementID){
 		try {
 				  include("../database/connexion.php");
 				 $key_word="%".strtoupper($key_word)."%";
-				 $req = $bdd->prepare("SELECT * FROM news WHERE UPPER(titre) LIKE :key_word OR UPPER(chapo) LIKE :key_word  ORDER BY date DESC LIMIT :offset,20");
+				 $req = $bdd->prepare("SELECT * from news where (date_apparition <= NOW() OR date_apparition IS NULL) AND UPPER(titre) LIKE :key_word OR UPPER(chapo) LIKE :key_word  ORDER BY date DESC LIMIT :offset,20");
 				 $req->bindValue('key_word', $key_word, PDO::PARAM_STR);
 				 $req->bindValue('offset', $page*20, PDO::PARAM_INT);
 	             $req->execute();
@@ -507,7 +516,7 @@ public function getNewsByEventId($evenementID){
 	    	try {
 				 require('../database/connexion.php');
 				 $key_word="%".strtoupper($key_word)."%";
-				 $req = $bdd->prepare("SELECT * FROM news WHERE UPPER(titre) LIKE :key_word OR UPPER(chapo) LIKE :key_word  ORDER BY date DESC");
+				 $req = $bdd->prepare("SELECT * from news where (date_apparition <= NOW() OR date_apparition IS NULL) AND UPPER(titre) LIKE :key_word OR UPPER(chapo) LIKE :key_word  ORDER BY date DESC");
 				 $req->bindValue('key_word', $key_word, PDO::PARAM_STR);
 	             $req->execute();
 	             $articles= array();
@@ -534,13 +543,13 @@ public function getNewsByEventId($evenementID){
 				 if($key_word!='')
 				 {
 				 	$key_word="%".strtoupper($key_word)."%";
-				 	$req = $bdd->prepare("SELECT COUNT(*) FROM news WHERE UPPER(titre) LIKE :key_word OR UPPER(chapo) LIKE :key_word ");
+				 	$req = $bdd->prepare("SELECT COUNT(*) from news where (date_apparition <= NOW() OR date_apparition IS NULL) AND UPPER(titre) LIKE :key_word OR UPPER(chapo) LIKE :key_word ");
 					$req->bindValue('key_word', $key_word, PDO::PARAM_STR);
 				 }
 				 else{
 				 	if($condition!='')
 					 {
-					 	$req = $bdd->prepare("SELECT COUNT(*) FROM news WHERE categorieID=:condition ");
+					 	$req = $bdd->prepare("SELECT COUNT(*) from news where (date_apparition <= NOW() OR date_apparition IS NULL) AND categorieID=:condition ");
 					 	$req->bindValue('condition', $condition, PDO::PARAM_STR);
 					 }
 					 else{
@@ -563,7 +572,7 @@ public function getNewsByEventId($evenementID){
 	{
 		try {
 				  include("../database/connexion.php");
-				 $req = $bdd->prepare("SELECT * FROM news WHERE categorieID=:catId AND ID !=:current_id AND date < NOW() ORDER BY ID DESC LIMIT 5");
+				 $req = $bdd->prepare("SELECT * from news where (date_apparition <= NOW() OR date_apparition IS NULL) AND categorieID=:catId AND ID !=:current_id AND date < NOW() ORDER BY ID DESC LIMIT 5");
 				 $req->bindValue('catId', $catId, PDO::PARAM_INT);
 				 $req->bindValue('current_id', $current_id, PDO::PARAM_INT); 
 	             $req->execute();
@@ -586,7 +595,7 @@ public function getNewsByEventId($evenementID){
 		
 		try {
 				  include("../database/connexion.php");
-				 $req = $bdd->prepare("SELECT * FROM news WHERE ID=:id ");
+				 $req = $bdd->prepare("SELECT * from news where (date_apparition <= NOW() OR date_apparition IS NULL) AND ID=:id ");
 				 $req->bindValue('id',$id, PDO::PARAM_INT);
 	             $req->execute();
 	             $news= self::constructWithArray($req->fetch(PDO::FETCH_ASSOC));
@@ -604,7 +613,7 @@ public function getNewsByEventId($evenementID){
 		
 		try {
 				  include("../database/connexion.php");
-				 $req = $bdd->prepare("SELECT * FROM news WHERE championID=:cid order by date desc");
+				 $req = $bdd->prepare("SELECT * from news where (date_apparition <= NOW() OR date_apparition IS NULL) AND championID=:cid order by date desc");
 				 $req->bindValue('cid',$cid, PDO::PARAM_INT);
 	             $req->execute();
 				$news= array();
@@ -627,7 +636,7 @@ public function getNewsByEventId($evenementID){
 		
 		try {
 				  include("../database/connexion.php");
-				 $req = $bdd->prepare("SELECT count(*) FROM news WHERE championID=:cid order by date desc");
+				 $req = $bdd->prepare("SELECT count(*) from news where (date_apparition <= NOW() OR date_apparition IS NULL) AND championID=:cid order by date desc");
 				 $req->bindValue('cid',$cid, PDO::PARAM_INT);
 	             $req->execute();
 	             $nbr_pages= $req->fetch(PDO::FETCH_ASSOC);
@@ -647,7 +656,7 @@ public function getNewsByEventId($evenementID){
 	{
 		try {
 			require('../database/connexion.php');
-			$req = $bdd->prepare('SELECT * FROM news ORDER BY news.`date`DESC LIMIT 9');  //WHERE categorieID!=11
+			$req = $bdd->prepare('SELECT * from news where (date_apparition <= NOW() OR date_apparition IS NULL)  ORDER BY news.`date`DESC LIMIT 9');  //WHERE categorieID!=11
 			$req->execute();
 			$news= array();
 		    while ( $row  = $req->fetch(PDO::FETCH_ASSOC)) { 

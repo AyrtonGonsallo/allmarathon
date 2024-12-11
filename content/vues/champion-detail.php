@@ -75,9 +75,13 @@ $champ=$champion->getChampionById($id)['donnees'];
 $photos=$champion->getChampionsPhotos($id)['donnees'];
 
 $tab_med=$champ->getTabMedailleByChampion($id)['donnees'];
+$marathons_gagnes=$champ->getMarathonsGagnesByChampion($id)['donnees'];
+$records=$champ->getRecordsByChampion($champ->getNom(),$champ->getSexe())['donnees'];
+
+
+//var_dump($champ->getRecordsByChampion($champ->getNom(),$champ->getSexe())['check']);
 
 $page=0;
-
 
 $ev_res=new evresultat();
 
@@ -103,48 +107,116 @@ $pub768x90=$pub->getBanniere768_90("athlètes")['donnees'];
 
 $getMobileAds=$pub->getMobileAds("athlètes")['donnees'];
 
-// if((!empty($_SESSION['user']))&& (($champ_pop->isUserFan($id,$user_id)['donnees']) || (empty($_SESSION['plus_fan'])))){
-if((!empty($_SESSION['user']))&& ($champ_pop->isUserFan($id,$user_id)['donnees'])){
-$img_fan_src="/images/pictos/fan_1.png";
-$img_fan_alt="Ne plus être fan";
-}else{
-   $img_fan_src="/images/pictos/fan.png";
-   $img_fan_alt="Devenir Fan";
-}  
 
 
-// if((!empty($_SESSION['user'])) && (($champ_abonnement->isUserAbonne($id,$user_id)['donnees'])|| (empty($_SESSION['plus_abonnee'])))){
-if((!empty($_SESSION['user'])) && ($champ_abonnement->isUserAbonne($id,$user_id)['donnees'])){
-$img_abonnement_src="/images/pictos/abonnement_1.png";
-$img_abonnement_alt="Ne plus s'abonner";
-}else{
-   $img_abonnement_src="/images/pictos/abonnement.png";
-   $img_abonnement_alt="S'abonner";
-}  
 
-if(!empty($_SESSION['fan_error'])){
-	$erreur=" <span style='color:red' > ".$_SESSION['fan_error']."</span>";
-	unset($_SESSION['fan_error']);}else{$erreur="";}
+function get_texte($champ, $pays, $records, $marathons_gagnes) {
+    // Déterminer les valeurs en fonction du sexe
+    $sexe = ($champ->getSexe() == "F") ? "Femme" : "Homme";
+    $ne = ($champ->getSexe() == "F") ? "née" : "né";
+    $le = ($champ->getSexe() == "F") ? "la" : "le";
+    $il = ($champ->getSexe() == "F") ? "elle" : "il";
+    $Il = ($champ->getSexe() == "F") ? "Elle" : "Il";
+    $un = ($champ->getSexe() == "F") ? "une" : "un";
+    $coureur = ($champ->getSexe() == "F") ? "coureuse" : "coureur";
 
-if(!empty($_SESSION['abonnement_error'])){
-    $erreur=" <span style='color:red' > ".$_SESSION['abonnement_error']."</span>";
-    unset($_SESSION['abonnement_error']);}else{$erreur="";}
 
-if(!empty($_SESSION['abonnement_error'])){
-    $erreur=" <span style='color:red' > ".$_SESSION['abonnement_error']."</span>";
-    unset($_SESSION['abonnement_error']);}else{$erreur="";}
+    // Gestion des pays
+    $pays_actuel = ('9999-12-31' != $champ->getDateChangementNat() && '0000-00-00' != $champ->getDateChangementNat())
+        ? $pays->getFlagByAbreviation($champ->getNvPaysID())["donnees"]
+        : $pays->getFlagByAbreviation($champ->getPaysID())["donnees"];
 
-if(!empty($_SESSION['abonnement_error'])){
-    $erreur=" <span style='color:red' > ".$_SESSION['abonnement_error']."</span>";
-    unset($_SESSION['abonnement_error']);}else{$erreur="";}
+    $pays_origine = $pays->getFlagByAbreviation($champ->getPaysID())["donnees"];
+    $pays_actuel_nom = $pays_actuel["NomPays"] ?? null;
+    $pays_origine_nom = $pays_origine["NomPays"] ?? null;
+    $pays_origine_prefixe = $pays_origine["prefixe"] ?? "";
+    $date_changement_pays = ('9999-12-31' != $champ->getDateChangementNat() && '0000-00-00' != $champ->getDateChangementNat())
+        ? $champ->getDateChangementNat()
+        : null;
 
-if(!empty($_SESSION['commentaire_error'])){
-    $msg_com=" <span style='color:red' > ".$_SESSION['commentaire_error']."</span>";
-    unset($_SESSION['commentaire_error']);}else{$msg_com="";}
+    // Détails personnels
+    $taille = ($champ->getTaille() && $champ->getTaille() != 0) ? $champ->getTaille() . " cm" : null;
+    $poids = ($champ->getPoids()) ? $champ->getPoids() . " kg" : null;
+    $date_naissance = ($champ->getDateNaissance() != "0000-00-00" && $champ->getDateNaissance() != "")
+        ? utf8_encode(strftime("%A %d %B %Y", strtotime($champ->getDateNaissance())))
+        : null;
+    $ville_naissance = $champ->getLieuNaissance();
 
-if(!empty($_SESSION['commentaire_success'])){
-    $msg_com=" <span style='color:green' > ".$_SESSION['commentaire_success']."</span>";
-    unset($_SESSION['commentaire_success']);}else{$msg_com="";}
+    // Réseaux sociaux
+    $facebook = $champ->getFacebook();
+    $instagram = $champ->getInstagram();
+
+    // Texte principal
+    $texte = $champ->getNom() . " est ".$un." ".$coureur." de marathon.<br>";
+    if ($pays_origine_nom ) {
+        $texte .= " Pays d’origine : $pays_origine_nom.<br>";
+    }
+    if ($pays_actuel_nom && $date_changement_pays) {
+        $texte .= " Pays actuel : $pays_actuel_nom";
+        
+        if ($date_changement_pays) {
+            $texte .= " - Date de changement de pays :  ".strftime("%d %B %Y", strtotime($date_changement_pays));
+        }
+        $texte .= ".<br>";
+    }
+
+    
+
+    if ($date_naissance) {
+        $texte .= " $Il est $ne $pays_origine_prefixe $pays_origine_nom le $date_naissance";
+        if ($ville_naissance) {
+            $texte .= " dans la ville de $ville_naissance";
+        }
+        $texte .= ".<br>";
+    }
+
+    if ($taille || $poids) {
+        $texte .= " $Il mesure $taille";
+        if ($taille && $poids) {
+            $texte .= " et";
+        }
+        if ($poids) {
+            $texte .= " pèse $poids.";
+        }
+    }
+
+    // Records
+    if (!empty($records)) {
+        $texte .= " $Il détient :";
+        foreach ($records as $rec) {
+            $type=$rec["type"];
+            $temps=$rec["Temps"];
+            $texte .= "<br>- un $type en $temps";
+        }
+    }
+
+    // Marathons remportés
+    if (!empty($marathons_gagnes)) {
+        $texte .= "<br><br>";
+        $texte .= " $Il a remporté :";
+        foreach ($marathons_gagnes as $marathon) {
+            $intitule=$marathon["intitule"];
+            $prefixe=($marathon["prefixe"])?$marathon["prefixe"]:" de";
+            $texte .= "<br>- le marathon $prefixe $intitule";
+        }
+    }
+
+    // Réseaux sociaux
+    if ($facebook || $instagram) {
+        $texte .= "<br><br>Pour en savoir plus sur l’actualité de " . $champ->getNom() . ", vous pouvez $le suivre sur ses réseaux sociaux :";
+        if ($facebook) {
+            $texte .= "<br>- <a href='$facebook' target='_blank'>Facebook</a>";
+        }
+        if ($instagram) {
+            $texte .= "<br>- <a href='$instagram' target='_blank'>Instagram</a>";
+        }
+    }
+
+    return $texte;
+}
+
+
+
 
     function slugify($text)
 {
@@ -222,7 +294,7 @@ $afficher_tab_medaille=false;
 
 
 
-    <?php include_once('nv_header-integrer.php'); ?>
+    <?php include_once('nv_header-integrer.php');?>
 
     <div class="container page-content athlete-detail champion-detail mt-77">
         <div class="row banniere1 ban ban_728x90">
@@ -245,7 +317,6 @@ $afficher_tab_medaille=false;
 
         <div class="row">
             <div class="col-sm-8 left-side">
-
                 <div class="row">
                     <div class="col-sm-12">
                         
@@ -298,57 +369,10 @@ $afficher_tab_medaille=false;
                         <!-- TAB CONTENT -->
                         <div class="tab-content">
                             <div class="active tab-pane fade in" id="tab1">
-                                <?php ($champ->getTaille()!="" && $champ->getTaille()!=0 ) ? $taille="<li><strong>Taille : </strong>".$champ->getTaille()." cm</li>" : $taille="";
-                            ($champ->getDateNaissance()!="0000-00-00" && $champ->getDateNaissance()!="" ) ? $date_naissance="<li><strong>".$ne." le : </strong>".$champ->getDateNaissance()."</li>" : $date_naissance="";
-                            $champ_facebook=($champ->getFacebook())?'<li><a href="'.$champ->getFacebook().'" target="_blank">Visitez le facebook de <strong>'.$champ->getNom().'</strong></a></li>':'';
-                            $champ_instagram=($champ->getInstagram())?'<li><a href="'.$champ->getInstagram().'" target="_blank">Visitez le instagram de <strong>'.$champ->getNom().'</strong></a></li>':'';
-                            $champ_ee=($champ->getEquipementier())?' <li><strong>Equipementier :  </strong>'.$champ->getEquipementier().'</li>':'';
-                            $champ_lse=($champ->getLien_site_équipementier())?'<li><strong>Lien site équipementier :  </strong>'.$champ->getLien_site_équipementier().'</li>':'';
-                            $champ_bio=$champ->getBio();
-                            $champ_taille=($champ->getTaille())?' <li><strong>Taille : </strong>'.$champ->getTaille().'</li>':'';
-                            $champ_poids=($champ->getPoids())?'<li><strong>Poids : </strong>'.$champ->getPoids().'</li>':'';
-                            /*$champ_=($champ->get())?'':'';
-                            $champ_=($champ->get())?'':'';*/
-                            $texte=$champ->getNom()." est ".$ne;
-                           
-                            if($pays_intitule){
-                                $texte.=" ".$pays_prefixe." ".$pays_intitule;
-                            }
-                            if($champ->getDateNaissance()!="0000-00-00" && $champ->getDateNaissance()!="" ){
-                                $texte.=" le ".utf8_encode(strftime("%A %d %B %Y",strtotime($champ->getDateNaissance())));
-
-                            }
-                            $texte.=".<br>";
-                            if($champ->getTaille()){
-                                $texte.=$Il." mesure ".$champ->getTaille()." cm ";
-                            }
-                            if($champ->getTaille() && $champ->getPoids()){
-                                $texte.=" et ";
-                            }
-                            if($champ->getPoids()){
-                                $texte.=$il." pèse ".$champ->getPoids()." kg";
-                            }
-                            if($champ->getTaille() && $champ->getPoids()){
-                                $texte.=".<br>";
-                            }
-                            
-                            if($champ->getEquipementier()){
-                                $texte.="Actuellement ".$il." est ".$sponsorise." par ".$champ->getEquipementier().".";
-                            }
-                           
-                            if($champ->getFacebook() || $champ->getInstagram()){
-                                $texte.="Pour en savoir plus sur ".$champ->getNom()." vous pouvez visiter :<br>";
-                            }
-                            if($champ->getFacebook()){
-                                $texte.="- sa page  <a href='".$champ->getFacebook()."' target='_blank'>Facebook</a><br>";
-                            }
-                            if($champ->getInstagram()){
-                                $texte.="- son compte <a href='".$champ->getInstagram()."' target='_blank'>Instagram</a><br>";
-                            }
-                            echo $texte; ?>
-                            <?if($champ_bio){
-                                echo "<br>".$champ_bio;
-                            }?>
+                                <?php 
+                                    $texte = get_texte($champ,$pays,$records, $marathons_gagnes);
+                                    echo $texte;
+                                ?>
                                 <?php if($afficher_tab_medaille){  ?>
                                 <table class="table table-responsive">
                                     <thead>

@@ -2608,7 +2608,7 @@ body.menu-open { overflow: hidden;}
     padding-right: 0px;
     padding-left: 0px;
 }
-.marathons .home-link{margin-left: auto;}
+.marathons .home-link{margin-left: auto;margin-top: -8px;}
 .navbar-custom {justify-content: left;}
 
 .left-side article .desc-img h2 {font-family: 'Poppins-black';line-height: 1.4;}
@@ -3247,7 +3247,7 @@ font-size: 26px;
 #result-suggestion input[type=radio]{
     margin-right: 10px;
 }
-.ui-autocomplete#ui-id-1 {
+#ui-id-1 {
     border: 1px solid #000000 !important;
     max-height: 400px !important;
     overflow-y: scroll !important;
@@ -3307,8 +3307,8 @@ width: fit-content !important;
     font-weight: bolder !important;
     font-size: 27px !important;
 }
-
-
+.marathon-inscrip a{font-family: 'Poppins-Light'!important;}
+.div-lx-ins { display: flex; align-items: center;  flex-direction: row;}
 
 
 

@@ -301,7 +301,7 @@ label.entry__specification, #sib-form span { margin-top: 0px !important;}
                             <ul>
                                 <li><a href="/mentions.html">Mentions légales</a></li>
                                 <li><a href="/politique-de-confidentialite.html">Politique de confidentialité</a></li>
-								<li><a href="/statistiques.php">Statistiques</a></li>
+								
                                 <li><a href="/contact.html">Contact</a></li>
                                 <li><a href="/partenaires.php">Partenariats</a></li>
                             </ul>
@@ -322,8 +322,7 @@ label.entry__specification, #sib-form span { margin-top: 0px !important;}
                                                     target="_blank">Instagram</a></li>
                                                     <li><a href="https://www.pinterest.fr/allmarathon/"
                                             target="_blank">Pinterest</a></li>
-                                            <li><a href="https://whatsapp.com/channel/0029Va3y67f0G0Xmv2z5jC2A"
-                                            target="_blank">Whatsapp</a></li>
+                                            
                                             <li><a href="/flux-rss.xml"
                                             target="_blank">Flux RSS</a></li>
                                         </ul>
@@ -331,20 +330,7 @@ label.entry__specification, #sib-form span { margin-top: 0px !important;}
                         
                     </div>
                     
-                    <div class="col-sm-2">
-                        <dt>athlètes</dt>
-                        <dd>
-                            <ul>
-                                <li><a href="/athlete-36-eliud-kipchoge.html">Eliud Kipchoge</a></li>
-                                <li><a href="/athlete-4438-abebe-bikila.html">Abebe Bikila</a>
-                                </li>
-                                <li><a href="/athlete-1060-mohamed-farah.html">Mohamed Farah</a></li>
-                                <li><a href="/athlete-4245-waldemar-cierpinski.html">Waldemar Cierpinski</a></li>
-                                <li><a href="/athlete-38-hassan-chahdi.html">Hassan Chahdi</a></li>
-                                <li><a href="/athlete-1079-kelvin-kiptum.html">Kelvin Kiptum</a></li>
-                            </ul>
-                        </dd>
-                    </div>
+                    
                     <div class="col-sm-2">
                         <dt>marathons</dt>      
                         <dd>
@@ -359,6 +345,21 @@ label.entry__specification, #sib-form span { margin-top: 0px !important;}
                             </ul>
                         </dd>         
                     </div>
+
+                    <div class="col-sm-2">
+                        <dt></dt>      
+                        <dd>
+                            <ul>
+                                <li><a href="/marathons-51-valence.html">Valence</a></li>
+                                <li><a href="/marathons-229-amsterdam.html">Amsterdam</a></li>
+                                <li><a href="/marathons-193-sidney.html">Sidney</a></li>
+                                <li><a href="/marathons-113-dubai.html">Dubaï</a></li>
+                                <li><a href="/marathons-105-seville.html">Séville</a></li>
+                                <li><a href="/marathons-200-rotterdam.html">Rotterdam</a></li>
+                                <li><a href="/marathons-140-hambourg.html">Hambourg</a></li>
+                            </ul>
+                        </dd>         
+                    </div>
                     <div class="col-sm-4 ">
                         
                         <dt>Outils</dt>
@@ -366,7 +367,7 @@ label.entry__specification, #sib-form span { margin-top: 0px !important;}
                             <ul>
                                         <li><a href="/calculateur-de-temps-de-passages.html">Calculateur de temps de passages en course</a></li>
                                         <li><a href="/convertisseur-allure-vitesse.html">Convertisseur allure-vitesse et vitesse-allure</a></li>
-
+                                        <li><a href="/generateur-de-statistiques.html">Générateur de statistiques</a></li>
                             </ul>
                         </dd>
                     </div>

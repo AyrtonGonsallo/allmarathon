@@ -917,6 +917,155 @@ class champion{
 				die('Erreur : ' . $e->getMessage());
 	        }
 	}
+
+	public function getMarathonsGagnesByChampion($champion_id)
+	{
+		try {
+				 require('../database/connexion.php');
+				 $req = $bdd->prepare("SELECT M.prefixe, CONCAT( M.Nom, ' (', DATE_FORMAT(E.DateDebut, \"%Y\"), ')') AS intitule FROM evcategorieevenement C INNER JOIN evenements E ON C.ID=E.CategorieID INNER JOIN evresultats R ON R.EvenementID=E.ID INNER JOIN marathons M ON M.id=E.marathon_id WHERE R.ChampionID=:champion_id and R.Rang=1 ORDER BY C.tri, C.Intitule DESC");//E.DateDebut DESC
+	             $req->bindValue('champion_id',$champion_id, PDO::PARAM_INT);
+	             $req->execute();
+	             $champions = array();
+	             while ( $row  = $req->fetch(PDO::FETCH_ASSOC)) {    
+					array_push($champions, $row);
+	             }
+	              return array('validation'=>true,'donnees'=>$champions,'message'=>'');
+	              $bdd=null;
+	        }
+	      catch(Exception $e)
+			{ 
+				die('Erreur : ' . $e->getMessage());
+	        }
+	}
+
+	
+	
+	public function getRecordsByChampion($champion_id, $sexe)
+{
+    try {
+        require('../database/connexion.php');
+
+        $records = [];
+
+        // Requête pour le top 10 des records du monde
+        $reqWorld = $bdd->prepare(
+            "SELECT R.ID, R.Temps, C.Nom as champion, ece.Intitule, E.Nom as evenement
+             FROM evresultats R
+             INNER JOIN evenements E ON R.EvenementID = E.ID
+             INNER JOIN evcategorieevenement ece ON ece.ID = E.CategorieID
+             INNER JOIN champions C ON R.ChampionID = C.ID
+             WHERE C.Sexe = :sexe
+             ORDER BY R.Temps ASC
+             LIMIT 10"
+        );
+        $reqWorld->bindValue(':sexe', $sexe, PDO::PARAM_STR);
+        $reqWorld->execute();
+        $topWorld = $reqWorld->fetchAll(PDO::FETCH_ASSOC);
+
+        // Requête pour le top 10 des records des JO
+        $reqOlympics = $bdd->prepare(
+            "SELECT R.ID, R.Temps, C.Nom as champion, ece.Intitule, E.Nom as evenement
+             FROM evresultats R
+             INNER JOIN evenements E ON R.EvenementID = E.ID
+             INNER JOIN evcategorieevenement ece ON ece.ID = E.CategorieID
+             INNER JOIN champions C ON R.ChampionID = C.ID
+             WHERE C.Sexe = :sexe AND ece.ID = 1
+             ORDER BY R.Temps ASC
+             LIMIT 10"
+        );
+        $reqOlympics->bindValue(':sexe', $sexe, PDO::PARAM_STR);
+        $reqOlympics->execute();
+        $topOlympics = $reqOlympics->fetchAll(PDO::FETCH_ASSOC);
+
+        // Requête pour le top 10 des records de France
+        $reqFrance = $bdd->prepare(
+            "SELECT R.ID, R.Temps, C.Nom as champion, ece.Intitule, E.Nom as evenement
+             FROM evresultats R
+             INNER JOIN evenements E ON R.EvenementID = E.ID
+             INNER JOIN evcategorieevenement ece ON ece.ID = E.CategorieID
+             INNER JOIN champions C ON R.ChampionID = C.ID
+             INNER JOIN pays p ON p.ID = 18
+             WHERE C.Sexe = :sexe
+			 and (p.Abreviation=C.PaysID or p.Abreviation_2=C.PaysID or p.Abreviation_3=C.PaysID or p.Abreviation_4=C.PaysID)
+             ORDER BY R.Temps ASC
+             LIMIT 10"
+        );
+        $reqFrance->bindValue(':sexe', $sexe, PDO::PARAM_STR);
+        $reqFrance->execute();
+        $topFrance = $reqFrance->fetchAll(PDO::FETCH_ASSOC);
+
+        // Requête pour le top 10 des records des championnats du monde
+        $reqWorldChampionships = $bdd->prepare(
+            "SELECT R.ID, R.Temps, C.Nom as champion, ece.Intitule, E.Nom as evenement
+             FROM evresultats R
+             INNER JOIN evenements E ON R.EvenementID = E.ID
+             INNER JOIN evcategorieevenement ece ON ece.ID = E.CategorieID
+             INNER JOIN champions C ON R.ChampionID = C.ID
+             WHERE C.Sexe = :sexe AND ece.ID = 2
+             ORDER BY R.Temps ASC
+             LIMIT 10"
+        );
+        $reqWorldChampionships->bindValue(':sexe', $sexe, PDO::PARAM_STR);
+        $reqWorldChampionships->execute();
+        $topWorldChampionships = $reqWorldChampionships->fetchAll(PDO::FETCH_ASSOC);
+
+        // Requête pour le top 10 des records des championnats d'Europe
+        $reqEurope = $bdd->prepare(
+            "SELECT R.ID, R.Temps, C.Nom as champion, ece.Intitule, E.Nom as evenement
+             FROM evresultats R
+             INNER JOIN evenements E ON R.EvenementID = E.ID
+             INNER JOIN evcategorieevenement ece ON ece.ID = E.CategorieID
+             INNER JOIN champions C ON R.ChampionID = C.ID
+             WHERE C.Sexe = :sexe AND ece.ID = 3
+             ORDER BY R.Temps ASC
+             LIMIT 10"
+        );
+        $reqEurope->bindValue(':sexe', $sexe, PDO::PARAM_STR);
+        $reqEurope->execute();
+        $topEurope = $reqEurope->fetchAll(PDO::FETCH_ASSOC);
+
+        // Vérifier si le champion est dans le top 10 de chaque catégorie
+        $categories = [
+            'top 10 record du Monde' => $topWorld,
+            'top 10 record des Jeux Olympiques' => $topOlympics,
+            'top 10 record de France' => $topFrance,
+            'top 10 record des Championnats du Monde' => $topWorldChampionships,
+            'top 10 record des Championnats d\'Europe' => $topEurope
+        ];
+
+
+		$allRecords = [];
+      
+        foreach ($categories as $type => $top10) {
+            foreach ($top10 as $record) {
+				$allRecords[] = $record;
+                if ($record['champion'] === $champion_id) {
+                    $record['type'] = $type;
+                    $records[] = $record;
+                    break;
+                }
+            }
+        }
+
+        // Retourner les résultats
+        return [
+            'validation' => true,
+            'donnees' => $records,
+			'check' => $allRecords,
+            'message' => count($records) > 0 ? '' : 'Aucun record trouvé pour ce champion.'
+        ];
+
+    } catch (Exception $e) {
+        return [
+            'validation' => false,
+            'donnees' => [],
+            'message' => 'Erreur : ' . $e->getMessage()
+        ];
+    }
+}
+
+
+
 	public function updateChampByAdminExterne($id,$DateNaissance,$LieuNaissance,$Grade,$Clubs,$Taille,$Poids,$TokuiWaza,$MainDirectrice,$Activite,$Forces,$Idole,$Idole2,$Idole3,$Idole4,$Idole5,$Idole6,$Idole7,$Lidole2,$Lidole3,$Lidole4,$Lidole5,$Lidole6,$Lidole7,$Anecdote,$Phrase,$Site)
 	{
 		try {

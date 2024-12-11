@@ -73,7 +73,7 @@ $previous=$page-1;
     <link rel="apple-touch-icon" href="apple-favicon.png">
     <link rel="icon" type="image/x-icon" href="../../images/favicon.ico" />
     
-    <link rel="canonical" href="https://dev.allmarathon.fr/liste-des-athletes.html" />
+    <link rel="canonical" href="https://allmarathon.fr/agenda-marathons-par-mois.html" />
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/font-awesome.min.css">
     <link rel="stylesheet" href="../../css/fonts.css">
@@ -294,6 +294,7 @@ $previous=$page-1;
     </script>
     <!--Google+-->
     <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="../../js/main.js"></script>
 </body>
 
 </html>

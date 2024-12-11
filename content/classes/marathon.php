@@ -2,19 +2,40 @@
 include("pays.php");
 include("evCategorieEvenement.php");
 
+
 function slugify($text)
-
 {
-	$text = str_replace('é', 'e', $text); 
-    $text = str_replace('û', 'u', $text); 
-    $text = preg_replace('/[^\pL\d]+/u', '-', $text); 
+    // Remplacement des caractères accentués et spéciaux (majuscules et minuscules)
+    $replacements = [
+        'ö' => 'o', 'Ö' => 'o',
+        'è' => 'e', 'È' => 'e',
+        'é' => 'e', 'É' => 'e',
+        'û' => 'u', 'Û' => 'u',
+        'ë' => 'e', 'Ë' => 'e',
+        'ò' => 'o', 'Ò' => 'o',
+        'à' => 'a', 'À' => 'a',
+        'ä' => 'a', 'Ä' => 'a',
+        'ü' => 'u', 'Ü' => 'u',
+        'ï' => 'i', 'Ï' => 'i',
+        'ç' => 'c', 'Ç' => 'c',
+        'ô' => 'o', 'Ô' => 'o',
+    ];
 
+    // Appliquer les remplacements
+    foreach ($replacements as $search => $replace) {
+        $text = str_replace($search, $replace, $text);
+    }
+
+    // Remplacer les caractères non alphabétiques ou numériques par des tirets
+    $text = preg_replace('/[^\pL\d]+/u', '-', $text);
+
+    // Supprimer les tirets en début et fin de chaîne
     $text = trim($text, '-');
 
+    // Convertir en minuscules
     $text = strtolower($text);
 
     return $text;
-
 }
 
 

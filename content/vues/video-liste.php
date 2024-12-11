@@ -60,7 +60,7 @@ $previous=$page-1;
 
 $nbr_pages=$vd->getNumberPages($sort,$key_word)['donnees'];
 $vid_par_page=intval($nbr_pages['COUNT(*)']/12)+1;
-//$videos=$vd->getVideoPerPage($page,$sort);
+$total_videos=$vd->getNumberVideos()['donnees']['nbr'];
 function slugify($text)
 {
     $text = preg_replace('/[^\pL\d]+/u', '-', $text); 
@@ -85,10 +85,10 @@ setlocale(LC_TIME, "fr_FR","French");
     <meta property="og:description" content="Allmarathon.fr, les plus belles videos de marathon : Résumé des courses, conseils entrainement marathon, interviews de marathoniens." />
     <meta property="og:locale" content="fr_FR" />
     <meta property="og:type" content="siteweb" />
-    <meta property="og:image" content="https://dev.allmarathon.fr/images/allmarathon.png" />
-    <meta property="og:url" content="https://dev.allmarathon.fr/videos-de-marathon.html" />
+    <meta property="og:image" content="https://allmarathon.fr/images/allmarathon.png" />
+    <meta property="og:url" content="https://allmarathon.fr/videos-de-marathon.html" />
 
-    <link rel="canonical" href="https://dev.allmarathon.fr/videos-de-marathon.html" />
+    <link rel="canonical" href="https://allmarathon.fr/videos-de-marathon.html" />
     <link rel="apple-touch-icon" href="apple-favicon.png">
     <link rel="icon" type="image/x-icon" href="../../images/favicon.ico" />
 
@@ -217,7 +217,7 @@ setlocale(LC_TIME, "fr_FR","French");
         </div> <!-- End left-side -->
 
         <aside class="col-sm-4 pd-top">
-        <span class="total-marathons bureau mb-20"><?php echo count($videos["donnees"])." vidéos";?></span>
+        <span class="total-marathons bureau mb-20"><?php echo $total_videos." vidéos";?></span>
         
             <div class="ban ban_300x60 width-60 mb-30">
                   <div class="placeholder-content">
@@ -250,7 +250,7 @@ setlocale(LC_TIME, "fr_FR","French");
                     if($pub160x600 !="") {
                         //var_dump($pub160x600["url"]); exit;
                         if($pub160x600["code"]==""){
-                            echo "<a href=".'https://dev.allmarathon.fr/'.$pub160x600["url"]." target='_blank'><img src=".'../images/news/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" /></a>";
+                            echo "<a href=".'https://allmarathon.fr/'.$pub160x600["url"]." target='_blank'><img src=".'../images/news/'.$pub160x600['image'] . " alt='' style=\"width: 100%;\" /></a>";
                         }
                         else{
                             echo $pub160x600["code"];

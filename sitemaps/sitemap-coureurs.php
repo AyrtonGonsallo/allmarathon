@@ -2,15 +2,39 @@
 
 function slugify($text)
 {
-// Swap out Non "Letters" with a -
-$text = preg_replace('/[^\pL\d]+/u', '-', $text); 
+    // Remplacement des caractères accentués et spéciaux (majuscules et minuscules)
+    $replacements = [
+        'ö' => 'o', 'Ö' => 'o',
+        'è' => 'e', 'È' => 'e',
+        'é' => 'e', 'É' => 'e',
+        'û' => 'u', 'Û' => 'u',
+        'ë' => 'e', 'Ë' => 'e',
+        'ò' => 'o', 'Ò' => 'o',
+        'à' => 'a', 'À' => 'a',
+        'ä' => 'a', 'Ä' => 'a',
+        'ü' => 'u', 'Ü' => 'u',
+        'ï' => 'i', 'Ï' => 'i',
+        'ç' => 'c', 'Ç' => 'c',
+        'ô' => 'o', 'Ô' => 'o',
+    ];
 
-   // Trim out extra -'s
-$text = trim($text, '-');
-   // Make text lowercase
-   $text = strtolower($text);
-   return $text;
+    // Appliquer les remplacements
+    foreach ($replacements as $search => $replace) {
+        $text = str_replace($search, $replace, $text);
+    }
+
+    // Remplacer les caractères non alphabétiques ou numériques par des tirets
+    $text = preg_replace('/[^\pL\d]+/u', '-', $text);
+
+    // Supprimer les tirets en début et fin de chaîne
+    $text = trim($text, '-');
+
+    // Convertir en minuscules
+    $text = strtolower($text);
+
+    return $text;
 }
+
 
 function get_data_sitemap_coureur($number){
     // Récupération des données dans la base de données (MySQL)
@@ -36,7 +60,7 @@ function display_sitemap_coureur($result1){
     // Boucle qui liste les URL
     foreach ($result1 as $res) {
         try{
-            $loc        = 'https://alljudo.net/athlete-'.$res['ID'].'-'.slugify($res['Nom']).'.html';
+            $loc        = 'https://allmarathon.fr/athlete-'.$res['ID'].'-'.slugify($res['Nom']).'.html';
         echo '
         <url>
             <loc>'.$loc.'</loc>
@@ -71,7 +95,7 @@ function display_sitemap_news($result1){
     // Boucle qui liste les URL
     foreach ($result1 as $res) {
         $url_text=slugify($res['titre']);
-        $loc        = 'https://alljudo.net/actualite-judo-'.$res['ID'].'-'.$url_text.'.html';
+        $loc        = 'https://allmarathon.fr/actualite-marathon-'.$res['ID'].'-'.$url_text.'.html';
         echo '
         <url>
             <loc>'.$loc.'</loc>
@@ -102,7 +126,7 @@ function display_sitemap_videos($result1){
     // Boucle qui liste les URL
     foreach ($result1 as $res) {
         
-        $loc        = 'https://alljudo.net/video-de-judo-'.$res['ID'].'.html';
+        $loc        = 'https://allmarathon.fr/video-de-marathon-'.$res['ID'].'.html';
         echo '
         <url>
             <loc>'.$loc.'</loc>
@@ -133,7 +157,7 @@ function display_sitemap_evenements($result1){
     // Boucle qui liste les URL
     foreach ($result1 as $res) {
         
-        $loc        = 'https://alljudo.net/resultats-judo-'.$res['ID'].'-'.slugify($res['Nom']).'.html';
+        $loc        = 'https://allmarathon.fr/resultats-marathon-'.$res['ID'].'-'.slugify($res['Nom']).'.html';
         echo '
         <url>
             <loc>'.$loc.'</loc>
@@ -178,9 +202,3 @@ $number=$_GET["number"];
     <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <?php display_sitemap_coureur(get_data_sitemap_coureur($number)); ?>
     </urlset>
-
-    marqueur.o2switch.net
-    nordsudmanagement@nordsudmanagement.com
-    $Mv9dD3-g6*AwNk
-    adm_nsm
-    @0s%3%BLSV

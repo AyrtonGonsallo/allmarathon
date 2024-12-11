@@ -305,7 +305,7 @@ try{
                                         <input type="hidden" name="user_id" value="<?php echo $l['user_id']?>"/>
                                         <input type="hidden" name="c_name" value="<?php echo $l['c_name']?>"/>
                                         <input type="hidden" name="champion_id" value="<?php echo $l['champion_id']?>"/>
-                                        <input name="extern_active" type="image" src="../images/<?php echo ($l['actif'])?'invalid.png':'valid.gif'; ?>" style="width: 20px" title="Autoriser utilisateur &agrave; administrer le champion" />
+                                        <input name="extern_active" type="image" src="../images/<?php echo ($l['actif'])?'valid.gif':'invalid.png'; ?>" style="width: 20px" title="<?php echo ($l['actif'])?'Autoriser l\'utilisateur à administrer le champion':'Ne pas autoriser l\'utilisateur à administrer le champion'; ?>" />
                                     </form>
                                     <form action="" style="float: left;" method="post" onsubmit="if(window.confirm('Refuser la demande ?'))return true; else return false;">
                                         <input type="hidden" name="extern_refus_id" value="<?php echo $l['id']?>"/>

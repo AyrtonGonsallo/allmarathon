@@ -149,14 +149,16 @@ try{
                    
 
                         <h1>Calendrier des marathons <?php echo date("Y");?>/<?php echo date("Y")+1;?> par continents</h1>
-                        <div class="marathon-par-pays-sub-menu-grid">
+                        <div class="div-flx-marat">
                             <div class="button-agenda">
                                 <a href="/calendrier-agenda-marathons.html" class="home-link">Liste complète des marathons</a>
                             </div>
                             <div class="button-agenda">
                                 <a href="/agenda-marathons-par-mois.html" class="home-link">Marathons par mois</a>
                             </div>
-                            
+                            <div class="button-agenda">
+                                <a href="/agenda-marathons-par-pays.html" class="home-link">Marathons par pays</a>
+                            </div>
                         </div>
                        
                     </div>
@@ -186,7 +188,7 @@ try{
                                 $marathon_par_pays_total=$total.' marathons';
                             }
                             echo '<div class="mpp-pays-box">
-                            <a href="calendrier-marathons-par-continents-'.slugify($chmp['continent']).'.html">
+                            <a href="calendrier-marathons-'.slugify($chmp['continent']).'.html">
                             <div class="mpp-title-pays">'.$chmp['continent'].'</div>
                             <div class="mpp-nbr-mar mx-auto">'.$marathon_par_pays_total.'</div>
                             </a>

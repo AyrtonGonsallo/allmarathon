@@ -37,9 +37,10 @@ if($_GET['newsID']!=""){
             $fileName = ($_FILES['photo']['name']!="") ? $_FILES['photo']['name'] : $news['photo'] ;
 
              try {
-                 $req4 = $bdd->prepare("UPDATE news SET date=:date,source=:source,bref=:bref,auteur=:auteur,titre=:titre,chapo=:chapo,texte=:texte,photo =:photo ,categorieID=:categorieID,aLaUne =:aLaUne,aLaDeux=:aLaDeux,url=:url,legende=:legende,lien1=:lien1,textlien1=:textlien1,liens_champions=:liens_champions,evenementID=:evenementID ,championID=:championID,videoID=:videoID WHERE ID=:id");
+                 $req4 = $bdd->prepare("UPDATE news SET date=:date,date_apparition=:date_apparition,source=:source,bref=:bref,auteur=:auteur,titre=:titre,chapo=:chapo,texte=:texte,photo =:photo ,categorieID=:categorieID,aLaUne =:aLaUne,aLaDeux=:aLaDeux,url=:url,legende=:legende,lien1=:lien1,textlien1=:textlien1,liens_champions=:liens_champions,evenementID=:evenementID ,championID=:championID,videoID=:videoID WHERE ID=:id");
 
                  $req4->bindValue('date',$_POST['Date'], PDO::PARAM_STR);
+                 $req4->bindValue('date_apparition',$_POST['Date_apparition'], PDO::PARAM_STR);
                  $req4->bindValue('source',$_POST['Source'], PDO::PARAM_STR);
                  $req4->bindValue('auteur',$_POST['auteur'], PDO::PARAM_STR);
                  $req4->bindValue('titre',$_POST['Titre'], PDO::PARAM_STR);
@@ -265,15 +266,7 @@ $(document).ready(function() {
 
 <title>allmarathon admin</title>
 
-<script type="text/javascript">
-    // $(function() {
-    //      $('#timepicker').datetime({
-    //         userLang    : 'en',
-    //         americanMode: false
-    //     });
-    // });
 
-</script>
 
 <script type="text/javascript">
     function addCompletion(str,index){
@@ -315,7 +308,23 @@ $(document).ready(function() {
         <tr><td align="right"><label>A la deux : </label></td><td><input type="radio" name="aLaDeux" id="oui" value="1" <?php if($news['aLaDeux']) echo 'checked="checked"';?>/><label for="oui">oui</label>&nbsp;&nbsp;&nbsp;<input type="radio" name="aLaDeux" id="non" value="0" <?php if(!$news['aLaDeux']) echo 'checked="checked"';?> /><label for="non">non</label></td></tr>
         <tr><td align="right"><label>En bref : </label></td><td><input type="radio" name="bref" id="oui" value="1" <?php if($news['bref']==1) echo 'checked="checked"';?>/><label for="oui">oui</label>&nbsp;&nbsp;&nbsp;<input type="radio" name="bref" id="non" value="0" <?php if($news['bref']!=1) echo 'checked="checked"';?> /><label for="non">non</label></td></tr>
 
-        <tr><td  align="right"><label for="Date">Date : </label></td><td><input type="text" name="Date" id="timepicker" value="<?php echo $news['date'];?>" /></td></tr>
+        <tr>
+    <td align="right">
+        <label for="Date">Date :</label>
+    </td>
+    <td>
+        <input type="datetime-local" name="Date" id="Date" value="<?php echo htmlspecialchars($news['date']); ?>" />
+    </td>
+</tr>
+<tr>
+    <td align="right">
+        <label for="Date_apparition">Date d'apparition :</label>
+    </td>
+    <td>
+        <input type="datetime-local" name="Date_apparition" id="Date_apparition" value="<?php echo htmlspecialchars($news['date_apparition']); ?>" />
+    </td>
+</tr>
+
         <tr><td align="right"><label for="Source">Source : </label></td><td><input type="text" name="Source" value="<?php echo str_replace('\\', '',str_replace('"', '\'', $news['source']));?>" /></td></tr>
         <tr><td align="right"><label for="auteur">Nom de l'auteur : </label></td><td><input type="text" name="auteur" value="<?php echo str_replace('\\', '',str_replace('"', '\'', $news['auteur']));?>" /></td></tr>
 

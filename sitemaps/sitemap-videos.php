@@ -1,15 +1,40 @@
 <?php
 function slugify($text)
 {
-// Swap out Non "Letters" with a -
-$text = preg_replace('/[^\pL\d]+/u', '-', $text); 
+    // Remplacement des caractères accentués et spéciaux (majuscules et minuscules)
+    $replacements = [
+        'ö' => 'o', 'Ö' => 'o',
+        'è' => 'e', 'È' => 'e',
+        'é' => 'e', 'É' => 'e',
+        'û' => 'u', 'Û' => 'u',
+        'ë' => 'e', 'Ë' => 'e',
+        'ò' => 'o', 'Ò' => 'o',
+        'à' => 'a', 'À' => 'a',
+        'ä' => 'a', 'Ä' => 'a',
+        'ü' => 'u', 'Ü' => 'u',
+        'ï' => 'i', 'Ï' => 'i',
+        'ç' => 'c', 'Ç' => 'c',
+        'ô' => 'o', 'Ô' => 'o',
+    ];
 
-   // Trim out extra -'s
-$text = trim($text, '-');
-   // Make text lowercase
-   $text = strtolower($text);
-   return $text;
+    // Appliquer les remplacements
+    foreach ($replacements as $search => $replace) {
+        $text = str_replace($search, $replace, $text);
+    }
+
+    // Remplacer les caractères non alphabétiques ou numériques par des tirets
+    $text = preg_replace('/[^\pL\d]+/u', '-', $text);
+
+    // Supprimer les tirets en début et fin de chaîne
+    $text = trim($text, '-');
+
+    // Convertir en minuscules
+    $text = strtolower($text);
+
+    return $text;
 }
+
+
 
 function get_data_sitemap_coureur(){
     // Récupération des données dans la base de données (MySQL)
@@ -34,7 +59,7 @@ function display_sitemap_coureur($result1){
     // Boucle qui liste les URL
     foreach ($result1 as $res) {
         try{
-            $loc        = 'https://dev.allmarathon.fr/athlete-'.$res['ID'].'-'.slugify($res['Nom']).'.html';
+            $loc        = 'https://www.allmarathon.fr/athlète-'.$res['ID'].'-'.slugify($res['Nom']).'.html';
         echo '
         <url>
             <loc>'.$loc.'</loc>
@@ -69,7 +94,7 @@ function display_sitemap_news($result1){
     // Boucle qui liste les URL
     foreach ($result1 as $res) {
         $url_text=slugify($res['titre']);
-        $loc        = 'https://dev.allmarathon.fr/actualite-marathon-'.$res['ID'].'-'.$url_text.'.html';
+        $loc        = 'https://www.allmarathon.fr/actualite-marathon-'.$res['ID'].'-'.$url_text.'.html';
         echo '
         <url>
             <loc>'.$loc.'</loc>
@@ -100,7 +125,7 @@ function display_sitemap_videos($result1){
     // Boucle qui liste les URL
     foreach ($result1 as $res) {
         
-        $loc        = 'https://dev.allmarathon.fr/video-de-marathon-'.$res['ID'].'.html';
+        $loc        = 'https://www.allmarathon.fr/video-de-marathon-'.$res['ID'].'.html';
         echo '
         <url>
             <loc>'.$loc.'</loc>
@@ -131,7 +156,7 @@ function display_sitemap_evenements($result1){
     // Boucle qui liste les URL
     foreach ($result1 as $res) {
         
-        $loc        = 'https://dev.allmarathon.fr/resultats-marathon-'.$res['ID'].'-'.slugify($res['Nom']).'.html';
+        $loc        = 'https://www.allmarathon.fr/resultats-marathon-'.$res['ID'].'-'.slugify($res['Nom']).'.html';
         echo '
         <url>
             <loc>'.$loc.'</loc>
